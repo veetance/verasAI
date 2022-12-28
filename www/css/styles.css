@@ -14,7 +14,7 @@ html {
   margin: 0 !important;
   padding: 0px !important;
   /* font-family: "Silkscreen"; */
-  background-color: #2a2a3f;
+  background-color: #ffffff;
   font-family: "Mulish", sans-serif;
 }
 img {
@@ -24,7 +24,6 @@ img {
 /* -- always have latter code on css-->*/
 
 body {
-  background: linear-gradient(lavender, lightblue);
   display: flex;
   flex-direction: column;
   justify-content: top;
@@ -77,6 +76,7 @@ h4 {
   justify-content: center;
   height: fit-content;
   font-size: 1.4rem;
+  line-height: 1.4rem;
   font-weight: 800;
   color: #5e50b2;
   padding: 0px;
@@ -96,6 +96,14 @@ h4 {
   width: 100px;
   height: auto;
   aspect-ratio: 1/1;
+}
+
+.v-logo-wrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  grid-gap: 8px;
 }
 
 /* components */
