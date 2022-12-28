@@ -27,4 +27,24 @@ var app = new Framework7({
 });
 var mainView = app.views.create(".view-main");
 
+function lazyLOAD() {
+  // Select all elements with the class of .lazy
+  let lazyElements = document.querySelectorAll('.lazy');
+
+  // Set the opacity of each lazy element to 0
+  lazyElements.forEach(element => {
+    element.style.opacity = 0;
+  });
+
+  // Animate the opacity of each lazy element to 1 on page load
+  window.addEventListener('load', () => {
+    lazyElements.forEach(element => {
+      element.style.transition = 'opacity 1s cubic-bezier(.3,.6,.13,1)';
+      element.style.opacity = 1;
+    });
+  });
+}
+
+// call the function on page load
+lazyLOAD();
 
