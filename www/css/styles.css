@@ -21,6 +21,11 @@ img {
   max-width: 100%;
 }
 
+.lazy{
+  display: none;
+  opacity: 0;
+}
+
 /* -- always have latter code on css-->*/
 
 body {
