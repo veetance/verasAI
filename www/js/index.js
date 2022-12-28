@@ -48,3 +48,22 @@ function lazyLOAD() {
 // call the function on page load
 lazyLOAD();
 
+
+function navTitle() {
+  let navTitle = document.querySelector('.nav-title');
+  let navBar = document.querySelector('.nav-bar');
+  let navL = document.querySelector('.nav-L');
+
+  if (navBar.offsetWidth < 500) {
+    navL.insertBefore(navTitle, navL.childNodes[2]);
+  }
+  else {
+    navBar.insertBefore(navTitle, navBar.childNodes[2]);
+  }
+}
+window.addEventListener('resize', navTitle);
+navTitle();
+
+
+
+
