@@ -27,6 +27,13 @@ var app = new Framework7({
 });
 var mainView = app.views.create(".view-main");
 
+
+
+
+
+
+
+
 function lazyLOAD() {
   // Select all elements with the class of .lazy
   let lazyElements = document.querySelectorAll(".lazy");
