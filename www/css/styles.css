@@ -10,7 +10,6 @@
 
 body,
 html {
-
   width: 100vw;
   height: 100vh;
   margin: 0 !important;
@@ -84,11 +83,9 @@ body {
   align-items: center;
   justify-content: space-between;
   width: 100vw;
-  min-height: 100% !important;
-  height: fit-content;
+  height: 100vh;
 
   overflow-y: overlay;
-  
   padding: 0px !important;
   scroll-behavior: smooth;
 }
@@ -100,17 +97,16 @@ body {
   justify-content: flex-start;
   flex-direction: column;
   width: 100vw;
-  min-height: fit-content;
   height: 100%;
- 
+
+  height: fit-content !important  ;
+  scroll-behavior: smooth;
 }
 
 .page,
 .page-current,
 .page-homepage {
   position: relative;
-  min-height: fit-content;
-  height: 100%;
 }
 
 .material-symbols-outlined {
@@ -253,7 +249,6 @@ h5 {
 }
 
 .v-logo-wrapper {
-  
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -346,9 +341,7 @@ h5 {
   grid-gap: 28px;
 }
 
-
-.F-footer{
-
+.F-footer {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -358,7 +351,6 @@ h5 {
   padding: 28px;
   grid-gap: 28px;
 }
-
 
 .F-map {
   display: flex;
@@ -380,7 +372,7 @@ h5 {
   border: solid 1px #554c7d;
 }
 
-.F-map-title{
+.F-map-title {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -471,8 +463,8 @@ h5 {
   cursor: pointer;
 }
 
-.F-set ul li p{
-  font-size: .7rem;
+.F-set ul li p {
+  font-size: 0.7rem;
 }
 
 .F-number,
@@ -587,49 +579,44 @@ h5 {
 /* page-content */
 
 .Veras-surface {
+
+  
   /* display: grid;
-
-
   grid-column-gap: 20px;
   grid-template-columns: repeat(12,minmax(5px,1fr));
   grid-template-rows: repeat(1,minmax(5px,1fr)); */
+
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 
-  min-height: 100%;
-  height: fit-content;
   width: 100%;
+  height: 100%;
   margin: 0px;
-  padding-left: 28px;
-  padding-right: 28px;
+  padding: 0px 28px;
+  padding-bottom: 28px;
   background-color: #e2ddff91;
+
   border-radius: 0px;
-  padding-top: 90px;
-  overflow:visible;
+  padding-top: 0px;
+  overflow: visible;
 }
 
-.v-landing{
-/* 
+.v-landing {
+/*   
   grid-column: span 12;
-  grid-row: span 1; */
+  grid-row: span 2; */
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: solid 2px #554c7d;
-
+  border: solid 2px #554c7d7a;
   height: 100vh;
-
-
-
- 
+  width: 100%;
 }
 
 
 
 /* media queries */
-
-
-
-
