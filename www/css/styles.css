@@ -17,6 +17,7 @@ html {
   /* font-family: "Silkscreen"; */
   background-color: #ffffff;
   font-family: "Mulish", sans-serif;
+  scroll-behavior: smooth;
 }
 
 img {
@@ -87,6 +88,7 @@ body {
   overflow-x: hidden !important; */
   overflow-y: overlay;
   padding: 0px !important;
+  scroll-behavior: smooth;
 }
 
 .page,
@@ -307,7 +309,7 @@ h5 {
   justify-content: flex-start;
   width: 100%;
   padding: 28px;
-  grid-gap: 4px;
+  grid-gap: 8px;
   border-bottom: solid 1px #554c7d;
 }
 
@@ -337,12 +339,26 @@ h5 {
   grid-gap: 28px;
 }
 
+
+.F-footer{
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #1611249a;
+  width: 100%;
+  padding: 28px;
+  grid-gap: 28px;
+}
+
+
 .F-map {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
+  justify-content: flex-start;
   width: 370px;
-  height: 144px;
+  height: fit-content;
   aspect-ratio: 2/1;
   background-image: url(../img/footer-map.svg);
   background-size: fill;
@@ -355,6 +371,18 @@ h5 {
   border-radius: 8px;
   overflow: hidden;
   border: solid 1px #554c7d;
+}
+
+.F-map-title{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  white-space: nowrap;
+  width: 100%;
+  height: fit-content;
+  padding: 6px;
+  background-color: #161124;
+  border-top: solid 1px #554c7d;
 }
 
 .F-LI-01 {
