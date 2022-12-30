@@ -28,7 +28,7 @@ var app = new Framework7({
 var mainView = app.views.create(".view-main");
 
 
-const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+const darkModeQuery = window.matchMedia('not all and (prefers-color-scheme)');
 
 function updateThemeColor(event) {
   if (event.matches) {
@@ -39,8 +39,6 @@ function updateThemeColor(event) {
     document.querySelector('meta[name=theme-color]').setAttribute('content', '#FF00FF');
   }
 }
-
-
 
 darkModeQuery.addEventListener('change', updateThemeColor);
 
