@@ -28,10 +28,19 @@ var app = new Framework7({
 var mainView = app.views.create(".view-main");
 
 
+const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
+function updateThemeColor(event) {
+  if (event.matches) {
+    // Dark mode is enabled
+    document.querySelector('meta[name=theme-color]').setAttribute('content', '#FF0000');
+  } else {
+    // Dark mode is disabled
+    document.querySelector('meta[name=theme-color]').setAttribute('content', '#00FF00');
+  }
+}
 
-
-
+darkModeQuery.addEventListener('change', updateThemeColor);
 
 
 function lazyLOAD() {
