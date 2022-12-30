@@ -36,7 +36,7 @@ function updateThemeColor(event) {
     document.querySelector('meta[name=theme-color]').setAttribute('content', '#5e50b2');
   } else {
     // Dark mode is disabled
-    document.querySelector('meta[name=theme-color]').setAttribute('content', '#FF00FF');
+    document.querySelector('meta[name=theme-color]').setAttribute('content', '#FFFFFF');
   }
 }
 
