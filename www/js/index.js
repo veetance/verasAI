@@ -61,7 +61,7 @@ function navTitle() {
   let navBar = document.querySelector(".nav-bar");
   let navL = document.querySelector(".nav-L");
 
-  if (navBar.offsetWidth < 500) {
+  if (navBar.offsetWidth < 708) {// its actually 720
     navL.insertBefore(navTitle, navL.childNodes[2]);
   } else {
     navBar.insertBefore(navTitle, navBar.childNodes[2]);
