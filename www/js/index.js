@@ -28,7 +28,7 @@ var app = new Framework7({
 var mainView = app.views.create(".view-main");
 
 
-const darkModeQuery = window.matchMedia('(prefers-color-scheme: auto)');
+const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
 function updateThemeColor(event) {
   if (event.matches) {
