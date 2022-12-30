@@ -54,7 +54,7 @@ img {
 /* Handle */
 ::-webkit-scrollbar-thumb {
   display: flex !important;
-  background-image: linear-gradient(to top, #3d316671, #3d316671);
+  background-image: linear-gradient(to top, hsla(254, 35%, 30%, 0.2), hsla(254, 35%, 30%, 0.2));
   border-radius: 10px;
 }
 
@@ -713,6 +713,12 @@ p{
 /* styles for mobile devices */
 @media (min-width:200px) and (max-width: 579px) {
   /* your styles go here */
+
+  ::-webkit-scrollbar {
+    display: none!important;
+  
+  }
+
   .F-center{
     justify-content: space-between;
     align-items: space-between;
