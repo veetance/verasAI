@@ -28,19 +28,22 @@ var app = new Framework7({
 var mainView = app.views.create(".view-main");
 
 
-const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+const darkModeQuery = window.matchMedia('(prefers-color-scheme: auto)');
 
 function updateThemeColor(event) {
   if (event.matches) {
     // Dark mode is enabled
-    document.querySelector('meta[name=theme-color]').setAttribute('content', '#FF0000');
+    document.querySelector('meta[name=theme-color]').setAttribute('content', '#5e50b2');
   } else {
     // Dark mode is disabled
-    document.querySelector('meta[name=theme-color]').setAttribute('content', '#00FF00');
+    document.querySelector('meta[name=theme-color]').setAttribute('content', '#FF00FF');
   }
 }
 
+
+
 darkModeQuery.addEventListener('change', updateThemeColor);
+
 
 
 function lazyLOAD() {
