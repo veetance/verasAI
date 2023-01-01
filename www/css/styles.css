@@ -19,6 +19,7 @@ html {
   background-color: #ffffff;
   font-family: "Mulish", sans-serif;
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 img {
@@ -78,6 +79,7 @@ body {
   width: 100vw;
 
   height: 100vh;
+  overflow-x: hidden;
 }
 
 .view,
@@ -91,7 +93,8 @@ body {
   height: 100vh!important;
   padding: 0px !important;
   
-  overflow-y: scroll;
+  overflow-y: overlay;
+  overflow-x: hidden;
   scroll-behavior: smooth;
 
 }
