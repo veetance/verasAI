@@ -44,7 +44,7 @@ function updateThemeColor(event) {
 darkModeQuery.addEventListener('change', updateThemeColor);
 
 
-
+//reveal animation
 $(document).ready(function() {
   // get the button element
   var vBtni = $('.v-btn-i');
@@ -58,7 +58,7 @@ $(document).ready(function() {
     }
 
     // reveal the div by changing the display to flex and animating the opacity
-    $('.v-bottom').css({
+    $('#').css({
       'display': 'flex',
       'opacity': 0
     }).animate({
@@ -73,7 +73,7 @@ $(document).ready(function() {
     }
 
     // hide the div by animating the opacity to 0
-    $('.v-bottom').animate({
+    $('#').animate({
       'opacity': 0
     }, 200, function() {
       // after the animation, change the display back to none
