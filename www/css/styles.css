@@ -811,16 +811,16 @@ h5 {
 
 
 .v-home-space{
-  /* display: flex;
+  display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: flex-start; */
+  justify-content: flex-start;
 
-  display: grid;
+  /* display: grid;
   place-items: left;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: min-content;
-  grid-column-gap: 20px;
+  grid-column-gap: 20px; */
 
   border: solid 1px #29032e11;
   border-radius: 0px;
@@ -879,8 +879,8 @@ padding: 184px 96px 96px 96px ;
 .v-page{
  
   display: flex;
-  grid-column: 1/13;
-  grid-row: span 1;
+  /* grid-column: 1/13;
+  grid-row: span 1; */
 
 }
 
@@ -891,7 +891,8 @@ padding: 184px 96px 96px 96px ;
   min-height: 100%;
   height: fit-content;
   background-color: #ffffff00;
-  padding: 18px ;
+  padding: 18px 96px ;
+  padding-bottom: 96px;
   grid-gap:18px;
 }
 
@@ -900,7 +901,7 @@ padding: 184px 96px 96px 96px ;
   display: flex;
   border: solid 2px #554c7d2d;
   background-color: rgba(255, 255, 255, 0.726);
-  border-radius: 20px;
+  border-radius: 16px;
   width: 100%;
   height: 50vh;
 }
@@ -916,7 +917,7 @@ padding: 184px 96px 96px 96px ;
  
 }
 
-.Tagline h1 span{
+h1 span{
   display: flex;
   justify-content: flex-start;
 }
@@ -947,7 +948,7 @@ padding: 184px 96px 96px 96px ;
   
   }
   
-  .Tagline h1{
+  .h1{
     width: 100%;
     font-size: clamp(1.96rem, 4.8vw, 3rem);
     line-height: clamp(1.96rem, 6.7vw, 5rem);
@@ -960,7 +961,7 @@ padding: 184px 96px 96px 96px ;
    
   }
   
-  .Tagline h1 span{
+  h1 span{
   
     display: flex;
     flex-direction: column;
@@ -981,6 +982,9 @@ padding: 184px 96px 96px 96px ;
   .v-page-img{
     display: flex;
     flex-direction: column;
+    padding: 18px 48px ;
+    padding-bottom: 48px;
+
   }
 
 
@@ -1067,7 +1071,7 @@ p{
    
   }
   
-  .Tagline h1{
+  h1{
    
     width: 100%;
     font-size: clamp(1.6rem, 7vw, 2.5rem);
@@ -1080,7 +1084,7 @@ p{
    
   }
   
-  .Tagline h1 span{
+  h1 span{
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -1092,8 +1096,9 @@ p{
   .v-page-img{
     display: flex;
     flex-direction: column;
-  }
+    padding: 18px 18px ;
 
+  }
 
  
 
