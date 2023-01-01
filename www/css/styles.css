@@ -19,7 +19,7 @@ html {
   background-color: #ffffff;
   font-family: "Mulish", sans-serif;
   scroll-behavior: smooth;
-  overflow-x: hidden;
+ 
 }
 
 img {
@@ -42,7 +42,6 @@ img {
   background-color: hsla(0, 0%, 9%, 0);
   width: 8px;
   height: 100%;
-  
 }
 
 /* Track */
@@ -76,10 +75,8 @@ body {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  width: 100vw;
-
-  height: 100vh;
-  overflow-x: hidden;
+  width: fit-content;
+  height: fit-content;
 }
 
 .view,
@@ -93,7 +90,7 @@ body {
   height: 100vh!important;
   padding: 0px !important;
   
-  overflow-y: overlay;
+  overflow: overlay;
   overflow-x: hidden;
   scroll-behavior: smooth;
 
