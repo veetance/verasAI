@@ -820,7 +820,7 @@ h5 {
   justify-content: flex-start; */
 
   display: grid;
-  place-items: center;
+  place-items: left;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: min-content;
   grid-column-gap: 20px;
@@ -852,7 +852,7 @@ h5 {
 
 display: flex;
 flex-direction: column;
-align-items: center;
+align-items: flex-start;
 justify-content: flex-start;
 width:fit-content;
 height: fit-content;
@@ -926,8 +926,6 @@ padding: 184px 96px 96px 96px ;
 
    /* your styles go here */
 
- 
-
    /* CTA */
 
    .Tagline{
@@ -941,10 +939,11 @@ padding: 184px 96px 96px 96px ;
   .Tagline h1{
     width: 100%;
     font-size: clamp(1.96rem, 4.6vw, 2.5rem);
-    line-height: clamp(2.5rem, 5.9vw, 5rem);
+    line-height: clamp(1.96rem, 5.7vw, 5rem);
     font-weight: 900;
     padding: 0px;
     margin: 0px;
+
     justify-content: flex-start;
     align-items: flex-start;
    
@@ -963,7 +962,7 @@ padding: 184px 96px 96px 96px ;
   .v-page-CTA{
     grid-gap: 30px;
     padding: 144px 48px 48px 48px ;
-    width: 100%;
+    width: fit-content;
     align-items: flex-start;
 
   }
