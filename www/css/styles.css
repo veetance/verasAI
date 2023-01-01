@@ -88,13 +88,14 @@ body {
   justify-content: flex-start;
   width: 100vw;
 
-  height: 100vh;
-
-  overflow-y: overlay;
- 
+  height: 100vh!important;
   padding: 0px !important;
+  
+  overflow-y: scroll;
   scroll-behavior: smooth;
+
 }
+
 
 .page,
 .page-content {
@@ -784,11 +785,7 @@ h5 {
 /* page-content */
 
 .Veras-surface {
-
-  
-
- 
-   display: flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start; 
@@ -798,7 +795,7 @@ h5 {
   margin: 0px;
   
   grid-gap: 0px;
-  background-color: #e2ddff91;
+  background-color: #e2ddff5d;
   border-radius: 0px;
   overflow: hidden;
   padding: 0px 0px;
@@ -808,6 +805,7 @@ h5 {
 
   display: flex;
   padding: 0px !important;
+  height: fit-content !important;
 
 }
 
@@ -827,10 +825,25 @@ h5 {
 
   border: solid 1px #29032e11;
   border-radius: 0px;
-  height: 100%;
+  height: fit-content;
   width: 100%;
   padding: 0px 0px;
   padding-top: 0px;
+
+  overflow-y: visible;
+
+}
+
+.v-home-space::-webkit-scrollbar {
+  display: none;
+
+}
+
+.v-home-space::-webkit-scrollbar-thumb {
+
+}
+
+.v-home-space::-webkit-scrollbar-track {
 
 }
 
@@ -874,9 +887,11 @@ padding: 184px 96px 96px 96px ;
 
 .v-page-img{
   display: flex;
+  flex-direction: column;
   width: 100%;
-  height: 100%;
-  background-color: #ffffff;
+  min-height: 100%;
+  height: fit-content;
+  background-color: #ffffff00;
   padding: 18px ;
   grid-gap:18px;
 }
@@ -885,9 +900,10 @@ padding: 184px 96px 96px 96px ;
 
   display: flex;
   border: solid 2px #554c7d2d;
+  background-color: rgba(255, 255, 255, 0.726);
   border-radius: 20px;
   width: 100%;
-  height: 100%;
+  height: 50vh;
 }
 
 
