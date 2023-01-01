@@ -162,7 +162,7 @@ h1 {
   height: fit-content;
   font-size: clamp(2.4rem, 2.99vw, 10rem);
   line-height: clamp(3.2rem, 3.8vw, 10rem);
-  font-weight: 900;
+  font-weight: 1000;
   color: var(--f7-theme-color);
   padding: 0px;
   margin: 0px;
@@ -299,7 +299,6 @@ h5 {
   justify-content: center;
   width: 100%;
   height: fit-content;
-  min-height: 72px;
   padding: 0px;
   grid-gap: 12px;
 }
@@ -907,10 +906,6 @@ padding: 184px 96px 96px 96px ;
 }
 
 
-
-
-
-
 .Tagline{
 
   display: flex;
@@ -954,9 +949,9 @@ padding: 184px 96px 96px 96px ;
   
   .Tagline h1{
     width: 100%;
-    font-size: clamp(1.96rem, 4.6vw, 2.5rem);
-    line-height: clamp(1.96rem, 5.7vw, 5rem);
-    font-weight: 900;
+    font-size: clamp(1.96rem, 4.8vw, 3rem);
+    line-height: clamp(1.96rem, 6.7vw, 5rem);
+    font-weight: 1000;
     padding: 0px;
     margin: 0px;
 
@@ -1061,7 +1056,7 @@ p{
     width: 100%;
     justify-content: flex-start;
     align-items: flex-start;
-    padding: 120px 24px 24px 24px ;
+    padding: 120px 18px 18px 18px ;
    }
 
    .Tagline{
@@ -1075,12 +1070,13 @@ p{
   .Tagline h1{
    
     width: 100%;
- 
     font-size: clamp(1.6rem, 7vw, 2.5rem);
-    line-height: clamp(2.6rem, 7vw, 5rem);
-    font-weight: 900;
+    line-height: clamp(2rem, 9vw, 5rem);
+    font-weight: 1000;
     padding: 0px;
     margin: 0px;
+
+    border: 0px rgba(0, 0, 0, 0) solid;
    
   }
   
