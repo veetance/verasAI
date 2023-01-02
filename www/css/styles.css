@@ -514,8 +514,8 @@ h5 {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 33px;
-  height: 33px;
+  width: 34px;
+  height: 34px;
   aspect-ratio: 1/1;
   background-image: url(../img/VERAS-ICO-WHITE.svg);
   background-size: contain;
@@ -848,6 +848,8 @@ h5 {
 
   overflow-y: visible;
 
+  background-image: linear-gradient(to top, white, rgba(255, 255, 255, 0));
+
 }
 
 .v-home-space::-webkit-scrollbar {
@@ -902,7 +904,7 @@ flex-direction: row;
 .v-page-plane-style{
 
   display: flex;
-  border: solid 2px #554c7d2d;
+  border: solid 1px #554c7d2d;
   background-color: rgba(255, 255, 255, 0.726);
   border-radius: 16px;
   width: 100%;
@@ -1287,7 +1289,8 @@ p{
     width: 100%;
     height: fit-content;
     background-color: #ffffff00;
-    padding: 18px ;
+    padding: 18px;
+    padding-bottom: 28px;
    
     grid-gap:28px;
   }
