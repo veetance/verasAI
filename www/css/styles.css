@@ -505,7 +505,7 @@ h5 {
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  padding: 28px;
+  padding: 48px;
   grid-gap: 8px;
   border-bottom: solid 1px #554c7d;
 }
@@ -514,8 +514,8 @@ h5 {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   aspect-ratio: 1/1;
   background-image: url(../img/VERAS-ICO-WHITE.svg);
   background-size: contain;
@@ -533,7 +533,7 @@ h5 {
   justify-content: space-between;
   width: 100%;
   height: fit-content;
-  padding: 28px;
+  padding: 48px;
   grid-gap: 28px;
 }
 
@@ -544,7 +544,7 @@ h5 {
   justify-content: flex-start;
   background-color: #1611249a;
   width: 100%;
-  padding: 28px;
+  padding: 28px 48px;
   grid-gap: 28px;
  
 }
@@ -977,7 +977,7 @@ flex-direction: row;
   align-items: center;
   grid-gap: 10px;
   padding-right: 10px;
-  background-color: #60DBB8;
+  background-image: linear-gradient(to right, #60DBB8,#60dbb8, #8be9d5) ;
 }
 
 .v-page-security-plane-header h3{
@@ -991,8 +991,8 @@ flex-direction: row;
   display: flex;
   flex-direction: column;
   white-space: pre-wrap;
-  font-size: clamp(1rem, 1.7vw, 1.1rem);
-  line-height:clamp(1.2rem, 1.7vw, 1.4rem);
+  font-size: clamp(1rem, 1.4vw, 1rem);
+  line-height:clamp(1.3rem, 1.7vw, 1.4rem);
   color: var(--f7-theme-color-muted);
   font-family: "mulish";
   font-weight: 600;
@@ -1238,7 +1238,7 @@ h1 span{
   }
 
   .F-LI-01 p {
-    font-size: clamp(0.9rem, 2vw, 1rem);
+    font-size: clamp(0.8rem, 2vw, 1rem);
 }
 
 .F-LI-03{
@@ -1255,6 +1255,11 @@ p{
 
 .F-set ul li p {
   font-size: clamp(0.7rem, 1vw, 1rem);
+}
+
+.F-chip p{
+  font-size: clamp(0.8rem, 2vw, 1rem);
+ 
 }
   
 }
@@ -1290,12 +1295,12 @@ p{
   .v-page-security-plane-header h3{
 
     font-size: clamp(1.7vw, 1.5rem, 1.1rem);
-    line-height: 1.4rem;
+    line-height: 1.5rem;
   }
   
   .v-page-security-paragraph p{
-    font-size: clamp(1rem, 1.7vw, 1.1rem);
-    line-height:clamp(1.2rem, 1.7vw, 1.4rem);
+    font-size: clamp(1rem, 1.7vw, 1.03rem);
+    line-height:clamp(1.4rem, 1.7vw, 1.4rem);
   }
 
    /* CTA */
@@ -1341,6 +1346,7 @@ p{
     display: flex;
     flex-direction: column;
     padding: 18px 18px ;
+    grid-gap: 18px;
 
   }
 
@@ -1393,5 +1399,14 @@ p{
   .F-map{
     width: 100%;
     
+  }
+
+  .F-footer{
+    padding: 18px;
+  }
+
+  .F-footer p{
+
+    font-size: 3vw;
   }
 }
