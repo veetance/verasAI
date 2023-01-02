@@ -101,9 +101,55 @@ function lazyLOAD() {
     });
   });
 }
-
 // call the function on page load
 lazyLOAD();
+
+
+// on first page load function splash() pulses .v-logo-wrapper starting from opacity 0 to opacity 1 ease in and 2 times in 1.5s and then fades out while fading out .v-splash and setting display to none
+
+function splash() {
+  let vSplash = document.querySelector(".v-splash");
+  let vLogoWrapper = document.querySelector(".v-logo-wrapper");
+  let vLogo = document.querySelector(".v-logo");
+
+  // Add pulse effect to vLogo
+  vLogo.style.animation = "pulse 2s ease-in-out infinite";
+
+  vLogoWrapper.style.transition = "opacity 1.5s ease-in 2";
+  vLogoWrapper.style.opacity = 1;
+  vLogo.style.transition = "opacity 1.5s ease-in 2";
+  vLogo.style.opacity = 1;
+
+  setTimeout(() => {
+    vSplash.style.transition = "opacity .03s ease-in";
+    vSplash.style.opacity = 0;
+    setTimeout(() => {
+      vSplash.style.display = "none";
+    }, 1000);
+  }, 3000);
+}
+
+// Add keyframe animation for pulse effect
+const pulseAnimation = document.createElement("style");
+pulseAnimation.innerHTML = `
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}`;
+document.head.appendChild(pulseAnimation);
+
+// Call the function on page load
+window.addEventListener("load", splash);
+
+
+  
 
 // responsive nnavTitle
 function navTitle() {

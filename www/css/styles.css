@@ -33,6 +33,23 @@ img {
 
 /* -- always have latter code on css-->*/
 
+/* splash-screen */
+
+.v-splash{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left:0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 9999;
+  background-color: rgb(255, 255, 255);
+}
+
+
+
 /* style scroll bar */
 
 /* width */
@@ -1152,7 +1169,7 @@ padding: 184px 96px 96px 96px ;
   height: fit-content;
   background-color: #ffffff00;
   padding: 0px 96px ;
-  padding-bottom: 48px;
+  padding-bottom: 96px;
   grid-gap:96px;
 }
 
