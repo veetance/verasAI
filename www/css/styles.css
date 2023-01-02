@@ -19,7 +19,7 @@ html {
   background-color: #ffffff;
   font-family: "Mulish", sans-serif;
   scroll-behavior: smooth;
-  overflow: hidden;;
+  overflow: hidden;
  
 }
 
@@ -111,7 +111,7 @@ body {
   padding: 0px !important;
   
   overflow: overlay;
-  overflow-x: hidden;
+  overflow-x: visible;
   scroll-behavior: smooth;
 
 }
