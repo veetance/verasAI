@@ -12,9 +12,19 @@
 
 :root {
   --f7-theme-color: #5e50b2;
+  --f7-theme-color-muted: #362c6b;
   --f7-theme-color-rgb: 190, 179, 255;
   --f7-theme-color-shade: #372C5B ;
   --f7-theme-color-tint: #241D3C;
+
+  --f7-2ndry-theme-color: #60DBB8;
+  --f7-2ndry-theme-color-muted: rgb(106 189 165);
+  
+  --f7-2ndry-theme-color-rgb: 154, 255, 226;
+  --f7-2ndry-theme-color-shade: #3caa8b ;
+  --f7-2ndry-theme-color-tint: #2a6655 ;
+
+
   --f7-safe-area-left: 0px;
   --f7-safe-area-right: 0px;
   --f7-safe-area-top: 0px;
