@@ -12,13 +12,14 @@ body,
 html {
   width: 100vw;
 
-  height: 100vh;
+  height: fit-content;
   margin: 0 !important;
   padding: 0px !important;
   /* font-family: "Silkscreen"; */
   background-color: #ffffff;
   font-family: "Mulish", sans-serif;
   scroll-behavior: smooth;
+  overflow: hidden;;
  
 }
 
@@ -42,10 +43,11 @@ img {
   position: absolute;
   top: 0;
   left:0;
-  height: 100vh;
+  height: 100%;
   width: 100vw;
   z-index: 9999;
   background-color: rgb(255, 255, 255);
+  overflow: hidden;
 }
 
 
@@ -93,7 +95,8 @@ body {
   align-items: flex-start;
   justify-content: center;
   width: fit-content;
-  height: fit-content;
+  height: 100vh;
+ 
 }
 
 .view,
