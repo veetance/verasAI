@@ -327,7 +327,6 @@ h5 {
 }
 
 .v-bottom{
-  
   display: none;
   align-items: center;
   justify-content: center;
@@ -338,6 +337,8 @@ h5 {
   grid-gap: 8px;
   border: solid 0px   #5f50b200;
 }
+
+
 
 .v-bottom p {
   display: flex;
@@ -839,7 +840,7 @@ h5 {
   grid-template-rows: min-content;
   grid-column-gap: 20px; */
 
-  border: solid 1px #29032e11;
+  border: solid 0px #29032e00;
   border-radius: 0px;
   height: fit-content;
   width: 100%;
@@ -892,8 +893,8 @@ flex-direction: row;
   left: 0;
 
   /* Set the background color and size */
-  background-image: linear-gradient(to top, #6abda57e,  #8be9e9d8);
-  border: solid 1px #6abda57e;
+  background-image: linear-gradient(to top, #ffffff,  #ffffff);
+  border: solid 2px #a7e7d5;
   border-radius: 50px;
   width: 7px;
   height: calc(100%/1.2);
@@ -917,7 +918,7 @@ flex-direction: row;
 .v-security{
   display: flex;
   padding: 0px !important;
-  height: 100% !important;
+  height: fit-content !important;
 }
 
 .v-security-space{
@@ -952,7 +953,7 @@ flex-direction: row;
   width: 100%;
   height: 100%;
   background-color: #ffffff00;
-  padding: 48px ;
+  padding: 96px ;
   grid-gap:48px;
 }
 
@@ -1022,6 +1023,74 @@ flex-direction: row;
 
 
 
+.v-product{
+  display: flex;
+  padding: 0px !important;
+  height: 80vh !important;
+}
+
+.v-product .v-bottom{
+  display: flex;
+}
+
+.v-product .v-bottom P{
+ font-size: 1.05rem;
+ line-height: 1.5rem;
+}
+
+.v-product .v-page-CTA{
+  grid-gap:20px;
+  padding: 96px 48px;
+
+}
+
+.v-product-space .v-page-styled-header .Tagline h1{
+ flex-direction: column;
+}
+
+
+.v-product .v-btn-wrapper{
+  flex-direction: column-reverse;
+  grid-gap: 20px;
+
+  padding-left: 60px;
+}
+
+
+.v-product-space{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  /* display: grid;
+  place-items: left;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: min-content;
+  grid-column-gap: 20px; */
+
+  border: solid 0px #e100ff00;
+  /* background-image: linear-gradient(to top, #f5fffc, #ffffff, #ffffff); */
+  border-radius: 0px;
+  height:100%;
+  width: 100%;
+  padding: 0px 0px;
+  padding-top: 0px;
+
+  overflow-y: visible;
+
+}
+
+.v-product-space .v-page-styled-header{
+
+  width: 100% !important;
+  background-image: none;
+  border: none;
+  padding: 0px;
+}
+
+
+
 .v-landing {
 
   display: flex;
@@ -1060,8 +1129,8 @@ padding: 184px 96px 96px 96px ;
   width:100%;
   height: fit-content;
   grid-gap: 40px;
-  border-bottom: solid 2px #51b39733;
-  background-color: white;
+  border: solid 1px #51b39733;
+  background-image: linear-gradient(to right,  #83e6cf17,  #ffffff);
   
   padding: 96px 48px;
   
@@ -1082,9 +1151,9 @@ padding: 184px 96px 96px 96px ;
   width: 100%;
   height: fit-content;
   background-color: #ffffff00;
-  padding: 0px 48px ;
+  padding: 0px 96px ;
   padding-bottom: 48px;
-  grid-gap:48px;
+  grid-gap:96px;
 }
 
 .Tagline{
@@ -1120,6 +1189,51 @@ h1 span{
 
    /* your styles go here */
 
+   /* product */
+
+   .v-product-space{
+   height: 80vh;
+  justify-content: center;
+   }
+
+   .v-product{
+    height: fit-content !important;
+   }
+
+
+   .v-product .v-bottom{
+    display: flex;
+  }
+  
+  .v-product .v-bottom P{
+   font-size: 1.05rem;
+   line-height: 1.5rem;
+  }
+  
+  .v-product .v-page-CTA{
+    grid-gap:20px;
+    padding: 96px 48px;
+    padding-right: 96px;
+    width: 100%;
+  }
+  
+  .v-product-space .v-page-styled-header .Tagline h1{
+
+   font-size: clamp(2rem, 2vw, 10rem);
+   line-height: clamp(2.5rem, 3.8vw, 10rem);
+  }
+
+
+
+  
+  
+  .v-product .v-btn-wrapper{
+    flex-direction: column-reverse;
+    grid-gap: 20px;
+  
+    padding-left: 60px;
+  }
+
    /* security */
 
    .v-page-security-plane{
@@ -1148,6 +1262,8 @@ h1 span{
    .v-page-styled-header{
      padding: 96px 48px;
    }
+
+
 
    /* CTA */
 
@@ -1195,6 +1311,7 @@ h1 span{
     flex-direction: column;
     padding: 18px 48px ;
     padding-bottom: 48px;
+    grid-gap:48px;
 
   }
 
@@ -1271,7 +1388,7 @@ p{
   /* your styles go here */
 
   .v-page-styled-header .Tagline::before {
-    margin-right:26px;
+    margin-right:18px;
     width: 6px;
   }
   .v-page-styled-header{
@@ -1279,6 +1396,45 @@ p{
     padding: 36px 18px;
 
    }
+
+      /* product */
+
+      .v-product-space{
+
+        height: fit-content;
+        }
+     
+        .v-product{
+         height: 80vh !important;
+         justify-content: center;
+        }
+
+        .v-product .v-bottom{
+          display: flex;
+        }
+        
+        .v-product .v-bottom P{
+          font-size: clamp(.9rem, 1.7vw, 1.03rem);
+          line-height: clamp(1.4rem, 1.7vw, 1.4rem);
+        }
+        
+        .v-product .v-page-CTA{
+          grid-gap:20px;
+          padding: 96px 18px;
+          padding-right: 18px;
+          width: 100%;
+        }
+        
+        .v-product-space .v-page-styled-header .Tagline h1{
+      
+         font-size: clamp(1.6rem, 5.3vw, 10rem);
+         line-height: clamp(2.1rem, 3.8vw, 10rem);
+        }
+
+        .v-product .v-btn-wrapper{
+          padding-left: 28px;
+          padding-right: 28px;
+        }
 
 
   /* security */
@@ -1401,6 +1557,7 @@ p{
 
   .F-map{
     width: 100%;
+    height: 50vw;
     
   }
 
