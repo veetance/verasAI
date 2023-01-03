@@ -10,6 +10,7 @@
 
 body,
 html {
+  height: fit-content !important;
   margin: 0 !important;
   padding: 0px !important;
   /* font-family: "Silkscreen"; */
@@ -20,15 +21,11 @@ html {
 
 .st-plane{
 
-  background-color: rgba(235, 58, 211, 0.185)!important;
+  background-color: rgba(235, 194, 58, 0.185)!important;
 
 }
 
-html{
-  display: flex;
-  height: 100vh;
-  /* overflow: hidden!important; */
-}
+
 
 img {
   max-width: 100%;
@@ -91,7 +88,6 @@ img {
 
 body {
   display: flex;
-  height: 100vh;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
@@ -133,7 +129,7 @@ body {
   flex-direction: column;
   width: 100vw;
   min-width: 350px!important;
-  height: 100vh;
+  
 
   height: fit-content !important  ;
   scroll-behavior: smooth;
