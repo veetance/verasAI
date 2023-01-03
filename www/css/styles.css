@@ -33,7 +33,7 @@ html{
 }
 
 .st-plane{
-  background-color: rgba(52, 87, 245, 0.185)!important;
+  background-color: rgba(245, 242, 52, 0.185)!important;
 }
 
 
@@ -105,7 +105,9 @@ img {
   align-items: flex-start;
   justify-content: center;
   width: fit-content;
-  height: fit-content;
+  height: 100vh;
+      
+  scroll-behavior: smooth;
 }
 
 .view,
@@ -116,10 +118,10 @@ img {
   justify-content: space-between;
   width: 100vw;
 
-  height: 100vh!important;
+  height: fit-content!important;
   padding: 0px !important;
-    
-  scroll-behavior: smooth;
+
+ 
 
 }
 

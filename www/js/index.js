@@ -128,10 +128,10 @@ function splash() {
     vSplash.style.opacity = 0;
     setTimeout(() => {
       vSplash.style.display = "none";
-      document.querySelector(".view").style.overflowY = "scroll";
-      document.querySelector(".view").style.overflow = "overlay";
-      document.querySelector(".view-main").style.overflowY = "scroll";
-      document.querySelector(".view-main").style.overflow = "overlay";
+      document.querySelector("#app").style.overflowY = "scroll";
+      document.querySelector("#app").style.overflow = "overlay";
+      // document.querySelector(".view-main").style.overflowY = "scroll";
+      // document.querySelector(".view-main").style.overflow = "overlay";
 
       document.querySelector("html").style.overflow = "scroll";
 
