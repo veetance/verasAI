@@ -109,7 +109,7 @@ lazyLOAD();
 
 function splash() {
 
-  // document.querySelector("html").style.overflow = "hidden";
+  document.querySelector("html").style.overflow = "hidden";
   
   let vSplash = document.querySelector(".v-splash");
   let vLogoWrapper = document.querySelector(".v-logo-wrapper");
@@ -132,6 +132,8 @@ function splash() {
       document.querySelector(".view").style.overflow = "overlay";
       document.querySelector(".view-main").style.overflowY = "scroll";
       document.querySelector(".view-main").style.overflow = "overlay";
+
+      document.querySelector("html").style.overflow = "scroll";
 
 
 
