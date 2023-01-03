@@ -27,7 +27,7 @@ html {
 
 
 .st-plane{
-  background-color: rgba(15, 219, 255, 0.158)!important;
+  background-color: rgba(239, 255, 15, 0.158)!important;
 }
 
 
@@ -55,8 +55,10 @@ img {
   height: 100vh;
   width: 100vw;
   z-index: 9999;
-  background-color: #e2ddffc9;
-  backdrop-filter: blur(29px);
+  background-color: #e2ddffe1;
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  -moz-backdrop-filter: blur(30px);
   overflow: hidden;
   
 }
