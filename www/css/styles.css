@@ -104,10 +104,8 @@ body {
   justify-content: center;
   width: fit-content;
   height: 100vh;
- 
-  overflow-y: scroll;
-  overflow: overlay;
-
+  
+  scroll-behavior: smooth;
 }
 
 .view,
@@ -121,8 +119,7 @@ body {
   height: fit-content!important;
   padding: 0px !important;
   
-  overflow: overlay;
-  scroll-behavior: smooth;
+ 
 
 }
 
@@ -288,7 +285,8 @@ h5 {
   width: 55px;
   height: 55px;
   aspect-ratio: 1 / 1;
-  background-image: url(../img/Veras\ logo-88.png);
+  /* background-image: url(../img/Veras\ logo-200.svg); */
+  background-image: url(../img/Veras-logo-700-nav-logo.svg);
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -915,7 +913,8 @@ flex-direction: row;
 }
 
 
-.v-page-styled-header .Tagline::before {
+
+.v-security .v-page-styled-header .Tagline::before {
   /* Set the content of the ::before pseudo-element */
 
   content: '';
@@ -930,7 +929,7 @@ flex-direction: row;
   border: solid 2px #a7e7d5;
   border-radius: 50px;
   width: 7px;
-  height: 80px;
+  height: 12vh;
 
   margin-right:48px 
 }
@@ -1114,12 +1113,33 @@ flex-direction: row;
 
 }
 
-.v-product-space .v-page-styled-header{
 
-  width: 100% !important;
-  background-image: none;
-  border: none;
-  padding: 0px;
+.v-product .v-page-styled-header{
+width: 100% !important;
+background-image: none;
+border: none;
+padding: 0px;
+
+}
+
+.v-product .v-page-styled-header .Tagline::before {
+  /* Set the content of the ::before pseudo-element */
+
+  content: '';
+
+  /* Position the ::before pseudo-element */
+  position: relative;
+  top: 0;
+  left: 0;
+
+  /* Set the background color and size */
+
+  border: solid 2px #a7e7d5;
+  border-radius: 50px;
+  width: 7px;
+  height: calc(100%/1.2);
+
+  margin-right:48px 
 }
 
 
@@ -1153,6 +1173,8 @@ padding: 184px 96px 96px 96px ;
 
 }
 
+
+
 .v-page-styled-header{
 
   display: flex;
@@ -1164,11 +1186,9 @@ padding: 184px 96px 96px 96px ;
   grid-gap: 40px;
   border: solid 1px #51b39733;
   background-image: linear-gradient(to right,  #83e6cf17,  #ffffff);
-  
   padding: 96px 48px;
-  
-  
   }
+
 
 .v-page{
  
@@ -1224,14 +1244,10 @@ h1 span{
 
    /* product */
 
-   .v-page-styled-header .Tagline::before {
-    margin-right:18px;
-    width: 6px;
-    height: 80px ;
-  }
+ 
 
    .v-product-space{
-   height: 80vh;
+   height: 100vh;
   justify-content: center;
    }
 
@@ -1254,6 +1270,7 @@ h1 span{
     padding: 96px 48px;
     padding-right: 96px;
     width: 100%;
+    height: fit-content;
   }
   
   .v-product-space .v-page-styled-header .Tagline h1{
@@ -1426,10 +1443,21 @@ p{
 @media (min-width:200px) and (max-width: 579px) {
   /* your styles go here */
 
-  .v-page-styled-header .Tagline::before {
-    margin-right:18px;
-    width: 6px;
-    height: 70px;
+  .nav-logo {
+    width: 46px;
+    height: 46px;
+  }
+
+  .v-security .v-page-styled-header .Tagline::before {
+ 
+  
+    margin-right:20px 
+  }
+
+  .v-product .v-page-styled-header .Tagline::before {
+ 
+  
+    margin-right:20px 
   }
 
 

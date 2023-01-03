@@ -108,7 +108,7 @@ lazyLOAD();
 // on first page load function splash() pulses .v-logo-wrapper starting from opacity 0 to opacity 1 ease in and 2 times in 1.5s and then fades out while fading out .v-splash and setting display to none
 
 function splash() {
-  // document.querySelector("html").style.overflow = "hidden";
+  
   let vSplash = document.querySelector(".v-splash");
   let vLogoWrapper = document.querySelector(".v-logo-wrapper");
   let vLogo = document.querySelector(".v-logo");
@@ -126,10 +126,10 @@ function splash() {
     vSplash.style.opacity = 0;
     setTimeout(() => {
       vSplash.style.display = "none";
-      // document.querySelector("html").style.overflow = "scroll";
-      // document.querySelector("html").style.overflowY = "hidden";
-    }, 1000);
-  }, 1000);
+      document.querySelector("#app").style.overflowY = "scroll";
+      document.querySelector("#app").style.overflow = "overlay";
+    }, 0);
+  }, 2000);
 }
 
 // Add keyframe animation for pulse effect
