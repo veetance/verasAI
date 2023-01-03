@@ -106,9 +106,7 @@ img {
   align-items: flex-start;
   justify-content: center;
   width: fit-content;
-  height: 100vh;
-  
-  scroll-behavior: smooth;
+  height: fit-content;
 }
 
 .view,
@@ -119,10 +117,10 @@ img {
   justify-content: space-between;
   width: 100vw;
 
-  height: fit-content!important;
+  height: 100vh!important;
   padding: 0px !important;
-  
- 
+    
+  scroll-behavior: smooth;
 
 }
 
