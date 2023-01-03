@@ -288,8 +288,9 @@ h5 {
   width: 55px;
   height: 55px;
   aspect-ratio: 1 / 1;
-  background-image: url(../img/VERAS-ICO.svg);
+  background-image: url(../img/Veras\ logo-88.png);
   background-size: contain;
+  background-position: center;
   background-repeat: no-repeat;
   border-radius: 0px;
   padding: 0px;
@@ -1428,8 +1429,10 @@ p{
   .v-page-styled-header .Tagline::before {
     margin-right:18px;
     width: 6px;
-    height: 70px ;
+    height: 70px;
   }
+
+
   .v-page-styled-header{
 
     padding: 36px 18px;
