@@ -11,20 +11,30 @@
 body,
 html {
 
+  height: 100lvh!important;
+  height: 100vh !important;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
   margin: 0 !important;
   padding: 0px !important;
   /* font-family: "Silkscreen"; */
   background-color: #ffffff;
   font-family: "Mulish", sans-serif;
   scroll-behavior: smooth;
+
+  overflow: hidden !important;
 }
 
 html{
-  height: 100lvh!important;
+  
 }
 
 .st-plane{
-  background-color: rgba(255, 44, 160, 0.185)!important;
+  background-color: rgba(255, 206, 44, 0.185)!important;
 }
 
 
@@ -89,13 +99,6 @@ img {
 
 /* scroll-bar end */
 
-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  height: 100vh !important;
-}
 
 /* F7-main-STYLES */
 #app {
@@ -1186,6 +1189,9 @@ padding: 184px 96px 96px 96px ;
   grid-gap: 40px;
   border: solid 1px #51b39733;
   background-image: linear-gradient(to right,  #83e6cf17,  #ffffff);
+  /* background-image: url(../img/data.jpg); */
+  background-size: cover;
+  background-position:center;
   padding: 96px 48px;
   }
 
