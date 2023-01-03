@@ -27,8 +27,8 @@ html {
 html{
   display: flex;
   height: fit-content;
-  overflow: scroll;
-  overflow-y: hidden;
+  overflow: hidden;
+  overflow-y: visible;
   /* overflow: hidden!important; */
 }
 
