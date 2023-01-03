@@ -10,30 +10,27 @@
 
 body,
 html {
-
-  height: 100lvh!important;
-  height: 100vh !important;
-
   display: flex;
+  height: 100%;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-
   margin: 0 !important;
   padding: 0px !important;
   /* font-family: "Silkscreen"; */
   background-color: #ffffff;
   font-family: "Mulish", sans-serif;
   scroll-behavior: smooth;
-
 }
 
 html{
-  
+  height: 100vh!important;
+  height: 100vh !important;
+  overflow: hidden!important; 
 }
 
 .st-plane{
-  background-color: rgba(245, 242, 52, 0.185)!important;
+  background-color: rgba(255, 111, 224, 0.185)!important;
 }
 
 
@@ -105,7 +102,7 @@ img {
   align-items: flex-start;
   justify-content: center;
   width: fit-content;
-  height: 100vh;
+  height: fit-content;
       
   scroll-behavior: smooth;
 }
@@ -120,9 +117,7 @@ img {
 
   height: fit-content!important;
   padding: 0px !important;
-
- 
-
+  overflow: hidden;
 }
 
 
@@ -137,7 +132,7 @@ img {
   height: 100%;
   
 
-  height: fit-content !important  ;
+  height: fit-content !important;
   scroll-behavior: smooth;
 
 }
