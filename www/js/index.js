@@ -108,6 +108,8 @@ lazyLOAD();
 // on first page load function splash() pulses .v-logo-wrapper starting from opacity 0 to opacity 1 ease in and 2 times in 1.5s and then fades out while fading out .v-splash and setting display to none
 
 function splash() {
+
+  document.querySelector("html").style.overflow = "hidden";
   
   let vSplash = document.querySelector(".v-splash");
   let vLogoWrapper = document.querySelector(".v-logo-wrapper");
@@ -128,6 +130,7 @@ function splash() {
       vSplash.style.display = "none";
       document.querySelector("#app").style.overflowY = "scroll";
       document.querySelector("#app").style.overflow = "overlay";
+      document.querySelector("html").style.overflow = "auto";
     }, 0);
   }, 2000);
 }

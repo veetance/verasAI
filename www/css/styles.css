@@ -20,12 +20,11 @@ html {
 }
 
 html{
-  display: flex;
-  height: 100vh!important;
+  height: 100lvh!important;
 }
 
 .st-plane{
-  background-color: rgba(255, 251, 44, 0.185)!important;
+  background-color: rgba(255, 44, 160, 0.185)!important;
 }
 
 
