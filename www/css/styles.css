@@ -879,7 +879,7 @@ h5 {
 .v-home-space{
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
 
   /* display: grid;
@@ -984,6 +984,11 @@ flex-direction: row;
   grid-template-areas: "text svg";
   margin: 2.5vw;
   
+}
+
+.v-page-plane :nth-child(2) .v-page-plane-cont {
+  grid-template-areas: " svg text " !important;
+
 }
 
 .plane-style-header{
@@ -1348,10 +1353,10 @@ height: fit-content;
 grid-gap: 40px;
 border: solid 0px rgba(0, 0, 0, 0);
 
-padding: 184px 96px 96px 96px ;
-
-
+padding: 184px 96px 184px 96px ;
 }
+
+
 
 
 
