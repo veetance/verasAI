@@ -138,7 +138,7 @@ function splash() {
 
 
     }, 0);
-  }, 2000);
+  }, 900);
 }
 
 // Add keyframe animation for pulse effect
