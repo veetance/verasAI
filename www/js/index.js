@@ -134,11 +134,10 @@ function splash() {
       // document.querySelector(".view-main").style.overflow = "overlay";
 
       document.querySelector("html").style.overflow = "auto";
-
-
-
     }, 0);
   }, 900);
+
+  
 }
 
 // Add keyframe animation for pulse effect
