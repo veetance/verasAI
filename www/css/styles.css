@@ -12,6 +12,7 @@ body,
 html {
   display: flex;
   height: 100vh;
+  width: 100%;
 
   flex-direction: column;
   justify-content: flex-start;
@@ -22,6 +23,10 @@ html {
   background-color: #ffffff;
   font-family: "Mulish", sans-serif;
   scroll-behavior: smooth;
+}
+
+body{
+  max-width: 1920px;
 }
 
 /* .st-plane{
@@ -57,6 +62,28 @@ img {
   -moz-backdrop-filter: blur(30px);
   overflow: hidden;
 }
+
+.v-splash-min-dlplay-size {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 9999;
+  background-color: #e2ddffe1;
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  -moz-backdrop-filter: blur(30px);
+  overflow: hidden;
+}
+
+.v-splash-min-dlplay-size .v-logo{
+  width: 50px !important;
+  height: 50px !important;
+} 
 
 /* style scroll bar */
 
@@ -96,7 +123,7 @@ img {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  width: fit-content;
+  width: 100%;
   height: 100%;
   scroll-behavior: smooth;
 }
@@ -108,6 +135,7 @@ img {
   align-items: center;
   justify-content: space-between;
   width: 100vw;
+  max-width: fit-content !important;
   height: fit-content;
   padding: 0px !important;
   overflow: hidden;
@@ -120,8 +148,8 @@ img {
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;
-  width: 100vw;
-  
+  width: 100%;
+
   height: fit-content;
 }
 
@@ -173,8 +201,8 @@ h1 {
   justify-content: flex-start;
   width: fit-content;
   height: fit-content;
-  font-size: clamp(2.4rem, 2.99vw, 10rem);
-  line-height: clamp(3.2rem, 3.8vw, 10rem);
+  font-size: clamp(2.4rem, 2.7vw, 10rem);
+  line-height: clamp(3.2rem, 3.7vw, 10rem);
   font-weight: 1000;
   color: var(--f7-theme-color-muted);
   padding: 0px;
@@ -191,8 +219,8 @@ h2 {
   justify-content: flex-start;
   width: fit-content;
   height: fit-content;
-  font-size: clamp(1.7rem, 2.2vw, 9rem);
-  line-height: clamp(1.7rem, 2.3vw, 9rem);
+  font-size: clamp(1.7rem, 2.4vw, 9rem);
+  line-height: clamp(1.9rem, 2.5vw, 8rem);
   font-weight: 800;
   color: var(--f7-theme-color-muted);
 
@@ -286,7 +314,7 @@ h5 {
   aspect-ratio: 1 / 1;
   /* background-image: url(../img/Veras\ logo-200.svg); */
   /* background-image: url(../img/Veras-logo-700-nav-logo.svg); */
-  background-image: url(../img/Veras-logo-888-nav-logo.svg);
+  background-image: url(../img/Veras-logo-999-nav-logo.svg);
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -544,10 +572,10 @@ h5 {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
+  width: 40px;
+  height: 40px;
   aspect-ratio: 1/1;
-  background-image: url(../img/Footer-logo-2.svg);
+  background-image: url(../img/Footer-logo-8.svg);
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -908,7 +936,7 @@ h5 {
   background-image: linear-gradient(to top, #ffffff, #ffffff);
   border: solid 2px #a7e7d5;
   border-radius: 50px;
-  width: 7px;
+  width: 6px;
   height: calc(100% / 1.2);
 
   margin-right: 48px;
@@ -925,7 +953,7 @@ h5 {
   max-height: fit-content;
   border: solid 2px #f7f2fa;
 
-  border: double 4px transparent;
+  border: double 2px transparent;
 
   background-image: linear-gradient(white, white),
     linear-gradient(to top, #ffffff00, #c6adfb1d);
@@ -936,6 +964,8 @@ h5 {
 .v-page-plane-cont {
   display: grid;
   place-items: center;
+  justify-items: start;
+
   grid-gap: 2.5vw;
   grid-template-columns: 1fr 1fr;
   grid-template-areas: "text svg";
@@ -959,6 +989,7 @@ h5 {
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
   grid-gap: 2.5vw;
 }
 
@@ -1033,9 +1064,8 @@ h5 {
 .v-page-plane-cont-text p {
   color: #554c7d;
 
-  font-size: clamp(1rem, 1.4vw, 2rem);
-
-  line-height: clamp(1.2rem, 1.7vw, 3.8rem);
+  font-size: clamp(.4rem, 1.3vw, 6rem);
+  line-height: clamp(1rem, 1.8vw, 7rem);
 
   font-family: "mulish";
   font-weight: 600;
@@ -1120,11 +1150,12 @@ h5 {
   align-items: center;
   grid-gap: 10px;
   padding-right: 10px;
-  background-image: linear-gradient(to right, #60dbb8, #60dbb8, #8be9d5);
+  background-image: linear-gradient(to right, #60dbb828, #f1f9f7, #f1f9f7a6);
+  /* background-color: #a7e7d5af; */
 }
 
 .v-page-security-plane-header h3 {
-  color: white;
+  color: #288369;
   font-family: "mulish";
   font-weight: 900;
 }
@@ -1158,16 +1189,18 @@ h5 {
 }
 
 .v-page-security-plane-header .material-symbols-outlined {
-  font-size: 2.3rem !important;
+  font-size: 1.8rem !important;
   font-weight: 1000 !important;
   background-color: white;
-  color: #3caa8b;
+  color: #318a71;
+  width: 40px;
+  height: 40px;
 }
 
 .v-product {
   display: flex;
   padding: 0px !important;
-  height: 80vh !important;
+  height: 100% !important;
 }
 
 .v-product .v-bottom {
@@ -1181,12 +1214,14 @@ h5 {
 
 .v-product .v-page-CTA {
   grid-gap: 20px;
-  padding: 96px 48px;
+  padding: 138px 48px !important;
   height: fit-content;
 }
 
 .v-product-space .v-page-styled-header .Tagline h1 {
   flex-direction: column;
+  font-size: clamp(2.4rem, 2.99vw, 10rem);
+  line-height: clamp(3.2rem, 3.8vw, 10rem);
 }
 
 .v-product .v-btn-wrapper {
@@ -1238,9 +1273,10 @@ h5 {
 
   /* Set the background color and size */
 
-  border: solid 2px #a7e7d5;
+  border: solid 2px #9cd7c6;
+  background-color: #fcfffe;
   border-radius: 50px;
-  width: 7px;
+  width: 6px;
   height: calc(100% / 1.2);
 
   margin-right: 48px;
@@ -1269,6 +1305,12 @@ h5 {
   border: solid 0px rgba(0, 0, 0, 0);
 
   padding: 184px 96px 184px 96px;
+}
+
+#vFstFrame {
+  display: flex;
+  width: 100%;
+  height: fit-content;
 }
 
 .v-page-styled-header {
@@ -1347,7 +1389,7 @@ p span {
   }
 
   .v-page-plane-cont-text {
-    margin-left: 20px;
+    margin-left: 18px;
   }
 
   /* product */
@@ -1539,10 +1581,12 @@ p span {
 
   .v-security .v-page-styled-header .Tagline::before {
     margin-right: 20px;
+    width: 4px;
   }
 
   .v-product .v-page-styled-header .Tagline::before {
     margin-right: 20px;
+    width: 4px;
   }
 
   .v-page-styled-header {
@@ -1556,7 +1600,7 @@ p span {
   }
 
   .v-product {
-    height: 80vh !important;
+    height: 100%!important;
     justify-content: center;
   }
 
@@ -1571,14 +1615,14 @@ p span {
 
   .v-product .v-page-CTA {
     grid-gap: 20px;
-    padding: 96px 18px;
-    padding-right: 18px;
+    padding: 96px 18px !important;
+    padding-right: 18px !important;
     width: 100%;
   }
 
   .v-product-space .v-page-styled-header .Tagline h1 {
-    font-size: clamp(1.6rem, 5.3vw, 10rem);
-    line-height: clamp(2.1rem, 3.8vw, 10rem);
+    font-size: clamp(1.6rem, 5vw, 7rem) !important;
+    line-height: clamp(2.1rem, 3.8vw, 10rem) !important;
   }
 
   .v-product .v-btn-wrapper {
@@ -1614,7 +1658,6 @@ p span {
 
   .v-page-CTA {
     width: 100%;
-
     justify-content: flex-start;
     align-items: flex-start;
     padding: 120px 18px;
@@ -1641,6 +1684,7 @@ p span {
   h1 span {
     display: flex;
     flex-direction: column;
+    white-space: pre-line;
     width: 100%;
     justify-content: flex-start;
     align-items: flex-start;
@@ -1730,19 +1774,26 @@ p span {
   .F-footer p {
     font-size: 3vw;
   }
+
+
 }
 
+
 /* styles for smallmobile devices */
+
+
+
 @media (min-width: 200px) and (max-width: 369px) {
   /* your styles go here */
 
-
   .v-security .v-page-styled-header .Tagline::before {
-    margin-right: 20px;
+    margin-right: 10px;
+    width: 4px;
   }
 
   .v-product .v-page-styled-header .Tagline::before {
-    margin-right: 20px;
+    margin-right: 8px !important;
+    width: 4px;
   }
 
   .v-page-styled-header {
@@ -1756,7 +1807,7 @@ p span {
   }
 
   .v-product {
-    height: 80vh !important;
+    height: fit-content !important;
     justify-content: center;
   }
 
@@ -1765,13 +1816,13 @@ p span {
   }
 
   .v-product .v-bottom P {
-    font-size: clamp(0.9rem, 1.7vw, 1.03rem);
-    line-height: clamp(1.4rem, 1.7vw, 1.4rem);
+    font-size: clamp(0.7rem, 1.9vw, 2rem) !important;
+    line-height: clamp(0.9rem, 1.7vw, 3.8rem) !important;
   }
 
   .v-product .v-page-CTA {
-    grid-gap: 20px;
-    padding: 96px 18px;
+    grid-gap: 18px;
+    padding: 48px 8px !important;
     padding-right: 18px;
     width: 100%;
   }
@@ -1781,9 +1832,14 @@ p span {
     line-height: clamp(2.1rem, 3.8vw, 10rem);
   }
 
+  .v-product-space .v-page-styled-header .Tagline h1 span {
+    white-space: pre-wrap;
+  }
+
   .v-product .v-btn-wrapper {
-    padding-left: 28px;
-    padding-right: 28px;
+    padding-left: 14px;
+    padding-right: 14px;
+    grid-gap: 18px !important;
   }
 
   /* security */
@@ -1794,20 +1850,33 @@ p span {
     width: 100%;
     height: fit-content;
     background-color: #ffffff00;
-    padding: 18px;
-    padding-bottom: 28px;
+    padding: 8px;
+    padding-bottom: 8px;
 
-    grid-gap: 28px;
+    grid-gap: 16px;
+  }
+
+  .v-page-security-plane-header {
+    grid-gap: 6px;
   }
 
   .v-page-security-plane-header h3 {
-    font-size: clamp(1.7vw, 1.5rem, 1.1rem);
-    line-height: 1.5rem;
+    font-size: clamp(0.9rem, 7vw, 5rem);
+    line-height: clamp(0.99rem, 8.7vw, 5rem);
   }
 
   .v-page-security-paragraph p {
-    font-size: clamp(1rem, 1.7vw, 1.03rem);
-    line-height: clamp(1.4rem, 1.7vw, 1.4rem);
+    font-size: clamp(0.7rem, 1.9vw, 2rem) !important;
+    line-height: clamp(0.9rem, 1.7vw, 3.8rem) !important;
+  }
+
+  .v-page-security-plane-header .material-symbols-outlined {
+    font-size: 1rem !important;
+    font-weight: 1000 !important;
+    background-color: white;
+    color: #318a71;
+    width: 20px;
+    height: 20px;
   }
 
   /* CTA */
@@ -1816,7 +1885,7 @@ p span {
     display: flex;
     position: relative !important;
     background-color: hsla(0, 0%, 9%, 0);
-    width: 2.5vw;
+    width: 4px;
     height: 100%;
   }
 
@@ -1825,8 +1894,8 @@ p span {
 
     justify-content: flex-start;
     align-items: flex-start;
-    padding: 0vw 4vw;
-    padding-top: clamp(7.6em, 2vw, 3rem)!important;
+    padding: 0vw 8px;
+    padding-top: 96px;
     padding-bottom: 30px;
   }
 
@@ -1839,13 +1908,31 @@ p span {
   h1 {
     white-space: nowrap;
     width: 100%;
-    font-size: clamp(.9rem, 7vw, 5rem);
-    line-height: clamp(.99rem, 8.7vw, 5rem);
+    font-size: clamp(0.9rem, 7vw, 5rem);
+    line-height: clamp(0.99rem, 8.7vw, 5rem);
     font-weight: 1000;
-    padding: 0px;
+
     margin: 0px;
+    border-radius: 12px;
 
     border: 0px rgba(0, 0, 0, 0) solid;
+  }
+
+  h2 {
+    font-size: clamp(1rem, 8.1vw, 7rem) !important;
+    line-height: clamp(1rem, 8.7vw, 9rem) !important;
+  }
+
+  .plane-style-header h1 {
+    line-height: 100%;
+    font-size: clamp(0.9rem, 1.3vw, 4rem) !important;
+    /* color: var(--f7-theme-color-muted); */
+    color: #288369;
+    font-weight: 750;
+    opacity: 0.8;
+    padding: 9px;
+    background-color: #3caa8b16;
+    border-radius: 9px;
   }
 
   h1 span {
@@ -1860,21 +1947,33 @@ p span {
   .v-page-plane {
     display: flex;
     flex-direction: column;
-    padding: 18px 18px;
+    padding: 8px;
     grid-gap: 18px;
   }
 
+  .v-page-plane-style {
+    border-radius: calc((8px) + (9px));
+  }
   /* plane styles */
 
   .v-page-plane-cont {
     display: flex;
     flex-direction: column-reverse;
-    grid-gap: 48px;
+    grid-gap: 24px;
   }
 
   .v-page-plane-cont-text {
-    padding: 0px 18px;
-    grid-gap: 3vw;
+    padding: 0px 9px;
+    grid-gap: 5vw;
+  }
+
+  .v-page-plane-cont-text p {
+    color: #554c7d;
+    font-size: clamp(0.7rem, 1.9vw, 2rem) !important;
+    line-height: clamp(0.9rem, 1.7vw, 3.8rem) !important;
+    font-family: "mulish";
+    font-weight: 600;
+    padding-right: 3vw;
   }
 
   .v-page-plane-text-style {
@@ -1885,21 +1984,14 @@ p span {
     grid-gap: 6vw;
   }
 
-
   /* navbar */
 
   .nav-logo {
-    width: 46px;
-    height: 46px;
+    width: 40px;
+    height: 40px;
   }
 
-  .nav-bar{
-
-    padding: ;
-  }
-
-  .nav-L{
-
+  .nav-L {
     grid-gap: 0px;
     width: fit-content;
   }
@@ -1911,23 +2003,17 @@ p span {
 
   /* Buttons */
 
-  .nav-button{
+  .nav-button {
     width: fit-content;
-    padding: 20px 7vw;
+    padding: 18px 7vw;
     height: 100%;
-    
   }
-
 
   .nav-button,
   .nav-title p {
     font-size: clamp(0.7rem, 4vw, 8vw);
     line-height: clamp(0.7rem, 4vw, 8vw);
   }
-
-
-
-
 
   .v-button-filled {
     display: flex;
@@ -1939,18 +2025,37 @@ p span {
     line-height: clamp(0.7rem, 6vw, 8vw);
   }
 
+  .v-button-filled .material-symbols-outlined {
+    font-size: 16px !important;
+  }
+
   .v-btn-i {
-    width: 53px;
-    height: 53px;
-    font-size: clamp(0.7rem, 6vw, 8vw);
-    line-height: clamp(0.7rem, 6vw, 8vw);
+    width: 44px !important;
+    height: 44px;
+    font-size: 1.5rem;
+    line-height: 100%;
+    padding: 0px 14px;
+    color: #554c7db9;
+    font-weight: 500;
   }
 
   .v-page-CTA {
-    grid-gap: 20px;
+    grid-gap: 16px;
+    padding-bottom: 18px;
   }
 
   /* ///// */
+
+  h5 {
+    font-size: clamp(0.7rem, 4.5vw, 8vw);
+    line-height: clamp(0.7rem, 6vw, 8vw);
+  }
+
+  p{
+    font-size: clamp(0.7rem, 4.5vw, 8vw) !important;
+    line-height: clamp(0.7rem, 6vw, 8vw) !important;
+
+  }
 
   .F-center {
     justify-content: space-between;
@@ -1958,43 +2063,81 @@ p span {
   }
 
   .F-header {
-    padding: 18px;
+    padding: 16px;
   }
+
+  .F-logo {
+    width: 24px;
+    height: 24px;
+  }
+
+
 
   .F-contnt {
     display: flex;
     flex-direction: column-reverse;
-    padding: 18px;
+    padding: 16px;
   }
 
   .F-links {
+    flex-direction: column;
     width: 100%;
   }
 
   .F-map {
     width: 100%;
     height: 50vw;
+    min-width: 100% !important;
   }
 
   .F-footer {
-    padding: 18px;
+    padding: 16px;
   }
 
   .F-footer p {
-    font-size: 3vw;
+ 
+    font-size: clamp(0.6rem, 3vw, 9vw) !important;
+    line-height: clamp(0.9rem, 6vw, 8vw) !important;
+    
+  }
+
+  .F-set ul { 
+    grid-gap: 3px;
+}
+
+.F-set ul p{
+  font-size: clamp(0.7rem, 4vw, 9vw) !important;
+  line-height: clamp(0.7rem, 6vw, 8vw) !important;
+}
+
+  .set-header {
+    margin-bottom: 4px;
+  }
+
+  .set-header p{
+    font-size: clamp(0.7rem, 4.8vw, 9vw) !important;
+    line-height: clamp(0.7rem, 6vw, 8vw) !important;
+  }
+
+  .F-LI-03{
+    grid-gap: 24px;
   }
 }
 
-
-/* styles for smallmobile devices */
-@media (min-width:1px) and (max-width: 199px) {
-  .view-main, .view{
-    display: none;
+/* styles for smallallestmobile devices */
+@media (min-width: 1px) and (max-width: 199px) {
+   .page, .page-homepage, .page-current, .footer-Contents{
+    display: none !important;
   }
 
-  .v-splash{
-
-    display: flex!important;
-    opacity: 1!important;
+  .v-splash-min-dlplay-size{
+    display:flex;
   }
+
+  .v-logo-wrapper h4{
+    
+  }
+
+
 }
+

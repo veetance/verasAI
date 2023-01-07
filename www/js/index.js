@@ -112,8 +112,8 @@ function splash() {
   document.querySelector("html").style.overflow = "hidden";
   
   let vSplash = document.querySelector(".v-splash");
-  let vLogoWrapper = document.querySelector(".v-logo-wrapper");
-  let vLogo = document.querySelector(".v-logo");
+  let vLogoWrapper = document.querySelector(".v-splash .v-logo-wrapper");
+  let vLogo = document.querySelector(".v-splash .v-logo");
 
   // Add pulse effect to vLogo
   vLogo.style.animation = "pulse 2s ease-in-out infinite";
