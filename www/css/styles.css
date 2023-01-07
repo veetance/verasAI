@@ -193,6 +193,7 @@ p {
 }
 
 .nav-title p {
+  display: flex;
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--f7-theme-color);
@@ -201,6 +202,13 @@ p {
   padding: 0px;
   width: fit-content;
   font-family: "poppins";
+  white-space: nowrap;
+}
+
+.nav-title p span{
+
+  font-weight: 400;
+  margin-left: 3px;
 }
 
 h1 {
@@ -245,8 +253,8 @@ h3 {
   justify-content: center;
   height: fit-content;
   white-space: nowrap;
-  font-size: clamp(1.3vw, 1.7vw, 3rem);
-  line-height: 1.4rem;
+  line-height: 100%;
+  font-size: clamp(1.4rem, 1.2vw, 4rem) !important;
   font-weight: 900;
   color: var(--f7-theme-color);
   padding: 0px;
@@ -1168,6 +1176,7 @@ h5 {
   color: #288369;
   font-family: "mulish";
   font-weight: 900;
+  font-size: clamp(1rem, 1.2vw, 4rem) !important;
 }
 
 .v-page-security-paragraph p {
