@@ -160,7 +160,64 @@ document.head.appendChild(pulseAnimation);
 window.addEventListener("load", splash);
 
 
-  
+
+// function contactUS() unhides .contact-us-modal-wrapper in a fade anamation cubic-bezier(.3,.6,.13,1) by setting the display to flex on the touch or press of .nav-button lastly, if the.contact-us-modal-wrapper is already visible it hides it again.
+
+const navButton = document.querySelector(".nav-button");
+const vFormBtn = document.querySelector("#v-form-btn");
+const contactUsModalWrapper = document.querySelector(".contact-us-modal-wrapper");
+const contactUsModal = document.querySelector(".contact-us-modal");
+
+function contactUS() {
+
+
+  document.querySelector(".view, .view-main").style.overflow = "overlay";
+
+  document.querySelector(".navbar-wrapper").style.height = "fit-content";
+
+
+ 
+  if (window.getComputedStyle(contactUsModalWrapper).display === "flex") {
+    contactUsModalWrapper.style.transition = "opacity .05s cubic-bezier(0,.74,.51,1)";
+    contactUsModalWrapper.style.opacity = 0;
+    contactUsModal.style.transition = "opacity .01s cubic-bezier(0,.74,.51,1)";
+    contactUsModal.style.opacity = 0;
+
+   
+    
+
+    
+
+
+  } else {
+    document.querySelector(".view, .view-main").style.overflow = "hidden";
+    document.querySelector(".navbar-wrapper").style.height = "100vh";
+
+    contactUsModalWrapper.style.display = "flex";
+    contactUsModalWrapper.style.transition = "opacity .01s cubic-bezier(0,.74,.51,1)";
+    contactUsModalWrapper.style.opacity = 1;
+    contactUsModal.style.transition = "opacity .5s cubic-bezier(0,.74,.51,1)";
+    contactUsModal.style.opacity = 1;
+  }
+}
+
+navButton.addEventListener("click", contactUS);
+vFormBtn.addEventListener("click", contactUS);
+
+// or, for touch events:
+navButton.addEventListener("touchend", contactUS);
+vFormBtn.addEventListener("touchend", contactUS);
+
+
+
+contactUsModalWrapper.addEventListener("transitionend", function() {
+  if (contactUsModalWrapper.style.opacity == 0) {
+    contactUsModalWrapper.style.display = "none";
+  }
+});
+
+
+
 
 // responsive nnavTitle
 function navTitle() {
