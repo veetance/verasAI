@@ -620,6 +620,11 @@ h5 {
   transition: 0.05s ease-in-out;
 }
 
+a{
+  display: flex;
+  width: 100%;
+}
+
 .v-button-filled:hover {
   background-image: linear-gradient(to left, #f7f6ff, #ffffff);
   cursor: pointer;

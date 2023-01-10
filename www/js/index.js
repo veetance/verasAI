@@ -4,19 +4,10 @@ var app = new Framework7({
   // other parameters
 
   routes: [
-    {
-      path: "/",
-      url: "index.html",
-    },
-
+    
     {
       path: "/page3/",
       url: "pages/page3.html",
-    },
-
-    {
-      path: "/",
-      url: "index.html",
     },
 
     {
@@ -27,7 +18,7 @@ var app = new Framework7({
   
 
 });
-var mainView = app.views.create(".view-main");
+var mainView = app.views.create(".view-main,.view");
 
 
 //address bar theme color
