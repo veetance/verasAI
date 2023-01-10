@@ -163,6 +163,20 @@ window.addEventListener("load", splash);
 
 // function contactUS() unhides .contact-us-modal-wrapper in a fade anamation cubic-bezier(.3,.6,.13,1) by setting the display to flex on the touch or press of .nav-button lastly, if the.contact-us-modal-wrapper is already visible it hides it again.
 
+
+$.event.special.touchpress = {
+  setup: function() {
+    $(this).bind("touchstart", $.event.special.touchpress.handler);
+  },
+  teardown: function() {
+    $(this).unbind("touchstart", $.event.special.touchpress.handler);
+  },
+  handler: function(event) {
+    event.type = "touchpress";
+    $.event.handle.apply(this, arguments);
+  }
+};
+
 const navButton = document.querySelector(".nav-button");
 const vFormBtn = document.querySelector("#v-form-btn");
 const contactUsModalWrapper = document.querySelector(".contact-us-modal-wrapper");
@@ -190,9 +204,16 @@ function contactUS() {
     
     }
     }
+
+    $(document).ready(function() {
+      $(".nav-button, #v-form-btn").on("touchpress, touchend, click", contactUS);
+    });
+
+    // navButton.addEventListener("touchend", contactUS);
+    // vFormBtn.addEventListener("touchend", contactUS);
+
     
-    navButton.addEventListener("touchend", contactUS);
-    vFormBtn.addEventListener("touchend", contactUS);
+  
     
     contactUsModalWrapper.addEventListener("transitionend", function() {
     if (contactUsModalWrapper.style.opacity == 0) {
