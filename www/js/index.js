@@ -18,7 +18,7 @@ var app = new Framework7({
   
 
 });
-var mainView = app.views.create(".view-main,.view");
+var mainView = app.views.create(".view-main");
 
 
 //address bar theme color
