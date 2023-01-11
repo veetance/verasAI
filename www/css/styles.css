@@ -24,6 +24,9 @@ html {
   background-color: #ffffff;
   font-family: "Mulish", sans-serif;
   scroll-behavior: smooth;
+
+  overflow: hidden;
+  overflow-y: hidden !important;
 }
 
 body {
@@ -1768,7 +1771,7 @@ p span {
   .contact-us-modal-wrapper {
     padding:clamp(5%, 5%, 10%);
 
-    padding-bottom: 40px !important;
+   
 
 
   }
