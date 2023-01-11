@@ -708,8 +708,8 @@ a{
   justify-content: flex-start;
   background-color: #372c5b;
   width: 100%;
-  height: fit-content;
-  z-index: 988;
+  height: 100%;
+
 }
 
 .F-header {
@@ -756,7 +756,7 @@ a{
   justify-content: flex-start;
   background-color: #1611249a;
   width: 100%;
-  height: fit-content;
+  height: 100%;
   padding: 28px 48px;
   grid-gap: 28px;
 }
