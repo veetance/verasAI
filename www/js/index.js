@@ -1,24 +1,4 @@
-var app = new Framework7({
-  // App root element
-  el: "#app",
-  // other parameters
 
-  routes: [
-    
-    {
-      path: "/page3/",
-      url: "pages/page3.html",
-    },
-
-    {
-      path: "/index/",
-      url: "index.html",
-    },
-  ],
-  
-
-});
-var mainView = app.views.create(".view-main");
 
 
 //address bar theme color
@@ -119,10 +99,9 @@ function splash() {
     vSplash.style.opacity = 0;
     setTimeout(() => {
       vSplash.style.display = "none";
-      document.querySelector("#app").style.overflowY = "scroll";
-      document.querySelector("#app").style.overflow = "overlay";
-      // document.querySelector(".view-main").style.overflowY = "scroll";
-      // document.querySelector(".view-main").style.overflow = "overlay";
+      document.querySelector(".Veras-surface").style.overflowY = "scroll";
+      document.querySelector(".Veras-surface").style.overflow = "overlay";
+   
 
       document.querySelector("html").style.overflow = "auto";
     }, 0);
@@ -174,8 +153,7 @@ const contactUsModalWrapper = document.querySelector(".contact-us-modal-wrapper"
 const contactUsModal = document.querySelector(".contact-us-modal");
 
 function contactUS() {
-  document.querySelector(".view, .view-main").style.overflow = "overlay";
-  document.querySelector(".navbar-wrapper").style.height = "fit-content";
+
 
   if (window.getComputedStyle(contactUsModalWrapper).display === "flex") {
     contactUsModalWrapper.style.transition = "opacity .05s cubic-bezier(0,.74,.51,1)";
@@ -184,9 +162,7 @@ function contactUS() {
     contactUsModal.style.opacity = 0;
     
   } else {
-    document.querySelector(".view, .view-main").style.overflow = "hidden";
-    document.querySelector(".navbar-wrapper").style.height = "100vh";
-
+  
     contactUsModalWrapper.style.display = "flex";
     contactUsModalWrapper.style.transition = "opacity .01s cubic-bezier(0,.74,.51,1)";
     contactUsModalWrapper.style.opacity = 1;
@@ -200,12 +176,7 @@ function contactUS() {
       $(".nav-button, #v-form-btn").on("touchpress, touchend, click", contactUS);
     });
 
-    // navButton.addEventListener("touchend", contactUS);
-    // vFormBtn.addEventListener("touchend", contactUS);
 
-    
-  
-    
     contactUsModalWrapper.addEventListener("transitionend", function() {
     if (contactUsModalWrapper.style.opacity == 0) {
     contactUsModalWrapper.style.display = "none";

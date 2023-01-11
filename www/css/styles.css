@@ -12,7 +12,8 @@ body,
 html {
   display: flex;
   height: 100vh;
-  width: 100%;
+  width: 100vw;
+
 
   flex-direction: column;
   justify-content: flex-start;
@@ -27,6 +28,7 @@ html {
 
 body {
   max-width: 3080px;
+
 }
 
 /* .st-plane{
@@ -90,8 +92,6 @@ img {
   height: 50px !important;
 }
 
-.v-splash .v-logo {
-}
 
 /* style scroll bar */
 
@@ -126,45 +126,7 @@ img {
 
 /* scroll-bar end */
 
-/* F7-main-STYLES */
-#app {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  scroll-behavior: smooth;
-}
 
-.view,
-.view-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  width: 100vw;
-  max-width: fit-content !important;
-  height: 100vh !important;
-  padding: 0px !important;
-  overflow: overlay;
-}
-
-.page,
-.page-content {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-direction: column;
-  width: 100%;
-
-  height: fit-content;
-}
-
-.page,
-.page-current,
-.page-homepage {
-  position: relative;
-}
 
 .material-symbols-outlined {
   color: #8be9e9b7;
@@ -294,7 +256,9 @@ h5 {
   position: fixed;
 
   width: 100%;
-  height: fit-content;
+  max-width: 3080px;
+  min-height: fit-content;
+  max-height: 100%;
   padding: 6px;
   padding-bottom: 0px;
 
@@ -303,12 +267,10 @@ h5 {
   background-image: linear-gradient(
     to top,
     #ffffff00,
-    #ffffff00,
-    #ffffff00,
-    #ffffff00,
+    #ffffff,
     #ffffff
   );
-  overflow: visible;
+  
 }
 
 .nav-bar {
@@ -400,55 +362,77 @@ h5 {
   margin: 0px;
   padding: 12px;
   width: 100vw;
+  
   height: 100vh;
   background-image: linear-gradient(to bottom, #ffffffc6, #ffffff);
   border: solid 0px black;
 
-  padding: 10px clamp(5%, 20%, 50%);
-  padding-top: 5%;
+  padding: 40px 0px;
 
-  overflow-y: scroll;
-  overflow: overlay;
+
+  overflow: hidden;
+
+ 
 }
 
-.contact-us-modal-wrapper::-webkit-scrollbar-track {
+.v-form-scrolls::-webkit-scrollbar-track {
   margin-top: 6px;
   margin-bottom: 6px;
+  
 }
 
-.contact-us-modal-wrapper::-webkit-scrollbar {
+.v-form-scrolls::-webkit-scrollbar {
   background-color: hsla(0, 0%, 9%, 0) !important;
+}
+
+.v-form-scrolls::-webkit-scrollbar-thumb{
+  display: flex !important;
+  background-image: linear-gradient(to bottom, #eae9f8, #f5f4ff) !important;
+  border-radius: 10px;
+  opacity: 0.5 !important;
 }
 
 .v-form-inner-wrapper {
   display: flex;
+  align-items: center;
+  justify-content: flex-start;
   flex-direction: column;
   width: 100%;
-  height: fit-content;
+ 
+  height: 100%;
+  max-width: 790px;
+
   border-radius: 10px;
 
   box-shadow: 4px 8px 48px rgb(47 29 130 / 10%);
   backdrop-filter: blur(29px);
 
   border: solid 1px #372c6b17;
+  overflow: hidden;
+  background-color: white;
 
-  margin-bottom: 34px;
 }
 
 .v-form-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #f5f4ff;
+  /* background-color: #f5f4ff; */
+  background-image: linear-gradient(to top, #ffffff, #f9f8ff);
   width: 100%;
   height: fit-content;
   padding: 20px;
   grid-gap: 20px;
   border-radius: 10px 10px 0px 0px;
+
+  z-index: 999;
+
+  box-shadow: 0px 0px 12px #c6bbff28;
+
 }
 
 .v-form-header .material-symbols-outlined {
-  color: #372c6b;
+  color: #5e50b2;
   font-size: clamp(1rem, 1.5rem, 5rem) !important;
   font-weight: 500 !important;
   margin: 0px;
@@ -462,18 +446,30 @@ h5 {
   color: #5e50b2;
   font-size: clamp(0.8rem, 1.1rem, 2rem);
   line-height: clamp(0.9rem, 1.4rem, 2rem);
-  font-weight: 700;
+  font-weight: 800;
   font-family: mulish;
 }
 
 .v-form {
-
   height: 100%;
   width: 100%;
-  background-color: white;
+}
 
-  padding: 20px;
-  border-radius: 0px 0px 10px 10px;
+.v-form-scrolls{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  width:  100%;
+  padding: 24px;
+
+
+
+
+  overflow-y: scroll;
+
+  overflow: overlay !important;
+ 
 }
 
 .v-form-header i {
@@ -1006,6 +1002,16 @@ a{
 
 /* page-content */
 
+.home-page{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: fit-content;
+  height: fit-content;
+
+}
+
 .Veras-surface {
   display: flex;
   flex-direction: column;
@@ -1013,7 +1019,7 @@ a{
   justify-content: flex-start;
 
   width: 100%;
-  height: fit-content;
+  height: 100vh;
   margin: 0px;
   grid-gap: 0px;
   background-color: #e2ddff5d;
@@ -1021,6 +1027,8 @@ a{
   overflow: hidden;
   padding: 0px 0px;
 }
+
+
 
 /* v-Home */
 .v-home {
@@ -1548,13 +1556,11 @@ p span {
 
   /* form */
   .contact-us-modal-wrapper {
-    padding: 10px clamp(5%, 5%, 10%);
-    padding-top: 5%;
+    padding:  clamp(5%, 5%, 10%);
   }
 
-  .v-form-inner-wrapper {
-    margin-bottom: 10%;
-  }
+
+  
 
   /* v-planes */
 
@@ -1760,13 +1766,15 @@ p span {
 
   /* form */
   .contact-us-modal-wrapper {
-    padding: 10px clamp(5%, 5%, 10%);
-    padding-top: 5%;
+    padding:clamp(5%, 5%, 10%);
+
+    padding-bottom: 40px !important;
+
+
   }
 
-  .v-form-inner-wrapper {
-    margin-bottom: 20%;
-  }
+ 
+  
 
   .nav-logo {
     width: 46px;
@@ -1986,13 +1994,13 @@ p span {
 
   /* form */
   .contact-us-modal-wrapper {
-    padding: 10px clamp(5%, 5%, 10%);
-    padding-top: 5%;
+    padding:clamp(5%, 5%, 10%);
+    padding-bottom: 40px !important;
+  
   }
 
-  .v-form-inner-wrapper {
-    margin-bottom: 10px;
-  }
+
+  
 
   .v-security .v-page-styled-header .Tagline::before {
     margin-right: 10px;
@@ -2330,9 +2338,7 @@ p span {
 
 /* styles for smallallestmobile devices */
 @media (min-width: 1px) and (max-width: 199px) {
-  .page,
-  .page-homepage,
-  .page-current,
+  
   .footer-Contents {
     display: none !important;
   }
@@ -2345,4 +2351,21 @@ p span {
     font-size: 0.8rem !important;
     line-height: 100% !important;
   }
+}
+
+
+
+:root {
+  --f7-theme-color: #5e50b2;
+  --f7-theme-color-muted: #362c6b;
+  --f7-theme-color-rgb: 190, 179, 255;
+  --f7-theme-color-shade: #372C5B ;
+  --f7-theme-color-tint: #241D3C;
+
+  --f7-2ndry-theme-color: #60DBB8;
+  --f7-2ndry-theme-color-muted: rgb(106 189 165);
+  
+  --f7-2ndry-theme-color-rgb: 154, 255, 226;
+  --f7-2ndry-theme-color-shade: #3caa8b ;
+  --f7-2ndry-theme-color-tint: #2a6655 ;
 }
