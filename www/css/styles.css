@@ -98,6 +98,12 @@ img {
   height: fit-content;
 }
 
+.v-logo-wrapper{
+
+  height: fit-content !important;
+
+}
+
 .v-splash-min-dlplay-size .v-logo {
   width: 50px !important;
   height: 50px !important;
@@ -232,18 +238,22 @@ h3 {
   padding: 0px;
   margin: 0px;
 }
+
 h4 {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: fit-content;
-  font-size: 1.4rem;
-  line-height: 1.4rem;
+  font-size: clamp(0.99rem, 1.4vw, 2rem) !important;
+  line-height: clamp(0.99rem, 1.8vw, 4rem) !important;
+  white-space: nowrap;
   font-weight: 800;
   color: var(--f7-theme-color);
   padding: 0px;
   margin: 0px;
 }
+
 
 h5 {
   display: flex;
@@ -257,6 +267,8 @@ h5 {
   padding: 0px;
   margin: 0px;
 }
+
+
 
 /* navigation structure */
 
@@ -314,8 +326,10 @@ h5 {
   aspect-ratio: 1 / 1;
   /* background-image: url(../img/Veras\ logo-200.svg); */
   /* background-image: url(../img/Veras-logo-700-nav-logo.svg); */
-  background-image: url(../img/Veras-logo-999-nav-logo.svg);
+  /* background-image: url(../img/Veras-logo-999-nav-logo.svg); */
+  background-image: url(../img/veras-favi-9909-2023-014.svg);
   background-size: contain;
+  background-size: 70%;
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 0px;
@@ -1023,6 +1037,53 @@ a{
   width: fit-content;
   height: fit-content;
 
+
+}
+
+.home-page-2{
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+ height: fit-content !important;
+ width: 100%;
+ padding-top: 90px;  
+}
+
+.demo-pg-header{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: fit-content;
+  padding: 0px 0px;
+  grid-gap: 0px;
+  background-color: #e2ddff5d;
+  border-radius: 0px;
+  overflow: hidden;
+  padding: 96px;
+}
+
+.demo-pg-header h4{
+  margin-top: 20px;
+}
+
+.home-page-2 .contact-us-modal-wrapper{
+  height: fit-content !important;
+  display: flex;
+}
+
+.home-page-2 .contact-us-modal-wrapper .v-form-scrolls{
+  height: fit-content !important;
+  overflow: hidden;
+}
+
+
+.demo-pg-header .v-logo{
+
+  width: 70px;
+  height: 70px;
 }
 
 .Veras-surface {
