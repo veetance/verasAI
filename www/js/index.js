@@ -101,11 +101,11 @@ function splash() {
       vSplash.style.display = "none";
       document.querySelector(".Veras-surface").style.overflowY = "scroll";
       document.querySelector(".Veras-surface").style.overflow = "overlay";
-   
+  
 
       document.querySelector("html").style.overflow = "auto";
     }, 0);
-  }, 900);
+  }, 1900);
 
   
 }

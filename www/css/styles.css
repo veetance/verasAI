@@ -69,7 +69,7 @@ img {
   height: 100vh;
   width: 100vw;
   z-index: 9999;
-  background-color: #e2ddffe1;
+  background-color: #f9f8ffef;
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
   -moz-backdrop-filter: blur(30px);
@@ -340,7 +340,7 @@ h5 {
 .nav-L {
   display: flex;
   align-items: center;
-  grid-gap: 6px;
+  grid-gap: 0px;
   justify-content: flex-start;
   width: 100%;
 }
