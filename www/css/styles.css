@@ -88,7 +88,7 @@ img {
   height: 100vh;
   width: 100vw;
   z-index: 9999;
-  background-color: #e2ddffe1;
+  background-color: #ffffffe1;
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
   -moz-backdrop-filter: blur(30px);
@@ -329,7 +329,7 @@ h5 {
   /* background-image: url(../img/Veras\ logo-200.svg); */
   /* background-image: url(../img/Veras-logo-700-nav-logo.svg); */
   /* background-image: url(../img/Veras-logo-999-nav-logo.svg); */
-  background-image: url(../img/veras-favi-9909-2023-014.svg);
+  background-image: url(../img/VERAS-ICO-badazz-Indigo.svg);
   background-size: contain;
   background-size: 64%;
   background-position: center;
@@ -370,7 +370,7 @@ h5 {
   /* background-image: url(../img/logo.png); */
   background-size: contain;
   background-repeat: no-repeat;
-  width: 70px;
+  width: 66px;
   height: auto;
   aspect-ratio: 1/1;
 }
@@ -1315,7 +1315,7 @@ a{
   display: flex;
   width: 100%;
   justify-content: space-between;
-  color: #2a6655;
+  color: #288369;
   font-family: "mulish", sans-serif;
   font-weight: 700;
 }
