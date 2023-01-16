@@ -105,7 +105,7 @@ function splash() {
 
       document.querySelector("html").style.overflow = "auto";
     }, 0);
-  }, 1900);
+  }, 100);
 
   
 }
@@ -164,9 +164,9 @@ function contactUS() {
   } else {
   
     contactUsModalWrapper.style.display = "flex";
-    contactUsModalWrapper.style.transition = "opacity .01s cubic-bezier(0,.74,.51,1)";
+    contactUsModalWrapper.style.transition = "opacity 2s cubic-bezier(0,.74,.51,1)";
     contactUsModalWrapper.style.opacity = 1;
-    contactUsModal.style.transition = "opacity .5s cubic-bezier(0,.74,.51,1)";
+    contactUsModal.style.transition = "opacity 2s cubic-bezier(0,.74,.51,1)";
     contactUsModal.style.opacity = 1;
     
     }
@@ -200,5 +200,39 @@ function navTitle() {
 }
 window.addEventListener("resize", navTitle);
 navTitle();
+
+
+// function  CALLED waitlistPage() fadesout .home-page and sets its display to none and then sets .home-page-2 to flex and fades it in with a cubic-bezier fade in on the touch or press of .v-button-filled 
+
+
+
+function waitlistPage() {
+  $('.v-button-filled').on('click', function() {
+    $('.home-page').fadeOut(100, function() {
+      $(this).css('display', 'none');
+      $('.home-page-2').css({'display': 'flex', 'transition': 'all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94)'}).fadeIn(100);
+    });
+  });
+}
+
+$(document).ready(function() {
+  waitlistPage();
+});
+
+// function refreshhomePage() refreshes the page on the touch or press of .nav-logo
+
+function refreshhomePage() {
+  $('.nav-logo').on('mousedown, click', function() {
+    location.reload();
+  });
+}
+
+$(document).ready(function() {
+  refreshhomePage();
+});
+
+
+
+
 
 

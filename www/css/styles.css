@@ -244,16 +244,17 @@ h3 {
 h4 {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   height: fit-content;
-  font-size: clamp(0.99rem, 1.4vw, 2rem) !important;
-  line-height: clamp(0.99rem, 1.8vw, 4rem) !important;
+  width: 100%;
+  font-size: clamp(1rem, 4vw, 2rem) !important;
+  line-height: clamp(2.9rem, 3.4vw, 3rem) !important;
   white-space: nowrap;
   font-weight: 800;
   color: var(--f7-theme-color);
   padding: 0px;
-  margin: 0px;
+  margin: 0px !important;
 }
 
 
@@ -337,10 +338,24 @@ h5 {
   border-radius: 0px;
   padding: 0px;
   margin: 0px;
-  
-
   margin-left: 8px;
+
+transition: all 50ms cubic-bezier(0,.82,.14,.99);
+
 }
+
+.nav-logo:hover{
+  background-size: 74%;
+  cursor: pointer;
+}
+
+.nav-logo:active{
+  background-size: 64%;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+
 
 .nav-L {
   display: flex;
@@ -431,7 +446,7 @@ h5 {
   flex-direction: column;
   width: 100%;
  
-  height: 100%;
+  height: fit-content;
   max-width: 790px;
 
   border-radius: 10px;
@@ -483,14 +498,14 @@ h5 {
 }
 
 .v-form {
-  height: 100%;
+  height: fit-content;
   width: 100%;
 }
 
 .v-form-scrolls{
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   height: 100%;
   width:  100%;
   padding: 24px;
@@ -1073,7 +1088,14 @@ a{
   background-color: #e2ddff5d;
   border-radius: 0px;
   overflow: hidden;
-  padding: 96px;
+  padding: clamp(5%, 5%, 10%);
+}
+
+.demo-pg-header .v-logo-wrapper{
+
+  align-items: center;
+  width: 100%;
+  max-width: 790px;
 }
 
 .demo-pg-header h4{
@@ -1287,7 +1309,7 @@ a{
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  height: fit-content;
+  height: 100%;
   width: 100%;
   /* aspect-ratio: 1/1; */
 
@@ -1320,6 +1342,8 @@ a{
   display: flex;
   width: 100%;
   height: 100%;
+
+  align-items: flex-end;
 }
 
 
@@ -1438,7 +1462,8 @@ a{
   justify-content: space-between;
   width: 100%;
   height: 100%;
-  background-color: #ffffff00;
+
+  background-color: #f4fdfbd9;
   padding: 96px;
   grid-gap: 48px;
 }
@@ -1471,7 +1496,7 @@ a{
   grid-gap: 10px;
   padding-right: 10px;
   background-image: linear-gradient(to right, #f1f9f7a6, #f1f9f7, #f1f9f7a6);
-  border: solid 1px #95c6bb7e;
+  border: solid .5px #95c6bb1c;
   /* background-color: #a7e7d5af; */
 }
 
@@ -1670,10 +1695,12 @@ a{
 
 .v-plane{
   display: flex;
+  align-items: center;
+  justify-content: center;
   /* aspect-ratio: 1/1; */
   height: fit-content;
 
-  padding: 40px;
+  padding: clamp(.5vw, 1vw, 2vw);
  
   width: 100%;
   border-radius:2vw;
@@ -1691,6 +1718,7 @@ a{
 
   align-items: flex-end;
 }
+
 
 #step-01{
   /* background-image: url(../img/step1.svg); */
@@ -1775,6 +1803,10 @@ p span {
 
 /* styles for desktop devices */
 @media (min-width: 890px) {
+
+  
+
+
   /* your styles go here */
 }
 
@@ -1782,6 +1814,15 @@ p span {
 @media (min-width: 580px) and (max-width: 889px) {
   /* your styles go here */
 
+
+  /* pg-demo */
+
+
+
+  h4{
+    font-size: clamp(1.5rem, 3.2vw, 2rem) !important;
+    line-height: clamp(2rem, 4.9vw, 3rem) !important;
+  }
 
 
   /* three steps */
@@ -1880,7 +1921,7 @@ p span {
     flex-direction: column;
     width: 100%;
     height: fit-content;
-    background-color: #ffffff00;
+
     padding: 48px;
 
     grid-gap: 28px;
@@ -2032,6 +2073,18 @@ p span {
 @media (min-width: 369px) and (max-width: 579px) {
   /* your styles go here */
 
+
+  /* demo page */
+
+  .demo-pg-header{
+    padding: clamp(5%, 5%, 10%);
+  }
+
+  h4{
+    font-size: clamp(.5rem, 4vw, 2rem) !important;
+    line-height: clamp(1rem, 5.5vw, 3rem) !important;
+  }
+
   .sample-hdr{
     padding-top: 10px !important;
     padding-bottom: 10px;
@@ -2143,7 +2196,7 @@ p span {
     flex-direction: column !important;
     width: 100%;
     height: fit-content;
-    background-color: #ffffff00;
+
     padding: 18px;
     padding-bottom: 28px;
 
@@ -2209,7 +2262,7 @@ p span {
   .v-page-plane-cont {
     display: flex;
     flex-direction: column-reverse;
-    grid-gap: 48px;
+    grid-gap: 8vw;
   }
 
   .v-page-plane-cont-text {
@@ -2296,6 +2349,20 @@ p span {
 @media (min-width: 200px) and (max-width: 369px) {
   /* your styles go here */
 
+  
+
+  /* demo page */
+
+  .demo-pg-header{
+    padding: clamp(5%, 5%, 10%);
+  }
+
+  h4{
+
+    font-size: clamp(.5rem, 4.6vw, 2rem) !important;
+    line-height: clamp(.6rem, 6.2vw, 3rem) !important;
+  }
+
   .sample-hdr{
     padding-top: 10px !important;
     padding-bottom: 10px;
@@ -2324,12 +2391,12 @@ p span {
 
   .v-security .v-page-styled-header .Tagline::before {
     margin-right: 10px;
-    width: 4px;
+    width: 2px;
   }
 
   .v-product .v-page-styled-header .Tagline::before {
     margin-right: 8px !important;
-    width: 4px;
+    width: 2px;
   }
 
   .v-page-styled-header {
@@ -2386,7 +2453,7 @@ p span {
     flex-direction: column !important;
     width: 100%;
     height: fit-content;
-    background-color: #ffffff00;
+ 
     padding: 8px;
     padding-bottom: 8px;
 
@@ -2486,6 +2553,7 @@ p span {
     flex-direction: column;
     padding: 8px;
     grid-gap: 36px;
+    padding-top:18px ;
   }
 
   .v-page-plane-style {
