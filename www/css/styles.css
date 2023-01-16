@@ -253,7 +253,7 @@ h4 {
   font-size: clamp(1.2rem, 1.2vw, 2rem) !important;
   line-height: clamp(1.6rem, 1.8vw, 2.5rem) !important;
   white-space: nowrap;
-  font-weight: 701;
+  font-weight:600;
   color: var(--f7-theme-color);
   padding: 0px;
   margin: 0px !important;
