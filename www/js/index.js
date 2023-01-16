@@ -104,8 +104,9 @@ function splash() {
   
 
       document.querySelector("html").style.overflow = "auto";
+      document.querySelector("html").style.overflowX = "hidden";
     }, 0);
-  }, 100);
+  }, 700);
 
   
 }
@@ -222,7 +223,7 @@ $(document).ready(function() {
 // function refreshhomePage() refreshes the page on the touch or press of .nav-logo
 
 function refreshhomePage() {
-  $('.nav-logo').on('mousedown, click', function() {
+  $('.nav-logo , .nav-title').on('mousedown, click', function() {
     location.reload();
   });
 }
