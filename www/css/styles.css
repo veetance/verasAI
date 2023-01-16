@@ -250,10 +250,10 @@ h4 {
   justify-content: center;
   height: fit-content;
   width: 100%;
-  font-size: clamp(1rem, 4vw, 2rem) !important;
-  line-height: clamp(2.9rem, 3.4vw, 3rem) !important;
+  font-size: clamp(1.2rem, 1.2vw, 2rem) !important;
+  line-height: clamp(1.6rem, 1.8vw, 2.5rem) !important;
   white-space: nowrap;
-  font-weight: 800;
+  font-weight: 701;
   color: var(--f7-theme-color);
   padding: 0px;
   margin: 0px !important;
@@ -347,7 +347,7 @@ transition: all 50ms cubic-bezier(0,.82,.14,.99);
 }
 
 .nav-logo:hover{
-  background-size: 74%;
+  background-size: 66%;
   cursor: pointer;
 }
 
@@ -370,7 +370,7 @@ transition: all 50ms cubic-bezier(0,.82,.14,.99);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 10px;
   border-radius: 8px;
   border: solid 1px #5f50b200;
 
@@ -437,7 +437,8 @@ transition: all 50ms cubic-bezier(0,.82,.14,.99);
   background-image: linear-gradient(to bottom, #ffffffc6, #ffffff);
   border: solid 0px black;
 
-  padding: 40px 0px;
+  padding: 70px 0px;
+  padding-top: 40px;
 
 
   overflow: hidden;
@@ -1125,9 +1126,11 @@ font-weight: 500  !important;
 
 .demo-pg-header .v-logo-wrapper{
 
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
   max-width: 790px;
+
+  grid-gap:clamp(10px, 1vw, 40px);
 }
 
 .demo-pg-header h4{
@@ -1364,7 +1367,7 @@ font-weight: 500  !important;
   width: 100%;
   grid-gap: 1.5vw;
   padding: 10px;
-  padding-right: 0px;
+  padding-right: 10px;
   padding-top: 0px;
   padding-left: 0px;
   padding-bottom: clamp(0.5rem, 1.3rem, 1.5vw) !important;
@@ -1381,7 +1384,7 @@ font-weight: 500  !important;
 
 
 .sample-hdr p{
-  font-size: clamp(0.7rem, 1vw, 1.5rem);
+  font-size: clamp(0.8rem, .8vw, 1.5rem);
   line-height: clamp(1rem, 2.4vw, 2rem);
   display: flex;
   width: 100%;
@@ -1498,6 +1501,8 @@ font-weight: 500  !important;
   background-color: #f4fdfbd9;
   padding: 96px;
   grid-gap: 48px;
+
+  border-bottom: solid 1px #51b39733;
 }
 
 .v-page-security-plane-style {
@@ -1527,9 +1532,9 @@ font-weight: 500  !important;
   align-items: center;
   grid-gap: 10px;
   padding-right: 10px;
-  background-image: linear-gradient(to right, #f1f9f7a6, #f1f9f7, #f1f9f7a6);
+  /* background-image: linear-gradient(to right, #f9fdfca6, #f1f9f7); */
   border: solid .5px #95c6bb1c;
-  /* background-color: #a7e7d5af; */
+  background-color: #a7e7d51f;
 }
 
 .v-page-security-plane-header h3 {
@@ -1574,6 +1579,8 @@ font-weight: 500  !important;
   color: #318a71;
   width: 40px;
   height: 40px;
+
+  border: solid 1px #95c6bb4f;
 }
 
 .v-product {
@@ -1782,7 +1789,7 @@ font-weight: 500  !important;
   height: fit-content;
   grid-gap: 40px;
   border: solid 1px #51b39733;
-  background-image: linear-gradient(to left, #83e6cf17, #ffffff);
+  background-color: #feffff;
   /* background-image: url(../img/data.jpg); */
   background-size: cover;
   background-position: center;
@@ -1852,15 +1859,15 @@ p span {
 
 
   h4{
-    font-size: clamp(1.5rem, 3.2vw, 2rem) !important;
-    line-height: clamp(2rem, 4.9vw, 3rem) !important;
+    font-size: clamp(1.1rem, 2.1vw, 3rem) !important;
+    line-height: clamp(1.5rem, 3vw, 2.5rem) !important;
   }
 
 
   /* three steps */
 
   .sample-hdr p{
-    font-size: clamp(.9rem, 2.5vw, 2rem) !important;
+    font-size: clamp(.9rem, 1.8vw, 2rem) !important;
     line-height: clamp(1.3rem, 1.7vw, 3.8rem);
 
     padding-bottom: 10px !important;
@@ -2113,8 +2120,8 @@ p span {
   }
 
   h4{
-    font-size: clamp(.5rem, 4vw, 2rem) !important;
-    line-height: clamp(1rem, 5.5vw, 3rem) !important;
+    font-size: clamp(1rem, 2.1vw, 3rem) !important;
+    line-height: clamp(1.5rem, 3.3vw, 2.5rem) !important;
   }
 
   .sample-hdr{
@@ -2403,7 +2410,7 @@ p span {
   }
 
   .sample-hdr p{
-    font-size: clamp(0.5rem, 4vw, 5rem) !important;
+    font-size: clamp(0.5rem, 3.5vw, 5rem) !important;
     line-height: clamp(1rem, 2.4vw, 2rem);}
 
     .v-plane{
@@ -2414,7 +2421,7 @@ p span {
   /* form */
   .contact-us-modal-wrapper {
     padding:clamp(5%, 5%, 10%);
-    padding-bottom: 40px !important;
+ 
   
   }
 
@@ -2513,6 +2520,8 @@ p span {
     color: #318a71;
     width: 20px;
     height: 20px;
+
+
   }
 
   /* CTA */
