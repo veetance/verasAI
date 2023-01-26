@@ -1103,6 +1103,7 @@ transition: all 50ms cubic-bezier(0,.82,.14,.99);
  height: fit-content !important;
  width: 100%;
  padding-top: 90px;  
+ background-color: white;
 }
 
 .demo-pg-header{
@@ -1115,6 +1116,10 @@ transition: all 50ms cubic-bezier(0,.82,.14,.99);
   padding: 0px 0px;
   grid-gap: 0px;
   background-image: linear-gradient(to top, #e2ddff5d, #f7f6ff00);
+  background-image: url(../img/featured-img-2.svg);
+  background-size:cover ;
+  background-position: bottom;
+  background-repeat: no-repeat;
   border-radius: 0px;
   overflow: hidden;
   padding: clamp(5%, 5%, 10%);
