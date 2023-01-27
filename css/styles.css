@@ -1620,7 +1620,7 @@ font-weight: 500  !important;
 
 .v-product .v-btn-wrapper {
   flex-direction: column-reverse;
-  grid-gap: 20px;
+  grid-gap: 30px;
 
   padding-left: 60px;
 }
@@ -1965,7 +1965,7 @@ p span {
 
   .v-product .v-btn-wrapper {
     flex-direction: column-reverse;
-    grid-gap: 20px;
+    grid-gap: 28px;
 
     padding-left: 60px;
   }
@@ -2501,7 +2501,7 @@ p span {
   .v-product .v-btn-wrapper {
     padding-left: 14px;
     padding-right: 14px;
-    grid-gap: 18px !important;
+    grid-gap: 24px !important;
   }
 
   /* security */
