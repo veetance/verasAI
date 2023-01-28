@@ -206,9 +206,9 @@ h1 {
   justify-content: flex-start;
   width: fit-content;
   height: fit-content;
-  font-size: clamp(2.4rem, 2.7vw, 10rem);
-  line-height: clamp(3rem, 3.5vw, 10rem);
-  font-weight: 1000;
+  font-size: clamp(2.4rem, 3vw, 10rem);
+  line-height: clamp(3rem, 4.1vw, 10rem);
+  font-weight: 850;
   color: var(--f7-theme-color-muted);
   padding: 0px;
   margin: 0px;
