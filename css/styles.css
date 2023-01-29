@@ -1635,7 +1635,7 @@ font-weight: 500  !important;
   flex-direction: column-reverse;
   grid-gap: 30px;
 
-  padding-left: 60px;
+  padding-left: 55px;
 }
 
 .v-product-space {
@@ -1689,7 +1689,7 @@ font-weight: 500  !important;
   /* background-color: #fcfffe; */
   border-radius: 50px;
   width: 6px;
-  height: calc(100% / 1.2);
+  height: calc(100% / 1.1);
 
   margin-right: 44px;
 }
@@ -1999,7 +1999,7 @@ p span {
     flex-direction: column-reverse;
     grid-gap: 28px;
 
-    padding-left: 60px;
+    padding-left: 55px;
   }
 
   /* security */
@@ -2531,8 +2531,8 @@ p span {
   }
 
   .v-product .v-btn-wrapper {
-    padding-left: 14px;
-    padding-right: 14px;
+    padding-left: 15px;
+    padding-right: 15px;
     grid-gap: 24px !important;
   }
 
