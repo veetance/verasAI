@@ -55,88 +55,12 @@ $(document).ready(function() {
 
 
 
-function lazyLOAD() {
-  // Select all elements with the class of .lazy
-  let lazyElements = document.querySelectorAll(".lazy");
-
-  // Set the opacity of each lazy element to 0
-  lazyElements.forEach((element) => {
-    element.style.opacity = 0;
-  });
-
-  // Animate the opacity of each lazy element to 1 on page load
-  window.addEventListener("load", () => {
-    lazyElements.forEach((element) => {
-      element.style.transition = "opacity 1s cubic-bezier(.3,.6,.13,1)";
-      element.style.opacity = 1;
-    });
-  });
-}
-// call the function on page load
-lazyLOAD();
-
 
 // on first page load function splash() pulses .v-logo-wrapper starting from opacity 0 to opacity 1 ease in and 2 times in 1.5s and then fades out while fading out .v-splash and setting display to none
-
-function splash() {
-
-  document.querySelector("html").style.overflow = "hidden";
-  
-  let vSplash = document.querySelector(".v-splash");
-  let vLogoWrapper = document.querySelector(".v-splash .v-logo-wrapper");
-  let vLogo = document.querySelector(".v-splash .v-logo");
-
-  // Add pulse effect to vLogo
-  vLogo.style.animation = "pulse 2s ease-in-out infinite";
-
-  vLogoWrapper.style.transition = "opacity 1.5s ease-in 2";
-  vLogoWrapper.style.opacity = 1;
-  vLogo.style.transition = "opacity 1.5s ease-in 1";
-  vLogo.style.opacity = 1;
-
-  setTimeout(() => {
-    vSplash.style.transition = "opacity .03s ease-in";
-    vSplash.style.opacity = 0;
-    setTimeout(() => {
-      vSplash.style.display = "none";
-      document.querySelector(".Veras-surface").style.overflowY = "scroll";
-      document.querySelector(".Veras-surface").style.overflow = "overlay";
-      document.querySelector(".Veras-surface").style.overflowX = "hidden";
-  
-
-      document.querySelector("html").style.overflow = "auto";
-      document.querySelector("html").style.overflowX = "hidden";
-      
-    }, 0);
-  }, 200);
-
-  
-}
-
-// Add keyframe animation for pulse effect
-const pulseAnimation = document.createElement("style");
-pulseAnimation.innerHTML = `
-@keyframes pulse {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}`;
-document.head.appendChild(pulseAnimation);
-
-// Call the function on page load
-window.addEventListener("load", splash);
 
 
 
 // function contactUS() unhides .contact-us-modal-wrapper in a fade anamation cubic-bezier(.3,.6,.13,1) by setting the display to flex on the touch or press of .nav-button lastly, if the.contact-us-modal-wrapper is already visible it hides it again.
-
-
 $.event.special.touchpress = {
   setup: function() {
     $(this).bind("touchstart", $.event.special.touchpress.handler);
@@ -179,7 +103,6 @@ function contactUS() {
       $(".nav-button, #v-form-btn").on("touchpress, touchend, click", contactUS);
     });
 
-
     contactUsModalWrapper.addEventListener("transitionend", function() {
     if (contactUsModalWrapper.style.opacity == 0) {
     contactUsModalWrapper.style.display = "none";
@@ -205,22 +128,7 @@ window.addEventListener("resize", navTitle);
 navTitle();
 
 
-// function  CALLED waitlistPage() fadesout .home-page and sets its display to none and then sets .home-page-2 to flex and fades it in with a cubic-bezier fade in on the touch or press of .v-button-filled 
 
-
-
-function waitlistPage() {
-  $('.v-button-filled').on('click', function() {
-    $('.home-page').fadeOut(100, function() {
-      $(this).css('display', 'none');
-      $('.home-page-2').css({'display': 'flex', 'transition': 'all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94)'}).fadeIn(100);
-    });
-  });
-}
-
-$(document).ready(function() {
-  waitlistPage();
-});
 
 // function refreshhomePage() refreshes the page on the touch or press of .nav-logo
 
