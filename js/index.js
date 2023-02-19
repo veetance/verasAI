@@ -1,6 +1,4 @@
 
-
-
 //address bar theme color
 const darkModeQuery = window.matchMedia('not all and (prefers-color-scheme)');
 function updateThemeColor(event) {
@@ -54,9 +52,51 @@ $(document).ready(function() {
 });
 
 
-
-
 // on first page load function splash() pulses .v-logo-wrapper starting from opacity 0 to opacity 1 ease in and 2 times in 1.5s and then fades out while fading out .v-splash and setting display to none
+
+
+
+
+
+
+// go to login page//
+
+const loadPage = (pageUrl, pageTitle) => {
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', pageUrl);
+  xhr.onload = () => {
+    if (xhr.status === 200) {
+      const pageContent = xhr.responseText;
+      const surfaceView = document.querySelector('.surface-view');
+      surfaceView.innerHTML = pageContent;
+      document.title = pageTitle;
+    }
+  };
+  xhr.send();
+};
+
+const onPopState = (event) => {
+  if (event.state && event.state.page) {
+    const pageUrl = event.state.page + '.html';
+    const pageTitle = event.state.page;
+    loadPage(pageUrl, pageTitle);
+  } else {
+    loadPage('index.html', 'Home');
+  }
+};
+
+const loginButton = document.querySelector('.login-button');
+loginButton.addEventListener('click', () => {
+  const pageUrl = 'pages/login.html';
+  const pageTitle = 'Login';
+  loadPage(pageUrl, pageTitle);
+  history.pushState({ page: 'login' }, pageTitle, pageUrl);
+});
+
+window.addEventListener('popstate', onPopState);
+
+
+
 
 
 

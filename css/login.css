@@ -1,0 +1,131 @@
+
+
+   .login-page {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden !important;
+  }
+  
+  .header {
+    display: flex !important;
+
+    background-image: url(../img/featured-img-9.png);
+
+    background-size: cover;
+    background-position: bottom;
+    background-repeat: no-repeat;
+
+
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+  }
+  
+  .content {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+  
+  .form-container {
+    max-width: 400px;
+    width: 100%;
+    height: fit-content;
+    margin: 6rem;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+
+  .title{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+
+
+  }
+  .title h1{
+    display:flex;
+    font-size: clamp(.5rem, 3.5vw, 10rem);
+    line-height: clamp(3.1rem, 4.08vw, 10rem);
+    white-space: pre-wrap !important;
+    width: fit-content;
+
+  }
+
+  .form .v-button-filled{
+
+    width: 100% !important;
+    max-width: calc(100%) !important;
+  }
+  
+  .label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  
+  .input {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    padding: 0.5rem;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .checkbox {
+    display: none;
+  }
+  
+  .checkbox-custom {
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 1px solid #bbb;
+    border-radius: 3px;
+    margin-right: 0.5rem;
+    position: relative;
+  }
+  
+  .checkbox-custom::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background-color: #00C9FF;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .checkbox:checked + .checkbox-custom::after {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  
+  .link {
+    color: #00C9FF;
+    text-decoration: none;
+  }
+  
