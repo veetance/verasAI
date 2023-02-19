@@ -1,0 +1,82 @@
+<svg width="1920" height="598" viewBox="0 0 1920 598" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1920" height="597.562" fill="white"/>
+<g opacity="0.025">
+<mask id="path-1-inside-1_55090_8615" fill="white">
+<path d="M0 74.6953H1920V149.391H0V74.6953Z"/>
+</mask>
+<path d="M0 74.6953H1920V149.391H0V74.6953Z" fill="#7059FF"/>
+<path d="M0 75.1953H1920V74.1953H0V75.1953Z" fill="#1E00D9" fill-opacity="0.1" mask="url(#path-1-inside-1_55090_8615)"/>
+</g>
+<g opacity="0.05">
+<mask id="path-3-inside-2_55090_8615" fill="white">
+<path d="M0 149.391H1920V224.086H0V149.391Z"/>
+</mask>
+<path d="M0 149.391H1920V224.086H0V149.391Z" fill="#7059FF"/>
+<path d="M0 149.891H1920V148.891H0V149.891Z" fill="#1E00D9" fill-opacity="0.1" mask="url(#path-3-inside-2_55090_8615)"/>
+</g>
+<g opacity="0.1">
+<mask id="path-5-inside-3_55090_8615" fill="white">
+<path d="M0 224.086H1920V298.781H0V224.086Z"/>
+</mask>
+<path d="M0 224.086H1920V298.781H0V224.086Z" fill="#7059FF"/>
+<path d="M0 224.586H1920V223.586H0V224.586Z" fill="#1E00D9" fill-opacity="0.1" mask="url(#path-5-inside-3_55090_8615)"/>
+</g>
+<g opacity="0.2">
+<mask id="path-7-inside-4_55090_8615" fill="white">
+<path d="M0 298.781H1920V373.476H0V298.781Z"/>
+</mask>
+<path d="M0 298.781H1920V373.476H0V298.781Z" fill="#7059FF"/>
+<path d="M0 299.281H1920V298.281H0V299.281Z" fill="#1E00D9" fill-opacity="0.1" mask="url(#path-7-inside-4_55090_8615)"/>
+</g>
+<g opacity="0.3">
+<mask id="path-9-inside-5_55090_8615" fill="white">
+<path d="M0 373.476H1920V448.172H0V373.476Z"/>
+</mask>
+<path d="M0 373.476H1920V448.172H0V373.476Z" fill="#7059FF"/>
+<path d="M0 373.976H1920V372.976H0V373.976Z" fill="#1E00D9" fill-opacity="0.1" mask="url(#path-9-inside-5_55090_8615)"/>
+</g>
+<g opacity="0.4">
+<mask id="path-11-inside-6_55090_8615" fill="white">
+<path d="M0 448.171H1920V522.867H0V448.171Z"/>
+</mask>
+<path d="M0 448.171H1920V522.867H0V448.171Z" fill="#7059FF"/>
+<path d="M0 448.671H1920V447.671H0V448.671Z" fill="#1E00D9" fill-opacity="0.1" mask="url(#path-11-inside-6_55090_8615)"/>
+</g>
+<g opacity="0.5">
+<mask id="path-13-inside-7_55090_8615" fill="white">
+<path d="M0 522.867H1920V597.562H0V522.867Z"/>
+</mask>
+<path d="M0 522.867H1920V597.562H0V522.867Z" fill="#7059FF"/>
+<path d="M0 523.367H1920V522.367H0V523.367Z" fill="#1E00D9" fill-opacity="0.1" mask="url(#path-13-inside-7_55090_8615)"/>
+</g>
+<rect width="1920" height="597.562" fill="url(#paint0_linear_55090_8615)"/>
+<g opacity="0.2">
+<g opacity="0.025">
+<path d="M0 75.6953H1920V73.6953H0V75.6953Z" fill="#1E00D9" mask="url(#path-15-inside-8_55090_8615)"/>
+</g>
+<g opacity="0.05">
+<path d="M0 150.391H1920V148.391H0V150.391Z" fill="#1E00D9" mask="url(#path-17-inside-9_55090_8615)"/>
+</g>
+<g opacity="0.1">
+<path d="M0 225.086H1920V223.086H0V225.086Z" fill="#1E00D9" mask="url(#path-19-inside-10_55090_8615)"/>
+</g>
+<g opacity="0.2">
+<path d="M0 299.781H1920V297.781H0V299.781Z" fill="#1E00D9" mask="url(#path-21-inside-11_55090_8615)"/>
+</g>
+<g opacity="0.3">
+<path d="M0 374.476H1920V372.476H0V374.476Z" fill="#1E00D9" mask="url(#path-23-inside-12_55090_8615)"/>
+</g>
+<g opacity="0.4">
+<path d="M0 449.171H1920V447.171H0V449.171Z" fill="#1E00D9" mask="url(#path-25-inside-13_55090_8615)"/>
+</g>
+<g opacity="0.5">
+<path d="M0 523.867H1920V521.867H0V523.867Z" fill="#1E00D9" mask="url(#path-27-inside-14_55090_8615)"/>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_55090_8615" x1="-1850.5" y1="598" x2="3599" y2="598" gradientUnits="userSpaceOnUse">
+<stop offset="0.33124" stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</linearGradient>
+</defs>
+</svg>
