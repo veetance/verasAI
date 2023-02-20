@@ -2,10 +2,11 @@
 
    .login-page {
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse !important;
     height: 100vh;
     width: 100%;
     overflow: hidden !important;
+    background-color: var(--v-lavender-plane);
   }
   
   .header {
@@ -40,8 +41,10 @@
     margin: 6rem;
     padding: 2rem;
     background-color: #fff;
-    border-radius: 5px;
+    border-radius:calc((32px) + (.5vw));
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    
   }
   
   .form-title {
@@ -96,7 +99,19 @@
   .checkbox {
     display: none;
   }
+
+  .checkbox-label{
+    display: flex;
+    white-space: nowrap;
+    align-items: center;
+  }
+
   
+  .checkbox-label .link{
+    margin-left: 5px;
+  }
+  
+
   .checkbox-custom {
     display: inline-block;
     width: 1.5rem;
@@ -124,8 +139,26 @@
     transform: translate(-50%, -50%) scale(1);
   }
   
-  .link {
-    color: #00C9FF;
+  .login-page .link {
+    color: #9f7cff;
     text-decoration: none;
   }
   
+
+
+
+  /* media query */
+
+  /* styles for tablet devices */
+@media (min-width: 580px) and (max-width: 889px) {
+
+    .login-page {
+        display: flex;
+        flex-direction: column !important;
+        height: 100vh;
+        width: 100%;
+        overflow: hidden !important;
+        background-color: var(--v-lavender-plane);
+    }
+    
+}

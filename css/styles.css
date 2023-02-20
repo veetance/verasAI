@@ -587,7 +587,7 @@ h5 {
 .v-button-filled p {
   color: white;
   font-weight: 500;
-  font-size: clamp(16px, 1.2vw, 1.1vw) !important;
+  font-size: clamp(1rem, 1vw, 1.1vw) !important;
   line-height: 100% !important;
   white-space: nowrap;
 }
@@ -952,6 +952,7 @@ h5 {
 }
 
 
+
 .Veras-surface {
   display: flex;
   flex-direction: column;
@@ -1045,7 +1046,7 @@ h5 {
   max-height: fit-content;
   border: solid 2px #f7f2fa;
   border: double 1px transparent;
-  background-image: linear-gradient(white, white),
+  background-image: linear-gradient(white, white,rgba(255, 255, 255, 0)),
     linear-gradient(to top, #ffffff00, #c6adfb1d);
   background-origin: border-box;
   background-clip: content-box, border-box;
@@ -1122,6 +1123,7 @@ h5 {
   border-radius: 2vw;
   box-shadow: 0px 6px 20px 4px rgba(134, 105, 227, 0.095),
     0px 2px 3px rgba(112, 98, 176, 0.05);
+    background-color: #ffffff;
 }
 .sample-hdr {
   display: flex;
@@ -1489,7 +1491,7 @@ box-shadow: 0px 1px 6px rgba(29, 130, 113, 0.15);
   flex-direction: column;
   width: 100%;
   height: fit-content;
-  background-color: #f9f8ff;
+  background-color: #f3f1ff;
   padding: 0px 96px;
   padding-bottom: 96px;
   padding-top: 96px;
@@ -2258,4 +2260,5 @@ p span {
   --v-white-plane: #f9f7ff;
   --v-white-plane-clear: #ffffff00;
   --v-white-plane-clear-80: #ffffffc4;
+  --v-lavender-plane:#f3f1ff;
 }

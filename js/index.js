@@ -59,29 +59,43 @@ $(document).ready(function() {
 
 
 
-// go to login page//
+// go to login page
 
 const loadPage = (pageUrl, pageTitle) => {
-  const xhr = new XMLHttpRequest();
-  xhr.open('GET', pageUrl);
-  xhr.onload = () => {
-    if (xhr.status === 200) {
-      const pageContent = xhr.responseText;
+  fetch(pageUrl)
+    .then(response => response.text())
+    .then(data => {
       const surfaceView = document.querySelector('.surface-view');
-      surfaceView.innerHTML = pageContent;
+      surfaceView.innerHTML = data;
       document.title = pageTitle;
-    }
-  };
-  xhr.send();
+
+      // Re-attach event listener to login button
+      const loginButton = document.querySelector('.login-button');
+      if (loginButton) {
+        loginButton.addEventListener('click', () => {
+          const pageUrl = 'pages/login.html';
+          const pageTitle = 'Login';
+          loadPage(pageUrl, pageTitle);
+          history.pushState({ page: 'login', title: pageTitle }, pageTitle, pageUrl);
+        });
+      }
+    })
+    .catch(error => console.error(error));
 };
 
 const onPopState = (event) => {
-  if (event.state && event.state.page) {
-    const pageUrl = event.state.page + '.html';
-    const pageTitle = event.state.page;
-    loadPage(pageUrl, pageTitle);
+  const pageUrl = (event.state && event.state.page) ? event.state.page + '.html' : 'index.html';
+  const pageTitle = (event.state && event.state.title) ? event.state.title : 'Home';
+
+  if (pageUrl === 'index.html') {
+    // If returning to the index page, reload the page
+    location.reload();
   } else {
-    loadPage('index.html', 'Home');
+    // Load the page content into the surface view
+    loadPage(pageUrl, pageTitle);
+    // Clear the surface view except for the home page
+    const surfaceView = document.querySelector('.surface-view');
+    surfaceView.querySelectorAll(':not(.home-page)').forEach(element => element.remove());
   }
 };
 
@@ -90,10 +104,13 @@ loginButton.addEventListener('click', () => {
   const pageUrl = 'pages/login.html';
   const pageTitle = 'Login';
   loadPage(pageUrl, pageTitle);
-  history.pushState({ page: 'login' }, pageTitle, pageUrl);
+  history.pushState({ page: 'login', title: pageTitle }, pageTitle, pageUrl);
 });
 
 window.addEventListener('popstate', onPopState);
+
+
+
 
 
 
@@ -173,16 +190,18 @@ navTitle();
 // function refreshhomePage() refreshes the page on the touch or press of .nav-logo
 
 function refreshhomePage() {
-  $('.nav-logo , .nav-title').on('mousedown, click', function() {
-    location.reload();
+  $('.nav-logo, .nav-title').on('mousedown click', function() {
+    if (window.location.pathname === '/pages/login.html') {
+      location.href = '/index.html';
+    } else {
+      location.reload();
+    }
   });
 }
 
 $(document).ready(function() {
   refreshhomePage();
 });
-
-
 
 
 // copy number
