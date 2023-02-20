@@ -1,6 +1,4 @@
 
-
-
 //address bar theme color
 const darkModeQuery = window.matchMedia('not all and (prefers-color-scheme)');
 function updateThemeColor(event) {
@@ -54,9 +52,68 @@ $(document).ready(function() {
 });
 
 
-
-
 // on first page load function splash() pulses .v-logo-wrapper starting from opacity 0 to opacity 1 ease in and 2 times in 1.5s and then fades out while fading out .v-splash and setting display to none
+
+
+
+
+
+
+// go to login page
+
+const loadPage = (pageUrl, pageTitle) => {
+  fetch(pageUrl)
+    .then(response => response.text())
+    .then(data => {
+      const surfaceView = document.querySelector('.surface-view');
+      surfaceView.innerHTML = data;
+      document.title = pageTitle;
+
+      // Re-attach event listener to login button
+      const loginButton = document.querySelector('.login-button');
+      if (loginButton) {
+        loginButton.addEventListener('click', () => {
+          const pageUrl = 'pages/login.html';
+          const pageTitle = 'Login';
+          loadPage(pageUrl, pageTitle);
+          history.pushState({ page: 'login', title: pageTitle }, pageTitle, pageUrl);
+        });
+      }
+    })
+    .catch(error => console.error(error));
+};
+
+const onPopState = (event) => {
+  const pageUrl = (event.state && event.state.page) ? event.state.page + '.html' : 'index.html';
+  const pageTitle = (event.state && event.state.title) ? event.state.title : 'Home';
+
+  if (pageUrl === 'index.html') {
+    // If returning to the index page, reload the page
+    location.reload();
+  } else {
+    // Load the page content into the surface view
+    loadPage(pageUrl, pageTitle);
+    // Clear the surface view except for the home page
+    const surfaceView = document.querySelector('.surface-view');
+    surfaceView.querySelectorAll(':not(.home-page)').forEach(element => element.remove());
+  }
+};
+
+const loginButton = document.querySelector('.login-button');
+loginButton.addEventListener('click', () => {
+  const pageUrl = 'pages/login.html';
+  const pageTitle = 'Login';
+  loadPage(pageUrl, pageTitle);
+  history.pushState({ page: 'login', title: pageTitle }, pageTitle, pageUrl);
+});
+
+window.addEventListener('popstate', onPopState);
+
+
+
+
+
+
 
 
 
@@ -133,16 +190,18 @@ navTitle();
 // function refreshhomePage() refreshes the page on the touch or press of .nav-logo
 
 function refreshhomePage() {
-  $('.nav-logo , .nav-title').on('mousedown, click', function() {
-    location.reload();
+  $('.nav-logo, .nav-title').on('mousedown click', function() {
+    if (window.location.pathname === '/pages/login.html') {
+      location.href = '/index.html';
+    } else {
+      location.reload();
+    }
   });
 }
 
 $(document).ready(function() {
   refreshhomePage();
 });
-
-
 
 
 // copy number
