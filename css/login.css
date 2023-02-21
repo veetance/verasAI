@@ -18,7 +18,7 @@
     display: flex !important;
     background-image: url(../img/featured-img-9.png);
     background-size: cover;
-    background-position: bottom;
+    background-position:center;
     background-repeat: no-repeat;
     height: 100%;
     width: 100%;
@@ -67,6 +67,10 @@
     line-height: clamp(1.9rem, 2.5vw, 8rem);
     margin-bottom: 1rem;
     width: 100%;
+
+    font-family: "mulish", sans-serif !important;
+    font-weight: 900 !important;
+
   }
 
 
@@ -91,9 +95,13 @@
   }
   
   .label {
-    display: block;
+    display: none;
     font-weight: 500;
     margin-bottom: 0.5rem;
+    font-weight: 700;
+    opacity: .6;
+
+    font-size: 15px;
   }
   
   .input {
@@ -103,6 +111,12 @@
     padding: 0.5rem;
     width: 100%;
     margin-bottom: 1rem;
+  }
+
+  .input::placeholder {
+    color: var(--f7-theme-color-tint) !important;
+    font-weight: 500;
+    opacity: .6;
   }
   
   .checkbox-container {
@@ -124,18 +138,19 @@
 
   
   .checkbox-label .link{
-    margin-left: 5px;
+    margin-left: 0px;
   }
   
 
   .checkbox-custom {
     display: inline-block;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 22px;
+    height: 22px;
     border: 1px solid #bbb;
     border-radius: 3px;
     margin-right: 0.5rem;
     position: relative;
+    padding: 4px!;
   }
   
   .checkbox-custom::after {
@@ -144,10 +159,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
-    width: 1rem;
-    height: 1rem;
-    border-radius: 50%;
-    background-color: #00C9FF;
+    width: .7rem;
+    height: .7rem;
+    border-radius: 10%;
+    background-color: var(--f7-2ndry-theme-color-shade);
     transition: transform 0.2s ease-in-out;
   }
   
@@ -156,7 +171,7 @@
   }
   
   .login-page .link {
-    color: #9f7cff;
+    color: var(--f7-2ndry-theme-color-shade);
     text-decoration: none;
   }
   
@@ -248,8 +263,13 @@ background-color: #f3f1ff;
         width: fit-content;
     }
 
+   .form .checkbox-label{
+      font-size: clamp(.5rem, 3.5vw, 1rem);
+      line-height: clamp(1.9rem, 2.5vw, 8rem);
+    }
+
     .form-container {
-      margin: 70px 30vw !important;
+      margin: clamp(2.9rem,9vw,5rem) 0px!important;
       width: fit-content;
     }
 
@@ -264,62 +284,95 @@ background-color: #f3f1ff;
 
 /* styles for smallmobile devices */
 @media (min-width: 200px) and (max-width: 369px)  {
+  .login-page {
 
-    
-    .login-page {
+    display: flex;
+    flex-direction: column !important;
+    width: 100%;
+    overflow: hidden !important;
+    background-color: var(--v-lavender-plane);
+}
+.login-page .header{
 
-        display: flex;
-        flex-direction: column !important;
-        width: 100%;
-        overflow: hidden !important;
-        background-color: var(--v-lavender-plane);
-    }
-    .login-page .header{
+    padding: 3rem;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    padding-top:120px;
 
-        padding: 3rem;
-        padding-left: 3rem;
-        padding-right: 3rem;
-        padding-top: 130px;
-
-        height: fit-content;
-    }
-    .login-page .content{
-        
-        align-items: flex-start;
-        height: 100%;
-        min-height: fit-content;
-
-    }
-    .login-page h1 {
-        display: flex;
-        font-size: clamp(1rem,7.1vw, 4rem);
-        line-height: clamp(1.5rem,6vw, 10rem);
-        white-space: pre-wrap !important;
-        width: fit-content;
-    }
-
-    .login-page h2 {
-
-      
-        font-size: clamp(1rem, 8.1vw, 7rem) !important;
-        line-height: clamp(1rem, 8.7vw, 9rem) !important;
-    
-    }
+    height: fit-content;
 }
 
 
+.form-title { 
+
+  font-size: clamp(.9rem, 6vw, 1.3rem) !important;
+  line-height: clamp(1.9rem, 2.5vw, 8rem) !important;
+  
+
+}
+
+
+.login-page .content{
+    
+    align-items: flex-start;
+    height: 100%;
+    min-height: fit-content;
+
+}
+.login-page h1 {
+    display: flex;
+    font-size: clamp(1rem, 7.2vw, 4rem);
+    line-height: clamp(1.4rem,6.4vw, 10rem);
+    white-space: pre-wrap !important;
+    width: fit-content;
+}
+
+.form .checkbox-label{
+  font-size: clamp(.4rem, 4.3vw, 1rem);
+  line-height: clamp(1.9rem, 2.5vw, 8rem);
+}
+
+.form-container {
+  margin: clamp(1.5rem,7vw,5rem)!important;
+  padding: clamp(.5rem, 7vw,32px);
+  width: 100%;
+  border-radius: clamp(1rem,5vw,3rem)!important;
+}
+
+.form{
+  min-width: 100% !important;
+  width: clamp(10vw,60vw,400px) !important;
+  font-family: "poppins" !important;
+}
+
+
+.form .label{
+
+  font-size: clamp(.5rem, 5.5vw, 1rem);
+  line-height: clamp(1.9rem, 2.5vw, 8rem);
+}
+
+.form .input{
+
+  font-size: clamp(.5rem, 5.5vw, 1rem);
+  line-height: clamp(1.9rem, 2.5vw, 8rem);
+  padding:8px 14px;
+ 
+}
+
+}
 
 
 /* styles for smallallestmobile devices */
-@media (min-width: 1px) and (max-width: 260px) {
-    .footer-Contents {
-      display: none !important;
-    }
-    .v-splash-min-dlplay-size {
-      display: flex;
-    }
-    .v-splash-min-dlplay-size .v-logo-wrapper h4 {
-      font-size: 0.8rem !important;
-      line-height: 100% !important;
-    }
+@media (min-width: 1px) and (max-width: 260px) { 
+
+  .footer-Contents {
+    display: none !important;
   }
+  .v-splash-min-dlplay-size {
+    display: flex;
+  }
+  .v-splash-min-dlplay-size .v-logo-wrapper h4 { font-size: 0.8rem !important;
+  line-height: 100% !important;
+  }
+}
