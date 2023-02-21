@@ -20,22 +20,21 @@
        <section class="login-page">
 
          <div class="header">
-            <div class="title"><h1>Understand what's Important </h1></div>
+            <div class="title"><h1>Understand<span>what's Important</span> </h1></div>
           </div>
 
          <div class="content">
             <div class="form-container">
               <form class="form">
-                <h2 class="form-title">Log in to your account</h2>
+                <h2 class="form-title">Enter login details</h2>
                 <label for="login-number" class="label">Login Number</label>
-                <input id="login-number" type="text" class="input" placeholder="Enter your login number" required>
+                <input id="login-number" type="text" class="input" placeholder="login number" required>
                 <label for="password" class="label">Password</label>
-                <input id="password" type="password" class="input" placeholder="Enter your password" required>
+                <input id="password" type="password" class="input" placeholder="password" required>
                 <div class="checkbox-container">
                   <label class="checkbox-label">
                     <input type="checkbox" class="checkbox" required>
-                    <span class="checkbox-custom"></span>
-                    I accept the <a href="#" class="link">terms and conditions</a>
+                    <span class="checkbox-custom"></span><a href="#" class="link">terms and conditions</a>
                   </label>
                 </div>
                 <div class="checkbox-container">
@@ -51,8 +50,19 @@
           </div>
 
        </section>
-       
 
-      <script src="js/login.js"></script>
+
+       <Script src="../js/jquery-3.6.1.min.js"></Script>
+       <script>src = "https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.7/jquery.lazyload.min.js"</script>
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+       <script src="../js/index.js"></script>
+       <!-- Google tag (gtag.js) -->
+       <script async src="https://www.googletagmanager.com/gtag/js?id=G-X4CG3GS9YS"></script>
+       <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          gtag('js', new Date());
+          gtag('config', 'G-X4CG3GS9YS');
+       </script>
    </body>
 </html>

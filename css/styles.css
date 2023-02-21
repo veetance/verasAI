@@ -187,8 +187,8 @@ h1 {
   width: 100%;
   height: -moz-fit-content;
   height: fit-content;
-  font-size: clamp(2.4rem, 3vw, 10rem);
-  line-height: clamp(3.1rem, 4.08vw, 10rem);
+  font-size: clamp(2.4rem, 3vw, 4rem);
+  line-height: clamp(2.9rem,4vw, 8rem);
   font-weight: 850;
   color: var(--f7-theme-color-muted);
   padding: 0px;
@@ -302,9 +302,10 @@ h5 {
   aspect-ratio: 1 / 1;
   /* background-image: url(../img/VERAS-ICO-badazz-Indigo-white-inner-2.svg); */
   /* background-image: url(../img/VERAS-ICO-badazz-Indigo.svg); */
-  background-image: url(../img/LOGO-DANIELA-6.svg);
+  
+  background-image: url(../img/LOGO-DANIELA-14.svg);
   background-size: contain;
-  background-size: 60%;
+  background-size: 70%;
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 0px;
@@ -314,11 +315,11 @@ h5 {
   transition: all 50ms cubic-bezier(0, 0.82, 0.14, 0.99);
 }
 .nav-logo:hover {
-  background-size: 66%;
+  background-size: 78%;
   cursor: pointer;
 }
-.nav-logo:active {
-  background-size: 64%;
+.nav-logo:active{
+  background-size: 70%;
   cursor: pointer;
   opacity: 0.9;
 }
@@ -677,7 +678,7 @@ h5 {
   justify-content: flex-start;
   background-color: #372c5b;
   width: 100%;
-  height: 100%;
+  height: fit-content;
 }
 .F-header {
   display: flex;
@@ -712,7 +713,7 @@ h5 {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: fit-content;
+  height: 100%;
   padding: 48px;
   grid-gap: 28px;
 }
@@ -978,7 +979,7 @@ h5 {
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  height: auto;
+  height: fit-content;
 
 }
 
@@ -1387,10 +1388,11 @@ box-shadow: 0px 1px 6px rgba(29, 130, 113, 0.15);
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  height: fit-content; /* min-height:100vh; */
+  height: fit-content;
+  /* min-height:100vh; */
   background-image: linear-gradient(to top, #e6e1ff, #ffffff);
   background-image: url(../img/featured-img-13.png);
-  background-size: contain;
+  background-size: 100%;
   background-position: bottom;
   background-repeat: no-repeat;
 }
@@ -1644,8 +1646,8 @@ p span {
 
   #vFstFrame h1{
 
-    font-size: clamp(2.2rem, 3vw, 10rem);
-    line-height: clamp(3.1rem, 4.08vw, 10rem);
+    font-size: clamp(.5rem, 5.5vw, 10rem);
+    line-height: clamp(2.5rem, 6.3vw, 10rem);
   
   }
   
