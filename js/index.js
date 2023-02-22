@@ -14,62 +14,95 @@ darkModeQuery.addEventListener('change', updateThemeColor);
 
 
 
-// on first page load function splash() pulses .v-logo-wrapper starting from opacity 0 to opacity 1 ease in and 2 times in 1.5s and then fades out while fading out .v-splash and setting display to none
 
 
-
-
-
-
-// go to login page
-
-const loadPage = (pageUrl, pageTitle) => {
-  fetch(pageUrl)
-    .then(response => response.text())
-    .then(data => {
-      const surfaceView = document.querySelector('.surface-view');
-      surfaceView.innerHTML = data;
-      document.title = pageTitle;
-
-      // Re-attach event listener to login button
-      const loginButton = document.querySelector('.login-button');
-      if (loginButton) {
-        loginButton.addEventListener('click', () => {
-          const pageUrl = 'pages/login.html';
-          const pageTitle = 'Login';
-          loadPage(pageUrl, pageTitle);
-          history.pushState({ page: 'login', title: pageTitle }, pageTitle, pageUrl);
-        });
-      }
-    })
-    .catch(error => console.error(error));
-};
-
-const onPopState = (event) => {
-  const pageUrl = (event.state && event.state.page) ? event.state.page + '.html' : 'index.html';
-  const pageTitle = (event.state && event.state.title) ? event.state.title : 'Home';
-
-  if (pageUrl === 'index.html') {
-    // If returning to the index page, reload the page
-    location.reload();
-  } else {
-    // Load the page content into the surface view
-    loadPage(pageUrl, pageTitle);
-    // Clear the surface view except for the home page
-    const surfaceView = document.querySelector('.surface-view');
-    surfaceView.querySelectorAll(':not(.home-page)').forEach(element => element.remove());
-  }
-};
-
+// dispatch the SHOW_LOGIN action when the login button is clicked:?//
 const loginButton = document.querySelector('.login-button');
 loginButton.addEventListener('click', () => {
-  const pageUrl = 'pages/login.html';
-  const pageTitle = 'Login';
-  loadPage(pageUrl, pageTitle);
-  history.pushState({ page: 'login', title: pageTitle }, pageTitle, pageUrl);
+  store.dispatch({ type: 'SHOW_LOGIN' });
+
+  // Fetch the login HTML and store it in the Redux store
+  fetch('pages/login.html')
+    .then(response => response.text())
+    .then(html => {
+      store.dispatch({ type: 'SET_LOGIN_CONTENT', payload: html });
+    });
 });
 
-window.addEventListener('popstate', onPopState);
+
+//  update the UI based on the Redux store state:
+
+store.subscribe(() => {
+  const state = store.getState();
+
+  // Update the UI based on the state
+  if (state.loginVisible) {
+    // Show the login space
+    let loginSpace = document.querySelector('.login-Space');
+    if (!loginSpace) {
+      loginSpace = document.createElement('div');
+      loginSpace.classList.add('login-Space');
+      const surfaceView = document.querySelector('.surface-view');
+      surfaceView.insertBefore(loginSpace, surfaceView.firstChild);
+    }
+    loginSpace.innerHTML = state.loginContent;
+
+    // Update the page title
+    document.title = 'Login';
+
+    // Hide other content in surface view
+    const surfaceView = document.querySelector('.surface-view');
+    while (surfaceView.firstChild) {
+      surfaceView.removeChild(surfaceView.firstChild);
+    }
+    surfaceView.appendChild(loginSpace);
+  } else {
+    // Hide the login space
+    const loginSpace = document.querySelector('.login-Space');
+    if (loginSpace) {
+      loginSpace.remove();
+    }
+
+    // Show other content in surface view
+    const homePage = document.querySelector('.home-page');
+    const surfaceView = document.querySelector('.surface-view');
+    while (surfaceView.firstChild) {
+      surfaceView.removeChild(surfaceView.firstChild);
+    }
+    surfaceView.appendChild(homePage);
+
+    // Reset the page title
+    document.title = 'Veras.ca | AI Key Theme Synthesis';
+  }
+});
+
+
+//handle the browser back button:
+
+window.addEventListener('popstate', () => {
+  const currentPage = window.location.pathname.replace('/', '');
+  store.dispatch({ type: 'SET_CURRENT_PAGE', payload: currentPage });
+});
+
+
+//  handle page refresh and redirect to index.html if the login space is visible:
+
+window.addEventListener('load', () => {
+  const state = store.getState();
+  if (state.loginVisible) {
+    // If login space is visible, redirect to index.html
+    window.location.href = '/index.html';
+  } else {
+    const currentPage = window.location.pathname.replace('/', '');
+    store.dispatch({ type: 'SET_CURRENT_PAGE', payload: currentPage });
+  }
+});
+
+
+
+
+
+
 
 
 
@@ -127,8 +160,6 @@ function contactUS() {
     contactUsModalWrapper.style.display = "none";
     }
     });
-
-
 
 
 // responsive nnavTitle
