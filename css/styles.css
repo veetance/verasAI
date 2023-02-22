@@ -187,8 +187,8 @@ h1 {
   width: 100%;
   height: -moz-fit-content;
   height: fit-content;
-  font-size: clamp(2.4rem, 3vw, 4rem);
-  line-height: clamp(2.9rem,4vw, 8rem);
+  font-size: clamp(2.8rem, 3vw, 4rem);
+  line-height: clamp(3.3rem,3.9vw, 4.4rem);
   font-weight: 850;
   color: var(--f7-theme-color-muted);
   padding: 0px;
@@ -205,12 +205,13 @@ h2 {
   width: -moz-fit-content;
   width: fit-content;
   height: fit-content;
-  font-size: clamp(1.7rem, 2.4vw, 9rem);
-  line-height: clamp(1.9rem, 2.5vw, 8rem);
+  font-size: clamp(.1rem, 2.6vw, 2.5rem);
+  line-height: clamp(.1rem, 2.8vw, 2.6rem);
   font-weight: 800;
   color: var(--f7-theme-color-muted);
   padding: 0px;
-  margin: 0px; /* border:solid #161124 1px; */
+  margin: 0px;
+  /* border:solid #161124 1px; */
   text-align: flex-start;
 }
 
@@ -912,6 +913,11 @@ h5 {
 } 
 
 /* action styles */
+
+.hidden {
+  display: none;
+}
+
 .F-chip {
   display: flex;
   transition: all 0.05s ease-in-out;
@@ -1494,9 +1500,8 @@ box-shadow: 0px 1px 6px rgba(29, 130, 113, 0.15);
   width: 100%;
   height: fit-content;
   background-color: #f3f1ff;
-  padding: 0px 96px;
-  padding-bottom: 96px;
-  padding-top: 96px;
+  padding:5vw;
+
   grid-gap: 192px;
 }
 
@@ -1644,10 +1649,15 @@ p span {
     align-items: flex-start;
   }
 
+  h2{
+    font-size: clamp(1.2rem, 2.4vw, 2rem) !important;
+    line-height: clamp(.1rem, 4.2vw, 4rem) !important;
+  }
+
   #vFstFrame h1{
 
-    font-size: clamp(.5rem, 5.5vw, 10rem);
-    line-height: clamp(2.5rem, 6.3vw, 10rem);
+    font-size: clamp(2rem, 4.6vw, 10rem);
+    line-height: clamp(2.5rem, 5.5vw, 10rem);
   
   }
   
@@ -1846,8 +1856,8 @@ p span {
 
   h1 {
     width: 100%;
-    font-size: clamp(1rem, 6.3vw, 2.5rem);
-    line-height: clamp(1.5rem, 8.3vw, 5rem);
+    font-size: clamp(1.5rem, 6.2vw, 2.5rem);
+    line-height: clamp(1.5rem, 7.5vw, 5rem);
     padding: 0px;
     margin: 0px;
     border: 0px rgba(0, 0, 0, 0) solid;
@@ -2053,19 +2063,19 @@ p span {
     white-space: nowrap;
     width: 100%;
     font-size: clamp(0.1rem, 6.6vw, 5rem);
-    line-height: clamp(0.99rem, 8.7vw, 5rem);
+    line-height: clamp(0.99rem, 8vw, 5rem);
     margin: 0px;
     border-radius: 12px;
     border: 0px rgba(0, 0, 0, 0) solid;
   }
   h2 {
-    font-size: clamp(1rem, 8.1vw, 7rem) !important;
-    line-height: clamp(1rem, 8.7vw, 9rem) !important;
+    font-size: clamp(.5rem, 6.5vw, 7rem) !important;
+    line-height: clamp(.5rem, 7vw, 9rem) !important;
   }
   .plane-style-header h1 {
     line-height: 100%;
     font-size: clamp(
-      0.6rem,
+      .8rem,
       2vw,
       4rem
     ) !important; /* color: var(--f7-theme-color-muted); */
