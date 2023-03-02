@@ -205,8 +205,8 @@ h2 {
   width: -moz-fit-content;
   width: fit-content;
   height: fit-content;
-  font-size: clamp(.1rem, 2.6vw, 2.5rem);
-  line-height: clamp(.1rem, 2.8vw, 2.6rem);
+  font-size: clamp(1.4rem, 2.6vw, 2.5rem);
+  line-height: clamp(1.5rem, 2.8vw, 2.6rem);
   font-weight: 800;
   color: var(--f7-theme-color-muted);
   padding: 0px;
@@ -305,6 +305,7 @@ h5 {
   /* background-image: url(../img/VERAS-ICO-badazz-Indigo.svg); */
   
   background-image: url(../img/LOGO-DANIELA-14.svg);
+  background-image: url(../img/important-2.svg);
   background-size: contain;
   background-size: 70%;
   background-position: center;
@@ -622,7 +623,7 @@ h5 {
   height: 60px;
   background-color: #ffffff0c;
   border-radius: 8px;
-  border: solid 1px #5f50b227;
+  border: solid 1px #5f50b257;
   padding: 16px 24px;
   overflow: hidden;
   color: var(--f7-theme-color);
@@ -630,7 +631,7 @@ h5 {
   white-space: nowrap;
   font-weight: 600;
   line-height: 1rem;
-  width: fit-content;
+  width: clamp(150px,10vw,170px);
   font-family: "poppins";
   transition: 0.1s ease-in-out;
 }
@@ -1321,6 +1322,7 @@ box-shadow: 0px 1px 6px rgba(29, 130, 113, 0.15);
 .v-product .v-bottom P {
   font-size: 1.05rem;
   line-height: 1.5rem;
+  font-weight: 600;
 }
 
 .v-product .v-page-CTA {
@@ -1347,15 +1349,13 @@ box-shadow: 0px 1px 6px rgba(29, 130, 113, 0.15);
   /* background-image: linear-gradient(to top, #f5fffc, #ffffff, #ffffff); */
   background-image: linear-gradient(to bottom, #ffffff, #ffffff, #ede9ff);
   background-image: url(../img/featured-img-10.png);
-  background-position: bottom;
-  background-size: contain;
+  background-position: right;
+  background-size: cover;
   background-repeat: no-repeat;
   border-radius: 0px;
   height: 100%;
   width: 100%;
   padding: 50px 0px;
-
-
 }
 .v-product .v-page-styled-header {
   width: 100% !important;
@@ -1650,8 +1650,8 @@ p span {
   }
 
   h2{
-    font-size: clamp(1.2rem, 2.4vw, 2rem) !important;
-    line-height: clamp(.1rem, 4.2vw, 4rem) !important;
+    font-size: clamp(1.5rem, 2.4vw, 2rem) !important;
+    line-height: clamp(1.7rem, 2.6vw, 3rem) !important;
   }
 
   #vFstFrame h1{

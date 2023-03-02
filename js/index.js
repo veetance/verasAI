@@ -126,7 +126,7 @@ $.event.special.touchpress = {
   }
 };
 
-const navButton = document.querySelector(".nav-button");
+const navButton = document.querySelector(".nav-button"); 
 const vFormBtn = document.querySelector("#v-form-btn");
 const contactUsModalWrapper = document.querySelector(".contact-us-modal-wrapper");
 const contactUsModal = document.querySelector(".contact-us-modal");
@@ -152,7 +152,7 @@ function contactUS() {
     }
 
     $(document).ready(function() {
-      $(".nav-button, #v-form-btn").on("touchpress, touchend, click", contactUS);
+      $(".v-form-btn, #v-form-btn").on("touchpress, touchend, click", contactUS);
     });
 
     contactUsModalWrapper.addEventListener("transitionend", function() {
