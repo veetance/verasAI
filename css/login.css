@@ -36,10 +36,14 @@
 
     grid-gap: clamp(10px,1.4vw,4rem);
   }
+  
+  .overline bold{
+    display: flex;
+    font-weight: 700;}
 
   .overline {
 
-    font-size: clamp(.98rem, 1vw, 3rem);
+    font-size: clamp(.98rem, .7vw, 3rem);
     line-height: clamp(1.3rem,4vw, 5rem);
     display: flex;
     width: 100%;
@@ -47,7 +51,7 @@
     /* color: #288369; */
     color: #696195d2;
     font-family: "mulish", sans-serif;
-    font-weight: 700;
+    font-weight: 500;
     line-height: 100%;
   }
   
@@ -220,13 +224,16 @@ background-color: #f3f1ff;
 
     .login-page .header{
 
-        padding: 6rem;
-        padding-left: 7rem;
-        padding-right: 7rem;
-        padding-top: 170px;
+padding: 6rem;
 
-        height: fit-content;
-    }
+padding-left: 15rem;
+
+padding-right: 15rem;
+
+padding-top: 170px;
+
+height: fit-content;
+}
 
     .login-page .content{
 
