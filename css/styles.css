@@ -160,7 +160,7 @@ a {
 
 .nav-title p {
   display: flex;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: var(--f7-theme-color);
   line-height: 1.2rem;
@@ -205,8 +205,8 @@ h2 {
   width: -moz-fit-content;
   width: fit-content;
   height: fit-content;
-  font-size: clamp(1.4rem, 2.6vw, 2.5rem);
-  line-height: clamp(1.5rem, 2.8vw, 2.6rem);
+  font-size: clamp(1.4rem, 2vw, 2.5rem);
+  line-height: clamp(1.5rem, 2.1vw, 2.6rem);
   font-weight: 800;
   color: var(--f7-theme-color-muted);
   padding: 0px;
@@ -303,7 +303,6 @@ h5 {
   aspect-ratio: 1 / 1;
   /* background-image: url(../img/VERAS-ICO-badazz-Indigo-white-inner-2.svg); */
   /* background-image: url(../img/VERAS-ICO-badazz-Indigo.svg); */
-  
   background-image: url(../img/LOGO-DANIELA-14.svg);
   background-image: url(../img/important-2.svg);
   background-size: contain;
@@ -314,7 +313,7 @@ h5 {
   padding: 0px;
   margin: 0px;
   margin-left: 8px;
-  transition: all 50ms cubic-bezier(0, 0.82, 0.14, 0.99);
+  transition: all 200ms cubic-bezier(0, 0.82, 0.14, 0.99);
 }
 .nav-logo:hover {
   background-size: 78%;
@@ -336,12 +335,14 @@ h5 {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  padding: 0px;
   border-radius: 8px;
   border: solid 1px #5f50b200;
   transition: all 50ms cubic-bezier(0, 0.82, 0.14, 0.99);
+  margin-top: 3px;
 }
 .nav-title:hover {
+  padding: 10px;
   cursor: pointer;
   background-color: #8972d307;
   border: solid 1px #5f50b217;
