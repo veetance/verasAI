@@ -144,7 +144,7 @@ const navbarWrapper = document.querySelector('.navbar-wrapper');
 function showContactUS() {
   contactUsModalWrapper.style.display = 'flex';
 
-  vForminner.style.transition = 'all 2s cubic-bezier(0,1.21,0.56,0.96)';
+  vForminner.style.transition = 'all .5s cubic-bezier(0,1.21,0.56,0.96)';
   vForminner.style.maxHeight = '0px';
   vForminner.style.height = 'auto';
   vForminner.style.opacity = '-10';
@@ -156,7 +156,7 @@ function showContactUS() {
 }
 
 function closeContactUs() {
-  vForminner.style.transition = 'max-height 0.5s';
+  vForminner.style.transition = 'all .5s cubic-bezier(0,1.21,0.56,0.96)';
   vForminner.style.maxHeight = '0px';
 
   setTimeout(function() {
