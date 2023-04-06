@@ -26,100 +26,121 @@ $.event.special.touchpress = {
 };
 
 
+// Action creators
+const setCurrentPage = (page) => ({ type: 'SET_CURRENT_PAGE', payload: page });
+const showLogin = () => ({ type: 'SHOW_LOGIN' });
+const setLoginContent = (html) => ({ type: 'SET_LOGIN_CONTENT', payload: html });
+const showNewsfeed = () => ({ type: 'SHOW_NEWSFEED' });
+const setNewsfeedContent = (html) => ({ type: 'SET_NEWSFEED_CONTENT', payload: html });
 
-
-// dispatch the SHOW_LOGIN action when the login button is clicked:?//
-
+// Event listener for the login button
 const loginButton = document.querySelector('.login-button');
 loginButton.addEventListener('click', () => {
-  store.dispatch({ type: 'SHOW_LOGIN' });
-
-  // Fetch the login HTML and store it in the Redux store
+  store.dispatch(showLogin());
   fetch('pages/login.html')
     .then(response => response.text())
     .then(html => {
-      store.dispatch({ type: 'SET_LOGIN_CONTENT', payload: html });
+      store.dispatch(setLoginContent(html));
     });
 });
 
-
-//  update the UI based on the Redux store state:
+const surfaceView = document.querySelector('.surface-view');
+const homePage = document.querySelector('.home-page');
+const footer = document.querySelector('.footer-Contents');
 
 store.subscribe(() => {
   const state = store.getState();
 
-  // Update the UI based on the state
   if (state.loginVisible) {
-    // Show the login space
     let loginSpace = document.querySelector('.login-Space');
     if (!loginSpace) {
       loginSpace = document.createElement('div');
-      loginSpace.classList.add('login-Space', 'fade-in'); // add the fade-in class
-      const surfaceView = document.querySelector('.surface-view');
+      loginSpace.classList.add('login-Space', 'fade-in');
       surfaceView.insertBefore(loginSpace, surfaceView.firstChild);
     }
     loginSpace.innerHTML = state.loginContent;
 
-    // Update the page title
     document.title = 'Login';
-
-    // Hide other content in surface view
-    const surfaceView = document.querySelector('.surface-view',);
-    surfaceView.style.opacity = 0; // set the opacity to 0 to trigger the transition
-    while (surfaceView.firstChild) {
-      surfaceView.removeChild(surfaceView.firstChild);
-    }
+    surfaceView.style.opacity = 0;
+    surfaceView.innerHTML = '';
     surfaceView.appendChild(loginSpace);
-    
-    const footer = document.querySelector('.footer-Contents');
-
     footer.style.display = 'none';
-
-    // Trigger the fade-in transition
     setTimeout(() => {
       loginSpace.classList.add('active');
-      surfaceView.style.opacity = 1; // set the opacity back to 1 to trigger the fade-in transition
-    }, 100); // wait a short delay to allow the element to be displayed first
+      surfaceView.style.opacity = 1;
+    }, 100);
+
+    // Add this check to ensure the event listener is added only once
+    if (!loginSpace.dataset.formEventAttached) {
+      loginSpace.dataset.formEventAttached = 'true';
+
+      // Add this code to handle form submission and input validation
+      setTimeout(() => {
+        const loginForm = document.querySelector('.form');
+        loginForm.addEventListener('submit', (event) => {
+          event.preventDefault();
+
+          const loginNumberInput = document.querySelector('#login-number');
+          const passwordInput = document.querySelector('#password');
+
+          if (loginNumberInput.value === '55515' && passwordInput.value === 'veras@ai') {
+            store.dispatch(hideLogin()); // Add this line to hide the login space
+            store.dispatch(showNewsfeed());
+      
+            fetch('pages/newsfeed.html')
+              .then(response => response.text())
+              .then(html => {
+                store.dispatch(setNewsfeedContent(html));
+              });
+          }
+
+        });
+      }, 100);
+    }
+
+  } else if (state.newsfeedVisible) {
+    let newsfeedSpace = document.querySelector('.newsfeed-Space');
+    if (!newsfeedSpace) {
+      newsfeedSpace = document.createElement('div');
+      newsfeedSpace.classList.add('newsfeed-Space', 'fade-in');
+      surfaceView.insertBefore(newsfeedSpace, surfaceView.firstChild);
+    }
+    newsfeedSpace.innerHTML = state.newsfeedContent;
+    document.title = 'Newsfeed';
+    surfaceView.style.opacity = 0;
+    surfaceView.innerHTML = '';
+    surfaceView.appendChild(newsfeedSpace);
+    footer.style.display = 'block';
+    setTimeout(() => {
+      newsfeedSpace.classList.add('active');
+      surfaceView.style.opacity = 1;
+    }, 100);
+
   } else {
-    // Hide the login space
     const loginSpace = document.querySelector('.login-Space');
     if (loginSpace) {
       loginSpace.remove();
     }
-
-    // Show other content in surface view
-    const homePage = document.querySelector('.home-page');
-    const surfaceView = document.querySelector('.surface-view');
-    while (surfaceView.firstChild) {
-      surfaceView.removeChild(surfaceView.firstChild);
+    const newsfeedSpace = document.querySelector('.newsfeed-Space');
+    if (newsfeedSpace) {
+      newsfeedSpace.remove();
     }
+    surfaceView.innerHTML = '';
     surfaceView.appendChild(homePage);
-
-    // Reset the page title
     document.title = 'Veras.ca | AI Key Theme Synthesis';
   }
 });
 
-//handle the browser back button:
-
 window.addEventListener('popstate', () => {
   const currentPage = window.location.pathname.replace('/', '');
-  store.dispatch({ type: 'SET_CURRENT_PAGE', payload: currentPage });
+  store.dispatch(setCurrentPage(currentPage));
 });
 
 
-//  handle page refresh and redirect to index.html if the login space is visible:
 
-window.addEventListener('load', () => {
-  const state = store.getState();
-  if (state.loginVisible) {
-    // If login space is visible, redirect to index.html
-    window.location.href = '/index.html';
-  } else {
-    const currentPage = window.location.pathname.replace('/', '');
-    store.dispatch({ type: 'SET_CURRENT_PAGE', payload: currentPage });
-  }
-});
+
+
+
 
 
 
@@ -144,7 +165,7 @@ const navbarWrapper = document.querySelector('.navbar-wrapper');
 function showContactUS() {
   contactUsModalWrapper.style.display = 'flex';
 
-  vForminner.style.transition = 'all 2s cubic-bezier(0,1.21,0.56,0.96)';
+  vForminner.style.transition = 'all .5s cubic-bezier(0,1.21,0.56,0.96)';
   vForminner.style.maxHeight = '0px';
   vForminner.style.height = 'auto';
   vForminner.style.opacity = '-10';
@@ -156,7 +177,7 @@ function showContactUS() {
 }
 
 function closeContactUs() {
-  vForminner.style.transition = 'max-height 0.5s';
+  vForminner.style.transition = 'all .5s cubic-bezier(0,1.21,0.56,0.96)';
   vForminner.style.maxHeight = '0px';
 
   setTimeout(function() {
@@ -183,21 +204,10 @@ vFormBtn2.addEventListener('click', function() {
   showContactUS();
 });
 
-
-
-
-
 vFormClose.addEventListener('click', function() {
   closeContactUs();
   closeNavWrapper();
 });
-
-
-
-
-
-
-
 
 
 
@@ -231,7 +241,6 @@ function refreshhomePage() {
     }
   });
 }
-
 $(document).ready(function() {
   refreshhomePage();
 });
