@@ -39,6 +39,7 @@
         ]
       }
     ],
-    "disown-opener": "off"
+    "disown-opener": "off",
+    "no-protocol-relative-urls": "off"
   }
 }
