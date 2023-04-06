@@ -710,7 +710,7 @@ h5 {
   height: 28px;
   aspect-ratio: 1/1;
   
-  background-image: url(../img/LOGO-DANIELA-white-6.svg);
+  background-image: url(../img/Footer-logo.svg);
 
   background-size: contain;
   background-position: center;
@@ -3010,8 +3010,8 @@ h5 {
   height: 28px;
   aspect-ratio: 1/1;
 
-  /* background-image: url(../img/Footer-logo-badazz-white.svg); */
-  background-image: url(../img/LOGO-DANIELA-white.svg);
+ 
+  background-image: url(../img/Footer-logo.svg);
 
   background-size: contain;
   background-position: center;

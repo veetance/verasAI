@@ -14,7 +14,7 @@
             "runtimeArgs": [
                 "--remote-debugging-port=9222"
             ],
-            "url": "D:\\Veras-ai\\Veras-1.1-MVP-website-main\\www\\index.html", // Provide your project's url to finish configuring
+            "url": "c:\\Users\\divin\\.vscode\\extensions\\ms-edgedevtools.vscode-edge-devtools-2.1.1\\out\\startpage\\index.html", // Provide your project's url to finish configuring
             "presentation": {
                 "hidden": true
             }
@@ -27,7 +27,7 @@
                 "--headless",
                 "--remote-debugging-port=9222"
             ],
-            "url": "D:\\Veras-ai\\Veras-1.1-MVP-website-main\\www\\index.html", // Provide your project's url to finish configuring
+            "url": "c:\\Users\\divin\\.vscode\\extensions\\ms-edgedevtools.vscode-edge-devtools-2.1.1\\out\\startpage\\index.html", // Provide your project's url to finish configuring
             "presentation": {
                 "hidden": true
             }
@@ -36,7 +36,7 @@
             "type": "vscode-edge-devtools.debug",
             "name": "Open Edge DevTools",
             "request": "attach",
-            "url": "D:\\Veras-ai\\Veras-1.1-MVP-website-main\\www\\index.html", // Provide your project's url to finish configuring
+            "url": "c:\\Users\\divin\\.vscode\\extensions\\ms-edgedevtools.vscode-edge-devtools-2.1.1\\out\\startpage\\index.html", // Provide your project's url to finish configuring
             "presentation": {
                 "hidden": true
             }
