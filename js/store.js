@@ -15,8 +15,6 @@ const SHOW_NEWSFEED = 'SHOW_NEWSFEED';
 const HIDE_NEWSFEED = 'HIDE_NEWSFEED';
 const SET_NEWSFEED_CONTENT = 'SET_NEWSFEED_CONTENT';
 
-// Add an action creator for hiding the login space
-const hideLogin = () => ({ type: 'HIDE_LOGIN' });
 
 function reducer(state = initialState, action) {
   switch (action.type) {
@@ -34,11 +32,11 @@ function reducer(state = initialState, action) {
       return { ...state, newsfeedVisible: false };
     case SET_NEWSFEED_CONTENT:
       return { ...state, newsfeedContent: action.payload };
+    case 'LOGOUT':
+      return { ...state, newsfeedVisible: false, loginVisible: false, loginContent: null, newsfeedContent: null };
     default:
       return state;
   }
 }
 
 const store = Redux.createStore(reducer);
-
-
