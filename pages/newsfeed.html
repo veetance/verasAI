@@ -1,41 +1,134 @@
- <section class="newsfeed-wrap">
-      <h1>Newsfeed <span>v0.001</span></h1>
-      <div id="M-C"  class="survey-post">
-        <div class="survey-header">
-          <div class="user-info">
-            <p class="alias">User Alias</p>
-            <p class="post-time">2 hours ago</p>
-          </div>
-          <div class="survey-status">
-            <span class="survey-status-text">Closed</span>
-            <span class="survey-results-count">36</span>
-          </div>
-        </div>
-        <div class="survey-content">
-          <h2 class="survey-question">What is your opinion on climate change?</h2>
-          <ul class="survey-options">
-            <li><input type="radio" name="option" id="option1" value="option1"><label for="option1">I believe it's a serious threat to our planet</label></li>
-            <li><input type="radio" name="option" id="option2" value="option2"><label for="option2">I'm not convinced it's a real issue</label></li>
-            <li><input type="radio" name="option" id="option3" value="option3"><label for="option3">I have mixed feelings about it</label></li>
-          </ul>
-        </div>
-      </div>
-      <div id="W-R" class="survey-post">
-        <div class="survey-header">
-          <div class="user-info">
-            <p class="alias">User Alias</p>
-            <p class="post-time">4 hours ago</p>
-          </div>
-          <div class="survey-status">
-            <span class="survey-status-text">Open</span>
-            <span class="survey-results-count">77</span>
-          </div>
-        </div>
-        <div  class="survey-content">
-          <h2 class="survey-question">What are your thoughts on immigration policy?</h2>
-          <textarea class="survey-textarea" placeholder="Enter your response"></textarea>
-        </div>
-        <button class=" submit-btn">Submit</button>
-      </div>
-    </section>
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+   <meta charset="utf-8">
+   <meta name="theme-color" content="#FFFFFF">
+
+   <meta http-equiv="Content-Security-Policy" content="connect-src *;">
+
+   <meta name="format-detection" content="telephone=no">
+   <meta name="msapplication-tap-highlight" content="no">
+   <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+   <link rel="stylesheet" href="../css/styles.css">
+   <link rel="stylesheet" href="../css/login.css">
+   <link rel="stylesheet" href="../css/newsfeed.css">
+
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link
+      href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&display=swap"
+      rel="stylesheet">
+
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet">
+
+   <link rel="icon" type="image/svg" href="../img/FAVI-1.svg">
+   <link rel="apple-touch-icon" href="../img/FAVI-1.svg">
+
+
+
+   <title>Veras.ca | Newsfeed </title>
+</head>
+
+<body>
+
+
+
+
+   <main class="Veras-surface">
+
+      <!-- veras components here -->
+
+      <div class="surface-view">
+
+         <nav class="SWAP-navbar-wrapper">
+
+            <aside class="SWAP-sidebar">
+
+               <div class="top">
+                  <a href="#">
+                     <div class="VLOGO-wrapper">
+                        <span class="VLOGO"></span>
+                     </div>
+                  </a>
+               </div>
+
+               <nav class="bottom">
+                  <div class="nav-links">
+
+                     <span>
+                         
+                     <!-- <div class="nav-lnk">
+                        <a href="#" class="home"><i class="material-icons">home</i><span id="home-text">Home</span></a>
+                     </div> -->
+  
+                      <div class="nav-lnk">
+                        <a href="#" class="insights"><i class="material-icons">analytics</i><span id="insights-text">Insights</span></a>
+                      </div>
+  
+                      <div class="nav-lnk">
+                        <a href="#" class="create-btn"><i class="material-icons">add_circle</i><span id="create-text">Create</span></a>
+                      </div></span>
+
+                  
+
+                    
+                    
+                        <div class="nav-lnk">
+                           <a href="#" class="settings"><i class="material-icons">menu</i><span id="settings-text">Menu</span></a>
+                        </div>
+                    
+                   
+
+                  </div>
+                </nav>
+                
+                
+
+              
+
+
+
+
+            </aside>
+
+
+         </nav>
+
+
+         <div class="newsfeed-Space">
+
+
+
+         </div>
+
+
+      </div>
+
+      <!-- FOOTER -->
+
+
+   </main>
+
+   <Script src="../js/jquery-3.6.1.min.js"></Script>
+   <script>src = "https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.7/jquery.lazyload.min.js"</script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.1.1/redux.min.js"></script>
+   <script src="../js/store.js"></script>
+   <!-- <script src="../js/index.js"></script> -->
+   <script src="../js/newsfeed.js"></script>
+
+</body>
+
+</html>

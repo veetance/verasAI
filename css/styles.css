@@ -26,7 +26,7 @@ html {
 }
 
 body {
-  opacity: 0;
+  opacity: 0 ;
   transition: opacity 0.1s ease-in-out;
   
   display: flex;
@@ -49,8 +49,6 @@ img {
 }
 
  /* -- always have latter code on css-->*/ /* splash-screen */
-
-
 
 .v-splash {
   display: none;
@@ -2286,24 +2284,8 @@ p span {
   }
 }
 
-:root {
-  --f7-theme-color: #5e50b2;
-  --f7-theme-color-muted: #362c6b;
-  --f7-theme-color-rgb: 190, 179, 255;
-  --f7-theme-color-shade: #372c5b;
-  --f7-theme-color-tint: #241d3c;
 
-  --f7-2ndry-theme-color: #60dbb8;
-  --f7-2ndry-theme-color-muted: rgb(106 189 165);
-  --f7-2ndry-theme-color-rgb: 154, 255, 226;
-  --f7-2ndry-theme-color-shade: #3caa8b;
-  --f7-2ndry-theme-color-tint: #2a6655;
 
-  --v-white-plane: #f9f7ff;
-  --v-white-plane-clear: #ffffff00;
-  --v-white-plane-clear-80: #ffffffc4;
-  --v-lavender-plane:#f3f1ff;
-}
 /* Header-Font */
 
 * {
@@ -4588,6 +4570,8 @@ p span {
 }
 
 :root {
+  --f7-theme-color-light-0: #ffffff;
+  --f7-theme-color-light-60: #9083E9;
   --f7-theme-color: #5e50b2;
   --f7-theme-color-muted: #362c6b;
   --f7-theme-color-rgb: 190, 179, 255;

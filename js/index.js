@@ -26,55 +26,68 @@ $.event.special.touchpress = {
 };
 
 
+
 // Action creators
 const setCurrentPage = (page) => ({ type: 'SET_CURRENT_PAGE', payload: page });
 const showLogin = () => ({ type: 'SHOW_LOGIN' });
+const hideLogin = () => ({ type: 'HIDE_LOGIN' });
+const logout = () => ({ type: 'LOGOUT' });
 const setLoginContent = (html) => ({ type: 'SET_LOGIN_CONTENT', payload: html });
 const showNewsfeed = () => ({ type: 'SHOW_NEWSFEED' });
 const setNewsfeedContent = (html) => ({ type: 'SET_NEWSFEED_CONTENT', payload: html });
 
-// Event listener for the login button
+// Query the DOM elements
 const loginButton = document.querySelector('.login-button');
-loginButton.addEventListener('click', () => {
-  store.dispatch(showLogin());
-  fetch('pages/login.html')
-    .then(response => response.text())
-    .then(html => {
-      store.dispatch(setLoginContent(html));
-    });
-});
-
 const surfaceView = document.querySelector('.surface-view');
 const homePage = document.querySelector('.home-page');
 const footer = document.querySelector('.footer-Contents');
 
+// Event listener for the login button
+loginButton.addEventListener('click', () => {
+  if (loginButton.classList.contains('logout-button')) {
+    store.dispatch(logout());
+    updateLoginButton(false); // Call the updateLoginButton function when logging out
+  } else {
+    store.dispatch(showLogin());
+    fetch('pages/login.html')
+      .then(response => response.text())
+      .then(html => {
+        store.dispatch(setLoginContent(html));
+      });
+  }te
+});
+
+
+// Store subscription to handle state changes
 store.subscribe(() => {
   const state = store.getState();
 
+  // If the login form should be visible
   if (state.loginVisible) {
     let loginSpace = document.querySelector('.login-Space');
+
     if (!loginSpace) {
       loginSpace = document.createElement('div');
       loginSpace.classList.add('login-Space', 'fade-in');
       surfaceView.insertBefore(loginSpace, surfaceView.firstChild);
     }
-    loginSpace.innerHTML = state.loginContent;
 
+    loginSpace.innerHTML = state.loginContent;
     document.title = 'Login';
     surfaceView.style.opacity = 0;
     surfaceView.innerHTML = '';
     surfaceView.appendChild(loginSpace);
     footer.style.display = 'none';
+
     setTimeout(() => {
       loginSpace.classList.add('active');
       surfaceView.style.opacity = 1;
     }, 100);
 
-    // Add this check to ensure the event listener is added only once
+    // Add event listener for form submission, only if it hasn't been added before
     if (!loginSpace.dataset.formEventAttached) {
       loginSpace.dataset.formEventAttached = 'true';
 
-      // Add this code to handle form submission and input validation
       setTimeout(() => {
         const loginForm = document.querySelector('.form');
         loginForm.addEventListener('submit', (event) => {
@@ -83,83 +96,87 @@ store.subscribe(() => {
           const loginNumberInput = document.querySelector('#login-number');
           const passwordInput = document.querySelector('#password');
 
-          if (loginNumberInput.value === '55515' && passwordInput.value === 'veras@ai') {
-            store.dispatch(hideLogin()); // Add this line to hide the login space
+          if (loginNumberInput.value === '1' && passwordInput.value === '1') {
+            store.dispatch(hideLogin());
             store.dispatch(showNewsfeed());
-      
-            fetch('pages/newsfeed.html')
-              .then(response => response.text())
-              .then(html => {
-                store.dispatch(setNewsfeedContent(html));
-              });
+            window.location.href = 'pages/newsfeed.html';
           }
-
         });
       }, 100);
     }
-
-  } else if (state.newsfeedVisible) {
+  } else if (state.newsfeedVisible) { // If the newsfeed should be visible
     let newsfeedSpace = document.querySelector('.newsfeed-Space');
+
     if (!newsfeedSpace) {
       newsfeedSpace = document.createElement('div');
       newsfeedSpace.classList.add('newsfeed-Space', 'fade-in');
       surfaceView.insertBefore(newsfeedSpace, surfaceView.firstChild);
     }
+
     newsfeedSpace.innerHTML = state.newsfeedContent;
     document.title = 'Newsfeed';
     surfaceView.style.opacity = 0;
     surfaceView.innerHTML = '';
     surfaceView.appendChild(newsfeedSpace);
     footer.style.display = 'block';
+
     setTimeout(() => {
       newsfeedSpace.classList.add('active');
       surfaceView.style.opacity = 1;
     }, 100);
 
-  } else {
+    updateLoginButton(true); // Update the login button when the newsfeed is visible
+  } else { // If neither the login form nor the newsfeed should be visible
     const loginSpace = document.querySelector('.login-Space');
     if (loginSpace) {
       loginSpace.remove();
     }
+    
     const newsfeedSpace = document.querySelector('.newsfeed-Space');
     if (newsfeedSpace) {
       newsfeedSpace.remove();
     }
+    
     surfaceView.innerHTML = '';
     surfaceView.appendChild(homePage);
     document.title = 'Veras.ca | AI Key Theme Synthesis';
+
+    updateLoginButton(false); // Update the login button when on the home page
   }
 });
 
+// Event listener to handle browser navigation
 window.addEventListener('popstate', () => {
   const currentPage = window.location.pathname.replace('/', '');
   store.dispatch(setCurrentPage(currentPage));
 });
 
 
+// Function to update the login button's text and classes
+function updateLoginButton(loggedIn) {
+  if (loggedIn) {
+    loginButton.textContent = 'Logout';
+    loginButton.classList.add('logout-button');
+    loginButton.classList.remove('login-button');
+  } else {
+    loginButton.textContent = 'Login';
+    loginButton.classList.add('login-button');
+    loginButton.classList.remove('logout-button');
+  }
+}
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-// function showContactUS() makes contactUsModalWrapper display to be flex on the touch or press of vFormBtn and when vFormClose is pressed the function closeContactUs() makes the contactUsModalWrapper display is turned to none
-
+// function showContactUS()
 const vFormBtn = document.querySelector('.v-form-btn');
 const vFormBtn2 = document.querySelector('.v-form-btn-2');
 const contactUsModalWrapper = document.querySelector('.contact-us-modal-wrapper');
 const vForminner = document.querySelector('.v-form-inner-wrapper')
 const vFormClose = document.querySelector('#v-form-close ');
 const navbarWrapper = document.querySelector('.navbar-wrapper');
+
 
 
 function showContactUS() {
@@ -198,7 +215,10 @@ function closeNavWrapper() {
   }, 300);
 }
 
-vFormBtn.addEventListener('click', showContactUS);
+
+vFormBtn.addEventListener('click', function() {
+  showContactUS();
+});
 
 vFormBtn2.addEventListener('click', function() {
   showContactUS();
@@ -228,10 +248,7 @@ window.addEventListener("resize", navTitle);
 navTitle();
 
 
-
-
 // function refreshhomePage() refreshes the page on the touch or press of .nav-logo
-
 function refreshhomePage() {
   $('.nav-logo, .nav-title').on('mousedown click', function() {
     if (window.location.pathname === '/pages/login.html') {
@@ -248,7 +265,6 @@ $(document).ready(function() {
 
 
 // copy number
-
 function copyToClipboard() {
   var phoneNumber = document.querySelector(".F-number-L p").innerHTML;
   var textArea = document.createElement("textarea");
@@ -263,8 +279,8 @@ function copyToClipboard() {
 document.querySelector('.F-number-L').addEventListener('touchend', copyToClipboard);
 document.querySelector('.F-number-L').addEventListener('mouseup', copyToClipboard);
 
-// copy email
 
+// copy email
 function copyEmailToClipboard() {
   var email = document.querySelector(".F-mail-L p").innerHTML;
   var textArea = document.createElement("textarea");
@@ -285,4 +301,6 @@ window.addEventListener('load', () => {
   var body = document.querySelector('body');
   body.style.opacity = 1;
 });
+
+
 
