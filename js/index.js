@@ -99,12 +99,7 @@ store.subscribe(() => {
           if (loginNumberInput.value === '1' && passwordInput.value === '1') {
             store.dispatch(hideLogin());
             store.dispatch(showNewsfeed());
-
-            fetch('pages/newsfeed.html')
-              .then(response => response.text())
-              .then(html => {
-                store.dispatch(setNewsfeedContent(html));
-              });
+            window.location.href = 'pages/newsfeed.html';
           }
         });
       }, 100);
@@ -220,7 +215,10 @@ function closeNavWrapper() {
   }, 300);
 }
 
-vFormBtn.addEventListener('click', showContactUS);
+
+vFormBtn.addEventListener('click', function() {
+  showContactUS();
+});
 
 vFormBtn2.addEventListener('click', function() {
   showContactUS();
@@ -303,4 +301,6 @@ window.addEventListener('load', () => {
   var body = document.querySelector('body');
   body.style.opacity = 1;
 });
+
+
 
