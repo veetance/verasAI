@@ -1,3 +1,5 @@
 {
-    "Codegeex.EnableExtension": false
+    "Codegeex.EnableExtension": false,
+    "vscode-edge-devtools.defaultEntrypoint": "",
+    "vscode-edge-devtools.defaultUrl": ""
 }
