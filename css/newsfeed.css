@@ -3,8 +3,9 @@
   margin-top: 0px;
 }
 
-
 body {
+  opacity  : 0;
+  animation: fade-in 0.1s ease-in-out forwards;
   font-family: "mulish";
 }
 
@@ -40,8 +41,10 @@ html {
 
 .newsfeed-Space {
   display: flex;
+  flex-direction: column;
   height : 100vh;
   width  : 100%;
+
 }
 
 .surface-view {
@@ -49,10 +52,93 @@ html {
   flex-direction: row;
 }
 
-body {
-  opacity  : 0;
-  animation: fade-in 0.1s ease-in-out forwards;
+
+.surface-wrap{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: var(--v-lavender-plane);
+
+  padding: 4px;
 }
+
+.feed-wrapper{
+  display: grid;
+
+  height: 100%;
+
+  grid-template-columns: 2fr 1fr;
+
+  padding: 0px !important;
+  background-color: #f7f7ff !important;
+  grid-gap: 4px;
+
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  overflow: overlay;
+
+  
+
+  
+}
+
+.feed-scroll{
+
+
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height:100%;
+  background-color: #f7f7ff;
+  padding: 4px;
+  padding-top: 0px;
+
+ 
+
+
+
+}
+
+.page-name{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: #5e50b230;
+  border-radius: 4px;
+}
+
+.N-Header {
+
+display: flex;
+height: 90px;
+width: 100%;
+background-color: var(--v-lavender-plane);
+
+}
+
+.Newsfeed-Left{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: #d3e9db;
+  border-radius: 4px;
+}
+
+
+.Newsfeed-Right{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: #d3e4f1;
+  border-radius: 4px;
+}
+
+
+
+
 
 @keyframes fade-in {
   from {
@@ -133,7 +219,7 @@ body {
 
 
 .SWAP-sidebar .bottom .nav-lnk:hover {
-  border    : solid 2px #ebe7ffef;
+  border    : solid 1px #ebe7ffef;
   transition: transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
   transform : translate(0, 0);
 }
@@ -198,7 +284,7 @@ color: #5b50a8;
 
 .SWAP-navbar-wrapper {
   display       : flex;
-  width         : auto;
+  width         :90px !important;
   flex-direction: column;
   height        : 100%;
 
@@ -207,31 +293,46 @@ color: #5b50a8;
 
 .SWAP-sidebar {
 
-  display       : flex;
-  flex-direction: column-reverse;
-  position      : static;
-  width         : auto;
-  height        : 100%;
-  flex-direction: column;
-  align-items   : center;
+display       : flex;
 
-  margin       : 8px;
-  border-radius: 14px;
+flex-direction: column-reverse;
 
-  background-color       : var(--v-white-plane-clear-80);
-  box-shadow             : 0px 1px 6px rgba(47, 29, 130, 0.15);
-  -webkit-backdrop-filter: blur(25px);
-  backdrop-filter        : blur(25px);
-  z-index                : 999;
+position      : static;
+
+width         : 100%;
+
+height        : 100%;
+
+flex-direction: column;
+
+align-items   : center;
+
+margin       : 0px;
+
+border-radius: 0px;
+
+background-color       : var(--v-white-plane-clear-80);
+
+/* box-shadow             : 0px 1px 6px rgba(47, 29, 130, 0.15); */
+
+border-right: solid 2px var(--v-lavender-plane) ;
+
+-webkit-backdrop-filter: blur(25px);
+
+backdrop-filter        : blur(25px);
+
+z-index                : 999;
+
+align-content: center;
 }
 
 .top {
   display        : flex;
-  width          : 92px;
-  aspect-ratio   : 1/1 !important;
-  align-items    : center;
-  justify-content: center;
+  width: 90px !important;
+  height: 90px !important;
   border-bottom  : solid 2px var(--v-lavender-plane);
+  justify-content: center;
+  align-items: center;
 }
 
 .SWAP-sidebar .bottom {
@@ -250,10 +351,15 @@ color: #5b50a8;
 /* mobile newsfeed layer  */
 
 
-@media (min-width: 200px) and (max-width: 889px) {
+@media (min-width: 200px) and (max-width: 1000px) {
 
   .surface-view {
     flex-direction: column;
+  }
+
+  .newsfeed-Space{
+
+
   }
 
   .SWAP-sidebar {
@@ -280,10 +386,12 @@ color: #5b50a8;
 
   .SWAP-navbar-wrapper {
 
-    width : 100%;
+    width : 100% !important;
     height: auto !important;
 
-    background-color: rgba(255, 255, 255, 0.158);
+    /* create a liner gradient white botop top transparent*/
+
+    background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 100%);
 
     position: absolute;
     bottom: 0;
@@ -321,6 +429,42 @@ color: #5b50a8;
 
 
 
+  /* newsfeed */
+
+  .feed-wrapper {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr  70px;
+    grid-gap: 4px;
+
+    width: 100%;
 
 
+
+  }
+
+  .Newsfeed-Left {
+    grid-row: 1 / span 1;
+  }
+
+  .Newsfeed-Right {
+    grid-row: 2/ span 1;
+  }
+
+  .feed-scroll{
+
+    margin-bottom: 80px;
+  }
+
+
+
+}
+
+
+
+@media (min-width: 0px) and (max-width: 200px) {
+
+  .surface-view{
+
+  display: none !important;
+  }
 }
