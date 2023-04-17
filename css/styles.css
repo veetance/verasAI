@@ -625,8 +625,6 @@ h5 {
   font-family: "poppins";
   transition: 0.1s ease-in-out;
 
-  box-shadow: 0 3px 6px #5f50b28c;
-  box-shadow: rgba(95, 80, 178, 0.549) 0px 1px 2px 0px, rgba(95, 80, 178, 0.15) 0px 3px 3px 1px;
 }
 
 .v-button-outlined p {
@@ -644,6 +642,7 @@ h5 {
 }
 .v-button-filled:hover p {
   color: #5f50b2;
+  
 }
 .v-button-filled:active p {
   color: #ffffff;
@@ -652,7 +651,7 @@ h5 {
   background-image: linear-gradient(to left, #f7f6ff, #ffffff);
   cursor: pointer;
   border: solid 1px #5f50b286;
-  box-shadow: 0px 1px 4px rgba(48, 29, 130, 0.116);
+  box-shadow: rgba(95, 80, 178, 0.549) 0px 1px 2px 0px, rgba(95, 80, 178, 0.15) 0px 3px 3px 1px;
   color: var(--f7-theme-color);
 }
 .v-button-filled:active {
@@ -963,7 +962,7 @@ h5 {
 /* action styles */
 
 .disable-selection {
-  -webkit-user-select: none; /* For Safari and iOS */
+  -webkit-user-select: none ; /* For Safari and iOS */
   user-select: none;
   cursor: default;
 }

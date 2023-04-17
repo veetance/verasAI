@@ -30,6 +30,10 @@ html {
   background-size    : contain;
   background-repeat  : no-repeat;
   background-position: center;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
 }
 
 
@@ -172,8 +176,8 @@ background-color: var(--v-lavender-plane);
 
 .v-pressed:hover{
 
-  transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transform : scale(104%);
+  transition: all 0.1s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transform : scale(106%);
   
 }
 
@@ -185,7 +189,7 @@ background-color: var(--v-lavender-plane);
 }
 
 
-.nav-lnk a i {
+.nav-lnk  i {
   transition: transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
   transform : translate(0, 0);
 
@@ -193,7 +197,7 @@ background-color: var(--v-lavender-plane);
   transform : scale(100%);
 }
 
-.nav-lnk:hover a i {
+.nav-lnk:hover  i {
   transform: translate(0, -10%);
 
   transition: scale 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -207,7 +211,7 @@ background-color: var(--v-lavender-plane);
 
 /* asside bar */
 
-.SWAP-sidebar .nav-lnk a {
+.SWAP-sidebar .nav-lnk .lnk-ico {
 
   display        : flex;
   justify-content: center;
@@ -223,7 +227,7 @@ background-color: var(--v-lavender-plane);
   font-size      : .77em;
 }
 
-.SWAP-sidebar .nav-lnk a i {
+.SWAP-sidebar .nav-lnk .lnk-ico i {
   display: flex;
 
   transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -231,11 +235,29 @@ background-color: var(--v-lavender-plane);
 }
 
 .insights-btn{
-  display: flex
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
 }
 
 .create-btn{
-  display: flex
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.settings-btn{
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
 }
 
 .SWAP-sidebar .nav-links {
@@ -300,7 +322,7 @@ background-color: var(--v-lavender-plane);
 
 
 
-.SWAP-sidebar .bottom a .material-icons {
+.SWAP-sidebar .bottom .lnk-ico .material-icons {
 
 font-size: 30px;
 
