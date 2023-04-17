@@ -27,6 +27,8 @@ $.event.special.touchpress = {
 
 
 
+///////////////////
+
 // Action creators
 const setCurrentPage = (page) => ({ type: 'SET_CURRENT_PAGE', payload: page });
 const showLogin = () => ({ type: 'SHOW_LOGIN' });
@@ -43,19 +45,22 @@ const homePage = document.querySelector('.home-page');
 const footer = document.querySelector('.footer-Contents');
 
 // Event listener for the login button
-loginButton.addEventListener('click', () => {
-  if (loginButton.classList.contains('logout-button')) {
-    store.dispatch(logout());
-    updateLoginButton(false); // Call the updateLoginButton function when logging out
-  } else {
-    store.dispatch(showLogin());
-    fetch('pages/login.html')
-      .then(response => response.text())
-      .then(html => {
-        store.dispatch(setLoginContent(html));
-      });
-  }te
-});
+if (loginButton) {
+  loginButton.addEventListener('click', () => {
+    if (loginButton.classList.contains('logout-button')) {
+      store.dispatch(logout());
+      updateLoginButton(false); // Call the updateLoginButton function when logging out
+    } else {
+      store.dispatch(showLogin());
+      fetch('pages/login.html')
+        .then(response => response.text())
+        .then(html => {
+          store.dispatch(setLoginContent(html));
+        });
+    }
+  });
+}
+
 
 
 // Store subscription to handle state changes
@@ -83,6 +88,7 @@ store.subscribe(() => {
       loginSpace.classList.add('active');
       surfaceView.style.opacity = 1;
     }, 100);
+
 
     // Add event listener for form submission, only if it hasn't been added before
     if (!loginSpace.dataset.formEventAttached) {
@@ -166,105 +172,119 @@ function updateLoginButton(loggedIn) {
 }
 
 
-
-
-
-// function showContactUS()
-const vFormBtn = document.querySelector('.v-form-btn');
-const vFormBtn2 = document.querySelector('.v-form-btn-2');
-const contactUsModalWrapper = document.querySelector('.contact-us-modal-wrapper');
-const vForminner = document.querySelector('.v-form-inner-wrapper')
-const vFormClose = document.querySelector('#v-form-close ');
-const navbarWrapper = document.querySelector('.navbar-wrapper');
-
-
-
-function showContactUS() {
-  contactUsModalWrapper.style.display = 'flex';
-
-  vForminner.style.transition = 'all .5s cubic-bezier(0,1.21,0.56,0.96)';
-  vForminner.style.maxHeight = '0px';
-  vForminner.style.height = 'auto';
-  vForminner.style.opacity = '-10';
-
-  setTimeout(function() {
-    vForminner.style.maxHeight = '1000px';
-    vForminner.style.opacity = '1';
-  }, 10);
-}
-
-function closeContactUs() {
-  vForminner.style.transition = 'all .5s cubic-bezier(0,1.21,0.56,0.96)';
-  vForminner.style.maxHeight = '0px';
-
-  setTimeout(function() {
-    vForminner.style.height = '0px';
-    vForminner.style.opacity = '0';
-  }, 500);
-
- 
-}
-
-function closeNavWrapper() {
-  navbarWrapper.style.transition = 'max-height 0.5s';
-  navbarWrapper.style.maxHeight = '100%';
-
-  setTimeout(function() {
-    contactUsModalWrapper.style.display = 'none';
-    navbarWrapper.style.height = 'auto';
-  }, 300);
-}
-
-
-vFormBtn.addEventListener('click', function() {
-  showContactUS();
-});
-
-vFormBtn2.addEventListener('click', function() {
-  showContactUS();
-});
-
-vFormClose.addEventListener('click', function() {
-  closeContactUs();
-  closeNavWrapper();
-});
+/////////////////
 
 
 
 
+
+// main code section for landing page 
+document.addEventListener('DOMContentLoaded', () => {
+
+  // function showContactUS()
+  const vFormBtn = document.querySelector('.v-form-btn');
+  const vFormBtn2 = document.querySelector('.v-form-btn-2');
+  const contactUsModalWrapper = document.querySelector('.contact-us-modal-wrapper');
+  const vForminner = document.querySelector('.v-form-inner-wrapper')
+  const vFormClose = document.querySelector('#v-form-close ');
+  const navbarWrapper = document.querySelector('.navbar-wrapper');
+  
+  
+  function showContactUS() {
+    contactUsModalWrapper.style.display = 'flex';
+  
+    vForminner.style.transition = 'all .5s cubic-bezier(0,1.21,0.56,0.96)';
+    vForminner.style.maxHeight = '0px';
+    vForminner.style.height = 'auto';
+    vForminner.style.opacity = '-10';
+  
+    setTimeout(function() {
+      vForminner.style.maxHeight = '1000px';
+      vForminner.style.opacity = '1';
+    }, 10);
+  }
+  
+  function closeContactUs() {
+    vForminner.style.transition = 'all .5s cubic-bezier(0,1.21,0.56,0.96)';
+    vForminner.style.maxHeight = '0px';
+  
+    setTimeout(function() {
+      vForminner.style.height = '0px';
+      vForminner.style.opacity = '0';
+    }, 500);
+  
+   
+  }
+  
+  function closeNavWrapper() {
+    navbarWrapper.style.transition = 'max-height 0.5s';
+    navbarWrapper.style.maxHeight = '100%';
+  
+    setTimeout(function() {
+      contactUsModalWrapper.style.display = 'none';
+      navbarWrapper.style.height = 'auto';
+    }, 300);
+  }
+  
+  
+    // Event listener for vFormBtn
+    if (vFormBtn) {
+      vFormBtn.addEventListener('click', function() {
+        showContactUS();
+      });
+    }
+  
+    // Event listener for vFormBtn2
+    if (vFormBtn2) {
+      vFormBtn2.addEventListener('click', function() {
+        showContactUS();
+      });
+    }
+  
+    // Event listener for vFormClose
+    if (vFormClose) {
+      vFormClose.addEventListener('click', function() {
+        closeContactUs();
+        closeNavWrapper();
+      });
+    }
+  
 // responsive nnavTitle
 function navTitle() {
   let navTitle = document.querySelector(".nav-title");
   let navBar = document.querySelector(".nav-bar");
   let navL = document.querySelector(".nav-L");
 
-  if (navBar.offsetWidth < 708) {// its actually 720
-    navL.insertBefore(navTitle, navL.childNodes[2]);
-  } else {
-    navBar.insertBefore(navTitle, navBar.childNodes[2]);
+  if (navTitle && navBar && navL) {
+    if (navBar.offsetWidth < 708) { // it's actually 720
+      navL.insertBefore(navTitle, navL.childNodes[2]);
+    } else {
+      navBar.insertBefore(navTitle, navBar.childNodes[2]);
+    }
   }
 }
+
 window.addEventListener("resize", navTitle);
 navTitle();
 
-
-// function refreshhomePage() refreshes the page on the touch or press of .nav-logo
-function refreshhomePage() {
-  $('.nav-logo, .nav-title').on('mousedown click', function() {
-    if (window.location.pathname === '/pages/login.html') {
-      location.href = '/index.html';
-    } else {
-      location.reload();
-    }
+  
+  
+  // function refreshhomePage() refreshes the page on the touch or press of .nav-logo
+  function refreshhomePage() {
+    $('.nav-logo, .nav-title, .VLOGO-wrapper').on('mousedown click', function() {
+      if (window.location.pathname === '/pages/login.html ') {
+        location.href = '/index.html';
+      } else {
+        location.reload();
+      }
+    });
+  }
+  $(document).ready(function() {
+    refreshhomePage();
   });
-}
-$(document).ready(function() {
-  refreshhomePage();
-});
+  
 
-
-
-// copy number
+// Copy number
 function copyToClipboard() {
   var phoneNumber = document.querySelector(".F-number-L p").innerHTML;
   var textArea = document.createElement("textarea");
@@ -276,11 +296,13 @@ function copyToClipboard() {
   alert("Copied the phone number to clipboard: " + phoneNumber);
 }
 
-document.querySelector('.F-number-L').addEventListener('touchend', copyToClipboard);
-document.querySelector('.F-number-L').addEventListener('mouseup', copyToClipboard);
+const FNumberL = document.querySelector('.F-number-L');
+if (FNumberL) {
+  FNumberL.addEventListener('touchend', copyToClipboard);
+  FNumberL.addEventListener('mouseup', copyToClipboard);
+}
 
-
-// copy email
+// Copy email
 function copyEmailToClipboard() {
   var email = document.querySelector(".F-mail-L p").innerHTML;
   var textArea = document.createElement("textarea");
@@ -292,15 +314,21 @@ function copyEmailToClipboard() {
   alert("Copied the email to clipboard: " + email);
 }
 
-document.querySelector('.F-mail-L').addEventListener('touchend', copyEmailToClipboard);
-document.querySelector('.F-mail-L').addEventListener('mouseup', copyEmailToClipboard);
-
+const FMailL = document.querySelector('.F-mail-L');
+if (FMailL) {
+  FMailL.addEventListener('touchend', copyEmailToClipboard);
+  FMailL.addEventListener('mouseup', copyEmailToClipboard);
+}
 
 // Fade in the body element on load
 window.addEventListener('load', () => {
   var body = document.querySelector('body');
   body.style.opacity = 1;
 });
+
+  });
+
+
 
 
 

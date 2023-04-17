@@ -962,6 +962,13 @@ h5 {
 
 /* action styles */
 
+.disable-selection {
+  -webkit-user-select: none; /* For Safari and iOS */
+  user-select: none;
+  cursor: default;
+}
+
+
 .hidden {
   display: none;
 }

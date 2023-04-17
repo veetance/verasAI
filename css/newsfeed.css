@@ -172,9 +172,15 @@ background-color: var(--v-lavender-plane);
 
 .v-pressed:hover{
 
-
   transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transform : scale(110%);
+  transform : scale(104%);
+  
+}
+
+.v-pressed:active{
+
+  transition: all 0.18s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transform : scale(100%);
   
 }
 
@@ -224,7 +230,13 @@ background-color: var(--v-lavender-plane);
   opacity   : .1;
 }
 
+.insights-btn{
+  display: flex
+}
 
+.create-btn{
+  display: flex
+}
 
 .SWAP-sidebar .nav-links {
   display        : flex;
@@ -389,7 +401,7 @@ align-content: center;
 
 /* Create.css */
 
-.create-wrapper{
+.create-Space{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -400,7 +412,7 @@ align-content: center;
 
 /* insight.css */
 
-.insight-wrapper{
+.insights-Space{
   display: flex;
   align-items: center;
   justify-content: center;
