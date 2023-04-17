@@ -40,7 +40,9 @@
    <title>Veras.ca | Newsfeed </title>
 </head>
 
-<body>
+<body class="disable-selection">
+
+
 
    <main class="Veras-surface">
 
@@ -53,62 +55,74 @@
             <aside class="SWAP-sidebar">
 
                <div class="top">
-                  <a href="#">
+
                      <div class="VLOGO-wrapper v-pressed">
                         <span class="VLOGO"></span>
                      </div>
-                  </a>
+                
                </div>
 
                <nav class="bottom">
                   <div class="nav-links">
 
                      <span>
-                         
-                     <!-- <div class="nav-lnk">
+
+                        <!-- <div class="nav-lnk">
                         <a href="#" class="home"><i class="material-icons">home</i><span id="home-text">Home</span></a>
                      </div> -->
-  
-                      <div class="nav-lnk">
 
-                        <div class="lnk-ico">
-
-                        <a href="#" class="insights"><i class="material-icons">analytics</i><span id="insights-text">Insights</span>
-                        </a>
-
-                        </div>
-
-                      </div>
-                      
-  
-                      <div class="nav-lnk">
-
-                        <div class="lnk-ico">
-                           <a href="#" class="create-btn"><i class="material-icons">add_circle</i><span id="create-text">Create</span></a>
-                        </div>
-
-                      </div>
-                     
-                     </span>
-
-                     <span>  
-                        
                         <div class="nav-lnk">
 
                            <div class="lnk-ico">
-                              <a href="#" class="settings"><i class="material-icons">menu</i><span id="settings-text">Menu</span></a>
+
+                              <div class="insights-btn">
+                                 <i class="material-icons">analytics</i>
+                                 <span id="insights-text">Insights</span>
+                              </div>
+
                            </div>
 
                         </div>
+
+
+                        <div class="nav-lnk">
+
+                           <div class="lnk-ico">
+
+                              <div class="create-btn">
+
+                                 <i class="material-icons">add_circle</i><span id="create-text">Create</span>
+
+
+                              </div>
+
+
+                           </div>
+
+                        </div>
+
+                     </span>
+
+                     <span>
+                     
+                        <div class="nav-lnk">
+                     
+                           <div class="lnk-ico">
+                              <div class="settings-btn"><i class="material-icons">menu</i>
+                                 <span id="settings-text">Menu</span>
+                              </div>
+                           </div>
+                     
+                        </div>
                      
                      </span>
-               
-                      
-                    
-                   
+
+
+
+
 
                   </div>
-                </nav>
+               </nav>
             </aside>
 
 
@@ -124,20 +138,23 @@
 
             <main class="feed-scroll ">
 
-               <div class="feed-wrapper surface-wrap"> 
 
-               <article class="Newsfeed-Left Newsfeed"></article>
-               <article class="Newsfeed-Right Quick-survey"></article>
-   
-               </div> 
+
+
+               <div class="feed-wrapper surface-wrap">
+
+                  <article class="Newsfeed-Left Newsfeed"></article>
+                  <article class="Newsfeed-Right Quick-survey"></article>
+
+               </div>
 
 
 
 
             </main>
 
-          
-          </div>
+
+         </div>
 
       </div>
 
@@ -146,13 +163,14 @@
 
    </main>
 
-   <Script src="../js/jquery-3.6.1.min.js"></Script>
-   <script>src = "https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.7/jquery.lazyload.min.js"</script>
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+   <script src="../js/jquery-3.6.1.min.js"></script>
+
+
+
 
    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.1.1/redux.min.js"></script>
    <script src="../js/store.js"></script>
-   <!-- <script src="../js/index.js"></script> -->
+   <script src="../js/index.js"></script>
    <script src="../js/newsfeed.js"></script>
 
 </body>
