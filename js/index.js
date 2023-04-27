@@ -40,8 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const loginButton = document.querySelector(".login-button");
   const surfaceView = document.querySelector(".surface-view");
   const footer = document.querySelector(".footer-Contents");
-  const feedScroll = document.querySelector(".feed-scroll");
-  const feedWrapper = document.querySelector(".feed-wrapper");
+
   const insightsButton = document.querySelector(".lnk-ico .insights-btn");
   const createButton = document.querySelector(".lnk-ico .create-btn");
 
@@ -64,9 +63,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // Event listener for the insights button to dispatch the new action creators for insights and create pages
-
+  let lastClickedButton = null;
   if (insightsButton) {
-    insightsButton.addEventListener("click", () => {
+    insightsButton.addEventListener("click", function() {
+      lastClickedButton = this;
       store.dispatch(showInsights());
       store.dispatch(hideCreate());
       fetch("../pages/insights.html")
@@ -78,7 +78,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (createButton) {
-    createButton.addEventListener("click", () => {
+    createButton.addEventListener("click", function() {
+      lastClickedButton = this;
       store.dispatch(showCreate());
       store.dispatch(hideInsights());
       fetch("../pages/create.html")
@@ -167,63 +168,70 @@ document.addEventListener("DOMContentLoaded", () => {
   
     } else {
 
-      // insights and create page
-      // insights and create page
-    let insightsSpace = document.querySelector(".insights-Space");
-    let createSpace = document.querySelector(".create-Space");
-    let feedWrapper = document.querySelector(".feed-wrapper");
-    let feedScroll = document.querySelector(".feed-scroll");
+       if (lastClickedButton !== null) {
+        let insightsNavLink = document.querySelector(".insights-btn").closest(".nav-lnk");
+        let createNavLink = document.querySelector(".create-btn").closest(".nav-lnk");
 
-    if (state.insightsVisible) {
-      if (!insightsSpace) {
-        insightsSpace = document.createElement("div");
-        insightsSpace.classList.add("insights-Space");
-        feedScroll.appendChild(insightsSpace);
+      let insightsSpace = document.querySelector(".insights-Space");
+      let createSpace = document.querySelector(".create-Space");
 
-        fetch("../pages/insights.html")
-          .then((response) => response.text())
-          .then((html) => {
-            insightsSpace.innerHTML = html;
-          });
+      let feedWrapper = document.querySelector(".feed-wrapper");
+      let feedScroll = document.querySelector(".feed-scroll");
+
+      if (state.insightsVisible) {
+        insightsNavLink.classList.add("btn-active");
+        createNavLink.classList.remove("btn-active");
+        if (!insightsSpace) {
+          insightsSpace = document.createElement("div");
+          insightsSpace.classList.add("insights-Space");
+          feedScroll.appendChild(insightsSpace);
+
+          fetch("../pages/insights.html")
+            .then((response) => response.text())
+            .then((html) => {
+              insightsSpace.innerHTML = html;
+            });
+        } else {
+          insightsSpace.style.display = "block";
+        }
+
+        if (createSpace) {
+          createSpace.style.display = "none";
+        }
+
+        feedWrapper.style.display = "none";
+      } else if (state.createVisible) {
+        createNavLink.classList.add("btn-active");
+        insightsNavLink.classList.remove("btn-active");
+
+        if (!createSpace) {
+          createSpace = document.createElement("div");
+          createSpace.classList.add("create-Space");
+          feedScroll.appendChild(createSpace);
+
+          fetch("../pages/create.html")
+            .then((response) => response.text())
+            .then((html) => {
+              createSpace.innerHTML = html;
+            });
+        } else {
+          createSpace.style.display = "block";
+        }
+
+        if (insightsSpace) {
+          insightsSpace.style.display = "none";
+        }
+
+        feedWrapper.style.display = "none";
       } else {
-        insightsSpace.style.display = "block";
-      }
-
-      if (createSpace) {
-        createSpace.style.display = "none";
-      }
-
-      feedWrapper.style.display = "none";
-    } else if (state.createVisible) {
-      if (!createSpace) {
-        createSpace = document.createElement("div");
-        createSpace.classList.add("create-Space");
-        feedScroll.appendChild(createSpace);
-
-        fetch("../pages/create.html")
-          .then((response) => response.text())
-          .then((html) => {
-            createSpace.innerHTML = html;
-          });
-      } else {
-        createSpace.style.display = "block";
-      }
-
-      if (insightsSpace) {
-        insightsSpace.style.display = "none";
-      }
-
-      feedWrapper.style.display = "none";
-    } else {
-      document.addEventListener("DOMContentLoaded", () => {
         feedWrapper.style.display = "flex";
-      });
+      }
     }
   }
-      
 
+ 
+  });
 
-});
 
   window.addEventListener("popstate", () => {
     const currentPage = window.location.pathname.replace("/", "");

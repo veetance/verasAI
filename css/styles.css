@@ -4616,6 +4616,7 @@ p span {
 :root {
   --f7-theme-color-light-0: #ffffff;
   --f7-theme-color-light-60: #e0dcff;
+  --f7-theme-color-light-40: #968fc9;
   --f7-theme-color: #5e50b2;
   --f7-theme-color-muted: #362c6b;
   --f7-theme-color-rgb: 190, 179, 255;
@@ -4631,5 +4632,5 @@ p span {
   --v-white-plane: #f9f7ff;
   --v-white-plane-clear: #ffffff00;
   --v-white-plane-clear-80: #ffffffc4;
-  --v-lavender-plane:#f3f1ff;
+  --v-lavender-plane: #e2dcff;
 }
