@@ -15,53 +15,41 @@ function updateThemeColor(event) {
 }
 darkModeQuery.addEventListener("change", updateThemeColor);
 
-// newsfeedpage main code block
+
+
 document.addEventListener("DOMContentLoaded", () => {
   // Action creators
-  const setCurrentPage = (page) => ({
-    type: "SET_CURRENT_PAGE",
-    payload: page,
-  });
+  const setCurrentPage = (page) => ({ type: "SET_CURRENT_PAGE",payload: page,});
   const showLogin = () => ({ type: "SHOW_LOGIN" });
   const hideLogin = () => ({ type: "HIDE_LOGIN" });
   const logout = () => ({ type: "LOGOUT" });
-  const setLoginContent = (html) => ({
-    type: "SET_LOGIN_CONTENT",
-    payload: html,
-  });
+  const setLoginContent = (html) => ({ type: "SET_LOGIN_CONTENT",payload: html,});
   const showNewsfeed = () => ({ type: "SHOW_NEWSFEED" });
-  const setNewsfeedContent = (html) => ({
-    type: "SET_NEWSFEED_CONTENT",
-    payload: html,
-  });
+  const setNewsfeedContent = (html) => ({type: "SET_NEWSFEED_CONTENT",payload: html,});
 
   // New action creators for insights and create pages
   const showInsights = () => ({ type: "SHOW_INSIGHTS" });
-  const setInsightsContent = (html) => ({
-    type: "SET_INSIGHTS_CONTENT",
-    payload: html,
-  });
+  const hideInsights = () => ({type: "HIDE_INSIGHTS"})
+  const setInsightsContent = (html) => ({ type: "SET_INSIGHTS_CONTENT",payload: html,});
+
   const showCreate = () => ({ type: "SHOW_CREATE" });
-  const setCreateContent = (html) => ({
-    type: "SET_CREATE_CONTENT",
-    payload: html,
-  });
+  const hideCreate = () => ({ type: "HIDE_CREATE" });
+  const setCreateContent = (html) => ({type: "SET_CREATE_CONTENT",payload: html,});
 
   // Query the DOM elements
   const loginButton = document.querySelector(".login-button");
   const surfaceView = document.querySelector(".surface-view");
   const footer = document.querySelector(".footer-Contents");
-  const feedScroll = document.querySelector(".feed-scroll");
-  const feedWrapper = document.querySelector(".feed-wrapper");
+
   const insightsButton = document.querySelector(".lnk-ico .insights-btn");
   const createButton = document.querySelector(".lnk-ico .create-btn");
+
 
   // Event listener for the login button
   if (loginButton) {
     loginButton.addEventListener("click", () => {
       if (loginButton.classList.contains("logout-button")) {
         store.dispatch(logout());
-        updateLoginButton(false); // Call the updateLoginButton function when logging out
       } else {
         store.dispatch(showLogin());
         fetch("pages/login.html")
@@ -73,11 +61,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Event listener for the insights button to dispatch the new action creators for insights and create pages
 
+  // Event listener for the insights button to dispatch the new action creators for insights and create pages
+  let lastClickedButton = null;
   if (insightsButton) {
-    insightsButton.addEventListener("click", () => {
+    insightsButton.addEventListener("click", function() {
+      lastClickedButton = this;
       store.dispatch(showInsights());
+      store.dispatch(hideCreate());
       fetch("../pages/insights.html")
         .then((response) => response.text())
         .then((html) => {
@@ -87,8 +78,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (createButton) {
-    createButton.addEventListener("click", () => {
+    createButton.addEventListener("click", function() {
+      lastClickedButton = this;
       store.dispatch(showCreate());
+      store.dispatch(hideInsights());
       fetch("../pages/create.html")
         .then((response) => response.text())
         .then((html) => {
@@ -170,78 +163,87 @@ document.addEventListener("DOMContentLoaded", () => {
       footer.style.display = "block";
   
       setTimeout(() => {
-        newsfeedSpace.classList.add("active");
         surfaceView.style.opacity = 1;
       }, 100);
   
     } else {
-      // insights and create page
+
+       if (lastClickedButton !== null) {
+        let insightsNavLink = document.querySelector(".insights-btn").closest(".nav-lnk");
+        let createNavLink = document.querySelector(".create-btn").closest(".nav-lnk");
+
+      let insightsSpace = document.querySelector(".insights-Space");
+      let createSpace = document.querySelector(".create-Space");
+
+      let feedWrapper = document.querySelector(".feed-wrapper");
+      let feedScroll = document.querySelector(".feed-scroll");
+
       if (state.insightsVisible) {
-        let insightsSpace = document.querySelector(".insights-Space");
-  
+        insightsNavLink.classList.add("btn-active");
+        createNavLink.classList.remove("btn-active");
         if (!insightsSpace) {
           insightsSpace = document.createElement("div");
           insightsSpace.classList.add("insights-Space");
           feedScroll.appendChild(insightsSpace);
-  
+
           fetch("../pages/insights.html")
             .then((response) => response.text())
             .then((html) => {
               insightsSpace.innerHTML = html;
             });
+        } else {
+          insightsSpace.style.display = "block";
         }
-  
-        let createSpace = document.querySelector(".create-Space");
+
         if (createSpace) {
           createSpace.style.display = "none";
         }
-  
+
         feedWrapper.style.display = "none";
-  
       } else if (state.createVisible) {
-        let createSpace = document.querySelector(".create-Space");
-  
+        createNavLink.classList.add("btn-active");
+        insightsNavLink.classList.remove("btn-active");
+
         if (!createSpace) {
           createSpace = document.createElement("div");
           createSpace.classList.add("create-Space");
           feedScroll.appendChild(createSpace);
+
           fetch("../pages/create.html")
-          .then((response) => response.text())
-          .then((html) => {
-            createSpace.innerHTML = html;
-          });
-      }
-
-      let insightsSpace = document.querySelector(".insights-Space");
-      if (insightsSpace) {
-        insightsSpace.style.display = "none";
-      }
-      feedWrapper.style.display = "none";
-
-    } else {
-      document.addEventListener("DOMContentLoaded", () => {
-        // Your entire script here
-        feedWrapper.style.display = "flex";
+            .then((response) => response.text())
+            .then((html) => {
+              createSpace.innerHTML = html;
+            });
+        } else {
+          createSpace.style.display = "block";
+        }
 
         if (insightsSpace) {
           insightsSpace.style.display = "none";
         }
 
-        if (createSpace) {
-          createSpace.style.display = "none";
-        }
-
+        feedWrapper.style.display = "none";
+      } else {
         feedWrapper.style.display = "flex";
-      });
+      }
     }
   }
-});
+
+ 
+  });
+
 
   window.addEventListener("popstate", () => {
     const currentPage = window.location.pathname.replace("/", "");
     store.dispatch(setCurrentPage(currentPage));
   });
 });
+  
+   
+
+  
+   
+
 
 // main code section for landing page
 document.addEventListener("DOMContentLoaded", () => {
