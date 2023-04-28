@@ -608,11 +608,11 @@ h5 {
 
 .v-button-outlined {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
- 
-  background-color: var(--f7-theme-color-light-0);
+  background-color: #ffffff00;
+  cursor: pointer;
   border-radius: clamp(10px, 0.725vw, 12px);
   border: solid 1px #5f50b211;
   padding: 20px;
@@ -624,6 +624,26 @@ h5 {
   line-height: 1rem;
   font-family: "poppins";
   transition: 0.1s ease-in-out;
+}
+
+.v-button-outlined:hover {
+  background-color: var(--f7-theme-color-light-0);
+}
+
+.v-button-outlined:active {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.v-button-outlined .material-symbols-outlined {
+
+  color: var(--f7-theme-color);
+  font-size: 1.3rem !important;
+  font-weight: 500 !important;
+  margin: 0px;
+  background-color: #ffffff11;
+  padding: 0px;
+  border-radius: 4px;
+  
 
 }
 
@@ -1014,23 +1034,6 @@ h5 {
 
 
 
-.Veras-surface {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  width: 100%;
-  height: auto;
-  height: 100%;
-  margin: 0px;
-  grid-gap: 0px;
-  background-color: #e2ddff5d;
-  border-radius: 0px;
-  overflow-y: scroll !important;
-  overflow: overlay !important;
-  overflow-x: hidden !important;
-  padding: 0px 0px;
-}
 
 
 .surface-view{
@@ -2428,6 +2431,7 @@ img {
 .v-splash-min-dlplay-size .v-logo {
   width: 50px !important;
   height: 50px !important;
+  border-radius: 2em !important; 
 } 
 
 /* style scroll bar */ /* width */
@@ -2775,14 +2779,17 @@ h5 {
 .v-form-header {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* background-color: #f5f4ff; */ /* background-image: linear-gradient(to top, #ffffff, #f9f8ff); */
-  background-color: #eefffb;
+  justify-content: space-between;
+  /* background-color: #f5f4ff; */
+  /* background-image: linear-gradient(to top, #ffffff, #f9f8ff); */
+  background-color: var(--v-header-light-mint);
   width: 100%;
   height: fit-content;
   padding: 20px;
   grid-gap: 20px;
   border-radius: 2rem 2rem 0px 0px;
-  z-index: 999; /* box-shadow: 0px 0px 12px #f1f9f7; */
+  z-index: 999;
+  /* box-shadow: 0px 0px 12px #f1f9f7; */
 }
 .v-form-header .material-symbols-outlined {
   color: #288369;
@@ -3308,7 +3315,7 @@ h5 {
   height: 100%;
   margin: 0px;
   grid-gap: 0px;
-  background-color: #e2ddff5d;
+  /* background-color: #e2ddff; */
   border-radius: 0px;
   overflow-y: scroll !important;
   overflow: overlay !important;
@@ -3323,10 +3330,12 @@ h5 {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+
   width: 100%;
   height:fit-content;
 
   transition: opacity 0.5s ease-in-out; /* add transition */
+  background-color: var( --v-lavender-plane);
 
 }
 
@@ -3440,8 +3449,10 @@ h5 {
   font-weight: 750;
   opacity: 0.8;
   padding: 14px 24px;
-  background-color: #e7faf5;
+
+  background-color: var(--v-header-light-mint);
   border-radius: 25px;
+  border: solid 1px #cbe7e0;
 }
 .v-page-plane-cont::-webkit-scrollbar {
   display: flex;
@@ -3839,7 +3850,7 @@ box-shadow: 0px 1px 6px rgba(29, 130, 113, 0.15);
   flex-direction: column;
   width: 100%;
   height: fit-content;
-  background-color: #f3f1ff;
+  background-color: var( --v-lavender-plane);
   padding:5vw;
 
   grid-gap: 192px;
@@ -4632,5 +4643,6 @@ p span {
   --v-white-plane: #f9f7ff;
   --v-white-plane-clear: #ffffff00;
   --v-white-plane-clear-80: #ffffffc4;
-  --v-lavender-plane: #e2dcff;
+  --v-lavender-plane: #ebe8ff;
+  --v-header-light-mint:#f4fff9;
 }
