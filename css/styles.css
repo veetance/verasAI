@@ -39,6 +39,11 @@ body {
 
   max-width: 3080px;
 
+
+  -webkit-tap-highlight-color: transparent !important;
+
+
+
 } 
 
 
@@ -1043,7 +1048,7 @@ h5 {
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  height:fit-content;
+  height:auto;
 
   transition: opacity 0.5s ease-in-out; /* add transition */
 
@@ -3321,6 +3326,14 @@ h5 {
   overflow: overlay !important;
   overflow-x: hidden !important;
   padding: 0px 0px;
+
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+
+  /* No support for these yet, use at own risk */
+  -o-user-select: none;
+  user-select: none;
 }
 
 
@@ -3332,7 +3345,7 @@ h5 {
   justify-content: flex-start;
 
   width: 100%;
-  height:fit-content;
+  height:auto;
 
   transition: opacity 0.5s ease-in-out; /* add transition */
   background-color: var( --v-lavender-plane);

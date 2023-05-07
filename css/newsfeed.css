@@ -9,6 +9,7 @@ body {
   font-family: "mulish";
 
   -webkit-tap-highlight-color: transparent !important;
+
 }
 
 html {
@@ -442,12 +443,15 @@ align-content: center;
   height: 100%;
   /* border: solid 1.5px #50b27630; */
 
+
 }
 
 .create-Space .surface-wrap{
   border-radius: .5vw;
   /* box-shadow: 0px 6px 20px 4px rgba(134, 105, 227, 0.095), 0px 2px 3px rgba(112, 98, 176, 0.05); */
   background-color: #ffffff;
+  background-color: #c2b6ff46;
+
 }
 
 /* insight.css */
