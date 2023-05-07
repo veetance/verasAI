@@ -31,10 +31,20 @@
   grid-gap: clamp(10px, 1.5vw, 4rem);
 }
 
-.overline bold {
-  display: flex;
-  font-weight: 900;
+.overline strong {
+  display: flex !important;
+  font-weight: 8700;
   
+}
+
+.overline .material-symbols-outlined{
+
+  display: flex;
+
+  background-color: rgba(255, 255, 255, 0);
+  color: var(--f7-theme-color);
+  align-items: center;
+  justify-content: center;
 }
 
 .overline {
@@ -47,7 +57,7 @@
   width: 100%;
   justify-content: flex-start;
   /* color: #288369; */
-  color: #5e50b2;
+  color: #5f50b2;
   font-family: "mulish", sans-serif;
  
 }
