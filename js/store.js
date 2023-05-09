@@ -89,3 +89,9 @@ function hideHome() {
 }
 
 const store = Redux.createStore(reducer);
+
+
+// write a store for settings page 
+
+
+
