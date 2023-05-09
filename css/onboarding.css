@@ -1,16 +1,12 @@
 .onboarding-Space {
   display: flex;
-  height: 100vh;
+  height: 100vh !important;
   width: 100%;
 }
 
-.onboarding-page{
-  width: 100%;
-}
 
   
 
-  
 
   /* Media queries for onboarding page */
 

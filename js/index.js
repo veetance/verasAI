@@ -54,7 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const showOnboarding = () => ({ type: SHOW_ONBOARDING });
   const hideOnboarding = () => ({ type: HIDE_ONBOARDING });
 
-
   // Query the DOM elements
   const loginButton = document.querySelector(".login-button");
   const surfaceView = document.querySelector(".surface-view");
@@ -79,21 +78,18 @@ document.addEventListener("DOMContentLoaded", () => {
             const onboardingButton =
               document.querySelector("#onboarding-button");
 
-              if (onboardingButton) {
-                onboardingButton.addEventListener("click", () => {
-                  console.log("Onboarding button clicked"); // Log when the button is clicked
-                  store.dispatch(hideLogin()); // Hide the login form
-                  store.dispatch(showOnboarding()); // Show the onboarding form
-                  fetch("pages/onboarding.html")
-                    .then((response) => response.text())
-                    .then((html) => {
-                      store.dispatch(setOnboardingContent(html));
-                    });
-                });
-              }
-              
-
-
+            if (onboardingButton) {
+              onboardingButton.addEventListener("click", () => {
+                console.log("Onboarding button clicked"); // Log when the button is clicked
+                store.dispatch(hideLogin()); // Hide the login form
+                store.dispatch(showOnboarding()); // Show the onboarding form
+                fetch("pages/onboarding.html")
+                  .then((response) => response.text())
+                  .then((html) => {
+                    store.dispatch(setOnboardingContent(html));
+                  });
+              });
+            }
           });
       }
     });
@@ -206,10 +202,9 @@ document.addEventListener("DOMContentLoaded", () => {
       surfaceView.appendChild(onboardingSpace);
       footer.style.display = "none !important";
 
-      setTimeout(() => { 
+      setTimeout(() => {
         surfaceView.style.opacity = 1;
       }, 100);
-
     } else if (state.newsfeedVisible) {
       // If the newsfeed should be visible
       let newsfeedSpace = document.querySelector(".newsfeed-Space");
