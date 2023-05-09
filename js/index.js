@@ -90,6 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
                   });
               });
             }
+
           });
       }
     });
@@ -203,6 +204,7 @@ document.addEventListener("DOMContentLoaded", () => {
       footer.style.display = "none !important";
 
       setTimeout(() => {
+        onboardingSpace.classList.add("active");
         surfaceView.style.opacity = 1;
       }, 100);
     } else if (state.newsfeedVisible) {

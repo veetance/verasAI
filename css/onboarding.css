@@ -1,14 +1,25 @@
 .onboarding-Space {
   display: flex;
-  height: 100vh !important;
+  height: 100% !important;
   width: 100%;
 }
 
 
-  
+
 
 
   /* Media queries for onboarding page */
+
+  /* desktop devices */
+
+  @media (min-width: 1055px) and (max-width: 3080px) {
+    .onboarding-Space{
+
+      height: 100vh !important;
+    } 
+
+  }
+  
 
 /* Tablet devices */
 @media (min-width: 580px) and (max-width: 1055px) {
