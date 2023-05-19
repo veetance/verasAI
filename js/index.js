@@ -17,6 +17,7 @@ darkModeQuery.addEventListener("change", updateThemeColor);
 
 document.addEventListener("DOMContentLoaded", () => {
   // Action creators
+  function hideHome() {return { type: HIDE_HOME };}
   const setCurrentPage = (page) => ({ type: SET_CURRENT_PAGE, payload: page });
   const showLogin = () => ({ type: SHOW_LOGIN });
   const hideLogin = () => ({ type: HIDE_LOGIN });
@@ -52,7 +53,16 @@ document.addEventListener("DOMContentLoaded", () => {
     payload: html,
   });
   const showOnboarding = () => ({ type: SHOW_ONBOARDING });
-  const hideOnboarding = () => ({ type: HIDE_ONBOARDING });
+  //
+
+  const setOnboardingStep = (step) => ({
+    type: SET_ONBOARDING_STEP,
+    payload: step
+  });
+  
+  const incrementOnboardingStep = () => ({ //not used yet
+    type: INCREMENT_ONBOARDING_STEP
+  });
 
   // Query the DOM elements
   const loginButton = document.querySelector(".login-button");
@@ -62,6 +72,27 @@ document.addEventListener("DOMContentLoaded", () => {
   const insightsButton = document.querySelector(".lnk-ico .insights-btn");
   const createButton = document.querySelector(".lnk-ico .create-btn");
 
+
+  function displaySplash() {
+    let splash = document.querySelector(".v-splash");
+    // If the splash div does not exist on this page, exit the function
+    if (!splash) return;
+    // Ensure the splash is displayed immediately
+    splash.style.display = "flex";
+    // Define a time when the splash screen can be hidden
+    const hideSplashTime = Date.now() + 1000; // 9000 milliseconds = 9 seconds
+    // Wait until the page is fully loaded
+    window.onload = function () {
+      // Calculate any remaining time to wait
+      const remainingTime = Math.max(0, hideSplashTime - Date.now());
+
+      // Wait the remaining time, then hide the splash screen
+      setTimeout(() => {
+        splash.style.display = "none";
+      }, remainingTime);
+    };
+  }
+
   // Event listener for the login
   if (loginButton) {
     loginButton.addEventListener("click", () => {
@@ -69,35 +100,78 @@ document.addEventListener("DOMContentLoaded", () => {
         store.dispatch(logout());
       } else {
         store.dispatch(showLogin());
+
+        // Start of fetch call
         fetch("pages/login.html")
           .then((response) => response.text())
           .then((html) => {
             store.dispatch(setLoginContent(html));
 
-            // Add the event listener for the onboarding button here, after the login content is inserted into the DOM
-            const onboardingButton =
-              document.querySelector("#onboarding-button");
+            // Hide the splash screen after login page is successfully fetched
+            document.querySelector(".v-splash").style.display = "none";
 
+            // Add the event listener for the onboarding button here, after the login content is inserted into the DOM
+            const onboardingButton = document.querySelector("#onboarding-button");
             if (onboardingButton) {
+              
               onboardingButton.addEventListener("click", () => {
                 console.log("Onboarding button clicked"); // Log when the button is clicked
                 store.dispatch(hideLogin()); // Hide the login form
                 store.dispatch(showOnboarding()); // Show the onboarding form
+            
                 fetch("pages/onboarding.html")
                   .then((response) => response.text())
                   .then((html) => {
                     store.dispatch(setOnboardingContent(html));
+                    document.querySelector(".v-splash").style.display = "none";
+                  })
+                  .catch((error) => {
+                    console.error("Error:", error);
+                    document.querySelector(".v-splash").style.display = "none";
                   });
               });
-            }
 
+              const onboardingSignup = document.querySelector(".full-page");
+              const hiddenSteps = document.querySelector(".steps-hidn");
+            
+              const form = document.getElementById('onboardForm');
+              if (form) { 
+                form.addEventListener('submit', function(event) {
+                  event.preventDefault();
+                  const formData = {
+                    loginNumber: document.getElementById("login-number").value,
+                    password: document.getElementById("password").value,
+                    confirmPassword: document.getElementById("confirm-password").value,
+                    nickname: document.getElementById("nickname").value,
+                  };
+            
+                  if (formData.password !== formData.confirmPassword) {
+                    alert("Passwords do not match.");
+                    return;
+                  }
+            
+                  onboardingSignup.style.display = 'none';
+                  hiddenSteps.style.display = 'flex';
+                  dispatch(setOnboardingStep('1'));
+                  console.log(formData);
+                });
+              }
+            }
+             
+
+          })
+          // Include error handling for login page fetch
+          .catch((error) => {
+            console.error("Error:", error);
+            document.querySelector(".v-splash").style.display = "none";
           });
+        // End of fetch call
       }
     });
   }
-
   // Event listener for the insights button to dispatch the new action creators for insights and create pages
   let lastClickedButton = null;
+  // Event listener
   if (insightsButton) {
     insightsButton.addEventListener("click", function () {
       lastClickedButton = this;
@@ -110,7 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
   }
-
+  // Event listener
   if (createButton) {
     createButton.addEventListener("click", function () {
       lastClickedButton = this;
@@ -124,9 +198,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  displaySplash();
+
+//updating ui logic
   store.subscribe(() => {
     const state = store.getState();
-
     // If the login form should be visible
     if (state.loginVisible) {
       let loginSpace = document.querySelector(".login-Space");
@@ -166,6 +242,7 @@ document.addEventListener("DOMContentLoaded", () => {
               store.dispatch(hideLogin());
               store.dispatch(showNewsfeed());
               store.dispatch(hideHome());
+              displaySplash();
 
               // Fetch the newsfeed.html content and set it to the state
               fetch("pages/newsfeed.html")
@@ -196,6 +273,9 @@ document.addEventListener("DOMContentLoaded", () => {
         surfaceView.insertBefore(onboardingSpace, surfaceView.firstChild);
       }
 
+
+      //to onboarding steps
+
       onboardingSpace.innerHTML = state.onboardingContent;
       document.title = "Onboarding";
       surfaceView.style.opacity = 0;
@@ -210,7 +290,6 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (state.newsfeedVisible) {
       // If the newsfeed should be visible
       let newsfeedSpace = document.querySelector(".newsfeed-Space");
-
       if (!newsfeedSpace) {
         newsfeedSpace = document.createElement("div");
         newsfeedSpace.classList.add("newsfeed-Space", "fade-in");

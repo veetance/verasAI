@@ -6,6 +6,40 @@
 
 
 
+.steps-hidn {
+  display:none;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.step {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  margin-bottom: 20px;
+  width: 80%;
+  height: 80%;
+ 
+}
+
+.step.active {
+  display: flex;
+}
+
+
 
 
   /* Media queries for onboarding page */
