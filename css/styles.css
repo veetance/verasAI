@@ -66,12 +66,7 @@ img {
   height: 100vh;
   width: 100vw;
   z-index: 9999;
-
   background-color:var(--v-white-plane);
-  
-  -moz-backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-  backdrop-filter: blur(30px);
   overflow: hidden;
 }
 .v-splash-min-dlplay-size {
@@ -96,6 +91,10 @@ img {
 }
 .v-logo-wrapper {
   height: fit-content !important;
+}
+
+.v-splash .v-logo {
+  border-radius: 10%;
 }
 .v-splash-min-dlplay-size .v-logo {
   width: 50px !important;
@@ -3922,8 +3921,6 @@ p span {
     line-height: 100% !important;
   }
 
-
-  
 }
 
 @media (min-width: 890px) {
