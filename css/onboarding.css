@@ -29,6 +29,13 @@
   width: 100%;
 }
 
+.steps p {
+
+  color: var(--f7-theme-color);
+}
+
+
+
 .step {
   display: none;
   flex-direction: column;
