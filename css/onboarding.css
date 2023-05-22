@@ -4,10 +4,16 @@
   width: 100%;
 }
 
+.onboardingSteps-Space {
+  display: flex;
+  height: 100vh !important;
+  width: 100%;
+}
 
 
-.steps-hidn {
-  display:none;
+
+.onboarding-steps {
+  display:flex;
   height: 100%;
   width: 100%;
   flex-direction: column;
