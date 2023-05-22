@@ -99,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Event listener for the login
   if (loginButton) {
     loginButton.addEventListener("click", () => {
+      displaySplash();
       if (loginButton.classList.contains("logout-button")) {
         store.dispatch(logout());
       } else {
@@ -109,7 +110,6 @@ document.addEventListener("DOMContentLoaded", () => {
           .then((response) => response.text())
           .then((html) => {
             store.dispatch(setLoginContent(html));
-
             // Hide the splash screen after login page is successfully fetched
             document.querySelector(".v-splash").style.display = "none";
 
@@ -117,7 +117,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const onboardingButton =
               document.querySelector("#onboarding-button");
             if (onboardingButton) {
+              
               onboardingButton.addEventListener("click", () => {
+                displaySplash();
                 console.log("Onboarding button clicked"); // Log when the button is clicked
                 store.dispatch(hideLogin()); // Hide the login form
                 store.dispatch(showOnboarding()); // Show the onboarding form
@@ -126,7 +128,9 @@ document.addEventListener("DOMContentLoaded", () => {
                   .then((response) => response.text())
                   .then((html) => {
                     store.dispatch(setOnboardingContent(html));
-                  
+                      // Hide the splash screen after login page is successfully fetched
+                    document.querySelector(".v-splash").style.display = "none";
+
                     //validate form
                     function validateForm(loginNumber, password, confirmPassword, nickname) {
                       // Login Number should be 6 digits
@@ -134,62 +138,74 @@ document.addEventListener("DOMContentLoaded", () => {
                           alert('Login Number should be 6 digits.');
                           return false;
                       }
-                  
+                    
                       // Password should be minimum 8 characters, at least one uppercase, one lowercase, one number and one special character
                       if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password)) {
                           alert('Password should be minimum 8 characters, at least one uppercase, one lowercase, one number and one special character.');
                           return false;
                       }
-                  
+                    
                       // Confirm Password should match Password
                       if (password !== confirmPassword) {
                           alert('Confirm Password should match Password.');
                           return false;
                       }
-                  
+                    
                       // Nickname should be alphanumeric and may contain periods, dashes and underscores
                       if (!/^[a-zA-Z0-9._-]+$/.test(nickname)) {
                           alert('Nickname should be alphanumeric and may contain periods, dashes and underscores.');
                           return false;
                       }
+                    
+                      // If validation passed, return the form data as an object
+                      return {
+                        loginNumber,
+                        password,
+                        nickname
+                      };
+                    }
                   
-                      return true;
-                  }
-                  
-
                     // to onboardingSteps
                     // Add the event listener for the to-steps button here, after the onboarding content is inserted into the DOM
                     const toStepsButton = document.querySelector("#to-steps");
                     if (toStepsButton) {
+                     
                       toStepsButton.addEventListener("click", () => {
+                        
                         const loginNumber =
-                          document.getElementById("login-number").value;
-                        const password =
-                          document.getElementById("password").value;
-                        const confirmPassword =
-                          document.getElementById("confirm-password").value;
-                        const nickname =
-                          document.getElementById("nickname").value;
-
-                        if (
-                          !validateForm(
-                            loginNumber,
-                            password,
-                            confirmPassword,
-                            nickname
-                          )
-                        ) {
-                          return; // stop the event handler if the form is not valid
-                        }
+                        document.getElementById("login-number").value;
+                      const password =
+                        document.getElementById("password").value;
+                      const confirmPassword =
+                        document.getElementById("confirm-password").value;
+                      const nickname =
+                        document.getElementById("nickname").value;
+                  
+                      const userData = validateForm(
+                        loginNumber,
+                        password,
+                        confirmPassword,
+                        nickname
+                      );
+                  
+                      // If the form is not valid, userData will be false and we stop the event handler
+                      if (!userData) {
+                        return;
+                      }
+                  
+                      // Log the user data
+                      console.log(userData);
 
                         store.dispatch(showOnboardingSteps());
-
+                        displaySplash();
+                        
+                      
                         fetch("pages/onboardingSteps.html")
-                          .then((response) => response.text())
-                          .then((html) => {
-                            store.dispatch(setOnboardingStepsContent(html));
+                        .then((response) => response.text())
+                        .then((html) => {
 
-                            let onboardingStepsSpace = document.querySelector(
+                          store.dispatch(setOnboardingStepsContent());
+                          let onboardingStepsSpace = document.querySelector(
                               ".onboardingSteps-Space"
                             );
 
@@ -215,15 +231,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
                             setTimeout(() => {
                               onboardingStepsSpace.classList.add("active");
-                              surfaceView.style.opacity = 1;
-                              
+                              surfaceView.style.opacity = 1; 
+                              document.querySelector(".v-splash").style.display = "none";
                             }, 50);
                           });
                       });
                     }
+
                   })
                   .catch((error) => {
-                    console.error("Error:", error);
+                    console.error("showonbrdCntnt-Error:", error);
                     document.querySelector(".v-splash").style.display = "none";
                   });
               });
@@ -232,7 +249,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           // Include error handling for login page fetch
           .catch((error) => {
-            console.error("Error:", error);
+            console.error("login-Error:", error);
             document.querySelector(".v-splash").style.display = "none";
           });
         // End of fetch call
@@ -358,6 +375,7 @@ document.addEventListener("DOMContentLoaded", () => {
         surfaceView.style.opacity = 1;
       }, 100);
     } else if (state.onboardingStepsVisible) {
+      displaySplash();
       let onboardingStepsSpace = document.querySelector(
         ".onboardingSteps-Space"
       );
@@ -378,6 +396,7 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => {
         onboardingStepsSpace.classList.add("active");
         surfaceView.style.opacity = 1;
+
       }, 100);
     } else if (state.newsfeedVisible) {
       // If the newsfeed should be visible
