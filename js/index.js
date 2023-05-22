@@ -15,9 +15,12 @@ function updateThemeColor(event) {
 }
 darkModeQuery.addEventListener("change", updateThemeColor);
 
+// code for login/onboarding to newsfeed pagee
 document.addEventListener("DOMContentLoaded", () => {
   // Action creators
-  function hideHome() {return { type: HIDE_HOME };}
+  function hideHome() {
+    return { type: HIDE_HOME };
+  }
   const setCurrentPage = (page) => ({ type: SET_CURRENT_PAGE, payload: page });
   const showLogin = () => ({ type: SHOW_LOGIN });
   const hideLogin = () => ({ type: HIDE_LOGIN });
@@ -53,16 +56,17 @@ document.addEventListener("DOMContentLoaded", () => {
     payload: html,
   });
   const showOnboarding = () => ({ type: SHOW_ONBOARDING });
-  //
+  const hideOnboarding = () => ({ type: HIDE_ONBOARDING });
 
-  const setOnboardingStep = (step) => ({
-    type: SET_ONBOARDING_STEP,
-    payload: step
+  // AC for set onboarding steps
+  const setOnboardingStepsContent = (html) => ({
+    type: SET_ONBOARDING_STEPS_CONTENT,
+    payload: html,
   });
-  
-  const incrementOnboardingStep = () => ({ //not used yet
-    type: INCREMENT_ONBOARDING_STEP
-  });
+  const showOnboardingSteps = () => ({ type: SHOW_ONBOARDING_STEPS });
+  const hideOnboardingSteps = () => ({ type: HIDE_ONBOARDING_STEPS });
+
+  //
 
   // Query the DOM elements
   const loginButton = document.querySelector(".login-button");
@@ -71,7 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const insightsButton = document.querySelector(".lnk-ico .insights-btn");
   const createButton = document.querySelector(".lnk-ico .create-btn");
-
 
   function displaySplash() {
     let splash = document.querySelector(".v-splash");
@@ -111,55 +114,122 @@ document.addEventListener("DOMContentLoaded", () => {
             document.querySelector(".v-splash").style.display = "none";
 
             // Add the event listener for the onboarding button here, after the login content is inserted into the DOM
-            const onboardingButton = document.querySelector("#onboarding-button");
+            const onboardingButton =
+              document.querySelector("#onboarding-button");
             if (onboardingButton) {
-              
               onboardingButton.addEventListener("click", () => {
                 console.log("Onboarding button clicked"); // Log when the button is clicked
                 store.dispatch(hideLogin()); // Hide the login form
                 store.dispatch(showOnboarding()); // Show the onboarding form
-            
+          
                 fetch("pages/onboarding.html")
                   .then((response) => response.text())
                   .then((html) => {
                     store.dispatch(setOnboardingContent(html));
-                    document.querySelector(".v-splash").style.display = "none";
+                  
+                    //validate form
+                    function validateForm(loginNumber, password, confirmPassword, nickname) {
+                      // Login Number should be 6 digits
+                      if (!/^\d{6}$/.test(loginNumber)) {
+                          alert('Login Number should be 6 digits.');
+                          return false;
+                      }
+                  
+                      // Password should be minimum 8 characters, at least one uppercase, one lowercase, one number and one special character
+                      if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password)) {
+                          alert('Password should be minimum 8 characters, at least one uppercase, one lowercase, one number and one special character.');
+                          return false;
+                      }
+                  
+                      // Confirm Password should match Password
+                      if (password !== confirmPassword) {
+                          alert('Confirm Password should match Password.');
+                          return false;
+                      }
+                  
+                      // Nickname should be alphanumeric and may contain periods, dashes and underscores
+                      if (!/^[a-zA-Z0-9._-]+$/.test(nickname)) {
+                          alert('Nickname should be alphanumeric and may contain periods, dashes and underscores.');
+                          return false;
+                      }
+                  
+                      return true;
+                  }
+                  
+
+                    // to onboardingSteps
+                    // Add the event listener for the to-steps button here, after the onboarding content is inserted into the DOM
+                    const toStepsButton = document.querySelector("#to-steps");
+                    if (toStepsButton) {
+                      toStepsButton.addEventListener("click", () => {
+                        const loginNumber =
+                          document.getElementById("login-number").value;
+                        const password =
+                          document.getElementById("password").value;
+                        const confirmPassword =
+                          document.getElementById("confirm-password").value;
+                        const nickname =
+                          document.getElementById("nickname").value;
+
+                        if (
+                          !validateForm(
+                            loginNumber,
+                            password,
+                            confirmPassword,
+                            nickname
+                          )
+                        ) {
+                          return; // stop the event handler if the form is not valid
+                        }
+
+                        store.dispatch(showOnboardingSteps());
+
+                        fetch("pages/onboardingSteps.html")
+                          .then((response) => response.text())
+                          .then((html) => {
+                            store.dispatch(setOnboardingStepsContent(html));
+
+                            let onboardingStepsSpace = document.querySelector(
+                              ".onboardingSteps-Space"
+                            );
+
+                            if (!onboardingStepsSpace) {
+                              onboardingStepsSpace =
+                                document.createElement("div");
+                              onboardingStepsSpace.classList.add(
+                                "onboardingSteps-Space",
+                                "fade-in"
+                              );
+                              surfaceView.insertBefore(
+                                onboardingStepsSpace,
+                                surfaceView.firstChild
+                              );
+                            }
+
+                            onboardingStepsSpace.innerHTML = html;
+                            document.title = "Onboarding Steps";
+                            surfaceView.style.opacity = 0;
+                            surfaceView.innerHTML = "";
+                            surfaceView.appendChild(onboardingStepsSpace);
+                            footer.style.display = "none !important";
+
+                            setTimeout(() => {
+                              onboardingStepsSpace.classList.add("active");
+                              surfaceView.style.opacity = 1;
+                              
+                            }, 50);
+                          });
+                      });
+                    }
                   })
                   .catch((error) => {
                     console.error("Error:", error);
                     document.querySelector(".v-splash").style.display = "none";
                   });
               });
-
-              const onboardingSignup = document.querySelector(".full-page");
-              const hiddenSteps = document.querySelector(".steps-hidn");
-            
-              const form = document.getElementById('onboardForm');
-              if (form) { 
-                form.addEventListener('submit', function(event) {
-                  event.preventDefault();
-                  const formData = {
-                    loginNumber: document.getElementById("login-number").value,
-                    password: document.getElementById("password").value,
-                    confirmPassword: document.getElementById("confirm-password").value,
-                    nickname: document.getElementById("nickname").value,
-                  };
-            
-                  if (formData.password !== formData.confirmPassword) {
-                    alert("Passwords do not match.");
-                    return;
-                  }
-            
-                  onboardingSignup.style.display = 'none';
-                  hiddenSteps.style.display = 'flex';
-                  dispatch(setOnboardingStep('1'));
-                  console.log(formData);
-                });
-              }
             }
-             
-
           })
+
           // Include error handling for login page fetch
           .catch((error) => {
             console.error("Error:", error);
@@ -169,6 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
   // Event listener for the insights button to dispatch the new action creators for insights and create pages
   let lastClickedButton = null;
   // Event listener
@@ -200,7 +271,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   displaySplash();
 
-//updating ui logic
+  //updating ui logic
   store.subscribe(() => {
     const state = store.getState();
     // If the login form should be visible
@@ -273,7 +344,6 @@ document.addEventListener("DOMContentLoaded", () => {
         surfaceView.insertBefore(onboardingSpace, surfaceView.firstChild);
       }
 
-
       //to onboarding steps
 
       onboardingSpace.innerHTML = state.onboardingContent;
@@ -285,6 +355,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
       setTimeout(() => {
         onboardingSpace.classList.add("active");
+        surfaceView.style.opacity = 1;
+      }, 100);
+    } else if (state.onboardingStepsVisible) {
+      let onboardingStepsSpace = document.querySelector(
+        ".onboardingSteps-Space"
+      );
+
+      if (!onboardingStepsSpace) {
+        onboardingStepsSpace = document.createElement("div");
+        onboardingStepsSpace.classList.add("onboardingSteps-Space", "fade-in");
+        surfaceView.insertBefore(onboardingStepsSpace, surfaceView.firstChild);
+      }
+
+      onboardingStepsSpace.innerHTML = state.onboardingStepsContent;
+      document.title = "Onboarding Steps";
+      surfaceView.style.opacity = 0;
+      surfaceView.innerHTML = "";
+      surfaceView.appendChild(onboardingStepsSpace);
+      footer.style.display = "none !important";
+
+      setTimeout(() => {
+        onboardingStepsSpace.classList.add("active");
         surfaceView.style.opacity = 1;
       }, 100);
     } else if (state.newsfeedVisible) {
