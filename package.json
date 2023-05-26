@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "postcss": "^8.4.23",
+    "postcss-combine-duplicated-selectors": "^10.0.3"
+  }
+}
