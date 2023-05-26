@@ -6,7 +6,7 @@
 
 .onboardingSteps-Space {
   display: flex;
-  height: auto !important;
+  height: 100vh !important;
   width: 100%;
 }
 
@@ -14,7 +14,7 @@
 
 .onboarding-steps {
   display:flex;
-  height: 100vh;
+  height: auto;
   width: 100%;
   flex-direction: column;
   align-items: center;
@@ -27,7 +27,13 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100% !important;
+  height: auto !important;
+  overflow-y: scroll;
+}
+
+.steps::-webkit-scrollbar  {
+  display: none !important;
+  
 }
 
 .step-quote-wrapper{
@@ -127,7 +133,7 @@
   padding: 0px;
   margin-bottom: 0px;
   width: 100%;
- height: 100%;
+ height: 100vh;
 }
 
 .step-header {
