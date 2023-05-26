@@ -2928,8 +2928,7 @@ h5 {
   padding-bottom : 0px;
   margin         : 0px;
   z-index        : 999;
-
-  background-image: linear-gradient(to top, var(--v-white-plane-clear), var(--v-white-plane), var(--v-white-plane));
+  background-image: linear-gradient(to top, #ffffff00,#ffffff00, #f9f7ff40, var(--v-white-plane));
 }
 
 
