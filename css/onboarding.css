@@ -19,6 +19,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  
 }
 
 .steps {
@@ -171,8 +172,9 @@
   padding: 12px 12px !important;
   height: auto !important;
   width: 100% !important;
-  border-radius: 6px;
-  
+  border-radius: 8px;
+  justify-content: space-between;
+  padding-left: 20px !important;
 }
 
 .step.active {

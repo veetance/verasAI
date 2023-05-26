@@ -2783,6 +2783,16 @@ img {
   border-radius   : 4px;
 }
 
+.material-symbols-outlined, .purple {
+  color           : #372c5b;
+  font-size       : 1.2rem !important;
+  font-weight     : 500 !important;
+  margin          : 0px;
+  background-color: #85dcdc11;
+  padding         : 4px;
+  border-radius   : 4px;
+}
+
 /* Typography */
 
 p {
@@ -2846,11 +2856,11 @@ h2 {
   white-space    : nowrap;
   flex-direction : column;
   justify-content: flex-start;
-  width          : -moz-fit-content;
-  width          : fit-content;
-  height         : fit-content;
-  font-size      : clamp(1.1rem, 1.4vw, 2.5rem);
-  line-height    : clamp(1.5rem, 1vw, 2.6rem);
+  width          : --moz-fit-content;
+  width          : auto;
+  height         : auto;
+  font-size      : clamp(1.1rem, 1.1vw, 2rem);
+  line-height    : clamp(1.5rem, 1.5vw, 2.6rem);
   font-weight    : 800;
   color          : var(--f7-2ndry-theme-color-tint);
   padding        : 0px;
@@ -3371,7 +3381,7 @@ h5 {
   display         : flex;
   justify-content : center;
   align-items     : center;
-  width           : fit-content;
+  width           : auto;
   height          : 60px;
   background-color: #ffffff0c;
   border-radius   : 8px;
@@ -5271,8 +5281,3 @@ p span {
     line-height: 100% !important;
   }
 }
-Mergely is an online web application for viewing and merging changes between documents online. It is a pure-Javascript library that can be used to enhance your online Content Management System.
-
-It is also available as a React component.
-
-Mergely is open source and also available for commercial use.
