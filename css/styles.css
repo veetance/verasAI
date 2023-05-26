@@ -3341,7 +3341,9 @@ h5 {
 }
 
 
-.surface-view{
+ .mobile-nav{
+    display: flex;
+  }.surface-view{
 
   display: flex;
   flex-direction: column;
