@@ -17,6 +17,7 @@ darkModeQuery.addEventListener("change", updateThemeColor);
 
 // code for login/onboarding to newsfeed pagee
 document.addEventListener("DOMContentLoaded", () => {
+
   // Action creators
   function hideHome() {
     return { type: HIDE_HOME };
@@ -64,7 +65,10 @@ document.addEventListener("DOMContentLoaded", () => {
     payload: html,
   });
   const showOnboardingSteps = () => ({ type: SHOW_ONBOARDING_STEPS });
-  const hideOnboardingSteps = () => ({ type: HIDE_ONBOARDING_STEPS });
+  const hideOnboardingSteps = () => {
+    localStorage.removeItem('onboardingStepsVisible');
+    return { type: HIDE_ONBOARDING_STEPS };
+  };
 
   //
 
@@ -171,9 +175,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (toStepsButton) {
                      
                       toStepsButton.addEventListener("click", () => {
-                        
-                        const loginNumber =
-                        document.getElementById("login-number").value;
+                      const loginNumber =
+                      document.getElementById("login-number").value;
                       const password =
                         document.getElementById("password").value;
                       const confirmPassword =
@@ -375,6 +378,7 @@ document.addEventListener("DOMContentLoaded", () => {
         surfaceView.style.opacity = 1;
       }, 100);
     } else if (state.onboardingStepsVisible) {
+      footer.style.display = "none !important";
       displaySplash();
       let onboardingStepsSpace = document.querySelector(
         ".onboardingSteps-Space"
