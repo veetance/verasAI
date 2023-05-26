@@ -2849,8 +2849,8 @@ h2 {
   width          : -moz-fit-content;
   width          : fit-content;
   height         : fit-content;
-  font-size      : clamp(1.4rem, 2vw, 2.5rem);
-  line-height    : clamp(1.5rem, 2.1vw, 2.6rem);
+  font-size      : clamp(1.1rem, 1.4vw, 2.5rem);
+  line-height    : clamp(1.5rem, 1vw, 2.6rem);
   font-weight    : 800;
   color          : var(--f7-2ndry-theme-color-tint);
   padding        : 0px;
@@ -4542,8 +4542,8 @@ p span {
   }
 
   h2 {
-    font-size  : clamp(1.5rem, 2.4vw, 2rem) !important;
-    line-height: clamp(1.7rem, 2.6vw, 3rem) !important;
+    font-size  : clamp(1rem, 1.4vw, 2rem) !important;
+    line-height: clamp(1.3rem, 2.6vw, 3rem) !important;
   }
 
   #vFstFrame h1 {
@@ -5045,8 +5045,8 @@ p span {
   }
 
   h2 {
-    font-size  : clamp(.5rem, 6.5vw, 7rem) !important;
-    line-height: clamp(.5rem, 7vw, 9rem) !important;
+    font-size  : clamp(.5rem, 4.4vw, 7rem) !important;
+    line-height: clamp(.5rem, 6vw, 9rem) !important;
   }
 
   .plane-style-header h1 {
