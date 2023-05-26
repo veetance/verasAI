@@ -326,11 +326,6 @@ padding-bottom: 1.5rem;
 /* styles for mobile devices */
 @media (min-width: 370px) and (max-width: 579px) {
 
-  .login-Space{
-    display: flex;
-    height: auto !important;
-    }
-
   .full-page {
     display: flex;
     flex-direction: column !important;

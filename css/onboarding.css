@@ -245,9 +245,6 @@
 /* Mobile devices */
 @media (min-width: 370px) and (max-width: 579px) {
 
-  .step {
-    height: auto !important;
-  }
 
   .step-nav{
     display: none !important;
@@ -311,9 +308,6 @@ height: auto;
 /* Small mobile devices */
 @media (min-width: 200px) and (max-width: 369px) {
 
-  .step {
-    height: auto !important;
-  }
 
   .step-nav{
     display: none !important;
@@ -379,10 +373,6 @@ height: auto;
 
 /* Smallest mobile devices */
 @media (min-width: 1px) and (max-width: 260px) {
-
-  .step {
-    height: auto !important;
-  }
 
   .step-nav{
     display: none !important;
