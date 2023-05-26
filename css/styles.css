@@ -39,10 +39,7 @@ body {
 
   max-width: 3080px;
 
-
   -webkit-tap-highlight-color: transparent !important;
-
-
 
 } 
 
@@ -1565,7 +1562,7 @@ box-shadow: 0px 1px 6px rgba(29, 130, 113, 0.15);
   background-color: #f3f1ff;
   padding:5vw;
 
-  grid-gap: 192px;
+  grid-gap: 140px;
 }
 
 
@@ -2474,14 +2471,16 @@ img {
 
 
 .material-symbols-outlined {
-  color: #8be9e9b7;
+  color: #5f50b2;
   font-size: 1.2rem !important;
   font-weight: 500 !important;
   margin: 0px;
-  background-color: #85dcdc11;
+  background-color: #85dcdc00;
   padding: 4px;
   border-radius: 4px;
 } /* Typography */
+
+
 
 p {
   font-size: 0.9rem;
@@ -2547,7 +2546,7 @@ h2 {
   width: -moz-fit-content;
   width: fit-content;
   height: fit-content;
-  font-size: clamp(1.4rem, 2vw, 2.5rem);
+  font-size: clamp(1.2rem, 1.3vw, 2.5rem);
   line-height: clamp(1.5rem, 2.1vw, 2.6rem);
   font-weight: 800;
   color: var(--f7-2ndry-theme-color-tint);
@@ -3067,12 +3066,19 @@ h5 {
   padding: 48px;
   grid-gap: 28px;
 }
+
+.F-contnt .material-symbols-outlined{
+  color:#8be9e9b7;
+  background-color: #8be9e91a;
+
+
+}
 .F-footer {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  background-color: #1611249a;
+  background-color: #2f2550;
   width: 100%;
   height: auto;
   padding: 28px 48px;
@@ -3860,11 +3866,11 @@ box-shadow: 0px 1px 6px rgba(29, 130, 113, 0.15);
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: fit-content;
+  height: auto;
   background-color: var( --v-lavender-plane);
   padding:5vw;
 
-  grid-gap: 192px;
+  grid-gap: 80npx;
 }
 
 
@@ -3881,8 +3887,6 @@ box-shadow: 0px 1px 6px rgba(29, 130, 113, 0.15);
   flex-direction: row;
   width: 100%;
   height: fit-content;
-
-
 }
 
 h1 span {
@@ -4027,8 +4031,8 @@ p span {
   }
 
   h2{
-    font-size: clamp(1.5rem, 2.4vw, 2rem) !important;
-    line-height: clamp(1.7rem, 2.6vw, 3rem) !important;
+    font-size: clamp(1.1rem, 1vw, 2rem) !important;
+    line-height: clamp(1.4rem, 1.6vw, 3rem) !important;
   }
 
   #vFstFrame h1{
@@ -4314,7 +4318,7 @@ p span {
     padding: 18px;
   }
   .F-footer p {
-    font-size: 2.7vw;
+    font-size: 2.2vw;
   }
 } 
 
@@ -4446,7 +4450,7 @@ p span {
     border: 0px rgba(0, 0, 0, 0) solid;
   }
   h2 {
-    font-size: clamp(.5rem, 6.5vw, 7rem) !important;
+    font-size: clamp(.5rem, 5.5vw, 7rem) !important;
     line-height: clamp(.5rem, 7vw, 9rem) !important;
   }
   .plane-style-header h1 {
