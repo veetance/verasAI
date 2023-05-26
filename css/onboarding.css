@@ -1,6 +1,6 @@
 .onboarding-Space {
   display: flex;
-  height: 100% !important;
+  height: 100vh!important;
   width: 100%;
 }
 
