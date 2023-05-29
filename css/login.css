@@ -38,12 +38,6 @@
   grid-gap: clamp(10px, 1.5vw, 4rem);
 }
 
-.overline strong {
-  display: flex !important;
-  font-weight: 8700;
-  
-}
-
 .overline .material-symbols-outlined{
 
   display: flex;
@@ -58,7 +52,6 @@
   font-size: clamp(.95rem, 1.3vw, 2rem);
   line-height: 140%;
   font-weight: 600;
-  
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -66,7 +59,7 @@
   /* color: #288369; */
   color: #5f50b2;
   font-family: "mulish", sans-serif;
- 
+  /* gap: 10px; */
 }
 
 .full-page .content {
@@ -517,6 +510,16 @@ padding-bottom: 1.5rem;
   opacity: 1;
   }
   }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
 
 
 
