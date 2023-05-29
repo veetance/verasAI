@@ -17,7 +17,6 @@ darkModeQuery.addEventListener("change", updateThemeColor);
 
 // code for login/onboarding to newsfeed pagee
 document.addEventListener("DOMContentLoaded", () => {
-
   // Action creators
   function hideHome() {
     return { type: HIDE_HOME };
@@ -66,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   const showOnboardingSteps = () => ({ type: SHOW_ONBOARDING_STEPS });
   const hideOnboardingSteps = () => {
-    localStorage.removeItem('onboardingStepsVisible');
+    localStorage.removeItem("onboardingStepsVisible");
     return { type: HIDE_ONBOARDING_STEPS };
   };
 
@@ -74,6 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Query the DOM elements
   const loginButton = document.querySelector(".login-button");
+
   const surfaceView = document.querySelector(".surface-view");
   const footer = document.querySelector(".footer-Contents");
 
@@ -100,163 +100,244 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
+  function displayLongSplash() {
+    let splash = document.querySelector(".v-splash");
+    // If the splash div does not exist on this page, exit the function
+    if (!splash) return;
+    // Ensure the splash is displayed immediately
+    splash.style.display = "flex";
+    
+    // Get the logo element
+    let logo = document.querySelector(".v-logo");
+    // Set the rotation speed in seconds
+    let rotationSpeed = 5;
+    // Apply the rotation animation to the logo
+    logo.style.animation = `rotate ${rotationSpeed}s linear infinite`;
+  
+    // Define a time when the splash screen can be hidden
+    const hideSplashTime = Date.now() + 5000; // 5000 milliseconds = 5 seconds
+    // Wait until the page is fully loaded
+    window.onload = function () {
+      // Calculate any remaining time to wait
+      const remainingTime = Math.max(0, hideSplashTime - Date.now());
+  
+      // Wait the remaining time, then hide the splash screen
+      setTimeout(() => {
+        splash.style.display = "none";
+        // Stop the rotation animation when the splash screen is hidden
+        logo.style.animation = "";
+      }, remainingTime);
+    };
+  }
+
+  function onboardSuccess(loginNumber, password, nickname) {
+    // Perform actions necessary after a successful login
+    // For example, you might update the UI to reflect the logged-in state
+    // Or you might store the loginNumber, password, and nickname in a user object
+    console.log("Successful login with loginNumber:", loginNumber, "password:", password, "nickname:", nickname);
+  
+    // Transition to the next stage of the onboarding process
+    store.dispatch(showOnboardingSteps());
+  
+    fetch("pages/onboardingSteps.html")
+      .then((response) => response.text())
+      .then((html) => {
+        store.dispatch(setOnboardingStepsContent());
+        let onboardingStepsSpace = document.querySelector(".onboardingSteps-Space");
+  
+        if (!onboardingStepsSpace) {
+          displaySplash();
+          onboardingStepsSpace = document.createElement("div");
+          onboardingStepsSpace.classList.add("onboardingSteps-Space", "fade-in");
+          surfaceView.insertBefore(onboardingStepsSpace, surfaceView.firstChild);
+        }
+  
+        onboardingStepsSpace.innerHTML = html;
+        document.title = "Onboarding Steps";
+        surfaceView.style.opacity = 0;
+        surfaceView.innerHTML = "";
+        surfaceView.appendChild(onboardingStepsSpace);
+        footer.style.display = "none !important";
+  
+        setTimeout(() => {
+          onboardingStepsSpace.classList.add("active");
+          surfaceView.style.opacity = 1;
+          document.querySelector(".v-splash").style.display = "none";
+        }, 1000);
+      });
+  }
+  
+  
+
+
+
+
+  let loginSuccessful = false;
+
   // Event listener for the login
   if (loginButton) {
     loginButton.addEventListener("click", () => {
       displaySplash();
-      if (loginButton.classList.contains("logout-button")) {
-        store.dispatch(logout());
-      } else {
-        store.dispatch(showLogin());
 
-        // Start of fetch call
-        fetch("pages/login.html")
-          .then((response) => response.text())
-          .then((html) => {
-            store.dispatch(setLoginContent(html));
-            // Hide the splash screen after login page is successfully fetched
-            document.querySelector(".v-splash").style.display = "none";
+      store.dispatch(showLogin());
 
-            // Add the event listener for the onboarding button here, after the login content is inserted into the DOM
-            const onboardingButton =
-              document.querySelector("#onboarding-button");
-            if (onboardingButton) {
-              
-              onboardingButton.addEventListener("click", () => {
-                displaySplash();
-                console.log("Onboarding button clicked"); // Log when the button is clicked
-                store.dispatch(hideLogin()); // Hide the login form
-                store.dispatch(showOnboarding()); // Show the onboarding form
-          
-                fetch("pages/onboarding.html")
-                  .then((response) => response.text())
-                  .then((html) => {
-                    store.dispatch(setOnboardingContent(html));
-                      // Hide the splash screen after login page is successfully fetched
-                    document.querySelector(".v-splash").style.display = "none";
+      // Start of fetch call
+      fetch("pages/login.html")
+        .then((response) => response.text())
+        .then((html) => {
+          store.dispatch(setLoginContent(html));
+          // Hide the splash screen after login page is successfully fetched
+          document.querySelector(".v-splash").style.display = "none";
 
-                    //validate form
-                    function validateForm(loginNumber, password, confirmPassword, nickname) {
-                      // Login Number should be 6 digits
-                      if (!/^\d{6}$/.test(loginNumber)) {
-                          alert('Login Number should be 6 digits.');
-                          return false;
-                      }
-                    
-                      // Password should be minimum 8 characters, at least one uppercase, one lowercase, one number and one special character
-                      if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password)) {
-                          alert('Password should be minimum 8 characters, at least one uppercase, one lowercase, one number and one special character.');
-                          return false;
-                      }
-                    
-                      // Confirm Password should match Password
-                      if (password !== confirmPassword) {
-                          alert('Confirm Password should match Password.');
-                          return false;
-                      }
-                    
-                      // Nickname should be alphanumeric and may contain periods, dashes and underscores
-                      if (!/^[a-zA-Z0-9._-]+$/.test(nickname)) {
-                          alert('Nickname should be alphanumeric and may contain periods, dashes and underscores.');
-                          return false;
-                      }
-                    
-                      // If validation passed, return the form data as an object
-                      return {
-                        loginNumber,
-                        password,
-                        nickname
-                      };
+          // Add the event listener for the onboarding button here, after the login content is inserted into the DOM
+
+          const onboardingButton = document.querySelector("#onboarding-button");
+
+          if (loginSuccessful) {
+            onboardingButton.style.display = "flex";
+          } else {
+            onboardingButton.style.display = "none";
+          }
+
+          if (onboardingButton) {
+
+            onboardingButton.addEventListener("click", () => {
+              displaySplash();
+              store.dispatch(hideLogin()); // Hide the login form
+              store.dispatch(showOnboarding()); // Show the onboarding form
+            
+              fetch("pages/onboarding.html")
+                .then((response) => response.text())
+                .then((html) => {
+                  store.dispatch(setOnboardingContent(html));
+                  // Hide the splash screen after login page is successfully fetched
+                  document.querySelector(".v-splash").style.display = "none";
+
+                  //validate form
+                  function validateForm(
+                    loginNumber,
+                    password,
+                    confirmPassword,
+                    nickname
+                  ) {
+                    // Login Number should be 6 digits
+                    if (!/^\d{6}$/.test(loginNumber)) {
+                      alert("Login Number should be 6 digits.");
+                      return false;
                     }
-                  
-                    // to onboardingSteps
-                    // Add the event listener for the to-steps button here, after the onboarding content is inserted into the DOM
-                    const toStepsButton = document.querySelector("#to-steps");
-                    if (toStepsButton) {
-                     
-                      toStepsButton.addEventListener("click", () => {
+
+                    // Password should be minimum 6 digits
+                    if (!/^\d{6,}$/.test(password)) {
+                      alert("Password should be minimum 6 digits.");
+                      return false;
+                    }
+
+                    // Confirm Password should match Password
+                    if (password !== confirmPassword) {
+                      alert("Confirm Password should match Password.");
+                      return false;
+                    }
+
+                    // Nickname should be alphanumeric and may contain periods, dashes and underscores
+                    if (nickname && !/^[a-zA-Z0-9._-]+$/.test(nickname)) {
+                      alert(
+                        "Nickname should be alphanumeric and may contain periods, dashes and underscores."
+                      );
+                      return false;
+                    }
+
+                    // If validation passed, return the form data as an object
+                    return {
+                      loginNumber,
+                      password,
+                      nickname,
+                    };
+                  }
+
+                  // to onboardingSteps
+                  // Add the event listener for the to-steps button here, after the onboarding content is inserted into the DOM
+                  const toStepsButton = document.querySelector("#to-steps");
+                  if (toStepsButton) {
+                    toStepsButton.addEventListener("click", () => {
                       const loginNumber =
-                      document.getElementById("login-number").value;
+                        document.getElementById("login-number").value;
                       const password =
                         document.getElementById("password").value;
                       const confirmPassword =
                         document.getElementById("confirm-password").value;
                       const nickname =
                         document.getElementById("nickname").value;
-                  
-                      const userData = validateForm(
+
+                      // Check for "God mode"
+                      if (loginNumber === "1" && password === "1") {
+                        onboardSuccess(loginNumber, password, nickname);
+                        return;
+                      }
+
+                      const onboardUserData = validateForm(
                         loginNumber,
                         password,
                         confirmPassword,
                         nickname
                       );
-                  
+
                       // If the form is not valid, userData will be false and we stop the event handler
-                      if (!userData) {
+                      if (!onboardUserData) {
                         return;
                       }
-                  
-                      // Log the user data
-                      console.log(userData);
 
-                        store.dispatch(showOnboardingSteps());
-                        displaySplash();
-                        
-                      
-                        fetch("pages/onboardingSteps.html")
-                        .then((response) => response.text())
-                        .then((html) => {
-
-                          store.dispatch(setOnboardingStepsContent());
-                          let onboardingStepsSpace = document.querySelector(
-                              ".onboardingSteps-Space"
+                      // Send a POST request to homepage.phps
+                      fetch("http://study.veras.ca/homepage.phps", {
+                        method: "POST",
+                        headers: {
+                          "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(onboardUserData),
+                      })
+                        .then((response) => {
+                          if (!response.ok) {
+                            throw new Error("Network response was not ok");
+                          }
+                          return response.text();
+                        })
+                        .then((data) => {
+                          onboardSuccess(loginNumber, password, nickname);
+                        })
+                        .catch((error) => {
+                          // Handle errors here
+                          if (error.message.includes("NetworkError")) {
+                            alert("Network Error: Failed to reach the server.");
+                          } else if (error.message.includes("TypeError")) {
+                            alert(
+                              "Type Error: There was a problem with the type of the input."
                             );
+                          } else {
+                            alert(
+                              "Login Data Error: There was a problem with the login data."
+                            );
+                          }
+                        });
+                    });
+                  }
 
-                            if (!onboardingStepsSpace) {
-                              onboardingStepsSpace =
-                                document.createElement("div");
-                              onboardingStepsSpace.classList.add(
-                                "onboardingSteps-Space",
-                                "fade-in"
-                              );
-                              surfaceView.insertBefore(
-                                onboardingStepsSpace,
-                                surfaceView.firstChild
-                              );
-                            }
+                })
+                .catch((error) => {
+                  console.error("showonbrdCntnt-Error:", error);
+                  document.querySelector(".v-splash").style.display = "none";
+                });
+            });
+            
+            
+          }
 
-                            onboardingStepsSpace.innerHTML = html;
-                            document.title = "Onboarding Steps";
-                            surfaceView.style.opacity = 0;
-                            surfaceView.innerHTML = "";
-                            surfaceView.appendChild(onboardingStepsSpace);
-                            footer.style.display = "none !important";
+        })
 
-                            setTimeout(() => {
-                              onboardingStepsSpace.classList.add("active");
-                              surfaceView.style.opacity = 1; 
-                              document.querySelector(".v-splash").style.display = "none";
-                            }, 50);
-                          });
-                      });
-                    }
-
-                  })
-                  .catch((error) => {
-                    console.error("showonbrdCntnt-Error:", error);
-                    document.querySelector(".v-splash").style.display = "none";
-                  });
-              });
-            }
-          })
-
-          // Include error handling for login page fetch
-          .catch((error) => {
-            console.error("login-Error:", error);
-            document.querySelector(".v-splash").style.display = "none";
-          });
-        // End of fetch call
-      }
+        // Include error handling for login page fetch
+        .catch((error) => {
+          console.error("login-Error:", error);
+          document.querySelector(".v-splash").style.display = "none";
+        });
+      // End of fetch call
     });
   }
 
@@ -291,7 +372,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   displaySplash();
 
-  //updating ui logic
   store.subscribe(() => {
     const state = store.getState();
     // If the login form should be visible
@@ -323,35 +403,121 @@ document.addEventListener("DOMContentLoaded", () => {
 
         setTimeout(() => {
           const loginForm = document.querySelector(".form");
-          loginForm.addEventListener("submit", (event) => {
-            event.preventDefault();
 
+          loginForm.addEventListener("submit", (event) => {
+            // Prevent form submission at the start of the event handler
+            event.preventDefault();
+          
             const loginNumberInput = document.querySelector("#login-number");
             const passwordInput = document.querySelector("#password");
-
-            if (loginNumberInput.value === "1" && passwordInput.value === "1") {
-              store.dispatch(hideLogin());
-              store.dispatch(showNewsfeed());
-              store.dispatch(hideHome());
-              displaySplash();
-
-              // Fetch the newsfeed.html content and set it to the state
-              fetch("pages/newsfeed.html")
-                .then((response) => response.text())
-                .then((html) => {
-                  store.dispatch(setNewsfeedContent(html));
-                  window.location.href = "pages/newsfeed.html";
-
-                  // Update the URL and push the new state to the history
-                  history.pushState(
-                    { page: "newsfeed" },
-                    "Newsfeed",
-                    "pages/newsfeed.html"
-                  );
-                });
+          
+            // Validate login number and password
+            const loginNumber = loginNumberInput.value;
+            const password = passwordInput.value;
+          
+            // Check for "God mode"
+            if (loginNumber === "1" && password === "1") {
+              successfulLogin(loginNumberInput, passwordInput);
+              return;
             }
+          
+            // Check for normal login
+            if (loginNumber.length !== 7 && loginNumber.length !== 8) {
+              alert("Login number should be 7 or 8 digits.");
+              return;
+            }
+          
+            if (password.length !== 5) {
+              alert("Password should be 5 digits.");
+              return;
+            }
+          
+            // Prepare the userLoginData object
+            const userLoginData = {
+              loginNumber: loginNumber,
+              password: password
+            };
+          
+            // Send a POST request to login.phps
+            fetch("http://study.veras.ca/logins.phps", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify(userLoginData)
+            })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
+              return response.text();
+            })
+            .then(data => {
+              // If validation passes, proceed with successful login
+              successfulLogin(loginNumberInput, passwordInput);
+            })
+            .catch(error => {
+              // Handle errors here
+              if (error.message.includes("NetworkError")) {
+                alert("Network Error: Failed to reach the server.");
+              } else if (error.message.includes("TypeError")) {
+                alert("Type Error: There was a problem with the type of the input.");
+              } else {
+                alert("Login Data Error: There was a problem with the login data.");
+              }
+            });
           });
+          
+
         }, 100);
+      }
+
+      function successfulLogin(loginNumberInput, passwordInput) {
+        // Set loginSuccessful to true
+        loginSuccessful = true;
+
+        const onboardingButton = document.querySelector("#onboarding-button");
+
+        if (loginSuccessful) {
+          onboardingButton.style.display = "flex";
+        } else {
+          onboardingButton.style.display = "none";
+        }
+
+        // Start the splash screen
+        displayLongSplash();
+
+        // Clear and hide the form inputs
+        loginNumberInput.value = "";
+        passwordInput.value = "";
+        loginNumberInput.style.display = "none";
+        passwordInput.style.display = "none";
+
+        // Change the form title
+        const formTitle = document.querySelector(".form-title");
+        formTitle.textContent = "Login Success";
+
+        // hide tofeed button
+        const ToFeedbtn = document.querySelector("#toFeed-button");
+        ToFeedbtn.style.display = "none";
+
+        // Change the title
+        const title = document.querySelector(".title h1");
+        title.innerHTML = "Veras<span>Authentication</span>";
+
+        // Create and append the new message
+        const h2Memo = document.createElement("h2");
+        h2Memo.textContent = "Please change your password.";
+        h2Memo.style.whiteSpace = "pre-wrap";
+        h2Memo.style.marginBottom = "20px";
+        h2Memo.style.color = "var(--f7-theme-color)"
+        const buttonWrap = document.querySelector(".button-wrap");
+        buttonWrap.parentNode.insertBefore(h2Memo, buttonWrap);
+
+        // Hide the splash screen after 5 seconds
+        setTimeout(() => {
+          document.querySelector(".v-splash").style.display = "none";
+        }, 2000);
       }
 
       //onboarding
@@ -400,7 +566,6 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => {
         onboardingStepsSpace.classList.add("active");
         surfaceView.style.opacity = 1;
-
       }, 100);
     } else if (state.newsfeedVisible) {
       // If the newsfeed should be visible
@@ -494,6 +659,7 @@ document.addEventListener("DOMContentLoaded", () => {
       store.dispatch(setCurrentPage("index"));
     }
   });
+
 });
 
 // main code section for landing page
@@ -642,3 +808,8 @@ document.addEventListener("DOMContentLoaded", () => {
     body.style.opacity = 1;
   });
 });
+
+
+
+
+

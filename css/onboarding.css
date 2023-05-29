@@ -32,6 +32,36 @@
   overflow-y: scroll;
 }
 
+.steps-ul {
+  height: 100%;
+  margin-left: 78px;
+}
+
+.steps-ul ul {
+
+  display: block;
+    list-style-type: disc;
+    margin-block-start: .0em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 20px;
+
+}
+
+.steps-ul ul li {
+  margin-bottom: 10px;
+  list-style-type: style circle;;
+  color: #34a786;
+  font-size: x-large;
+}
+
+.steps-ul ul li p{
+  font-family: "mulish" !important;
+}
+
+
+
 .steps::-webkit-scrollbar  {
   display: none !important;
   
@@ -41,8 +71,14 @@
   display: flex;
   height: auto;
   margin: 20px 0px;
+  justify-content: flex-start;
+  align-content: center;
+  align-items: center;
 }
 
+.step-quote-wrapper h2{
+ padding: 10px 0px;
+}
 .step-info {
   display: flex;
   flex-direction: column;
@@ -75,12 +111,14 @@
 
 
 .step-info h2 {
-  white-space: inherit;
+line-height: auto;
+
 }
 
 
 .steps-article .Tagline {
   flex-direction: row;
+  width: 100%;
 
 }
 
@@ -97,6 +135,32 @@
   height: 100% !important;
   margin-right: 20px;
 }
+
+.steps-article .Tagline-li {
+  flex-direction: row;
+  width: 100%;
+  margin-top: 0px !important;
+}
+
+
+.steps-article .Tagline-li::before {
+  content: "1"; /* Set the content of the ::before pseudo-element to the digit */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px; /* Add padding */
+  margin-right: 20px;
+  color: var(--f7-2ndry-theme-color-tint);
+  border: solid 2px #34a786; /* Set the border */
+  border-radius: 10%; /* Make it circular */
+  width: 30px; /* Set the width */
+  height: 30px; /* Set the height */
+  font-weight: 900; /* Make the content bold */
+  font-family: "poppins";
+  font-size: 1.3em; /* Set the font size similar to h2 */
+}
+
+
 
 
 .step-info-main{
@@ -140,7 +204,7 @@
   display: flex;
   flex-direction: column;
   border: solid 0px black;
-  background-color: var(--f7-theme-color);
+  background-image: linear-gradient(to bottom,#8278c600,#8c7edf,#6a5db6,#5e50b2, #5e50b2);
   width:100%;
   height: auto;
   padding: 40px;
@@ -157,14 +221,51 @@
   justify-content: space-between;
 }
 
+.overline strong{
+  display: flex;
+  opacity: 1;
+  border: solid 1px #5f50b200;
+  width: fit-content !important;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.overline strong:hover{
+  border: solid 1px #5f50b271;
+  padding-left: 10px;
+
+  margin-top: 10px;
+}
+
+.overline strong:active {
+
+  border: solid 1px #5f50b271;
+  opacity: .5;
+  padding-left: 10px;
+  margin-top: 10px;
+  margin-top: 10px;
+
+}
+
+.overline strong p{
+  display: flex;
+  color: #5e50b2;
+  font-weight:500;
+  height: 100%;
+  align-items: center;
+  
+}
+
 .step-nav{
   display: flex;
   width: 100%;
+  gap: 20px;
 }
 
 .mobile-nav{
   display: none;
   width: 100%;
+  gap: 20px;
 }
 
 .step-button{
@@ -174,7 +275,17 @@
   width: 100% !important;
   border-radius: 8px;
   justify-content: space-between;
-  padding-left: 20px !important;
+  padding-left: 20px ;
+}
+
+.step .next {
+
+  padding-left: 30px !important;
+}
+
+.step .back {
+
+  padding-right: 30px !important;
 }
 
 .step.active {
@@ -276,6 +387,20 @@
  padding: 20px !important;
 }
 
+.steps-article .Tagline-li {
+  flex-direction: row;
+  width: 100%;
+  margin-top: 20px !important;
+  margin-left: 20px;
+}
+
+.steps-ul {
+  margin-left: 98px;
+}
+
+
+
+
 
 
 .steps-article{
@@ -361,7 +486,13 @@ height: auto;
   }
 
   .onboarding-page .header {
+   
     padding: 1rem;
+  }
+
+  .step-header{
+    padding-top: 100px !important;
+    padding: 20px ;
   }
 
   .onboarding-page .content {
@@ -423,6 +554,10 @@ height: auto;
     grid-template-areas:
       "header"
       "content";
+  }
+
+  .step-header{
+    padding: 20px !important;
   }
 
   .onboarding-page .header {
