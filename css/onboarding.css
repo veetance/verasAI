@@ -78,6 +78,7 @@
 
 .step-quote-wrapper h2{
  padding: 10px 0px;
+ white-space:pre-line;
 }
 .step-info {
   display: flex;
@@ -110,10 +111,6 @@
 }
 
 
-.step-info h2 {
-line-height: auto;
-
-}
 
 
 .steps-article .Tagline {
@@ -291,6 +288,24 @@ line-height: auto;
 .step.active {
   display: flex;
 }
+
+.global-back-btn{
+  display: flex;
+  scale: 140%;
+  border: solid 2px #34a78600;
+  font-weight: 600;
+}
+
+/* .global-back-btn:hover{
+  border: solid 2px #2181665b;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.global-back-btn:active {
+  opacity: .5;
+  border: solid 1px #2181665b;
+} */
 
 
 

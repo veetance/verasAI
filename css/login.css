@@ -110,6 +110,10 @@ box-shadow: rgba(95, 80, 178, 0.549) 0px 1px 2px 0px, rgba(95, 80, 178, 0.15) 0p
 
 .form-title {
 
+display: flex;
+
+flex-direction: row;
+
 font-size: clamp(1.3rem, 2.4vw, 1.7rem) !important;
 
 line-height: clamp(1.9rem, 2.5vw, 8rem) !important;
@@ -133,6 +137,10 @@ overflow: hidden;
 padding: 2rem;
 
 padding-bottom: 1.5rem;
+
+align-items: center;
+
+justify-content: space-between;
 }
 
 .full-page .title {
@@ -492,10 +500,6 @@ padding-bottom: 1.5rem;
   transform: translateY(0);
 }
 
-
-
-
-  
   .translate-up {
   animation: translate-up 0.3s cubic-bezier(0.3, 0.6, 0.13, 1);
   }
@@ -519,8 +523,6 @@ padding-bottom: 1.5rem;
       transform: rotate(360deg);
     }
   }
-  
-
 
 
   /* form */

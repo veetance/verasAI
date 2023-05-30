@@ -2249,8 +2249,6 @@ p span {
 
   /* product */
 
-  .v-product-space {
-  }
 
   .v-product {
     height: fit-content !important;
@@ -2604,9 +2602,6 @@ p span {
 /* ///second chunk  */
 
 
-/* -- always have latter code on css-->*/
-/* splash-screen */
-
 .v-splash {
   display: none;
   align-items: center;
@@ -2642,6 +2637,8 @@ p span {
   grid-gap: 4px !important;
   height: fit-content;
 }
+
+
 
 .v-logo-wrapper {
   height: fit-content !important;
@@ -4512,10 +4509,6 @@ p span {
     padding: 36px 18px;
   }
 
-  /* product */
-
-  .v-product-space {
-  }
 
   .v-product {
     height: fit-content !important;

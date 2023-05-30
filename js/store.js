@@ -8,15 +8,12 @@ const initialState = {
   insightsContent: null,
   createVisible: false,
   createContent: null,
-  onboardingVisible: false, // New property for onboarding visibility
-  onboardingContent:null,
-
-  onboardingStepsVisible: false, // New property for onboarding steps visibility
-  onboardingStepsContent: null, // New property for onboarding steps content
-
+  onboardingVisible: false,
+  onboardingContent: null,
+  onboardingStepsVisible: false,
+  onboardingStepsContent: null,
 };
 
-// Action types
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 const HIDE_HOME = "HIDE_HOME";
 
@@ -36,23 +33,25 @@ const SHOW_CREATE = "SHOW_CREATE";
 const HIDE_CREATE = "HIDE_CREATE";
 const SET_CREATE_CONTENT = "SET_CREATE_CONTENT";
 
-const SET_ONBOARDING_CONTENT = "SET_ONBOARDING_CONTENT";// New action type for set onboarding
-const SHOW_ONBOARDING = "SHOW_ONBOARDING"; // New action type for showing onboarding
+const SET_ONBOARDING_CONTENT = "SET_ONBOARDING_CONTENT";
+const SHOW_ONBOARDING = "SHOW_ONBOARDING";
 const HIDE_ONBOARDING = "HIDE_ONBOARDING";
 
 const SHOW_ONBOARDING_STEPS = "SHOW_ONBOARDING_STEPS";
 const HIDE_ONBOARDING_STEPS = "HIDE_ONBOARDING_STEPS";
 const SET_ONBOARDING_STEPS_CONTENT = "SET_ONBOARDING_STEPS_CONTENT";
 
+// New action type for going back
+const GO_BACK = "GO_BACK";
 
+let historyStack = [];
 
-//reducers
 function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_CURRENT_PAGE:
       return { ...state, currentPage: action.payload };
     case HIDE_HOME:
-        return { ...state, currentPage: "none" };
+      return { ...state, currentPage: "none" };
     case SHOW_LOGIN:
       return { ...state, loginVisible: true };
     case HIDE_LOGIN:
@@ -78,29 +77,42 @@ function reducer(state = initialState, action) {
     case SET_CREATE_CONTENT:
       return { ...state, createContent: action.payload };
     case SET_ONBOARDING_CONTENT:
-      return {...state,onboardingContent: action.payload,};
+      return { ...state, onboardingContent: action.payload };
     case SHOW_ONBOARDING:
-      return { ...state, onboardingVisible: true }; // New case for showing onboarding
+      return { ...state, onboardingVisible: true };
     case HIDE_ONBOARDING:
-      return { ...state, onboardingVisible: false }; // New case for hiding onboarding    
+      return { ...state, onboardingVisible: false };
     case SHOW_ONBOARDING_STEPS:
       return { ...state, onboardingStepsVisible: true };
     case HIDE_ONBOARDING_STEPS:
       return { ...state, onboardingStepsVisible: false };
     case SET_ONBOARDING_STEPS_CONTENT:
-      return {...state,onboardingStepsContent: action.payload,}; 
-    default:
-      return state;
-  }
+      return { ...state, onboardingStepsContent: action.payload };
+  // New case for going back
+      case GO_BACK:
+        // Pop the last state from the history stack
+        const lastState = historyStack.pop();
+        // If the last state exists, go back to the previous URL and return the last state
+        if (lastState) {
+          window.history.back();
+          return lastState;
+        }
+        // If the history stack is empty, stay on the current state
+        return state;
+  
+      default:
+        // Only push the current state to the history stack when the action is not 'GO_BACK'
+        if (action.type !== GO_BACK) {
+          // Push a copy of the current state to the history stack
+          historyStack.push({ ...state });
+        }
+        return state;
+    }
+
 }
-
-
-
 
 const store = Redux.createStore(reducer);
 
 
-// write a store for settings page 
-
-
+ 
 
