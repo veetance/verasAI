@@ -42,22 +42,12 @@ body {
 
   max-width: 3080px;
 
+  overflow: hidden !important;
+
   -webkit-tap-highlight-color: transparent !important;
 }
 
-body {
-  opacity: 0;
-  transition: opacity 0.1s ease-in-out;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100dvw;
-  height: 100dvh;
-
-  max-width: 3080px;
-}
 
 img {
   display: flex;
@@ -3483,6 +3473,7 @@ h5 {
 .plane-styled-header {
   display: grid;
   grid-template-columns: auto;
+  width: fit-content !important;
 }
 
 .v-page-plane-text-header-wrapper {
@@ -3578,12 +3569,13 @@ h5 {
   display: flex;
   flex-direction: column;
   height: fit-content;
-  width: 100%;
+  width: 100% !important;
   grid-gap: 1.5vw;
 }
 
 .v-page-plane-cont-text h2 {
   color: #372c6b;
+  width: fit-content !important;
   /* background-clip: text; -webkit-background-clip: text; color: transparent; -webkit-text-fill-color: transparent; background-image: linear-gradient(to right, #288369, #372c6b); */
 }
 
@@ -3594,6 +3586,7 @@ h5 {
   grid-template-columns: auto 1fr;
   height: fit-content;
   margin-top: 0vw;
+  width: 100% !important;
 }
 
 .v-page-plane-cont-text p {
@@ -4043,7 +4036,7 @@ p span {
 
   /* v-planes */
   .v-page-plane-cont-text p {
-    width: fit-content;
+    width: auto;
     padding-right: 30vw;
   }
 
@@ -4227,8 +4220,10 @@ p span {
   }
 
   p {
-    font-size: clamp(0.9rem, 2vw, 1rem);
+    font-size: clamp(0.7rem, 2vw, 1rem);
+    line-height:clamp(1.5rem, 2vw, 1rem);;
   }
+
 
   .F-set ul li p {
     font-size: clamp(0.7rem, 1vw, 1rem);

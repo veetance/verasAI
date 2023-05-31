@@ -73,40 +73,27 @@ document.addEventListener("DOMContentLoaded", () => {
   const insightsButton = document.querySelector(".lnk-ico .insights-btn");
   const createButton = document.querySelector(".lnk-ico .create-btn");
 
-
   function updateStep(increment) {
-    console.log("Increment: ", increment); // Log the increment value
-    // Get all step elements inside the .onboarding-steps section
-    let steps = Array.from(document.querySelector('.onboarding-steps').querySelectorAll('.step'));
-    console.log("Steps: ", steps); // Log the steps array
-    // Find the current active step
-    let currentStep = steps.find(step => step.classList.contains('active'));
-    
-    // If there's no active step, set the first one (with data-step="0") as active
+    let steps = Array.from(
+      document.querySelector(".onboarding-steps").querySelectorAll(".step")
+    );
+    let currentStep = steps.find((step) => step.classList.contains("active"));
+
     if (!currentStep) {
-      steps.find(step => step.dataset.step == '0').classList.add('active');
-      console.log("No active step found. Set first step as active.");
+      steps.find((step) => step.dataset.step == "0").classList.add("active");
       return;
     }
-  
-    // Find the current step number
+
     let currentStepNumber = parseInt(currentStep.dataset.step);
-    console.log("Current step number: ", currentStepNumber);
-  
-    // Calculate the next step number
     let nextStepNumber = currentStepNumber + increment;
-    console.log("Next step number: ", nextStepNumber);
-  
-    // Find the next step element
-    let nextStep = steps.find(step => parseInt(step.dataset.step) === nextStepNumber);
-    
-    // If the next step element exists, update the active class
+
+    let nextStep = steps.find(
+      (step) => parseInt(step.dataset.step) === nextStepNumber
+    );
+
     if (nextStep) {
-      currentStep.classList.remove('active');
-      nextStep.classList.add('active');
-      console.log("Updated active step to: ", nextStepNumber);
-    } else {
-      console.log("Next step number is not within valid range.");
+      currentStep.classList.remove("active");
+      nextStep.classList.add("active");
     }
   }
 
@@ -120,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
           updateStep(1); // Increment the step
         });
       });
-  
+
     document
       .querySelectorAll(".onboarding-steps .nav-button.back")
       .forEach((button) => {
@@ -205,9 +192,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   function onboardSuccess(loginNumber, password, nickname) {
-    // Perform actions necessary after a successful login
-    // For example, you might update the UI to reflect the logged-in state
-    // Or you might store the loginNumber, password, and nickname in a user object
     console.log(
       "Successful login with loginNumber:",
       loginNumber,
@@ -631,7 +615,7 @@ document.addEventListener("DOMContentLoaded", () => {
         surfaceView.insertBefore(onboardingStepsSpace, surfaceView.firstChild);
       }
 
-      onboardingStepsSpace.innerHTML = state.onboardingStepsContent; 
+      onboardingStepsSpace.innerHTML = state.onboardingStepsContent;
       document.title = "Onboarding Steps";
       surfaceView.style.opacity = 0;
       surfaceView.innerHTML = "";
