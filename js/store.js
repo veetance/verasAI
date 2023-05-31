@@ -2,9 +2,9 @@ const initialState = {
   currentPage: "home",
   loginVisible: false,
   loginContent: null,
-  newsfeedVisible: false,
+  newsfeedVisible: false,// hompage.phps
   newsfeedContent: null,
-  insightsVisible: false,
+  insightsVisible: false,//dashboard.phps
   insightsContent: null,
   createVisible: false,
   createContent: null,
@@ -40,6 +40,7 @@ const HIDE_ONBOARDING = "HIDE_ONBOARDING";
 const SHOW_ONBOARDING_STEPS = "SHOW_ONBOARDING_STEPS";
 const HIDE_ONBOARDING_STEPS = "HIDE_ONBOARDING_STEPS";
 const SET_ONBOARDING_STEPS_CONTENT = "SET_ONBOARDING_STEPS_CONTENT";
+
 
 // New action type for going back
 const GO_BACK = "GO_BACK";
@@ -88,8 +89,8 @@ function reducer(state = initialState, action) {
       return { ...state, onboardingStepsVisible: false };
     case SET_ONBOARDING_STEPS_CONTENT:
       return { ...state, onboardingStepsContent: action.payload };
-  // New case for going back
-      case GO_BACK:
+     // New case for going back
+    case GO_BACK:
         // Pop the last state from the history stack
         const lastState = historyStack.pop();
         // If the last state exists, go back to the previous URL and return the last state
@@ -98,7 +99,7 @@ function reducer(state = initialState, action) {
           return lastState;
         }
         // If the history stack is empty, stay on the current state
-        return state;
+      return state;
   
       default:
         // Only push the current state to the history stack when the action is not 'GO_BACK'
@@ -106,7 +107,8 @@ function reducer(state = initialState, action) {
           // Push a copy of the current state to the history stack
           historyStack.push({ ...state });
         }
-        return state;
+      return state;
+          
     }
 
 }

@@ -68,12 +68,69 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Query the DOM elements
   const loginButton = document.querySelector(".login-button");
-
   const surfaceView = document.querySelector(".surface-view");
   const footer = document.querySelector(".footer-Contents");
-
   const insightsButton = document.querySelector(".lnk-ico .insights-btn");
   const createButton = document.querySelector(".lnk-ico .create-btn");
+
+
+  function updateStep(increment) {
+    console.log("Increment: ", increment); // Log the increment value
+    // Get all step elements inside the .onboarding-steps section
+    let steps = Array.from(document.querySelector('.onboarding-steps').querySelectorAll('.step'));
+    console.log("Steps: ", steps); // Log the steps array
+    // Find the current active step
+    let currentStep = steps.find(step => step.classList.contains('active'));
+    
+    // If there's no active step, set the first one (with data-step="0") as active
+    if (!currentStep) {
+      steps.find(step => step.dataset.step == '0').classList.add('active');
+      console.log("No active step found. Set first step as active.");
+      return;
+    }
+  
+    // Find the current step number
+    let currentStepNumber = parseInt(currentStep.dataset.step);
+    console.log("Current step number: ", currentStepNumber);
+  
+    // Calculate the next step number
+    let nextStepNumber = currentStepNumber + increment;
+    console.log("Next step number: ", nextStepNumber);
+  
+    // Find the next step element
+    let nextStep = steps.find(step => parseInt(step.dataset.step) === nextStepNumber);
+    
+    // If the next step element exists, update the active class
+    if (nextStep) {
+      currentStep.classList.remove('active');
+      nextStep.classList.add('active');
+      console.log("Updated active step to: ", nextStepNumber);
+    } else {
+      console.log("Next step number is not within valid range.");
+    }
+  }
+
+  function addStepButtonListeners() {
+    document
+      .querySelectorAll(".onboarding-steps .nav-button.next")
+      .forEach((button) => {
+        button.addEventListener("click", function (event) {
+          event.preventDefault(); // Prevent the default action
+          event.stopPropagation(); // Stop event propagation
+          updateStep(1); // Increment the step
+        });
+      });
+  
+    document
+      .querySelectorAll(".onboarding-steps .nav-button.back")
+      .forEach((button) => {
+        button.addEventListener("click", function (event) {
+          event.preventDefault(); // Prevent the default action
+          event.stopPropagation(); // Stop event propagation
+          updateStep(-1); // Decrement the step
+        });
+      });
+  }
 
   function displaySplash() {
     let splash = document.querySelector(".v-splash");
@@ -129,15 +186,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const refreshButtons = document.querySelectorAll(
     ".nav-logo, .nav-title, .VLOGO-wrapper"
   );
-
-  // Add event listener to each refresh button
   refreshButtons.forEach((button) => {
     button.addEventListener("click", () => {
       window.location.href = "/index.html";
     });
   });
-
-  // When the page is loaded
   window.addEventListener("load", function () {
     if (window.location.pathname !== "/index.html") {
       // Redirect to index.html
@@ -171,6 +224,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .then((response) => response.text())
       .then((html) => {
         store.dispatch(setOnboardingStepsContent());
+
         let onboardingStepsSpace = document.querySelector(
           ".onboardingSteps-Space"
         );
@@ -199,6 +253,8 @@ document.addEventListener("DOMContentLoaded", () => {
           onboardingStepsSpace.classList.add("active");
           surfaceView.style.opacity = 1;
           document.querySelector(".v-splash").style.display = "none";
+          addStepButtonListeners();
+          updateStep(0);
         }, 1000);
       });
   }
@@ -316,7 +372,7 @@ document.addEventListener("DOMContentLoaded", () => {
                       }
 
                       // Send a POST request to homepage.phps
-                      fetch("http://study.veras.ca/homepage.phps", {
+                      fetch("http://study.veras.ca/home.phps", {
                         method: "POST",
                         headers: {
                           "Content-Type": "application/json",
@@ -393,12 +449,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   displaySplash();
-
+  //ui changes are made
   store.subscribe(() => {
     const state = store.getState();
 
     if (state.loginVisible) {
+      // Your code for loginVisible...
       window.history.pushState({ page: "login" }, "", "/login.html");
+
       let loginSpace = document.querySelector(".login-Space");
 
       if (!loginSpace) {
@@ -552,9 +610,41 @@ document.addEventListener("DOMContentLoaded", () => {
           document.querySelector(".v-splash").style.display = "none";
         }, 2000);
       }
+    } else if (state.onboardingStepsVisible) {
+      // Your code for onboardingStepsVisible
+      window.history.pushState(
+        { page: "onboardingSteps" },
+        "",
+        "/onboardingSteps.html"
+      );
+      footer.style.display = "none !important";
+      displaySplash();
+      // Call this function after the buttons have been added to the DOM
 
-      //onboarding
+      let onboardingStepsSpace = document.querySelector(
+        ".onboardingSteps-Space"
+      );
+
+      if (!onboardingStepsSpace) {
+        onboardingStepsSpace = document.createElement("div");
+        onboardingStepsSpace.classList.add("onboardingSteps-Space", "fade-in");
+        surfaceView.insertBefore(onboardingStepsSpace, surfaceView.firstChild);
+      }
+
+      onboardingStepsSpace.innerHTML = state.onboardingStepsContent; 
+      document.title = "Onboarding Steps";
+      surfaceView.style.opacity = 0;
+      surfaceView.innerHTML = "";
+      surfaceView.appendChild(onboardingStepsSpace);
+      footer.style.display = "none !important";
+
+      setTimeout(() => {
+        onboardingStepsSpace.classList.add("active");
+        surfaceView.style.opacity = 1;
+        // Call addStepButtonListeners() after the new HTML content is inserted
+      }, 100);
     } else if (state.onboardingVisible) {
+      // Your code for onboardingVisible...
       window.history.pushState({ page: "onboarding" }, "", "/onboarding.html");
       let onboardingSpace = document.querySelector(".onboarding-Space");
 
@@ -577,36 +667,8 @@ document.addEventListener("DOMContentLoaded", () => {
         onboardingSpace.classList.add("active");
         surfaceView.style.opacity = 1;
       }, 100);
-    } else if (state.onboardingStepsVisible) {
-      window.history.pushState(
-        { page: "onboardingSteps" },
-        "",
-        "/onboardingSteps.html"
-      );
-      footer.style.display = "none !important";
-      displaySplash();
-      let onboardingStepsSpace = document.querySelector(
-        ".onboardingSteps-Space"
-      );
-
-      if (!onboardingStepsSpace) {
-        onboardingStepsSpace = document.createElement("div");
-        onboardingStepsSpace.classList.add("onboardingSteps-Space", "fade-in");
-        surfaceView.insertBefore(onboardingStepsSpace, surfaceView.firstChild);
-      }
-
-      onboardingStepsSpace.innerHTML = state.onboardingStepsContent;
-      document.title = "Onboarding Steps";
-      surfaceView.style.opacity = 0;
-      surfaceView.innerHTML = "";
-      surfaceView.appendChild(onboardingStepsSpace);
-      footer.style.display = "none !important";
-
-      setTimeout(() => {
-        onboardingStepsSpace.classList.add("active");
-        surfaceView.style.opacity = 1;
-      }, 100);
     } else if (state.newsfeedVisible) {
+      // Your code for newsfeedVisible...
       window.history.pushState({ page: "newsfeed" }, "", "/newsfeed.html");
       let newsfeedSpace = document.querySelector(".newsfeed-Space");
       if (!newsfeedSpace) {
@@ -691,10 +753,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
     }
-    
   });
 
-      // Call history.pushState for every state change that should be reflected in the history
+  window.addEventListener("pushstate", (event) => {
+    // Call history.pushState for every state change that should be reflected in the history
+
+    if (event.state) {
       switch (state.currentPage) {
         case "login":
           window.history.pushState(state, "", "/login.html");
@@ -716,6 +780,8 @@ document.addEventListener("DOMContentLoaded", () => {
           window.history.pushState(state, "", "/index.html");
           break;
       }
+    }
+  });
 
   window.addEventListener("popstate", (event) => {
     if (event.state) {
@@ -743,9 +809,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Logic for the back button
-  document.querySelector(".global-back-btn").addEventListener("click", () => {
-    window.history.back();
+  // Wait for the DOM content to load
+  document.addEventListener("DOMContentLoaded", () => {
+    // Then try to add the event listener
+    const backButton = document.querySelector(".global-back-btn");
+
+    // Check if the button exists
+    if (backButton) {
+      backButton.addEventListener("click", () => {
+        window.history.back();
+      });
+    } else {
+      console.error("Back button not found");
+    }
   });
 });
 
