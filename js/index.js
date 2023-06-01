@@ -35,7 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
     payload: html,
   });
 
-  // New action creators for insights and create pages
   const showInsights = () => ({ type: SHOW_INSIGHTS });
   const hideInsights = () => ({ type: HIDE_INSIGHTS });
   const setInsightsContent = (html) => ({
@@ -50,7 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
     payload: html,
   });
 
-  // Action creator for onboarding content
   const setOnboardingContent = (html) => ({
     type: SET_ONBOARDING_CONTENT,
     payload: html,
@@ -58,7 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const showOnboarding = () => ({ type: SHOW_ONBOARDING });
   const hideOnboarding = () => ({ type: HIDE_ONBOARDING });
 
-  // AC for set onboarding steps
   const setOnboardingStepsContent = (html) => ({
     type: SET_ONBOARDING_STEPS_CONTENT,
     payload: html,
@@ -69,16 +66,58 @@ document.addEventListener("DOMContentLoaded", () => {
     return { type: HIDE_ONBOARDING_STEPS };
   };
 
-  //
-
   // Query the DOM elements
   const loginButton = document.querySelector(".login-button");
-
   const surfaceView = document.querySelector(".surface-view");
   const footer = document.querySelector(".footer-Contents");
-
   const insightsButton = document.querySelector(".lnk-ico .insights-btn");
   const createButton = document.querySelector(".lnk-ico .create-btn");
+
+  function updateStep(increment) {
+    let steps = Array.from(
+      document.querySelector(".onboarding-steps").querySelectorAll(".step")
+    );
+    let currentStep = steps.find((step) => step.classList.contains("active"));
+
+    if (!currentStep) {
+      steps.find((step) => step.dataset.step == "0").classList.add("active");
+      return;
+    }
+
+    let currentStepNumber = parseInt(currentStep.dataset.step);
+    let nextStepNumber = currentStepNumber + increment;
+
+    let nextStep = steps.find(
+      (step) => parseInt(step.dataset.step) === nextStepNumber
+    );
+
+    if (nextStep) {
+      currentStep.classList.remove("active");
+      nextStep.classList.add("active");
+    }
+  }
+
+  function addStepButtonListeners() {
+    document
+      .querySelectorAll(".onboarding-steps .nav-button.next")
+      .forEach((button) => {
+        button.addEventListener("click", function (event) {
+          event.preventDefault(); // Prevent the default action
+          event.stopPropagation(); // Stop event propagation
+          updateStep(1); // Increment the step
+        });
+      });
+
+    document
+      .querySelectorAll(".onboarding-steps .nav-button.back")
+      .forEach((button) => {
+        button.addEventListener("click", function (event) {
+          event.preventDefault(); // Prevent the default action
+          event.stopPropagation(); // Stop event propagation
+          updateStep(-1); // Decrement the step
+        });
+      });
+  }
 
   function displaySplash() {
     let splash = document.querySelector(".v-splash");
@@ -106,21 +145,21 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!splash) return;
     // Ensure the splash is displayed immediately
     splash.style.display = "flex";
-    
+
     // Get the logo element
     let logo = document.querySelector(".v-logo");
     // Set the rotation speed in seconds
     let rotationSpeed = 5;
     // Apply the rotation animation to the logo
     logo.style.animation = `rotate ${rotationSpeed}s linear infinite`;
-  
+
     // Define a time when the splash screen can be hidden
     const hideSplashTime = Date.now() + 5000; // 5000 milliseconds = 5 seconds
     // Wait until the page is fully loaded
     window.onload = function () {
       // Calculate any remaining time to wait
       const remainingTime = Math.max(0, hideSplashTime - Date.now());
-  
+
       // Wait the remaining time, then hide the splash screen
       setTimeout(() => {
         splash.style.display = "none";
@@ -130,51 +169,82 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
+  // Query the DOM elements
+  const refreshButtons = document.querySelectorAll(
+    ".nav-logo, .nav-title, .VLOGO-wrapper"
+  );
+  refreshButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      window.location.href = "/index.html";
+    });
+  });
+  window.addEventListener("load", function () {
+    if (window.location.pathname !== "/index.html") {
+      // Redirect to index.html
+      window.location.href = "/index.html";
+    }
+  });
+
+  // When the page is about to be unloaded (e.g., on refresh or navigation)
+  window.addEventListener("beforeunload", function () {
+    // Mark that a reload is happening
+    localStorage.setItem("reload", "true");
+  });
+
   function onboardSuccess(loginNumber, password, nickname) {
-    // Perform actions necessary after a successful login
-    // For example, you might update the UI to reflect the logged-in state
-    // Or you might store the loginNumber, password, and nickname in a user object
-    console.log("Successful login with loginNumber:", loginNumber, "password:", password, "nickname:", nickname);
-  
+    console.log(
+      "Successful login with loginNumber:",
+      loginNumber,
+      "password:",
+      password,
+      "nickname:",
+      nickname
+    );
+
     // Transition to the next stage of the onboarding process
     store.dispatch(showOnboardingSteps());
-  
+
     fetch("pages/onboardingSteps.html")
       .then((response) => response.text())
       .then((html) => {
         store.dispatch(setOnboardingStepsContent());
-        let onboardingStepsSpace = document.querySelector(".onboardingSteps-Space");
-  
+
+        let onboardingStepsSpace = document.querySelector(
+          ".onboardingSteps-Space"
+        );
+
         if (!onboardingStepsSpace) {
           displaySplash();
           onboardingStepsSpace = document.createElement("div");
-          onboardingStepsSpace.classList.add("onboardingSteps-Space", "fade-in");
-          surfaceView.insertBefore(onboardingStepsSpace, surfaceView.firstChild);
+          onboardingStepsSpace.classList.add(
+            "onboardingSteps-Space",
+            "fade-in"
+          );
+          surfaceView.insertBefore(
+            onboardingStepsSpace,
+            surfaceView.firstChild
+          );
         }
-  
+
         onboardingStepsSpace.innerHTML = html;
         document.title = "Onboarding Steps";
         surfaceView.style.opacity = 0;
         surfaceView.innerHTML = "";
         surfaceView.appendChild(onboardingStepsSpace);
         footer.style.display = "none !important";
-  
+
         setTimeout(() => {
           onboardingStepsSpace.classList.add("active");
           surfaceView.style.opacity = 1;
           document.querySelector(".v-splash").style.display = "none";
+          addStepButtonListeners();
+          updateStep(0);
         }, 1000);
       });
   }
-  
-  
-
-
-
 
   let loginSuccessful = false;
 
-  // Event listener for the login
   if (loginButton) {
     loginButton.addEventListener("click", () => {
       displaySplash();
@@ -200,12 +270,11 @@ document.addEventListener("DOMContentLoaded", () => {
           }
 
           if (onboardingButton) {
-
             onboardingButton.addEventListener("click", () => {
               displaySplash();
               store.dispatch(hideLogin()); // Hide the login form
               store.dispatch(showOnboarding()); // Show the onboarding form
-            
+
               fetch("pages/onboarding.html")
                 .then((response) => response.text())
                 .then((html) => {
@@ -287,7 +356,7 @@ document.addEventListener("DOMContentLoaded", () => {
                       }
 
                       // Send a POST request to homepage.phps
-                      fetch("http://study.veras.ca/homepage.phps", {
+                      fetch("http://study.veras.ca/home.phps", {
                         method: "POST",
                         headers: {
                           "Content-Type": "application/json",
@@ -319,17 +388,13 @@ document.addEventListener("DOMContentLoaded", () => {
                         });
                     });
                   }
-
                 })
                 .catch((error) => {
                   console.error("showonbrdCntnt-Error:", error);
                   document.querySelector(".v-splash").style.display = "none";
                 });
             });
-            
-            
           }
-
         })
 
         // Include error handling for login page fetch
@@ -341,9 +406,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Event listener for the insights button to dispatch the new action creators for insights and create pages
   let lastClickedButton = null;
-  // Event listener
   if (insightsButton) {
     insightsButton.addEventListener("click", function () {
       lastClickedButton = this;
@@ -356,7 +419,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
   }
-  // Event listener
   if (createButton) {
     createButton.addEventListener("click", function () {
       lastClickedButton = this;
@@ -371,11 +433,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   displaySplash();
-
+  //ui changes are made
   store.subscribe(() => {
     const state = store.getState();
-    // If the login form should be visible
+
     if (state.loginVisible) {
+      // Your code for loginVisible...
+      window.history.pushState({ page: "login" }, "", "/login.html");
+
       let loginSpace = document.querySelector(".login-Space");
 
       if (!loginSpace) {
@@ -407,68 +472,70 @@ document.addEventListener("DOMContentLoaded", () => {
           loginForm.addEventListener("submit", (event) => {
             // Prevent form submission at the start of the event handler
             event.preventDefault();
-          
+
             const loginNumberInput = document.querySelector("#login-number");
             const passwordInput = document.querySelector("#password");
-          
+
             // Validate login number and password
             const loginNumber = loginNumberInput.value;
             const password = passwordInput.value;
-          
+
             // Check for "God mode"
             if (loginNumber === "1" && password === "1") {
               successfulLogin(loginNumberInput, passwordInput);
               return;
             }
-          
+
             // Check for normal login
             if (loginNumber.length !== 7 && loginNumber.length !== 8) {
               alert("Login number should be 7 or 8 digits.");
               return;
             }
-          
+
             if (password.length !== 5) {
               alert("Password should be 5 digits.");
               return;
             }
-          
+
             // Prepare the userLoginData object
             const userLoginData = {
               loginNumber: loginNumber,
-              password: password
+              password: password,
             };
-          
+
             // Send a POST request to login.phps
             fetch("http://study.veras.ca/logins.phps", {
               method: "POST",
               headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
               },
-              body: JSON.stringify(userLoginData)
+              body: JSON.stringify(userLoginData),
             })
-            .then(response => {
-              if (!response.ok) {
-                throw new Error("Network response was not ok");
-              }
-              return response.text();
-            })
-            .then(data => {
-              // If validation passes, proceed with successful login
-              successfulLogin(loginNumberInput, passwordInput);
-            })
-            .catch(error => {
-              // Handle errors here
-              if (error.message.includes("NetworkError")) {
-                alert("Network Error: Failed to reach the server.");
-              } else if (error.message.includes("TypeError")) {
-                alert("Type Error: There was a problem with the type of the input.");
-              } else {
-                alert("Login Data Error: There was a problem with the login data.");
-              }
-            });
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error("Network response was not ok");
+                }
+                return response.text();
+              })
+              .then((data) => {
+                // If validation passes, proceed with successful login
+                successfulLogin(loginNumberInput, passwordInput);
+              })
+              .catch((error) => {
+                // Handle errors here
+                if (error.message.includes("NetworkError")) {
+                  alert("Network Error: Failed to reach the server.");
+                } else if (error.message.includes("TypeError")) {
+                  alert(
+                    "Type Error: There was a problem with the type of the input."
+                  );
+                } else {
+                  alert(
+                    "Login Data Error: There was a problem with the login data."
+                  );
+                }
+              });
           });
-          
-
         }, 100);
       }
 
@@ -496,6 +563,14 @@ document.addEventListener("DOMContentLoaded", () => {
         // Change the form title
         const formTitle = document.querySelector(".form-title");
         formTitle.textContent = "Login Success";
+        // Create and append the back button
+        const backButton = document.createElement("i");
+        backButton.classList.add(
+          "material-symbols-outlined",
+          "global-back-btn"
+        );
+        backButton.textContent = "Done";
+        formTitle.appendChild(backButton);
 
         // hide tofeed button
         const ToFeedbtn = document.querySelector("#toFeed-button");
@@ -510,7 +585,7 @@ document.addEventListener("DOMContentLoaded", () => {
         h2Memo.textContent = "Please change your password.";
         h2Memo.style.whiteSpace = "pre-wrap";
         h2Memo.style.marginBottom = "20px";
-        h2Memo.style.color = "var(--f7-theme-color)"
+        h2Memo.style.color = "var(--f7-theme-color)";
         const buttonWrap = document.querySelector(".button-wrap");
         buttonWrap.parentNode.insertBefore(h2Memo, buttonWrap);
 
@@ -519,9 +594,42 @@ document.addEventListener("DOMContentLoaded", () => {
           document.querySelector(".v-splash").style.display = "none";
         }, 2000);
       }
+    } else if (state.onboardingStepsVisible) {
+      // Your code for onboardingStepsVisible
+      window.history.pushState(
+        { page: "onboardingSteps" },
+        "",
+        "/onboardingSteps.html"
+      );
+      footer.style.display = "none !important";
+      displaySplash();
+      // Call this function after the buttons have been added to the DOM
 
-      //onboarding
+      let onboardingStepsSpace = document.querySelector(
+        ".onboardingSteps-Space"
+      );
+
+      if (!onboardingStepsSpace) {
+        onboardingStepsSpace = document.createElement("div");
+        onboardingStepsSpace.classList.add("onboardingSteps-Space", "fade-in");
+        surfaceView.insertBefore(onboardingStepsSpace, surfaceView.firstChild);
+      }
+
+      onboardingStepsSpace.innerHTML = state.onboardingStepsContent;
+      document.title = "Onboarding Steps";
+      surfaceView.style.opacity = 0;
+      surfaceView.innerHTML = "";
+      surfaceView.appendChild(onboardingStepsSpace);
+      footer.style.display = "none !important";
+
+      setTimeout(() => {
+        onboardingStepsSpace.classList.add("active");
+        surfaceView.style.opacity = 1;
+        // Call addStepButtonListeners() after the new HTML content is inserted
+      }, 100);
     } else if (state.onboardingVisible) {
+      // Your code for onboardingVisible...
+      window.history.pushState({ page: "onboarding" }, "", "/onboarding.html");
       let onboardingSpace = document.querySelector(".onboarding-Space");
 
       if (!onboardingSpace) {
@@ -543,32 +651,9 @@ document.addEventListener("DOMContentLoaded", () => {
         onboardingSpace.classList.add("active");
         surfaceView.style.opacity = 1;
       }, 100);
-    } else if (state.onboardingStepsVisible) {
-      footer.style.display = "none !important";
-      displaySplash();
-      let onboardingStepsSpace = document.querySelector(
-        ".onboardingSteps-Space"
-      );
-
-      if (!onboardingStepsSpace) {
-        onboardingStepsSpace = document.createElement("div");
-        onboardingStepsSpace.classList.add("onboardingSteps-Space", "fade-in");
-        surfaceView.insertBefore(onboardingStepsSpace, surfaceView.firstChild);
-      }
-
-      onboardingStepsSpace.innerHTML = state.onboardingStepsContent;
-      document.title = "Onboarding Steps";
-      surfaceView.style.opacity = 0;
-      surfaceView.innerHTML = "";
-      surfaceView.appendChild(onboardingStepsSpace);
-      footer.style.display = "none !important";
-
-      setTimeout(() => {
-        onboardingStepsSpace.classList.add("active");
-        surfaceView.style.opacity = 1;
-      }, 100);
     } else if (state.newsfeedVisible) {
-      // If the newsfeed should be visible
+      // Your code for newsfeedVisible...
+      window.history.pushState({ page: "newsfeed" }, "", "/newsfeed.html");
       let newsfeedSpace = document.querySelector(".newsfeed-Space");
       if (!newsfeedSpace) {
         newsfeedSpace = document.createElement("div");
@@ -601,6 +686,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let feedScroll = document.querySelector(".feed-scroll");
 
         if (state.insightsVisible) {
+          window.history.pushState({ page: "insights" }, "", "/insights.html");
           insightsNavLink.classList.add("btn-active");
           createNavLink.classList.remove("btn-active");
           if (!insightsSpace) {
@@ -623,6 +709,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           feedWrapper.style.display = "none";
         } else if (state.createVisible) {
+          window.history.pushState({ page: "create" }, "", "/create.html");
           createNavLink.classList.add("btn-active");
           insightsNavLink.classList.remove("btn-active");
 
@@ -652,14 +739,74 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  window.addEventListener("pushstate", (event) => {
+    // Call history.pushState for every state change that should be reflected in the history
+
+    if (event.state) {
+      switch (state.currentPage) {
+        case "login":
+          window.history.pushState(state, "", "/login.html");
+          break;
+        case "onboarding":
+          window.history.pushState(state, "", "/onboarding.html");
+          break;
+        case "onboardingSteps":
+          window.history.pushState(state, "", "/onboardingSteps.html");
+          break;
+        case "insights":
+          window.history.pushState(state, "", "/insights.html");
+          break;
+        case "create":
+          window.history.pushState(state, "", "/create.html");
+          break;
+        // Add other cases for all the possible pages...
+        default:
+          window.history.pushState(state, "", "/index.html");
+          break;
+      }
+    }
+  });
+
   window.addEventListener("popstate", (event) => {
-    if (event.state && event.state.page) {
-      store.dispatch(setCurrentPage(event.state.page));
+    if (event.state) {
+      // Dispatch action based on the state stored in history
+      switch (event.state.currentPage) {
+        case "login":
+          store.dispatch(showLogin());
+          break;
+        case "onboarding":
+          store.dispatch(showOnboarding());
+          break;
+        case "onboardingteps":
+          store.dispatch(showOnboardingSteps());
+          break;
+        case "insights":
+          store.dispatch(showInsights());
+          break;
+        case "create":
+          store.dispatch(showCreate());
+          break;
+        // add other cases for all the possible pages...
+      }
     } else {
       store.dispatch(setCurrentPage("index"));
     }
   });
 
+  // Wait for the DOM content to load
+  document.addEventListener("DOMContentLoaded", () => {
+    // Then try to add the event listener
+    const backButton = document.querySelector(".global-back-btn");
+
+    // Check if the button exists
+    if (backButton) {
+      backButton.addEventListener("click", () => {
+        window.history.back();
+      });
+    } else {
+      console.error("Back button not found");
+    }
+  });
 });
 
 // main code section for landing page
@@ -750,22 +897,6 @@ document.addEventListener("DOMContentLoaded", () => {
   navTitle();
 
   // function refreshhomePage() refreshes the page on the touch or press of .nav-logo
-  function refreshhomePage() {
-    $(".nav-logo, .nav-title, .VLOGO-wrapper").on(
-      "mousedown click",
-      function () {
-        if (window.location.pathname === "/pages/login.html ") {
-          location.href = "/index.html";
-        } else {
-          location.reload();
-        }
-      }
-    );
-  }
-  $(document).ready(function () {
-    refreshhomePage();
-  });
-
   // Copy number
   function copyToClipboard() {
     var phoneNumber = document.querySelector(".F-number-L p").innerHTML;
@@ -808,8 +939,3 @@ document.addEventListener("DOMContentLoaded", () => {
     body.style.opacity = 1;
   });
 });
-
-
-
-
-
