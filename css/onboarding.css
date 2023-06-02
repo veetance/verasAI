@@ -47,9 +47,11 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: auto !important;
+  height: 100vh !important;
   overflow-y: scroll;
 }
+
+
 
 .steps-ul {
   height: 100%;
@@ -127,6 +129,7 @@ padding-inline-start: 20px;
   height: 100% !important;
   width: 100% !important;
   gap: 40px;
+  justify-content: space-between;
 }
 
 .step-img {
@@ -233,11 +236,22 @@ padding-inline-start: 20px;
   display: flex;
   flex-direction: row-reverse;
   height: 100%;
+  width: 100%;
   gap: 40px;
 }
 
 
 .step-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 40px;
+  width: 100%;
+  height: 100%;
+  gap:20px;
+}
+
+.rules{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -257,13 +271,6 @@ padding-inline-start: 20px;
 
 .step {
   display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: start;
-  padding: 0px;
-  margin-bottom: 0px;
-  width: 100%;
- height: 100vh;
 }
 
 .step-header {
@@ -358,6 +365,13 @@ padding-inline-start: 20px;
 
 .step.active {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  padding: 0px;
+  margin-bottom: 0px;
+  width: 100%;
+  /* height: 100vh; */
 }
 
 .global-back-btn{
