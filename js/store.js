@@ -2,9 +2,11 @@ const initialState = {
   currentPage: "home",
   loginVisible: false,
   loginContent: null,
-  newsfeedVisible: false,// hompage.phps
+  logoutVisible: false,
+  logoutContent: null,
+  newsfeedVisible: false,
   newsfeedContent: null,
-  insightsVisible: false,//dashboard.phps
+  insightsVisible: false,
   insightsContent: null,
   createVisible: false,
   createContent: null,
@@ -15,48 +17,40 @@ const initialState = {
 };
 
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
-const HIDE_HOME = "HIDE_HOME";
-
 const SHOW_LOGIN = "SHOW_LOGIN";
 const HIDE_LOGIN = "HIDE_LOGIN";
 const SET_LOGIN_CONTENT = "SET_LOGIN_CONTENT";
-
+const LOGOUT = "LOGOUT";
+const SHOW_LOGOUT = "SHOW_LOGOUT";
+const SET_LOGOUT_CONTENT = "SET_LOGOUT_CONTENT";
 const SHOW_NEWSFEED = "SHOW_NEWSFEED";
 const HIDE_NEWSFEED = "HIDE_NEWSFEED";
 const SET_NEWSFEED_CONTENT = "SET_NEWSFEED_CONTENT";
-
 const SHOW_INSIGHTS = "SHOW_INSIGHTS";
 const HIDE_INSIGHTS = "HIDE_INSIGHTS";
 const SET_INSIGHTS_CONTENT = "SET_INSIGHTS_CONTENT";
-
 const SHOW_CREATE = "SHOW_CREATE";
 const HIDE_CREATE = "HIDE_CREATE";
 const SET_CREATE_CONTENT = "SET_CREATE_CONTENT";
-
 const SET_ONBOARDING_CONTENT = "SET_ONBOARDING_CONTENT";
 const SHOW_ONBOARDING = "SHOW_ONBOARDING";
 const HIDE_ONBOARDING = "HIDE_ONBOARDING";
-
 const SHOW_ONBOARDING_STEPS = "SHOW_ONBOARDING_STEPS";
 const HIDE_ONBOARDING_STEPS = "HIDE_ONBOARDING_STEPS";
 const SET_ONBOARDING_STEPS_CONTENT = "SET_ONBOARDING_STEPS_CONTENT";
-
-
-// New action type for going back
-const GO_BACK = "GO_BACK";
-
-let historyStack = [];
 
 function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_CURRENT_PAGE:
       return { ...state, currentPage: action.payload };
-    case HIDE_HOME:
-      return { ...state, currentPage: "none" };
     case SHOW_LOGIN:
       return { ...state, loginVisible: true };
     case HIDE_LOGIN:
       return { ...state, loginVisible: false };
+    case SHOW_LOGOUT:
+      return { ...state, logoutVisible: true };
+    case SET_LOGOUT_CONTENT:
+      return { ...state, logoutContent: action.payload };
     case SET_LOGIN_CONTENT:
       return { ...state, loginContent: action.payload };
     case SHOW_NEWSFEED:
@@ -89,32 +83,13 @@ function reducer(state = initialState, action) {
       return { ...state, onboardingStepsVisible: false };
     case SET_ONBOARDING_STEPS_CONTENT:
       return { ...state, onboardingStepsContent: action.payload };
-     // New case for going back
-    case GO_BACK:
-        // Pop the last state from the history stack
-        const lastState = historyStack.pop();
-        // If the last state exists, go back to the previous URL and return the last state
-        if (lastState) {
-          window.history.back();
-          return lastState;
-        }
-        // If the history stack is empty, stay on the current state
+    default:
       return state;
-  
-      default:
-        // Only push the current state to the history stack when the action is not 'GO_BACK'
-        if (action.type !== GO_BACK) {
-          // Push a copy of the current state to the history stack
-          historyStack.push({ ...state });
-        }
-      return state;
-          
-    }
-
+  }
 }
 
-const store = Redux.createStore(reducer);
 
+// Create your Redux store with the initial state
+const store = Redux.createStore(reducer, initialState);
 
- 
-
+// ... Rest of your code
