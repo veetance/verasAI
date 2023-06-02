@@ -84,24 +84,38 @@ document.addEventListener("DOMContentLoaded", () => {
       document.querySelector(".onboarding-steps").querySelectorAll(".step")
     );
     let currentStep = steps.find((step) => step.classList.contains("active"));
-
+  
     if (!currentStep) {
       steps.find((step) => step.dataset.step == "0").classList.add("active");
       return;
     }
-
+  
     let currentStepNumber = parseInt(currentStep.dataset.step);
     let nextStepNumber = currentStepNumber + increment;
-
+  
     let nextStep = steps.find(
       (step) => parseInt(step.dataset.step) === nextStepNumber
     );
-
+  
     if (nextStep) {
       currentStep.classList.remove("active");
       nextStep.classList.add("active");
+  
+      if (parseInt(nextStep.dataset.step) === 5) {
+        const stepFinishButton = nextStep.querySelector('.step-finish');
+        if (stepFinishButton) {
+          stepFinishButton.addEventListener('click', function() {
+            // Prototype alert here
+            alert('Prototype: Data is not connected. Proceeding to news feed...');
+  
+            // Call onboardComplete. Assume loginNumber, password, nickname are available in the scope
+            onboardComplete(loginNumber, password, nickname);
+          });
+        }
+      }
     }
   }
+  
 
   function addStepButtonListeners() {
     document
@@ -127,18 +141,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function displaySplash() {
     let splash = document.querySelector(".v-splash");
-    // If the splash div does not exist on this page, exit the function
     if (!splash) return;
-    // Ensure the splash is displayed immediately
     splash.style.display = "flex";
-    // Define a time when the splash screen can be hidden
-    const hideSplashTime = Date.now() + 1000; // 9000 milliseconds = 9 seconds
-    // Wait until the page is fully loaded
-    window.onload = function () {
-      // Calculate any remaining time to wait
-      const remainingTime = Math.max(0, hideSplashTime - Date.now());
+    const hideSplashTime = Date.now() + 1000; 
 
-      // Wait the remaining time, then hide the splash screen
+    window.onload = function () {
+      const remainingTime = Math.max(0, hideSplashTime - Date.now());
       setTimeout(() => {
         splash.style.display = "none";
       }, remainingTime);
@@ -147,29 +155,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function displayLongSplash() {
     let splash = document.querySelector(".v-splash");
-    // If the splash div does not exist on this page, exit the function
     if (!splash) return;
-    // Ensure the splash is displayed immediately
     splash.style.display = "flex";
-
-    // Get the logo element
     let logo = document.querySelector(".v-logo");
-    // Set the rotation speed in seconds
     let rotationSpeed = 5;
-    // Apply the rotation animation to the logo
     logo.style.animation = `rotate ${rotationSpeed}s linear infinite`;
-
-    // Define a time when the splash screen can be hidden
-    const hideSplashTime = Date.now() + 5000; // 5000 milliseconds = 5 seconds
-    // Wait until the page is fully loaded
+    const hideSplashTime = Date.now() + 5000;
     window.onload = function () {
-      // Calculate any remaining time to wait
-      const remainingTime = Math.max(0, hideSplashTime - Date.now());
+    const remainingTime = Math.max(0, hideSplashTime - Date.now());
 
-      // Wait the remaining time, then hide the splash screen
       setTimeout(() => {
         splash.style.display = "none";
-        // Stop the rotation animation when the splash screen is hidden
         logo.style.animation = "";
       }, remainingTime);
     };
@@ -188,7 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Transition to the next stage of the onboarding process
     store.dispatch(showOnboardingSteps());
 
-    fetch("pages/onboardingSteps.html")
+    fetch("/pages/onboardingSteps.html")
       .then((response) => response.text())
       .then((html) => {
         store.dispatch(setOnboardingStepsContent());
@@ -226,33 +222,77 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
+  function onboardComplete(loginNumber, password, nickname) {
+    console.log(
+      "Completing onboarding with loginNumber:",
+      loginNumber,
+      "password:",
+      password,
+      "nickname:",
+      nickname
+    );
+  
+    // Dispatch the showNewsFeed here
+    store.dispatch((showNewsfeed));
+  
+    fetch("/pages/newsFeed.html")
+      .then((response) => response.text())
+      .then((html) => {
+        store.dispatch(setNewsfeedContent());
+  
+        let newsFeedSpace = document.querySelector(".newsFeed-Space");
+  
+        if (!newsFeedSpace) {
+          displaySplash();
+          newsFeedSpace = document.createElement("div");
+          newsFeedSpace.classList.add("newsFeed-Space", "fade-in");
+          surfaceView.insertBefore(newsFeedSpace, surfaceView.firstChild);
+        }
+  
+        newsFeedSpace.innerHTML = html;
+        document.title = "News Feed";
+        surfaceView.style.opacity = 0;
+        surfaceView.innerHTML = "";
+        surfaceView.appendChild(newsFeedSpace);
+  
+        setTimeout(() => {
+          newsFeedSpace.classList.add("active");
+          surfaceView.style.opacity = 1;
+          document.querySelector(".v-splash").style.display = "none";
+          addNewsFeedButtonListeners(); // This should be similar to addStepButtonListeners but for the newsFeed UI
+          updateNewsFeed(0); // This should be similar to updateStep but for the newsFeed UI
+        }, 1000);
+      });
+  }
+
   function validateForm(loginNumber, password, confirmPassword, nickname) {
-    // Login Number should be 6 digits
-    if (!/^\d{6}$/.test(loginNumber)) {
-      alert("Login Number should be 999 digits.");
+    // Login Number should be between 2 and 9 digits
+    if (!/^\d{2,9}$/.test(loginNumber)) {
+      alert("Login Number should be between 2 and 9 digits.");
       return false;
     }
-
-    // Password should be minimum 6 digits
-    if (!/^\d{6,}$/.test(password)) {
-      alert("Password should be minimum 6 digits.");
+  
+    // Password should be between 2 and 9 digits
+    if (!/^\d{2,9}$/.test(password)) {
+      alert("Password should be between 2 and 9 digits.");
       return false;
     }
-
+  
     // Confirm Password should match Password
     if (password !== confirmPassword) {
       alert("Confirm Password should match Password.");
       return false;
     }
-
+  
     // Nickname should be alphanumeric and may contain periods, dashes and underscores
-    if (nickname && !/^[a-zA-Z0-9._-]+$/.test(nickname)) {
+    // If it's provided, then it's checked for validity
+    if (nickname && !/^[a-zA-Z0-9._-]*$/.test(nickname)) {
       alert(
         "Nickname should be alphanumeric and may contain periods, dashes and underscores."
       );
       return false;
     }
-
+  
     // If validation passed, return the form data as an object
     return {
       loginNumber,
@@ -260,26 +300,26 @@ document.addEventListener("DOMContentLoaded", () => {
       nickname,
     };
   }
-
+  
   function validateLoginForm(loginNumber, password) {
-    // Login Number should be 9 digits
-    if (!/^\d{9}$/.test(loginNumber)) {
-      alert("Login Number should be 9 digits.");
+    if (!/^\d{2,9}$/.test(loginNumber)) {
+      alert("Login Number should be between 2 and 9 digits.");
       return false;
     }
-
-    // Password should be minimum 6 digits
-    if (!/^\d{6,}$/.test(password)) {
-      alert("Password should be minimum 6 digits.");
+  
+    // Password should be between 2 and 9 digits
+    if (!/^\d{2,9}$/.test(password)) {
+      alert("Password should be between 2 and 9 digits.");
       return false;
     }
-
+  
     // If validation passed, return the form data as an object
     return {
       loginNumber,
       password,
     };
-}
+  }
+  
 
 
   let loginSuccessful = false;
@@ -291,7 +331,7 @@ document.addEventListener("DOMContentLoaded", () => {
       store.dispatch(showLogin());
 
       // Start of fetch call
-      fetch("pages/login.html")
+      fetch("/pages/login.html")
         .then((response) => response.text())
         .then((html) => {
           store.dispatch(setLoginContent(html));
@@ -314,74 +354,74 @@ document.addEventListener("DOMContentLoaded", () => {
               loginSuccessful = false;
               onboardingButton.style.display = "none";
 
-              fetch("pages/onboarding.html")
+              fetch("/pages/onboarding.html")
                 .then((response) => response.text())
                 .then((html) => {
                   store.dispatch(setOnboardingContent(html));
                   document.querySelector(".v-splash").style.display = "none";
 
                   const toStepsButton = document.querySelector("#to-steps");
+
+                async function postUserData(onboardUserData) {
+                    const response = await fetch("http://study.veras.ca/home.phps", {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify(onboardUserData),
+                    });
+                  
+                    if (!response.ok) {
+                      throw new Error("Network response was not ok");
+                    }
+                  
+                    return await response.text();
+                  }
+                  
                   if (toStepsButton) {
-                    toStepsButton.addEventListener("click", () => {
-                      const loginNumber =
-                        document.getElementById("login-number").value;
-                      const password =
-                        document.getElementById("password").value;
-                      const confirmPassword =
-                        document.getElementById("confirm-password").value;
-                      const nickname =
-                        document.getElementById("nickname").value;
-
-                      // Check for "God mode"
-                      if (loginNumber === "1" && password === "1") {
-                        onboardSuccess(loginNumber, password, nickname);
-                        return;
-                      }
-
+                    toStepsButton.addEventListener("click", async () => {
+                      const loginNumber = document.getElementById("login-number").value;
+                      const password = document.getElementById("password").value;
+                      const confirmPassword = document.getElementById("confirm-password").value;
+                      const nickname = document.getElementById("nickname").value;
+                  
                       const onboardUserData = validateForm(
                         loginNumber,
                         password,
                         confirmPassword,
                         nickname
                       );
-
-                      if (!onboardUserData) {
-                        return;
+                  
+                      // Handle input field errors
+                      if (typeof onboardUserData === 'string') {
+                        alert(onboardUserData); // onboardUserData contains the error message
+                        return; // Stop the function here if there are validation errors
                       }
-
-                      // Send a POST request to homepage.phps
-                      fetch("http://study.veras.ca/home.phps", {
-                        method: "POST",
-                        headers: {
-                          "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify(onboardUserData),
-                      })
-                        .then((response) => {
-                          if (!response.ok) {
-                            throw new Error("Network response was not ok");
-                          }
-                          return response.text();
-                        })
-                        .then((data) => {
-                          onboardSuccess(loginNumber, password, nickname);
-                        })
-                        .catch((error) => {
-                          // Handle errors here
-                          if (error.message.includes("NetworkError")) {
-                            alert("Network Error: Failed to reach the server.");
-                          } else if (error.message.includes("TypeError")) {
-                            alert(
-                              "Type Error: There was a problem with the type of the input."
-                            );
-                          } else {
-                            alert(
-                              "Login Data Error: There was a problem with the login data."
-                            );
-                          }
-                        });
+                  
+                      try {
+                        // Handle posting errors
+                        const data = await postUserData(onboardUserData);
+                        
+                        if (data.error) {
+                          alert(data.error); // Show the error message returned by postUserData()
+                        } 
+                  
+                      } catch (error) {
+                        if (error.message.includes("NetworkError")) {
+                          alert("Network Error: Failed to reach the server.");
+                          alert("This is prototype, Data not connected to server yet.");
+                        } else if (error.message.includes("TypeError")) {
+                          alert("Type Error: There was a problem with the type of the input.");
+                        }
+                        onboardSuccess(loginNumber, password, nickname);
+                      }
                     });
                   }
+                  
+                  
+                  
+                  
+                  
                 })
 
                 .catch((error) => {
@@ -483,7 +523,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (state.loginVisible) {
       // Your code for loginVisible...
-      window.history.pushState({ page: "login" }, "", "/login.html");
+      window.history.pushState({ page: "login" }, "", "/pages/login.html");
 
       let loginSpace = document.querySelector(".login-Space");
 
@@ -578,7 +618,7 @@ document.addEventListener("DOMContentLoaded", () => {
       window.history.pushState(
         { page: "onboardingSteps" },
         "",
-        "/onboardingSteps.html"
+        "/pages/onboardingSteps.html"
       );
 
       displaySplash();
@@ -603,11 +643,11 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => {
         onboardingStepsSpace.classList.add("active");
         surfaceView.style.opacity = 1;
-        // Call addStepButtonListeners() after the new HTML content is inserted
+        
       }, 100);
     } else if (state.onboardingVisible) {
       // Your code for onboardingVisible...
-      window.history.pushState({ page: "onboarding" }, "", "/onboarding.html");
+      window.history.pushState({ page: "onboarding" }, "", "/pages/onboarding.html");
       let onboardingSpace = document.querySelector(".onboarding-Space");
 
       if (!onboardingSpace) {
@@ -628,7 +668,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 100);
     } else if (state.newsfeedVisible) {
       // Your code for newsfeedVisible...
-      window.history.pushState({ page: "newsfeed" }, "", "/newsfeed.html");
+      window.history.pushState({ page: "newsfeed" }, "", "/pages/newsfeed.html");
       let newsfeedSpace = document.querySelector(".newsfeed-Space");
       if (!newsfeedSpace) {
         newsfeedSpace = document.createElement("div");
@@ -661,7 +701,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let feedScroll = document.querySelector(".feed-scroll");
 
         if (state.insightsVisible) {
-          window.history.pushState({ page: "insights" }, "", "/insights.html");
+          window.history.pushState({ page: "insights" }, "", "/pages/insights.html");
           insightsNavLink.classList.add("btn-active");
           createNavLink.classList.remove("btn-active");
           if (!insightsSpace) {
@@ -684,7 +724,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           feedWrapper.style.display = "none";
         } else if (state.createVisible) {
-          window.history.pushState({ page: "create" }, "", "/create.html");
+          window.history.pushState({ page: "create" }, "", "/pages/create.html");
           createNavLink.classList.add("btn-active");
           insightsNavLink.classList.remove("btn-active");
 
@@ -720,23 +760,23 @@ document.addEventListener("DOMContentLoaded", () => {
     if (event.state) {
       switch (state.currentPage) {
         case "login":
-          window.history.pushState(state, "", "/login.html");
+          window.history.pushState(state, "", "/pages/login.html");
           break;
         case "onboarding":
-          window.history.pushState(state, "", "/onboarding.html");
+          window.history.pushState(state, "", "/pages/onboarding.html");
           break;
         case "onboardingSteps":
-          window.history.pushState(state, "", "/onboardingSteps.html");
+          window.history.pushState(state, "", "/pages/onboardingSteps.html");
           break;
         case "insights":
-          window.history.pushState(state, "", "/insights.html");
+          window.history.pushState(state, "", "/pages/insights.html");
           break;
         case "create":
-          window.history.pushState(state, "", "/create.html");
+          window.history.pushState(state, "", "/pages/create.html");
           break;
         // Add other cases for all the possible pages...
         default:
-          window.history.pushState(state, "", "/index.html");
+          window.history.pushState(state, "", "/pages/index.html");
           break;
       }
     }
