@@ -17,10 +17,8 @@ darkModeQuery.addEventListener("change", updateThemeColor);
 
 // code for login/onboarding to newsfeed pagee
 document.addEventListener("DOMContentLoaded", () => {
-  // Action creators
-  function hideHome() {
-    return { type: HIDE_HOME };
-  }
+
+  // action Creators
   const setCurrentPage = (page) => ({ type: SET_CURRENT_PAGE, payload: page });
   const showLogin = () => ({ type: SHOW_LOGIN });
   const hideLogin = () => ({ type: HIDE_LOGIN });
@@ -66,12 +64,24 @@ document.addEventListener("DOMContentLoaded", () => {
     return { type: HIDE_ONBOARDING_STEPS };
   };
 
+
   // Query the DOM elements
   const loginButton = document.querySelector(".login-button");
   const surfaceView = document.querySelector(".surface-view");
   const footer = document.querySelector(".footer-Contents");
   const insightsButton = document.querySelector(".lnk-ico .insights-btn");
   const createButton = document.querySelector(".lnk-ico .create-btn");
+  const refreshButtons = document.querySelectorAll(
+    ".nav-logo, .nav-title, .VLOGO-wrapper"
+  );
+
+
+
+  refreshButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      window.location.href = "/index.html";
+    });
+  });
 
   function updateStep(increment) {
     let steps = Array.from(
@@ -169,27 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-  // Query the DOM elements
-  const refreshButtons = document.querySelectorAll(
-    ".nav-logo, .nav-title, .VLOGO-wrapper"
-  );
-  refreshButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      window.location.href = "/index.html";
-    });
-  });
-  window.addEventListener("load", function () {
-    if (window.location.pathname !== "/index.html") {
-      // Redirect to index.html
-      window.location.href = "/index.html";
-    }
-  });
 
-  // When the page is about to be unloaded (e.g., on refresh or navigation)
-  window.addEventListener("beforeunload", function () {
-    // Mark that a reload is happening
-    localStorage.setItem("reload", "true");
-  });
 
   function onboardSuccess(loginNumber, password, nickname) {
     console.log(
@@ -231,7 +221,6 @@ document.addEventListener("DOMContentLoaded", () => {
         surfaceView.style.opacity = 0;
         surfaceView.innerHTML = "";
         surfaceView.appendChild(onboardingStepsSpace);
-        footer.style.display = "none !important";
 
         setTimeout(() => {
           onboardingStepsSpace.classList.add("active");
@@ -242,6 +231,95 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 1000);
       });
   }
+
+  function validateForm(loginNumber, password, confirmPassword, nickname) {
+    // Login Number should be 6 digits
+    if (!/^\d{6}$/.test(loginNumber)) {
+      alert("Login Number should be 999 digits.");
+      return false;
+    }
+
+    // Password should be minimum 6 digits
+    if (!/^\d{6,}$/.test(password)) {
+      alert("Password should be minimum 6 digits.");
+      return false;
+    }
+
+    // Confirm Password should match Password
+    if (password !== confirmPassword) {
+      alert("Confirm Password should match Password.");
+      return false;
+    }
+
+    // Nickname should be alphanumeric and may contain periods, dashes and underscores
+    if (nickname && !/^[a-zA-Z0-9._-]+$/.test(nickname)) {
+      alert(
+        "Nickname should be alphanumeric and may contain periods, dashes and underscores."
+      );
+      return false;
+    }
+
+    // If validation passed, return the form data as an object
+    return {
+      loginNumber,
+      password,
+      nickname,
+    };
+  }
+
+  function successfulLogin(loginNumberInput, passwordInput) {
+    // Set loginSuccessful to true
+    loginSuccessful = true;
+
+    const onboardingButton = document.querySelector("#onboarding-button");
+
+    if (loginSuccessful) {
+      onboardingButton.style.display = "flex";
+    } else {
+      onboardingButton.style.display = "none";
+    }
+
+    // Start the splash screen
+    displayLongSplash();
+
+    // Clear and hide the form inputs
+    loginNumberInput.value = "";
+    passwordInput.value = "";
+    loginNumberInput.style.display = "none";
+    passwordInput.style.display = "none";
+
+    // Change the form title
+    const formTitle = document.querySelector(".form-title");
+    formTitle.textContent = "Login Success";
+    // Create and append the back button
+    const backButton = document.createElement("i");
+    backButton.classList.add("material-symbols-outlined", "global-back-btn");
+    backButton.textContent = "Done";
+    formTitle.appendChild(backButton);
+
+    // hide tofeed button
+    const ToFeedbtn = document.querySelector("#toFeed-button");
+    ToFeedbtn.style.display = "none";
+
+    // Change the title
+    const title = document.querySelector(".title h1");
+    title.innerHTML = "Veras<span>Authentication</span>";
+
+    // Create and append the new message
+    const h2Memo = document.createElement("h2");
+    h2Memo.textContent = "Please change your password.";
+    h2Memo.style.whiteSpace = "pre-wrap";
+    h2Memo.style.marginBottom = "20px";
+    h2Memo.style.color = "var(--f7-theme-color)";
+    const buttonWrap = document.querySelector(".button-wrap");
+    buttonWrap.parentNode.insertBefore(h2Memo, buttonWrap);
+
+    // Hide the splash screen after 5 seconds
+    setTimeout(() => {
+      document.querySelector(".v-splash").style.display = "none";
+    }, 2000);
+  }
+
 
   let loginSuccessful = false;
 
@@ -256,10 +334,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .then((response) => response.text())
         .then((html) => {
           store.dispatch(setLoginContent(html));
-          // Hide the splash screen after login page is successfully fetched
           document.querySelector(".v-splash").style.display = "none";
-
-          // Add the event listener for the onboarding button here, after the login content is inserted into the DOM
 
           const onboardingButton = document.querySelector("#onboarding-button");
 
@@ -272,61 +347,19 @@ document.addEventListener("DOMContentLoaded", () => {
           if (onboardingButton) {
             onboardingButton.addEventListener("click", () => {
               displaySplash();
-              store.dispatch(hideLogin()); // Hide the login form
-              store.dispatch(showOnboarding()); // Show the onboarding form
+              store.dispatch(hideLogin());  
+              store.dispatch(showOnboarding());  
 
               fetch("pages/onboarding.html")
                 .then((response) => response.text())
                 .then((html) => {
                   store.dispatch(setOnboardingContent(html));
-                  // Hide the splash screen after login page is successfully fetched
                   document.querySelector(".v-splash").style.display = "none";
 
-                  //validate form
-                  function validateForm(
-                    loginNumber,
-                    password,
-                    confirmPassword,
-                    nickname
-                  ) {
-                    // Login Number should be 6 digits
-                    if (!/^\d{6}$/.test(loginNumber)) {
-                      alert("Login Number should be 6 digits.");
-                      return false;
-                    }
 
-                    // Password should be minimum 6 digits
-                    if (!/^\d{6,}$/.test(password)) {
-                      alert("Password should be minimum 6 digits.");
-                      return false;
-                    }
-
-                    // Confirm Password should match Password
-                    if (password !== confirmPassword) {
-                      alert("Confirm Password should match Password.");
-                      return false;
-                    }
-
-                    // Nickname should be alphanumeric and may contain periods, dashes and underscores
-                    if (nickname && !/^[a-zA-Z0-9._-]+$/.test(nickname)) {
-                      alert(
-                        "Nickname should be alphanumeric and may contain periods, dashes and underscores."
-                      );
-                      return false;
-                    }
-
-                    // If validation passed, return the form data as an object
-                    return {
-                      loginNumber,
-                      password,
-                      nickname,
-                    };
-                  }
-
-                  // to onboardingSteps
-                  // Add the event listener for the to-steps button here, after the onboarding content is inserted into the DOM
                   const toStepsButton = document.querySelector("#to-steps");
                   if (toStepsButton) {
+                    
                     toStepsButton.addEventListener("click", () => {
                       const loginNumber =
                         document.getElementById("login-number").value;
@@ -350,7 +383,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         nickname
                       );
 
-                      // If the form is not valid, userData will be false and we stop the event handler
                       if (!onboardUserData) {
                         return;
                       }
@@ -389,15 +421,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     });
                   }
                 })
+
                 .catch((error) => {
                   console.error("showonbrdCntnt-Error:", error);
                   document.querySelector(".v-splash").style.display = "none";
                 });
             });
           }
+
         })
 
-        // Include error handling for login page fetch
         .catch((error) => {
           console.error("login-Error:", error);
           document.querySelector(".v-splash").style.display = "none";
@@ -454,7 +487,7 @@ document.addEventListener("DOMContentLoaded", () => {
       surfaceView.style.opacity = 0;
       surfaceView.innerHTML = "";
       surfaceView.appendChild(loginSpace);
-      footer.style.display = "none";
+    
 
       setTimeout(() => {
         loginSpace.classList.add("active");
@@ -462,7 +495,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 100);
 
       // Add event listener for form submission, only if it hasn't been added before
-
       if (!loginSpace.dataset.formEventAttached) {
         loginSpace.dataset.formEventAttached = "true";
 
@@ -487,12 +519,12 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             // Check for normal login
-            if (loginNumber.length !== 7 && loginNumber.length !== 8) {
-              alert("Login number should be 7 or 8 digits.");
+            if (loginNumber.length > 9 && loginNumber.length > 9) {
+              alert("Login number should be 9 digits.");
               return;
             }
 
-            if (password.length !== 5) {
+            if (password.length > 5) {
               alert("Password should be 5 digits.");
               return;
             }
@@ -539,61 +571,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 100);
       }
 
-      function successfulLogin(loginNumberInput, passwordInput) {
-        // Set loginSuccessful to true
-        loginSuccessful = true;
+     
 
-        const onboardingButton = document.querySelector("#onboarding-button");
-
-        if (loginSuccessful) {
-          onboardingButton.style.display = "flex";
-        } else {
-          onboardingButton.style.display = "none";
-        }
-
-        // Start the splash screen
-        displayLongSplash();
-
-        // Clear and hide the form inputs
-        loginNumberInput.value = "";
-        passwordInput.value = "";
-        loginNumberInput.style.display = "none";
-        passwordInput.style.display = "none";
-
-        // Change the form title
-        const formTitle = document.querySelector(".form-title");
-        formTitle.textContent = "Login Success";
-        // Create and append the back button
-        const backButton = document.createElement("i");
-        backButton.classList.add(
-          "material-symbols-outlined",
-          "global-back-btn"
-        );
-        backButton.textContent = "Done";
-        formTitle.appendChild(backButton);
-
-        // hide tofeed button
-        const ToFeedbtn = document.querySelector("#toFeed-button");
-        ToFeedbtn.style.display = "none";
-
-        // Change the title
-        const title = document.querySelector(".title h1");
-        title.innerHTML = "Veras<span>Authentication</span>";
-
-        // Create and append the new message
-        const h2Memo = document.createElement("h2");
-        h2Memo.textContent = "Please change your password.";
-        h2Memo.style.whiteSpace = "pre-wrap";
-        h2Memo.style.marginBottom = "20px";
-        h2Memo.style.color = "var(--f7-theme-color)";
-        const buttonWrap = document.querySelector(".button-wrap");
-        buttonWrap.parentNode.insertBefore(h2Memo, buttonWrap);
-
-        // Hide the splash screen after 5 seconds
-        setTimeout(() => {
-          document.querySelector(".v-splash").style.display = "none";
-        }, 2000);
-      }
     } else if (state.onboardingStepsVisible) {
       // Your code for onboardingStepsVisible
       window.history.pushState(
@@ -601,7 +580,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "",
         "/onboardingSteps.html"
       );
-      footer.style.display = "none !important";
+    
       displaySplash();
       // Call this function after the buttons have been added to the DOM
 
@@ -620,7 +599,7 @@ document.addEventListener("DOMContentLoaded", () => {
       surfaceView.style.opacity = 0;
       surfaceView.innerHTML = "";
       surfaceView.appendChild(onboardingStepsSpace);
-      footer.style.display = "none !important";
+      
 
       setTimeout(() => {
         onboardingStepsSpace.classList.add("active");
@@ -638,14 +617,12 @@ document.addEventListener("DOMContentLoaded", () => {
         surfaceView.insertBefore(onboardingSpace, surfaceView.firstChild);
       }
 
-      //to onboarding steps
-
       onboardingSpace.innerHTML = state.onboardingContent;
       document.title = "Onboarding";
       surfaceView.style.opacity = 0;
       surfaceView.innerHTML = "";
       surfaceView.appendChild(onboardingSpace);
-      footer.style.display = "none !important";
+  
 
       setTimeout(() => {
         onboardingSpace.classList.add("active");
@@ -737,6 +714,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
     }
+
   });
 
   window.addEventListener("pushstate", (event) => {
@@ -793,20 +771,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Wait for the DOM content to load
-  document.addEventListener("DOMContentLoaded", () => {
-    // Then try to add the event listener
-    const backButton = document.querySelector(".global-back-btn");
-
-    // Check if the button exists
-    if (backButton) {
-      backButton.addEventListener("click", () => {
-        window.history.back();
-      });
-    } else {
-      console.error("Back button not found");
-    }
-  });
 });
 
 // main code section for landing page
