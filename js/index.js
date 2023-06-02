@@ -17,7 +17,6 @@ darkModeQuery.addEventListener("change", updateThemeColor);
 
 // code for login/onboarding to newsfeed pagee
 document.addEventListener("DOMContentLoaded", () => {
-
   // action Creators
   const setCurrentPage = (page) => ({ type: SET_CURRENT_PAGE, payload: page });
   const showLogin = () => ({ type: SHOW_LOGIN });
@@ -64,7 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return { type: HIDE_ONBOARDING_STEPS };
   };
 
-
   // Query the DOM elements
   const loginButton = document.querySelector(".login-button");
   const surfaceView = document.querySelector(".surface-view");
@@ -74,8 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const refreshButtons = document.querySelectorAll(
     ".nav-logo, .nav-title, .VLOGO-wrapper"
   );
-
-
 
   refreshButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -179,8 +175,6 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-
-
   function onboardSuccess(loginNumber, password, nickname) {
     console.log(
       "Successful login with loginNumber:",
@@ -267,58 +261,25 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-  function successfulLogin(loginNumberInput, passwordInput) {
-    // Set loginSuccessful to true
-    loginSuccessful = true;
-
-    const onboardingButton = document.querySelector("#onboarding-button");
-
-    if (loginSuccessful) {
-      onboardingButton.style.display = "flex";
-    } else {
-      onboardingButton.style.display = "none";
+  function validateLoginForm(loginNumber, password) {
+    // Login Number should be 9 digits
+    if (!/^\d{9}$/.test(loginNumber)) {
+      alert("Login Number should be 9 digits.");
+      return false;
     }
 
-    // Start the splash screen
-    displayLongSplash();
+    // Password should be minimum 6 digits
+    if (!/^\d{6,}$/.test(password)) {
+      alert("Password should be minimum 6 digits.");
+      return false;
+    }
 
-    // Clear and hide the form inputs
-    loginNumberInput.value = "";
-    passwordInput.value = "";
-    loginNumberInput.style.display = "none";
-    passwordInput.style.display = "none";
-
-    // Change the form title
-    const formTitle = document.querySelector(".form-title");
-    formTitle.textContent = "Login Success";
-    // Create and append the back button
-    const backButton = document.createElement("i");
-    backButton.classList.add("material-symbols-outlined", "global-back-btn");
-    backButton.textContent = "Done";
-    formTitle.appendChild(backButton);
-
-    // hide tofeed button
-    const ToFeedbtn = document.querySelector("#toFeed-button");
-    ToFeedbtn.style.display = "none";
-
-    // Change the title
-    const title = document.querySelector(".title h1");
-    title.innerHTML = "Veras<span>Authentication</span>";
-
-    // Create and append the new message
-    const h2Memo = document.createElement("h2");
-    h2Memo.textContent = "Please change your password.";
-    h2Memo.style.whiteSpace = "pre-wrap";
-    h2Memo.style.marginBottom = "20px";
-    h2Memo.style.color = "var(--f7-theme-color)";
-    const buttonWrap = document.querySelector(".button-wrap");
-    buttonWrap.parentNode.insertBefore(h2Memo, buttonWrap);
-
-    // Hide the splash screen after 5 seconds
-    setTimeout(() => {
-      document.querySelector(".v-splash").style.display = "none";
-    }, 2000);
-  }
+    // If validation passed, return the form data as an object
+    return {
+      loginNumber,
+      password,
+    };
+}
 
 
   let loginSuccessful = false;
@@ -347,8 +308,11 @@ document.addEventListener("DOMContentLoaded", () => {
           if (onboardingButton) {
             onboardingButton.addEventListener("click", () => {
               displaySplash();
-              store.dispatch(hideLogin());  
-              store.dispatch(showOnboarding());  
+              store.dispatch(hideLogin());
+              store.dispatch(showOnboarding());
+
+              loginSuccessful = false;
+              onboardingButton.style.display = "none";
 
               fetch("pages/onboarding.html")
                 .then((response) => response.text())
@@ -356,10 +320,8 @@ document.addEventListener("DOMContentLoaded", () => {
                   store.dispatch(setOnboardingContent(html));
                   document.querySelector(".v-splash").style.display = "none";
 
-
                   const toStepsButton = document.querySelector("#to-steps");
                   if (toStepsButton) {
-                    
                     toStepsButton.addEventListener("click", () => {
                       const loginNumber =
                         document.getElementById("login-number").value;
@@ -428,7 +390,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             });
           }
-
         })
 
         .catch((error) => {
@@ -438,6 +399,56 @@ document.addEventListener("DOMContentLoaded", () => {
       // End of fetch call
     });
   }
+
+  function successfulLogin(loginNumberInput, passwordInput) {
+    // Set loginSuccessful to true
+    const loginSuccessful = true;
+
+    const onboardingButton = document.querySelector("#onboarding-button");
+
+    // if loginSuccessful and onboardingButton exists, display onboardingButton else hide onboardingButton and remove it from the DOM
+    if (loginSuccessful) {
+      onboardingButton.style.display = "flex";
+    } else {
+      onboardingButton.style.display = "none";
+    }
+
+    // Assuming that displayLongSplash() is a function that shows a splash screen
+    displayLongSplash();
+
+    // Clear and hide the form inputs
+    loginNumberInput.value = "";
+    passwordInput.value = "";
+    loginNumberInput.style.display = "none";
+    passwordInput.style.display = "none";
+
+    // Change the form title
+    const formTitle = document.querySelector(".form-title");
+    formTitle.textContent = "Login Success";
+
+    // hide tofeed button
+    const ToFeedbtn = document.querySelector("#toFeed-button");
+    ToFeedbtn.style.display = "none";
+
+    // Change the title
+    const title = document.querySelector(".title h1");
+    title.innerHTML = "Veras<span>Authentication</span>";
+
+    // Create and append the new message
+    const h2Memo = document.createElement("h2");
+    h2Memo.textContent = "Please change your password.";
+    h2Memo.style.whiteSpace = "pre-wrap";
+    h2Memo.style.marginBottom = "20px";
+    h2Memo.style.color = "var(--f7-theme-color)";
+    const buttonWrap = document.querySelector(".button-wrap");
+    buttonWrap.parentNode.insertBefore(h2Memo, buttonWrap);
+
+    // Hide the splash screen after 5 seconds
+    setTimeout(() => {
+      document.querySelector(".v-splash").style.display = "none";
+    }, 2000);
+  }
+
 
   let lastClickedButton = null;
   if (insightsButton) {
@@ -487,7 +498,6 @@ document.addEventListener("DOMContentLoaded", () => {
       surfaceView.style.opacity = 0;
       surfaceView.innerHTML = "";
       surfaceView.appendChild(loginSpace);
-    
 
       setTimeout(() => {
         loginSpace.classList.add("active");
@@ -499,79 +509,69 @@ document.addEventListener("DOMContentLoaded", () => {
         loginSpace.dataset.formEventAttached = "true";
 
         setTimeout(() => {
-          const loginForm = document.querySelector(".form");
 
-          loginForm.addEventListener("submit", (event) => {
-            // Prevent form submission at the start of the event handler
-            event.preventDefault();
-
-            const loginNumberInput = document.querySelector("#login-number");
-            const passwordInput = document.querySelector("#password");
-
-            // Validate login number and password
-            const loginNumber = loginNumberInput.value;
-            const password = passwordInput.value;
-
-            // Check for "God mode"
-            if (loginNumber === "1" && password === "1") {
-              successfulLogin(loginNumberInput, passwordInput);
-              return;
-            }
-
-            // Check for normal login
-            if (loginNumber.length > 9 && loginNumber.length > 9) {
-              alert("Login number should be 9 digits.");
-              return;
-            }
-
-            if (password.length > 5) {
-              alert("Password should be 5 digits.");
-              return;
-            }
-
-            // Prepare the userLoginData object
-            const userLoginData = {
-              loginNumber: loginNumber,
-              password: password,
-            };
-
-            // Send a POST request to login.phps
-            fetch("http://study.veras.ca/logins.phps", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(userLoginData),
-            })
-              .then((response) => {
-                if (!response.ok) {
-                  throw new Error("Network response was not ok");
-                }
-                return response.text();
+            const loginForm = document.querySelector(".form");
+            loginForm.addEventListener("submit", (event) => {
+              // Prevent form submission at the start of the event handler
+              event.preventDefault();
+          
+              const loginNumberInput = document.querySelector("#login-number");
+              const passwordInput = document.querySelector("#password");
+          
+              // Validate login number and password
+              const loginNumber = loginNumberInput.value;
+              const password = passwordInput.value;
+          
+              const formData = validateLoginForm(loginNumber, password);
+              if (!formData) {
+                // If form data is invalid, return early
+                return;
+              }
+          
+              // Prepare the userLoginData object
+              const userLoginData = {
+                loginNumber: formData.loginNumber,
+                password: formData.password,
+              };
+          
+              // Send a POST request to login.phps
+              fetch("http://study.veras.ca/logins.phps", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(userLoginData),
               })
-              .then((data) => {
-                // If validation passes, proceed with successful login
-                successfulLogin(loginNumberInput, passwordInput);
-              })
-              .catch((error) => {
-                // Handle errors here
-                if (error.message.includes("NetworkError")) {
-                  alert("Network Error: Failed to reach the server.");
-                } else if (error.message.includes("TypeError")) {
-                  alert(
-                    "Type Error: There was a problem with the type of the input."
-                  );
-                } else {
-                  alert(
-                    "Login Data Error: There was a problem with the login data."
-                  );
-                }
-              });
-          });
+                .then((response) => {
+                  if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                    
+                  }
+                  return response.text();
+                })
+                .then((data) => {
+                //do somethiing with the data
+                })
+                .catch((error) => {
+                  // Handle errors here
+                  if (error.message.includes("NetworkError")) {
+                    alert("Network Error: Failed to reach the server.");
+                  } else if (error.message.includes("TypeError")) {
+                    alert(
+                      "Type Error: There was a problem with the type of the input."
+                    );
+                  } else {
+                    // Handle prototype error
+                    alert(
+                      "This is a prototype, data not connected. Please press OK to proceed."
+                    );
+                    successfulLogin(loginNumberInput, passwordInput);
+                  }
+                });
+            });
+
         }, 100);
       }
-
-     
 
     } else if (state.onboardingStepsVisible) {
       // Your code for onboardingStepsVisible
@@ -580,7 +580,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "",
         "/onboardingSteps.html"
       );
-    
+
       displaySplash();
       // Call this function after the buttons have been added to the DOM
 
@@ -599,7 +599,6 @@ document.addEventListener("DOMContentLoaded", () => {
       surfaceView.style.opacity = 0;
       surfaceView.innerHTML = "";
       surfaceView.appendChild(onboardingStepsSpace);
-      
 
       setTimeout(() => {
         onboardingStepsSpace.classList.add("active");
@@ -622,7 +621,6 @@ document.addEventListener("DOMContentLoaded", () => {
       surfaceView.style.opacity = 0;
       surfaceView.innerHTML = "";
       surfaceView.appendChild(onboardingSpace);
-  
 
       setTimeout(() => {
         onboardingSpace.classList.add("active");
@@ -714,7 +712,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
     }
-
   });
 
   window.addEventListener("pushstate", (event) => {
@@ -770,7 +767,6 @@ document.addEventListener("DOMContentLoaded", () => {
       store.dispatch(setCurrentPage("index"));
     }
   });
-
 });
 
 // main code section for landing page

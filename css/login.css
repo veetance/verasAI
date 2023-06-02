@@ -3,7 +3,7 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
   height: 100%;
-  min-height: fit-content !important;
+
   width: 100%;
   grid-template-areas: " content header";
 
@@ -272,7 +272,7 @@ justify-content: space-between;
 
   .login-Space{
     display: flex;
-    height: auto !important;
+    
     }
     
   .full-page {
@@ -282,6 +282,10 @@ justify-content: space-between;
     width: 100%;
     
 
+  }
+
+  .full-page .content{
+    align-items: flex-start !important;
   }
 
   .surface-view {

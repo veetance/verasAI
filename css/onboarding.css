@@ -28,6 +28,8 @@
   height: 100%;
   gap: 20px;
   justify-content: space-between;
+
+  overflow: hidden;
 }
 
 .tri-colm-img{
@@ -54,6 +56,15 @@
   margin-left: 32px;
   margin-right: 20px;
   margin-top: 20px;
+}
+.getStrtd .steps-ul {
+  margin-left: 24px;
+  margin-right: 0px;
+  margin-top: 20px;
+} 
+
+.getStrtd .steps-ul li{
+  padding-left: 4px;
 }
 
 .steps-ul ul {
@@ -497,6 +508,13 @@ padding-inline-start: 20px;
   margin-left: 32px;
   margin-top: 10px;
 }
+
+.getStrtd .steps-ul {
+  margin-left: 25px;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
 
 
 

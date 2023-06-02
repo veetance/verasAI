@@ -4,9 +4,9 @@ const initialState = {
   loginContent: null,
   logoutVisible: false,
   logoutContent: null,
-  newsfeedVisible: false,// hompage.phps
+  newsfeedVisible: false,
   newsfeedContent: null,
-  insightsVisible: false,//dashboard.phps
+  insightsVisible: false,
   insightsContent: null,
   createVisible: false,
   createContent: null,
@@ -38,8 +38,6 @@ const HIDE_ONBOARDING = "HIDE_ONBOARDING";
 const SHOW_ONBOARDING_STEPS = "SHOW_ONBOARDING_STEPS";
 const HIDE_ONBOARDING_STEPS = "HIDE_ONBOARDING_STEPS";
 const SET_ONBOARDING_STEPS_CONTENT = "SET_ONBOARDING_STEPS_CONTENT";
-
-
 
 function reducer(state = initialState, action) {
   switch (action.type) {
@@ -85,16 +83,13 @@ function reducer(state = initialState, action) {
       return { ...state, onboardingStepsVisible: false };
     case SET_ONBOARDING_STEPS_CONTENT:
       return { ...state, onboardingStepsContent: action.payload };
-          
-    }
-
-    
+    default:
+      return state;
+  }
 }
-const store = Redux.createStore(reducer);
 
 
+// Create your Redux store with the initial state
+const store = Redux.createStore(reducer, initialState);
 
-
-
- 
-
+// ... Rest of your code
