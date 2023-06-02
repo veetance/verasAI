@@ -80,9 +80,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   function updateStep(increment) {
+
     let steps = Array.from(
       document.querySelector(".onboarding-steps").querySelectorAll(".step")
     );
+
     let currentStep = steps.find((step) => step.classList.contains("active"));
   
     if (!currentStep) {
@@ -184,11 +186,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // Transition to the next stage of the onboarding process
     store.dispatch(showOnboardingSteps());
 
-    fetch("/pages/onboardingSteps.html")
+    fetch("../pages/onboardingSteps.html")
       .then((response) => response.text())
       .then((html) => {
-        store.dispatch(setOnboardingStepsContent());
 
+        store.dispatch(setOnboardingStepsContent())
         let onboardingStepsSpace = document.querySelector(
           ".onboardingSteps-Space"
         );
@@ -235,7 +237,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Dispatch the showNewsFeed here
     store.dispatch((showNewsfeed));
   
-    fetch("/pages/newsFeed.html")
+    fetch("../pages/newsFeed.html")
       .then((response) => response.text())
       .then((html) => {
         store.dispatch(setNewsfeedContent());
@@ -267,6 +269,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function validateForm(loginNumber, password, confirmPassword, nickname) {
     // Login Number should be between 2 and 9 digits
+
     if (!/^\d{2,9}$/.test(loginNumber)) {
       alert("Login Number should be between 2 and 9 digits.");
       return false;
@@ -302,6 +305,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   
   function validateLoginForm(loginNumber, password) {
+
     if (!/^\d{2,9}$/.test(loginNumber)) {
       alert("Login Number should be between 2 and 9 digits.");
       return false;
@@ -318,20 +322,21 @@ document.addEventListener("DOMContentLoaded", () => {
       loginNumber,
       password,
     };
+
   }
   
-
 
   let loginSuccessful = false;
 
   if (loginButton) {
     loginButton.addEventListener("click", () => {
+
       displaySplash();
 
       store.dispatch(showLogin());
 
       // Start of fetch call
-      fetch("/pages/login.html")
+      fetch("../pages/login.html")
         .then((response) => response.text())
         .then((html) => {
           store.dispatch(setLoginContent(html));
@@ -354,7 +359,7 @@ document.addEventListener("DOMContentLoaded", () => {
               loginSuccessful = false;
               onboardingButton.style.display = "none";
 
-              fetch("/pages/onboarding.html")
+              fetch("../pages/onboarding.html")
                 .then((response) => response.text())
                 .then((html) => {
                   store.dispatch(setOnboardingContent(html));
@@ -379,7 +384,7 @@ document.addEventListener("DOMContentLoaded", () => {
                   }
                   
                   if (toStepsButton) {
-                    toStepsButton.addEventListener("click", async () => {
+                      toStepsButton.addEventListener("click", async () => {
                       const loginNumber = document.getElementById("login-number").value;
                       const password = document.getElementById("password").value;
                       const confirmPassword = document.getElementById("confirm-password").value;
@@ -416,12 +421,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         onboardSuccess(loginNumber, password, nickname);
                       }
                     });
-                  }
-                  
-                  
-                  
-                  
-                  
+                  }                
                 })
 
                 .catch((error) => {
@@ -472,6 +472,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Change the title
     const title = document.querySelector(".title h1");
+
     title.innerHTML = "Veras<span>Authentication</span>";
 
     // Create and append the new message
@@ -489,8 +490,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 2000);
   }
 
-
   let lastClickedButton = null;
+
   if (insightsButton) {
     insightsButton.addEventListener("click", function () {
       lastClickedButton = this;
@@ -618,7 +619,7 @@ document.addEventListener("DOMContentLoaded", () => {
       window.history.pushState(
         { page: "onboardingSteps" },
         "",
-        "/pages/onboardingSteps.html"
+        "../pages/onboardingSteps.html"
       );
 
       displaySplash();
@@ -647,7 +648,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 100);
     } else if (state.onboardingVisible) {
       // Your code for onboardingVisible...
-      window.history.pushState({ page: "onboarding" }, "", "/pages/onboarding.html");
+      window.history.pushState({ page: "onboarding" }, "", "../pages/onboarding.html");
       let onboardingSpace = document.querySelector(".onboarding-Space");
 
       if (!onboardingSpace) {
@@ -668,7 +669,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 100);
     } else if (state.newsfeedVisible) {
       // Your code for newsfeedVisible...
-      window.history.pushState({ page: "newsfeed" }, "", "/pages/newsfeed.html");
+      window.history.pushState({ page: "newsfeed" }, "", "../pages/newsfeed.html");
       let newsfeedSpace = document.querySelector(".newsfeed-Space");
       if (!newsfeedSpace) {
         newsfeedSpace = document.createElement("div");
@@ -701,7 +702,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let feedScroll = document.querySelector(".feed-scroll");
 
         if (state.insightsVisible) {
-          window.history.pushState({ page: "insights" }, "", "/pages/insights.html");
+          window.history.pushState({ page: "insights" }, "", "../pages/insights.html");
           insightsNavLink.classList.add("btn-active");
           createNavLink.classList.remove("btn-active");
           if (!insightsSpace) {
@@ -724,7 +725,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           feedWrapper.style.display = "none";
         } else if (state.createVisible) {
-          window.history.pushState({ page: "create" }, "", "/pages/create.html");
+          window.history.pushState({ page: "create" }, "", "../pages/create.html");
           createNavLink.classList.add("btn-active");
           insightsNavLink.classList.remove("btn-active");
 
@@ -760,23 +761,23 @@ document.addEventListener("DOMContentLoaded", () => {
     if (event.state) {
       switch (state.currentPage) {
         case "login":
-          window.history.pushState(state, "", "/pages/login.html");
+          window.history.pushState(state, "", "../pages/login.html");
           break;
         case "onboarding":
-          window.history.pushState(state, "", "/pages/onboarding.html");
+          window.history.pushState(state, "", "../pages/onboarding.html");
           break;
         case "onboardingSteps":
-          window.history.pushState(state, "", "/pages/onboardingSteps.html");
+          window.history.pushState(state, "", "../pages/onboardingSteps.html");
           break;
         case "insights":
-          window.history.pushState(state, "", "/pages/insights.html");
+          window.history.pushState(state, "", "../pages/insights.html");
           break;
         case "create":
-          window.history.pushState(state, "", "/pages/create.html");
+          window.history.pushState(state, "", "../pages/create.html");
           break;
         // Add other cases for all the possible pages...
         default:
-          window.history.pushState(state, "", "/pages/index.html");
+          window.history.pushState(state, "", "../pages/index.html");
           break;
       }
     }
