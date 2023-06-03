@@ -14,51 +14,104 @@ darkModeQuery.addEventListener("change", updateThemeColor);
 
 // code for login/onboarding to newsfeed pagee
 document.addEventListener("DOMContentLoaded", () => {
-  // action Creators
-  const setCurrentPage = (page) => ({ type: SET_CURRENT_PAGE, payload: page });
-  const showLogin = () => ({ type: SHOW_LOGIN });
-  const hideLogin = () => ({ type: HIDE_LOGIN });
-  const logout = () => ({ type: LOGOUT });
-  const setLoginContent = (html) => ({
-    type: SET_LOGIN_CONTENT,
-    payload: html,
-  });
-  const showNewsfeed = () => ({ type: SHOW_NEWSFEED });
-  const setNewsfeedContent = (html) => ({
-    type: SET_NEWSFEED_CONTENT,
-    payload: html,
-  });
 
-  const showInsights = () => ({ type: SHOW_INSIGHTS });
-  const hideInsights = () => ({ type: HIDE_INSIGHTS });
-  const setInsightsContent = (html) => ({
-    type: SET_INSIGHTS_CONTENT,
-    payload: html,
-  });
+ // action Creators
+const setCurrentPage = (page) => {
+  history.pushState({ page: page }, '', `#${page}`);
+  return { type: SET_CURRENT_PAGE, payload: page };
+};
 
-  const showCreate = () => ({ type: SHOW_CREATE });
-  const hideCreate = () => ({ type: HIDE_CREATE });
-  const setCreateContent = (html) => ({
-    type: SET_CREATE_CONTENT,
-    payload: html,
-  });
+const showLogin = () => {
+  history.pushState({ page: 'login' }, '', '#login');
+  return { type: SHOW_LOGIN };
+};
 
-  const setOnboardingContent = (html) => ({
-    type: SET_ONBOARDING_CONTENT,
-    payload: html,
-  });
-  const showOnboarding = () => ({ type: SHOW_ONBOARDING });
-  const hideOnboarding = () => ({ type: HIDE_ONBOARDING });
+const hideLogin = () => {
+  history.pushState({ page: 'home' }, '', '#home');
+  return { type: HIDE_LOGIN };
+};
 
-  const setOnboardingStepsContent = (html) => ({
-    type: SET_ONBOARDING_STEPS_CONTENT,
-    payload: html,
-  });
-  const showOnboardingSteps = () => ({ type: SHOW_ONBOARDING_STEPS });
-  const hideOnboardingSteps = () => {
-    localStorage.removeItem("onboardingStepsVisible");
-    return { type: HIDE_ONBOARDING_STEPS };
-  };
+const logout = () => {
+  history.pushState({ page: 'logout' }, '', '#logout');
+  return { type: LOGOUT };
+};
+
+const setLoginContent = (html) => ({
+  type: SET_LOGIN_CONTENT,
+  payload: html,
+});
+
+const showNewsfeed = () => {
+  history.pushState({ page: 'newsfeed' }, '', '#newsfeed');
+  return { type: SHOW_NEWSFEED };
+};
+
+const setNewsfeedContent = (html) => ({
+  type: SET_NEWSFEED_CONTENT,
+  payload: html,
+});
+
+const showInsights = () => {
+  history.pushState({ page: 'insights' }, '', '#insights');
+  return { type: SHOW_INSIGHTS };
+};
+
+const hideInsights = () => {
+  history.pushState({ page: 'home' }, '', '#home');
+  return { type: HIDE_INSIGHTS };
+};
+
+const setInsightsContent = (html) => ({
+  type: SET_INSIGHTS_CONTENT,
+  payload: html,
+});
+
+const showCreate = () => {
+  history.pushState({ page: 'create' }, '', '#create');
+  return { type: SHOW_CREATE };
+};
+
+const hideCreate = () => {
+  history.pushState({ page: 'home' }, '', '#home');
+  return { type: HIDE_CREATE };
+};
+
+const setCreateContent = (html) => ({
+  type: SET_CREATE_CONTENT,
+  payload: html,
+});
+
+const setOnboardingContent = (html) => ({
+  type: SET_ONBOARDING_CONTENT,
+  payload: html,
+});
+
+const showOnboarding = () => {
+  history.pushState({ page: 'onboarding' }, '', '#onboarding');
+  return { type: SHOW_ONBOARDING };
+};
+
+const hideOnboarding = () => {
+  history.pushState({ page: 'home' }, '', '#home');
+  return { type: HIDE_ONBOARDING };
+};
+
+const setOnboardingStepsContent = (html) => ({
+  type: SET_ONBOARDING_STEPS_CONTENT,
+  payload: html,
+});
+
+const showOnboardingSteps = () => {
+  history.pushState({ page: 'onboardingSteps' }, '', '#onboardingSteps');
+  return { type: SHOW_ONBOARDING_STEPS };
+};
+
+const hideOnboardingSteps = () => {
+  history.pushState({ page: 'home' }, '', '#home');
+  localStorage.removeItem("onboardingStepsVisible");
+  return { type: HIDE_ONBOARDING_STEPS };
+};
+
 
   // Query the DOM elements
   const loginButton = document.querySelector(".login-button");
@@ -343,7 +396,9 @@ document.addEventListener("DOMContentLoaded", () => {
         default:
           store.dispatch(setCurrentPage("home"));
       }
+      
     }
+    
   }
 
   if (loginButton) {
