@@ -66,6 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const footer = document.querySelector(".footer-Contents");
   const insightsButton = document.querySelector(".lnk-ico .insights-btn");
   const createButton = document.querySelector(".lnk-ico .create-btn");
+  const upNav = document.querySelector(".navbar-wrapper");
   const refreshButtons = document.querySelectorAll(
     ".nav-logo, .nav-title, .VLOGO-wrapper"
   );
@@ -106,6 +107,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }, remainingTime);
     };
   }
+  displaySplash();
+ 
 
   function successfulLogin(loginNumberInput, passwordInput) {
     const loginSuccessful = true;
@@ -179,6 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
   function onboardingIsComplete() {
+    
     store.dispatch(showNewsfeed());
 
     fetch("../pages/newsfeed.html")
@@ -188,15 +192,18 @@ document.addEventListener("DOMContentLoaded", () => {
         let newsfeedSpace = document.querySelector(".newsfeed-Space");
 
         if (!newsfeedSpace) {
-          displaySplash();
           newsfeedSpace = document.createElement("div");
           newsfeedSpace.classList.add("newsfeed-Space", "fade-in");
           surfaceView.insertBefore(newsfeedSpace, surfaceView.firstChild);
         }
 
+        displayLongSplash();
+
         newsfeedSpace.innerHTML = html;
         document.title = "Newsfeed";
         surfaceView.style.opacity = 0;
+        footer.style.display = "none";
+        upNav.style.display = "none";
         surfaceView.innerHTML = "";
         surfaceView.appendChild(newsfeedSpace);
 
@@ -204,14 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
           newsfeedSpace.classList.add("active");
           surfaceView.style.opacity = 1;
           document.querySelector(".v-splash").style.display = "none";
-
-          const upNav = document.querySelector(".navbar-wrapper");
-
-          upNav.style.display = "none";
-
-          // console log upNav TO see if its in the dom
-          console.log(upNav);
-        }, 1000);
+        }, 2000);
       });
   }
 
@@ -240,7 +240,6 @@ document.addEventListener("DOMContentLoaded", () => {
       nickname,
     };
   }
-
   function validateLoginForm(loginNumber, password) {
     if (!/^\d{2,9}$/.test(loginNumber)) {
       alert("Login Number should be between 2 and 9 digits.");
@@ -313,7 +312,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   }
-
   function RedirectDispatchState() {
     // Get the state from the popstate event
     let state = event.state;
@@ -505,12 +503,41 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  displaySplash();
+  window.addEventListener("hashchange", function () {
+    let hash = window.location.hash;
+    hash = hash.substring(1);
+    switch (hash) {
+      case "login":
+        store.dispatch(showLogin());
+        break;
+      case "onboarding":
+        store.dispatch(showOnboarding());
+        break;
+      case "onboardingSteps":
+        store.dispatch(showOnboardingSteps());
+        break;
+      case "newsfeed":
+        store.dispatch(showNewsfeed());
+        break;
+      case "insights":
+        store.dispatch(showInsights());
+        break;
+      case "create":
+        store.dispatch(showCreate());
+        break;
+      // Add other cases for all the possible pages...
+      default:
+        store.dispatch(setCurrentPage("home"));
+    }
+  });
+  
+  // Handle the popstate event
+  window.addEventListener("popstate", RedirectDispatchState);
+
+
   store.subscribe(() => {
+
     const state = store.getState();
-
-   
-
 
     if (state.loginVisible) {
       window.location.hash = "login";
@@ -599,6 +626,27 @@ document.addEventListener("DOMContentLoaded", () => {
           });
         }, 100);
       }
+    } else if (state.newsfeedVisible) {
+      window.location.hash = "newsfeed";
+      // Your code for newsfeedVisible...
+
+      let newsfeedSpace = document.querySelector(".newsfeed-Space");
+
+      if (!newsfeedSpace) {
+        newsfeedSpace = document.createElement("div");
+        newsfeedSpace.classList.add("newsfeed-Space", "fade-in");
+        surfaceView.insertBefore(newsfeedSpace, surfaceView.firstChild);
+      }
+
+      newsfeedSpace.innerHTML = state.newsfeedContent;
+      document.title = "Newsfeed";
+      surfaceView.style.opacity = 0;
+      surfaceView.innerHTML = "";
+      surfaceView.appendChild(newsfeedSpace);
+
+      setTimeout(() => {
+        surfaceView.style.opacity = 1;
+      }, 100);
     } else if (state.onboardingStepsVisible) {
       window.location.hash = "onboardingSteps";
 
@@ -643,28 +691,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       setTimeout(() => {
         onboardingSpace.classList.add("active");
-        surfaceView.style.opacity = 1;
-      }, 100);
-    } else if (state.newsfeedVisible) {
-      window.location.hash = "newsfeed";
-
-      // Your code for newsfeedVisible...
-
-      let newsfeedSpace = document.querySelector(".newsfeed-Space");
-
-      if (!newsfeedSpace) {
-        newsfeedSpace = document.createElement("div");
-        newsfeedSpace.classList.add("newsfeed-Space", "fade-in");
-        surfaceView.insertBefore(newsfeedSpace, surfaceView.firstChild);
-      }
-
-      newsfeedSpace.innerHTML = state.newsfeedContent;
-      document.title = "Newsfeed";
-      surfaceView.style.opacity = 0;
-      surfaceView.innerHTML = "";
-      surfaceView.appendChild(newsfeedSpace);
-
-      setTimeout(() => {
         surfaceView.style.opacity = 1;
       }, 100);
     } else if (lastClickedButton !== null) {
@@ -735,41 +761,12 @@ document.addEventListener("DOMContentLoaded", () => {
       
     }
 
-   
-
   });
 
-  window.addEventListener("hashchange", function () {
-    let hash = window.location.hash;
-    hash = hash.substring(1);
-    switch (hash) {
-      case "login":
-        store.dispatch(showLogin());
-        break;
-      case "onboarding":
-        store.dispatch(showOnboarding());
-        break;
-      case "onboardingSteps":
-        store.dispatch(showOnboardingSteps());
-        break;
-      case "insights":
-        store.dispatch(showInsights());
-        break;
-      case "create":
-        store.dispatch(showCreate());
-        break;
-      case "newsfeed":
-        store.dispatch(showNewsfeed());
-        break;
-      // Add other cases for all the possible pages...
-      default:
-        store.dispatch(setCurrentPage("home"));
-    }
-  });
 
-  // Handle the popstate event
-  window.addEventListener("popstate", RedirectDispatchState);
 });
+
+
 
 // main code section for landing page
 document.addEventListener("DOMContentLoaded", () => {
