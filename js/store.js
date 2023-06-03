@@ -91,5 +91,3 @@ function reducer(state = initialState, action) {
 
 // Create your Redux store with the initial state
 const store = Redux.createStore(reducer, initialState);
-
-// ... Rest of your code
