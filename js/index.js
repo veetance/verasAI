@@ -14,51 +14,104 @@ darkModeQuery.addEventListener("change", updateThemeColor);
 
 // code for login/onboarding to newsfeed pagee
 document.addEventListener("DOMContentLoaded", () => {
-  // action Creators
-  const setCurrentPage = (page) => ({ type: SET_CURRENT_PAGE, payload: page });
-  const showLogin = () => ({ type: SHOW_LOGIN });
-  const hideLogin = () => ({ type: HIDE_LOGIN });
-  const logout = () => ({ type: LOGOUT });
-  const setLoginContent = (html) => ({
-    type: SET_LOGIN_CONTENT,
-    payload: html,
-  });
-  const showNewsfeed = () => ({ type: SHOW_NEWSFEED });
-  const setNewsfeedContent = (html) => ({
-    type: SET_NEWSFEED_CONTENT,
-    payload: html,
-  });
 
-  const showInsights = () => ({ type: SHOW_INSIGHTS });
-  const hideInsights = () => ({ type: HIDE_INSIGHTS });
-  const setInsightsContent = (html) => ({
-    type: SET_INSIGHTS_CONTENT,
-    payload: html,
-  });
+ // action Creators
+const setCurrentPage = (page) => {
+  history.pushState({ page: page }, '', `#${page}`);
+  return { type: SET_CURRENT_PAGE, payload: page };
+};
 
-  const showCreate = () => ({ type: SHOW_CREATE });
-  const hideCreate = () => ({ type: HIDE_CREATE });
-  const setCreateContent = (html) => ({
-    type: SET_CREATE_CONTENT,
-    payload: html,
-  });
+const showLogin = () => {
+  history.pushState({ page: 'login' }, '', '#login');
+  return { type: SHOW_LOGIN };
+};
 
-  const setOnboardingContent = (html) => ({
-    type: SET_ONBOARDING_CONTENT,
-    payload: html,
-  });
-  const showOnboarding = () => ({ type: SHOW_ONBOARDING });
-  const hideOnboarding = () => ({ type: HIDE_ONBOARDING });
+const hideLogin = () => {
+  history.pushState({ page: 'home' }, '', '#home');
+  return { type: HIDE_LOGIN };
+};
 
-  const setOnboardingStepsContent = (html) => ({
-    type: SET_ONBOARDING_STEPS_CONTENT,
-    payload: html,
-  });
-  const showOnboardingSteps = () => ({ type: SHOW_ONBOARDING_STEPS });
-  const hideOnboardingSteps = () => {
-    localStorage.removeItem("onboardingStepsVisible");
-    return { type: HIDE_ONBOARDING_STEPS };
-  };
+const logout = () => {
+  history.pushState({ page: 'logout' }, '', '#logout');
+  return { type: LOGOUT };
+};
+
+const setLoginContent = (html) => ({
+  type: SET_LOGIN_CONTENT,
+  payload: html,
+});
+
+const showNewsfeed = () => {
+  history.pushState({ page: 'newsfeed' }, '', '#newsfeed');
+  return { type: SHOW_NEWSFEED };
+};
+
+const setNewsfeedContent = (html) => ({
+  type: SET_NEWSFEED_CONTENT,
+  payload: html,
+});
+
+const showInsights = () => {
+  history.pushState({ page: 'insights' }, '', '#insights');
+  return { type: SHOW_INSIGHTS };
+};
+
+const hideInsights = () => {
+  history.pushState({ page: 'home' }, '', '#home');
+  return { type: HIDE_INSIGHTS };
+};
+
+const setInsightsContent = (html) => ({
+  type: SET_INSIGHTS_CONTENT,
+  payload: html,
+});
+
+const showCreate = () => {
+  history.pushState({ page: 'create' }, '', '#create');
+  return { type: SHOW_CREATE };
+};
+
+const hideCreate = () => {
+  history.pushState({ page: 'home' }, '', '#home');
+  return { type: HIDE_CREATE };
+};
+
+const setCreateContent = (html) => ({
+  type: SET_CREATE_CONTENT,
+  payload: html,
+});
+
+const setOnboardingContent = (html) => ({
+  type: SET_ONBOARDING_CONTENT,
+  payload: html,
+});
+
+const showOnboarding = () => {
+  history.pushState({ page: 'onboarding' }, '', '#onboarding');
+  return { type: SHOW_ONBOARDING };
+};
+
+const hideOnboarding = () => {
+  history.pushState({ page: 'home' }, '', '#home');
+  return { type: HIDE_ONBOARDING };
+};
+
+const setOnboardingStepsContent = (html) => ({
+  type: SET_ONBOARDING_STEPS_CONTENT,
+  payload: html,
+});
+
+const showOnboardingSteps = () => {
+  history.pushState({ page: 'onboardingSteps' }, '', '#onboardingSteps');
+  return { type: SHOW_ONBOARDING_STEPS };
+};
+
+const hideOnboardingSteps = () => {
+  history.pushState({ page: 'home' }, '', '#home');
+  localStorage.removeItem("onboardingStepsVisible");
+  return { type: HIDE_ONBOARDING_STEPS };
+};
+
 
   // Query the DOM elements
   const loginButton = document.querySelector(".login-button");
@@ -66,6 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const footer = document.querySelector(".footer-Contents");
   const insightsButton = document.querySelector(".lnk-ico .insights-btn");
   const createButton = document.querySelector(".lnk-ico .create-btn");
+  const upNav = document.querySelector(".navbar-wrapper");
   const refreshButtons = document.querySelectorAll(
     ".nav-logo, .nav-title, .VLOGO-wrapper"
   );
@@ -106,6 +160,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }, remainingTime);
     };
   }
+  displaySplash();
+ 
 
   function successfulLogin(loginNumberInput, passwordInput) {
     const loginSuccessful = true;
@@ -179,6 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
   function onboardingIsComplete() {
+    
     store.dispatch(showNewsfeed());
 
     fetch("../pages/newsfeed.html")
@@ -188,15 +245,18 @@ document.addEventListener("DOMContentLoaded", () => {
         let newsfeedSpace = document.querySelector(".newsfeed-Space");
 
         if (!newsfeedSpace) {
-          displaySplash();
           newsfeedSpace = document.createElement("div");
           newsfeedSpace.classList.add("newsfeed-Space", "fade-in");
           surfaceView.insertBefore(newsfeedSpace, surfaceView.firstChild);
         }
 
+        displayLongSplash();
+
         newsfeedSpace.innerHTML = html;
         document.title = "Newsfeed";
         surfaceView.style.opacity = 0;
+        footer.style.display = "none";
+        upNav.style.display = "none";
         surfaceView.innerHTML = "";
         surfaceView.appendChild(newsfeedSpace);
 
@@ -204,14 +264,7 @@ document.addEventListener("DOMContentLoaded", () => {
           newsfeedSpace.classList.add("active");
           surfaceView.style.opacity = 1;
           document.querySelector(".v-splash").style.display = "none";
-
-          const upNav = document.querySelector(".navbar-wrapper");
-
-          upNav.style.display = "none";
-
-          // console log upNav TO see if its in the dom
-          console.log(upNav);
-        }, 1000);
+        }, 2000);
       });
   }
 
@@ -240,7 +293,6 @@ document.addEventListener("DOMContentLoaded", () => {
       nickname,
     };
   }
-
   function validateLoginForm(loginNumber, password) {
     if (!/^\d{2,9}$/.test(loginNumber)) {
       alert("Login Number should be between 2 and 9 digits.");
@@ -313,7 +365,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   }
-
   function RedirectDispatchState() {
     // Get the state from the popstate event
     let state = event.state;
@@ -345,7 +396,9 @@ document.addEventListener("DOMContentLoaded", () => {
         default:
           store.dispatch(setCurrentPage("home"));
       }
+      
     }
+    
   }
 
   if (loginButton) {
@@ -505,12 +558,41 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  displaySplash();
+  window.addEventListener("hashchange", function () {
+    let hash = window.location.hash;
+    hash = hash.substring(1);
+    switch (hash) {
+      case "login":
+        store.dispatch(showLogin());
+        break;
+      case "onboarding":
+        store.dispatch(showOnboarding());
+        break;
+      case "onboardingSteps":
+        store.dispatch(showOnboardingSteps());
+        break;
+      case "newsfeed":
+        store.dispatch(showNewsfeed());
+        break;
+      case "insights":
+        store.dispatch(showInsights());
+        break;
+      case "create":
+        store.dispatch(showCreate());
+        break;
+      // Add other cases for all the possible pages...
+      default:
+        store.dispatch(setCurrentPage("home"));
+    }
+  });
+  
+  // Handle the popstate event
+  window.addEventListener("popstate", RedirectDispatchState);
+
+
   store.subscribe(() => {
+
     const state = store.getState();
-
-   
-
 
     if (state.loginVisible) {
       window.location.hash = "login";
@@ -540,65 +622,91 @@ document.addEventListener("DOMContentLoaded", () => {
 
         setTimeout(() => {
           const loginForm = document.querySelector(".form");
-          loginForm.addEventListener("submit", (event) => {
-            // Prevent form submission at the start of the event handler
-            event.preventDefault();
 
-            const loginNumberInput = document.querySelector("#login-number");
-            const passwordInput = document.querySelector("#password");
-
-            // Validate login number and password
-            const loginNumber = loginNumberInput.value;
-            const password = passwordInput.value;
-
-            const formData = validateLoginForm(loginNumber, password);
-            if (!formData) {
-              // If form data is invalid, return early
-              return;
-            }
-
-            // Prepare the userLoginData object
-            const userLoginData = {
-              loginNumber: formData.loginNumber,
-              password: formData.password,
-            };
-
-            // Send a POST request to login.phps
-            fetch("http://study.veras.ca/logins.phps", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(userLoginData),
-            })
-              .then((response) => {
-                if (!response.ok) {
-                  throw new Error("Network response was not ok");
-                }
-                return response.text();
+          if (loginForm) {
+            loginForm.addEventListener("submit", (event) => {
+              // Prevent form submission at the start of the event handler
+              event.preventDefault();
+  
+              const loginNumberInput = document.querySelector("#login-number");
+              const passwordInput = document.querySelector("#password");
+  
+              // Validate login number and password
+              const loginNumber = loginNumberInput.value;
+              const password = passwordInput.value;
+  
+              const formData = validateLoginForm(loginNumber, password);
+              if (!formData) {
+                // If form data is invalid, return early
+                return;
+              }
+  
+              // Prepare the userLoginData object
+              const userLoginData = {
+                loginNumber: formData.loginNumber,
+                password: formData.password,
+              };
+  
+              // Send a POST request to login.phps
+              fetch("http://study.veras.ca/logins.phps", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(userLoginData),
               })
-              .then((data) => {
-                //do somethiing with the data
-              })
-              .catch((error) => {
-                // Handle errors here
-                if (error.message.includes("NetworkError")) {
-                  alert("Network Error: Failed to reach the server.");
-                } else if (error.message.includes("TypeError")) {
-                  alert(
-                    "Type Error: There was a problem with the type of the input."
-                  );
-                } else {
-                  // Handle prototype error
-                  alert(
-                    "This is a prototype, data not connected. Please press OK to proceed."
-                  );
-                  successfulLogin(loginNumberInput, passwordInput);
-                }
-              });
-          });
+                .then((response) => {
+                  if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                  }
+                  return response.text();
+                })
+                .then((data) => {
+                  //do somethiing with the data
+                })
+                .catch((error) => {
+                  // Handle errors here
+                  if (error.message.includes("NetworkError")) {
+                    alert("Network Error: Failed to reach the server.");
+                  } else if (error.message.includes("TypeError")) {
+                    alert(
+                      "Type Error: There was a problem with the type of the input."
+                    );
+                  } else {
+                    // Handle prototype error
+                    alert(
+                      "This is a prototype, data not connected. Please press OK to proceed."
+                    );
+                    successfulLogin(loginNumberInput, passwordInput);
+                  }
+                });
+            });
+          }
+
+          
         }, 100);
       }
+    } else if (state.newsfeedVisible) {
+      window.location.hash = "newsfeed";
+      // Your code for newsfeedVisible...
+
+      let newsfeedSpace = document.querySelector(".newsfeed-Space");
+
+      if (!newsfeedSpace) {
+        newsfeedSpace = document.createElement("div");
+        newsfeedSpace.classList.add("newsfeed-Space", "fade-in");
+        surfaceView.insertBefore(newsfeedSpace, surfaceView.firstChild);
+      }
+
+      newsfeedSpace.innerHTML = state.newsfeedContent;
+      document.title = "Newsfeed";
+      surfaceView.style.opacity = 0;
+      surfaceView.innerHTML = "";
+      surfaceView.appendChild(newsfeedSpace);
+
+      setTimeout(() => {
+        surfaceView.style.opacity = 1;
+      }, 100);
     } else if (state.onboardingStepsVisible) {
       window.location.hash = "onboardingSteps";
 
@@ -643,28 +751,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       setTimeout(() => {
         onboardingSpace.classList.add("active");
-        surfaceView.style.opacity = 1;
-      }, 100);
-    } else if (state.newsfeedVisible) {
-      window.location.hash = "newsfeed";
-
-      // Your code for newsfeedVisible...
-
-      let newsfeedSpace = document.querySelector(".newsfeed-Space");
-
-      if (!newsfeedSpace) {
-        newsfeedSpace = document.createElement("div");
-        newsfeedSpace.classList.add("newsfeed-Space", "fade-in");
-        surfaceView.insertBefore(newsfeedSpace, surfaceView.firstChild);
-      }
-
-      newsfeedSpace.innerHTML = state.newsfeedContent;
-      document.title = "Newsfeed";
-      surfaceView.style.opacity = 0;
-      surfaceView.innerHTML = "";
-      surfaceView.appendChild(newsfeedSpace);
-
-      setTimeout(() => {
         surfaceView.style.opacity = 1;
       }, 100);
     } else if (lastClickedButton !== null) {
@@ -735,41 +821,12 @@ document.addEventListener("DOMContentLoaded", () => {
       
     }
 
-   
-
   });
 
-  window.addEventListener("hashchange", function () {
-    let hash = window.location.hash;
-    hash = hash.substring(1);
-    switch (hash) {
-      case "login":
-        store.dispatch(showLogin());
-        break;
-      case "onboarding":
-        store.dispatch(showOnboarding());
-        break;
-      case "onboardingSteps":
-        store.dispatch(showOnboardingSteps());
-        break;
-      case "insights":
-        store.dispatch(showInsights());
-        break;
-      case "create":
-        store.dispatch(showCreate());
-        break;
-      case "newsfeed":
-        store.dispatch(showNewsfeed());
-        break;
-      // Add other cases for all the possible pages...
-      default:
-        store.dispatch(setCurrentPage("home"));
-    }
-  });
 
-  // Handle the popstate event
-  window.addEventListener("popstate", RedirectDispatchState);
 });
+
+
 
 // main code section for landing page
 document.addEventListener("DOMContentLoaded", () => {
