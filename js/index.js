@@ -622,63 +622,68 @@ const hideOnboardingSteps = () => {
 
         setTimeout(() => {
           const loginForm = document.querySelector(".form");
-          loginForm.addEventListener("submit", (event) => {
-            // Prevent form submission at the start of the event handler
-            event.preventDefault();
 
-            const loginNumberInput = document.querySelector("#login-number");
-            const passwordInput = document.querySelector("#password");
-
-            // Validate login number and password
-            const loginNumber = loginNumberInput.value;
-            const password = passwordInput.value;
-
-            const formData = validateLoginForm(loginNumber, password);
-            if (!formData) {
-              // If form data is invalid, return early
-              return;
-            }
-
-            // Prepare the userLoginData object
-            const userLoginData = {
-              loginNumber: formData.loginNumber,
-              password: formData.password,
-            };
-
-            // Send a POST request to login.phps
-            fetch("http://study.veras.ca/logins.phps", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(userLoginData),
-            })
-              .then((response) => {
-                if (!response.ok) {
-                  throw new Error("Network response was not ok");
-                }
-                return response.text();
+          if (loginForm) {
+            loginForm.addEventListener("submit", (event) => {
+              // Prevent form submission at the start of the event handler
+              event.preventDefault();
+  
+              const loginNumberInput = document.querySelector("#login-number");
+              const passwordInput = document.querySelector("#password");
+  
+              // Validate login number and password
+              const loginNumber = loginNumberInput.value;
+              const password = passwordInput.value;
+  
+              const formData = validateLoginForm(loginNumber, password);
+              if (!formData) {
+                // If form data is invalid, return early
+                return;
+              }
+  
+              // Prepare the userLoginData object
+              const userLoginData = {
+                loginNumber: formData.loginNumber,
+                password: formData.password,
+              };
+  
+              // Send a POST request to login.phps
+              fetch("http://study.veras.ca/logins.phps", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(userLoginData),
               })
-              .then((data) => {
-                //do somethiing with the data
-              })
-              .catch((error) => {
-                // Handle errors here
-                if (error.message.includes("NetworkError")) {
-                  alert("Network Error: Failed to reach the server.");
-                } else if (error.message.includes("TypeError")) {
-                  alert(
-                    "Type Error: There was a problem with the type of the input."
-                  );
-                } else {
-                  // Handle prototype error
-                  alert(
-                    "This is a prototype, data not connected. Please press OK to proceed."
-                  );
-                  successfulLogin(loginNumberInput, passwordInput);
-                }
-              });
-          });
+                .then((response) => {
+                  if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                  }
+                  return response.text();
+                })
+                .then((data) => {
+                  //do somethiing with the data
+                })
+                .catch((error) => {
+                  // Handle errors here
+                  if (error.message.includes("NetworkError")) {
+                    alert("Network Error: Failed to reach the server.");
+                  } else if (error.message.includes("TypeError")) {
+                    alert(
+                      "Type Error: There was a problem with the type of the input."
+                    );
+                  } else {
+                    // Handle prototype error
+                    alert(
+                      "This is a prototype, data not connected. Please press OK to proceed."
+                    );
+                    successfulLogin(loginNumberInput, passwordInput);
+                  }
+                });
+            });
+          }
+
+          
         }, 100);
       }
     } else if (state.newsfeedVisible) {
