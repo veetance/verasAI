@@ -160,10 +160,15 @@ const hideOnboardingSteps = () => {
       }, remainingTime);
     };
   }
-  displaySplash();
- 
+
 
   function successfulLogin(loginNumberInput, passwordInput) {
+
+
+    loginNumberInput.value = "";
+    passwordInput.value = "";
+
+
     const loginSuccessful = true;
     const onboardingButton = document.querySelector("#onboarding-button");
     if (loginSuccessful) {
@@ -171,9 +176,8 @@ const hideOnboardingSteps = () => {
     } else {
       onboardingButton.style.display = "none";
     }
+  
     displayLongSplash();
-    loginNumberInput.value = "";
-    passwordInput.value = "";
     loginNumberInput.style.display = "none";
     passwordInput.style.display = "none";
 
@@ -195,6 +199,7 @@ const hideOnboardingSteps = () => {
       document.querySelector(".v-splash").style.display = "none";
     }, 2000);
   }
+
   function onboardSuccess() {
     store.dispatch(showOnboardingSteps());
 
@@ -293,6 +298,7 @@ const hideOnboardingSteps = () => {
       nickname,
     };
   }
+
   function validateLoginForm(loginNumber, password) {
     if (!/^\d{2,9}$/.test(loginNumber)) {
       alert("Login Number should be between 2 and 9 digits.");
@@ -401,8 +407,12 @@ const hideOnboardingSteps = () => {
     
   }
 
+  displaySplash();
+  let lastClickedButton = null;
+
   if (loginButton) {
     let loginSuccessful = false;
+    
     loginButton.addEventListener("click", () => {
       displaySplash();
 
@@ -514,6 +524,7 @@ const hideOnboardingSteps = () => {
                       }
                     });
                   }
+
                 })
 
                 .catch((error) => {
@@ -522,6 +533,7 @@ const hideOnboardingSteps = () => {
                 });
             });
           }
+
         })
 
         .catch((error) => {
@@ -530,8 +542,6 @@ const hideOnboardingSteps = () => {
         });
     });
   }
-
-  let lastClickedButton = null;
 
   if (insightsButton) {
     insightsButton.addEventListener("click", function () {
@@ -686,6 +696,7 @@ const hideOnboardingSteps = () => {
           
         }, 100);
       }
+      
     } else if (state.newsfeedVisible) {
       window.location.hash = "newsfeed";
       // Your code for newsfeedVisible...
@@ -825,6 +836,9 @@ const hideOnboardingSteps = () => {
 
 
 });
+
+
+
 
 
 
