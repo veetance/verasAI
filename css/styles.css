@@ -648,7 +648,7 @@ h5 {
 .v-button-filled p {
   color: white;
   font-weight: 500;
-  font-size: clamp(1rem, 1vw, 1.1vw) !important;
+  font-size: clamp(.8rem, 1vw, .8vw) !important;
   line-height: 100% !important;
   white-space: nowrap;
 }
@@ -3256,13 +3256,7 @@ h5 {
   font-weight: 600;
 }
 
-.v-button-filled p {
-  color: white;
-  font-weight: 500;
-  font-size: clamp(1rem, 0.95vw, 1.1vw) !important;
-  line-height: 100% !important;
-  white-space: nowrap;
-}
+
 
 .v-button-filled:hover p {
   color: #5f50b2;

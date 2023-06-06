@@ -12,141 +12,430 @@ function updateThemeColor(event) {
 }
 darkModeQuery.addEventListener("change", updateThemeColor);
 
-// code for login/onboarding to newsfeed pagee
+
+
 document.addEventListener("DOMContentLoaded", () => {
 
- // action Creators
-const setCurrentPage = (page) => {
-  history.pushState({ page: page }, '', `#${page}`);
-  return { type: SET_CURRENT_PAGE, payload: page };
-};
-
-const showLogin = () => {
-  history.pushState({ page: 'login' }, '', '#login');
-  return { type: SHOW_LOGIN };
-};
-
-const hideLogin = () => {
-  history.pushState({ page: 'home' }, '', '#home');
-  return { type: HIDE_LOGIN };
-};
-
-const logout = () => {
-  history.pushState({ page: 'logout' }, '', '#logout');
-  return { type: LOGOUT };
-};
-
-const setLoginContent = (html) => ({
-  type: SET_LOGIN_CONTENT,
-  payload: html,
-});
-
-const showNewsfeed = () => {
-  history.pushState({ page: 'newsfeed' }, '', '#newsfeed');
-  return { type: SHOW_NEWSFEED };
-};
-
-const setNewsfeedContent = (html) => ({
-  type: SET_NEWSFEED_CONTENT,
-  payload: html,
-});
-
-const showInsights = () => {
-  history.pushState({ page: 'insights' }, '', '#insights');
-  return { type: SHOW_INSIGHTS };
-};
-
-const hideInsights = () => {
-  history.pushState({ page: 'home' }, '', '#home');
-  return { type: HIDE_INSIGHTS };
-};
-
-const setInsightsContent = (html) => ({
-  type: SET_INSIGHTS_CONTENT,
-  payload: html,
-});
-
-const showCreate = () => {
-  history.pushState({ page: 'create' }, '', '#create');
-  return { type: SHOW_CREATE };
-};
-
-const hideCreate = () => {
-  history.pushState({ page: 'home' }, '', '#home');
-  return { type: HIDE_CREATE };
-};
-
-const setCreateContent = (html) => ({
-  type: SET_CREATE_CONTENT,
-  payload: html,
-});
-
-const setOnboardingContent = (html) => ({
-  type: SET_ONBOARDING_CONTENT,
-  payload: html,
-});
-
-const showOnboarding = () => {
-  history.pushState({ page: 'onboarding' }, '', '#onboarding');
-  return { type: SHOW_ONBOARDING };
-};
-
-const hideOnboarding = () => {
-  history.pushState({ page: 'home' }, '', '#home');
-  return { type: HIDE_ONBOARDING };
-};
-
-const setOnboardingStepsContent = (html) => ({
-  type: SET_ONBOARDING_STEPS_CONTENT,
-  payload: html,
-});
-
-const showOnboardingSteps = () => {
-  history.pushState({ page: 'onboardingSteps' }, '', '#onboardingSteps');
-  return { type: SHOW_ONBOARDING_STEPS };
-};
-
-const hideOnboardingSteps = () => {
-  history.pushState({ page: 'home' }, '', '#home');
-  localStorage.removeItem("onboardingStepsVisible");
-  return { type: HIDE_ONBOARDING_STEPS };
-};
-
-
-  // Query the DOM elements
-  const loginButton = document.querySelector(".login-button");
-  const surfaceView = document.querySelector(".surface-view");
-  const footer = document.querySelector(".footer-Contents");
-  const insightsButton = document.querySelector(".lnk-ico .insights-btn");
-  const createButton = document.querySelector(".lnk-ico .create-btn");
-  const upNav = document.querySelector(".navbar-wrapper");
-  const refreshButtons = document.querySelectorAll(
-    ".nav-logo, .nav-title, .VLOGO-wrapper"
-  );
-
-  refreshButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      window.location.href = "/index.html";
-    });
-  });
-
-  function displaySplash() {
-    let splash = document.querySelector(".v-splash");
-    if (!splash) return;
-    splash.style.display = "flex";
+  let Loadsplash = document.querySelector(".v-splash");
+  function displayLoadSplash() {
+    if (!Loadsplash) return;
+    Loadsplash.style.display = "flex";
     const hideSplashTime = Date.now() + 1000;
 
     window.onload = function () {
       const remainingTime = Math.max(0, hideSplashTime - Date.now());
       setTimeout(() => {
-        splash.style.display = "none";
+        Loadsplash.style.display = "none";
       }, remainingTime);
     };
   }
+  displayLoadSplash();
+
+
+  //Triggerers for the login page
+  window.onload = function() {
+    Loadsplash.style.display = "none";
+    if (elements.loginButton) {
+      elements.loginButton.addEventListener("click", eventHandlers.handleLoginButtonClick);
+    }
+    if (elements.logoutButton) {
+      elements.logoutButton.addEventListener("click", eventHandlers.handleLogoutButtonClick);
+    }
+    if (elements.onboardingButton) {
+      elements.onboardingButton.addEventListener("click", eventHandlers.handleToStepsButtonClick);
+    }
+    if (elements.insightsButton) {
+      elements.insightsButton.addEventListener("click", eventHandlers.handleInsightsButtonClick);
+    }
+    if (elements.createButton) {
+      elements.createButton.addEventListener("click", eventHandlers.handleCreateButtonClick);
+    }
+    if (elements.upNav) {
+      elements.upNav.addEventListener("click", eventHandlers.handleLogoutButtonClick);
+    }
+    if (elements.refreshButtons) {
+      elements.refreshButtons.forEach(button => button.addEventListener("click", eventHandlers.handleRefreshButtonClick));
+    }
+  };
+
+  // Action Creators
+  const actions = {
+    setCurrentPage: (page) => {
+      history.pushState({ page: page }, "", `#${page}`);
+      return { type: SET_CURRENT_PAGE, payload: page };
+    },
+    showLogin: () => {
+      history.pushState({ page: "login" }, "", "#login");
+      return { type: SHOW_LOGIN };
+    },
+    hideLogin: () => {
+      history.pushState({ page: "home" }, "", "#home");
+      return { type: HIDE_LOGIN };
+    },
+    logout: () => {
+      history.pushState({ page: "logout" }, "", "#logout");
+      return { type: LOGOUT };
+    },
+    setLoginContent: (html) => ({
+      type: SET_LOGIN_CONTENT,
+      payload: html,
+    }),
+    showNewsfeed: () => {
+      history.pushState({ page: "newsfeed" }, "", "#newsfeed");
+      return { type: SHOW_NEWSFEED };
+    },
+    setNewsfeedContent: (html) => ({
+      type: SET_NEWSFEED_CONTENT,
+      payload: html,
+    }),
+    showInsights: () => {
+      history.pushState({ page: "insights" }, "", "#insights");
+      return { type: SHOW_INSIGHTS };
+    },
+    hideInsights: () => {
+      history.pushState({ page: "home" }, "", "#home");
+      return { type: HIDE_INSIGHTS };
+    },
+    setInsightsContent: (html) => ({
+      type: SET_INSIGHTS_CONTENT,
+      payload: html,
+    }),
+    showCreate: () => {
+      history.pushState({ page: "create" }, "", "#create");
+      return { type: SHOW_CREATE };
+    },
+    hideCreate: () => {
+      history.pushState({ page: "home" }, "", "#home");
+      return { type: HIDE_CREATE };
+    },
+    setCreateContent: (html) => ({
+      type: SET_CREATE_CONTENT,
+      payload: html,
+    }),
+    setOnboardingContent: (html) => ({
+      type: SET_ONBOARDING_CONTENT,
+      payload: html,
+    }),
+    showOnboarding: () => {
+      history.pushState({ page: "onboarding" }, "", "#onboarding");
+      return { type: SHOW_ONBOARDING };
+    },
+    hideOnboarding: () => {
+      history.pushState({ page: "home" }, "", "#home");
+      return { type: HIDE_ONBOARDING };
+    },
+    setOnboardingStepsContent: (html) => ({
+      type: SET_ONBOARDING_STEPS_CONTENT,
+      payload: html,
+    }),
+    showOnboardingSteps: () => {
+      history.pushState({ page: "onboardingSteps" }, "", "#onboardingSteps");
+      return { type: SHOW_ONBOARDING_STEPS };
+    },
+    hideOnboardingSteps: () => {
+      history.pushState({ page: "home" }, "", "#home");
+      localStorage.removeItem("onboardingStepsVisible");
+      return { type: HIDE_ONBOARDING_STEPS };
+    },
+  };
+
+  // Query the DOM elements
+  const elements = {
+  loginButton: document.querySelector(".login-button"),
+  logoutButton: document.querySelector(".logout-button"),
+  onboardingButton: document.querySelector("#toFeed-button"),
+  surfaceView: document.querySelector(".surface-view"),
+  footer: document.querySelector(".footer-Contents"),
+  insightsButton: document.querySelector(".lnk-ico .insights-btn"),
+  createButton: document.querySelector(".lnk-ico .create-btn"),
+  upNav: document.querySelector(".navbar-wrapper"),
+  splash: document.querySelector(".v-splash"),
+  refreshButtons: document.querySelectorAll(
+    ".nav-logo, .nav-title, .VLOGO-wrapper"
+    ),
+  };
+
+
+  let loginSuccessful = false;
+
+  // Event Handlers
+  const eventHandlers = {
+    handleLoginButtonClick: () => {
+      store.dispatch(actions.showLogin());
+      loadPage("login", actions.showLogin, actions.setLoginContent).then(() => {
+
+        const onboardingButtonInner = document.querySelector("#onboarding-button");
+
+        if (loginSuccessful ) {
+          onboardingButtonInner.style.display = "flex";
+        } else {
+          onboardingButtonInner.style.display = "none";
+        }
+
+      });
+    },
+    handleNewsfeedButtonClick: () => {
+      store.dispatch(actions.showNewsfeed());
+    },
+    handleInsightsButtonClick: () => {
+      store.dispatch(actions.hideCreate());
+      loadPage("insights", actions.showInsights, actions.setInsightsContent);
+    },
+    handleCreateButtonClick: () => {
+      store.dispatch(actions.hideInsights());
+      loadPage("create", actions.showCreate, actions.setCreateContent);
+    },
+    handleToStepsButtonClick: async () => {
+      const loginNumber = document.getElementById("login-number").value;
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirm-password").value;
+      const nickname = document.getElementById("nickname").value;
+
+      const onboardUserData = eventHandlers.validateForm(
+        loginNumber,
+        password,
+        confirmPassword,
+        nickname
+      );
+
+      async function postUserData(onboardUserData) {
+        const response = await fetch("http://study.veras.ca/home.phps", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(onboardUserData),
+        });
+
+        if (!response.ok) {
+          alert(onboardUserData); // onboardUserData contains the error message
+          throw new Error("Network response was not ok");
+        }
+
+        return await response.text();
+      }
+
+      // Handle input field errors
+      if (typeof onboardUserData === "string") {
+        console.log(onboardUserData);
+        return; // Stop the function here if there are validation errors
+      }
+
+      try {
+        // Handle posting errors
+        const data = await postUserData(onboardUserData);
+        console.log("postUserData", postUserData);
+
+        if (data.error) {
+          // Show the error message returned by postUserData()/ after saeed links it properly
+        }
+      } catch (error) {
+        if (error.message.includes("NetworkError")) {
+          alert("Network Error: Failed to reach the server.");
+        } else {
+          // Handle prototype error
+
+          if (
+            onboardUserData &&
+            onboardUserData.loginNumber &&
+            onboardUserData.password
+          ) {
+            alert(
+              "This is a prototype, data not connected. Please press OK to proceed."
+            );
+            eventHandlers.onboardSuccess(loginNumber, password, nickname);
+
+            console.log("onboardUserData", onboardUserData);
+          }
+        }
+      }
+    },
+    handleLogoutButtonClick: () => {
+      store.dispatch(actions.logout());
+    },
+    handleRefreshButtonClick: () => {
+      window.location.href = "index.html";
+    },
+    
+
+    //curicial eevent handlers
+    successfulLogin: (loginNumberInput, passwordInput) => {
+      loginSuccessful = true; // Update loginSuccessful if login is successful
+      // Clear the input fields
+      loginNumberInput.value = "";
+      passwordInput.value = "";
+
+      // Display the splash screen
+      displayLongSplash();
+
+      // Update the UI based on the login status
+      updateLoginUI(true);
+
+      setTimeout(() => {
+        elements.splash.style.display = "none";
+      }, 2000);
+    },
+    onboardSuccess: () => {
+      loadPage(
+        "onboardingSteps",
+        actions.showOnboardingSteps,
+        actions.setOnboardingStepsContent
+      );
+      // Add any additional code specific to onboardSuccess here
+    },
+    onboardingIsComplete: () => {
+      loadPage("newsfeed", actions.showNewsfeed, actions.setNewsfeedContent);
+      // Add any additional code specific to onboardingIsComplete here
+    },
+    validateForm: (loginNumber, password, confirmPassword, nickname) => {
+      if (!/^\d{2,9}$/.test(loginNumber)) {
+        alert("Login Number should be between 2 and 9 digits.");
+        return false;
+      }
+      if (!/^\d{2,9}$/.test(password)) {
+        alert("Password should be between 2 and 9 digits.");
+        return false;
+      }
+      if (password !== confirmPassword) {
+        alert("Confirm Password should match Password.");
+        return false;
+      }
+      if (nickname && !/^[a-zA-Z0-9._-]*$/.test(nickname)) {
+        alert(
+          "Nickname should be alphanumeric and may contain periods, dashes and underscores."
+        );
+        return false;
+      }
+      return {
+        loginNumber,
+        password,
+        nickname,
+      };
+    },
+    validateLoginForm: (loginNumber, password) => {
+      if (!/^\d{2,9}$/.test(loginNumber)) {
+        alert("Login Number should be between 2 and 9 digits.");
+        return false;
+      }
+      if (!/^\d{2,9}$/.test(password)) {
+        alert("Password should be between 2 and 9 digits.");
+        return false;
+      }
+      return {
+        loginNumber,
+        password,
+      };
+    },
+    addStepButtonListeners: () => {
+      document
+        .querySelectorAll(".onboarding-steps .nav-button.next")
+        .forEach((button) => {
+          button.addEventListener("click", function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            updateStep(1);
+          });
+        });
+
+      document
+        .querySelectorAll(".onboarding-steps .nav-button.back")
+        .forEach((button) => {
+          button.addEventListener("click", function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            updateStep(-1);
+          });
+        });
+    },
+    updateStep: (increment) => {
+      let steps = Array.from(
+        document.querySelector(".onboarding-steps").querySelectorAll(".step")
+      );
+
+      let currentStep = steps.find((step) => step.classList.contains("active"));
+
+      if (!currentStep) {
+        steps.find((step) => step.dataset.step == "0").classList.add("active");
+        return;
+      }
+
+      let currentStepNumber = parseInt(currentStep.dataset.step);
+      let nextStepNumber = currentStepNumber + increment;
+
+      let nextStep = steps.find(
+        (step) => parseInt(step.dataset.step) === nextStepNumber
+      );
+
+      if (nextStep) {
+        currentStep.classList.remove("active");
+        nextStep.classList.add("active");
+
+        if (parseInt(nextStep.dataset.step) === 5) {
+          const stepFinishButton = nextStep.querySelector(".step-finish");
+          if (stepFinishButton) {
+            stepFinishButton.addEventListener("click", function () {
+              alert(
+                "Prototype: Data is not connected. Proceeding to news feed..."
+              );
+              onboardingIsComplete();
+            });
+          }
+        }
+      }
+    },
+    RedirectDispatchState: () => {
+      // Get the state from the popstate event
+      let state = event.state;
+      // Dispatch the appropriate action based on the state
+      if (state) {
+        window.location.reload();
+        switch (state.page) {
+          case "login":
+            store.dispatch(actions.showLogin());
+            break;
+          case "logout":
+            store.dispatch(actions.logout());
+            break;
+          case "newsfeed":
+            store.dispatch(actions.showNewsfeed());
+            break;
+          case "insights":
+            store.dispatch(actions.showInsights());
+            break;
+          case "create":
+            store.dispatch(actions.showCreate());
+            break;
+          case "onboarding":
+            store.dispatch(actions.showOnboarding());
+            break;
+          case "onboardingSteps":
+            store.dispatch(actions.showOnboardingSteps());
+            break;
+          default:
+            store.dispatch(actions.setCurrentPage("home"));
+        }
+      }
+    },
+  };
+
+
+  //crucial base scope functions
+  function displaySplash() {
+    if (!elements.splash) return;
+    elements.splash.style.display = "flex";
+    const hideSplashTime = Date.now() + 1000;
+
+    window.onload = function () {
+      const remainingTime = Math.max(0, hideSplashTime - Date.now());
+      setTimeout(() => {
+        elements.splash.style.display = "none";
+      }, remainingTime);
+    };
+  };
   function displayLongSplash() {
-    let splash = document.querySelector(".v-splash");
-    if (!splash) return;
-    splash.style.display = "flex";
+  
+    if (!elements.splash) return;
+    elements.splash.style.display = "flex";
     let logo = document.querySelector(".v-logo");
     let rotationSpeed = 5;
     logo.style.animation = `rotate ${rotationSpeed}s linear infinite`;
@@ -155,687 +444,227 @@ const hideOnboardingSteps = () => {
       const remainingTime = Math.max(0, hideSplashTime - Date.now());
 
       setTimeout(() => {
-        splash.style.display = "none";
+        elements.splash.style.display = "none";
         logo.style.animation = "";
       }, remainingTime);
     };
-  }
-
-
-  function successfulLogin(loginNumberInput, passwordInput) {
-
-
-    loginNumberInput.value = "";
-    passwordInput.value = "";
-
-
-    const loginSuccessful = true;
-    const onboardingButton = document.querySelector("#onboarding-button");
-    if (loginSuccessful) {
-      onboardingButton.style.display = "flex";
-    } else {
-      onboardingButton.style.display = "none";
-    }
+  };
+  function loadPage(pageName, actionToShow, actionToSetContent) {
+    displaySplash();
+    store.dispatch(actionToShow);
+    // Return the Promise from fetch
+    return fetch(`../pages/${pageName}.html`)
+      .then((response) => response.text())
+      .then((html) => {
+        store.dispatch(actionToSetContent(html));
+        let pageSpace = document.querySelector(`.${pageName}-Space`);
   
-    displayLongSplash();
-    loginNumberInput.style.display = "none";
-    passwordInput.style.display = "none";
+        if (!pageSpace) {
+          pageSpace = document.createElement("div");
+          pageSpace.classList.add(`${pageName}-Space`, "fade-in");
+          elements.surfaceView.insertBefore(pageSpace, elements.surfaceView.firstChild);
+        }
 
+        pageSpace.innerHTML = html;
+        document.title = pageName.charAt(0).toUpperCase() + pageName.slice(1);
+        elements.surfaceView.style.opacity = 0;
+        elements.footer.style.display = "none";
+        elements.surfaceView.innerHTML = "";
+        elements.surfaceView.appendChild(pageSpace);
+    
+  
+        setTimeout(() => {
+          pageSpace.classList.add("active");
+          elements.surfaceView.style.opacity = 1;
+          elements.splash.style.display = "none";
+        }, 100);
+      });
+  };
+  
+  function updateLoginUI(isLoggedIn) {
+   
     const formTitle = document.querySelector(".form-title");
-    formTitle.textContent = "Login Success";
     const ToFeedbtn = document.querySelector("#toFeed-button");
-    ToFeedbtn.style.display = "none";
     const title = document.querySelector(".title h1");
-    title.innerHTML = "Veras<span>Authentication</span>";
-    const h2Memo = document.createElement("h2");
-    h2Memo.textContent = "Please change your password.";
-    h2Memo.style.whiteSpace = "pre-wrap";
-    h2Memo.style.marginBottom = "20px";
-    h2Memo.style.color = "var(--f7-theme-color)";
     const buttonWrap = document.querySelector(".button-wrap");
-    buttonWrap.parentNode.insertBefore(h2Memo, buttonWrap);
+
+    const onboardingButtonInner = document.querySelector("#onboarding-button");
+
+    if (isLoggedIn) {
+      onboardingButtonInner.style.display = "flex";
+      formTitle.textContent = "Login Success";
+      ToFeedbtn.style.display = "none";
+      title.innerHTML = "Veras<span>Authentication</span>";
+
+      const h2Memo = document.createElement("h2");
+      h2Memo.textContent = "Please change your password.";
+      h2Memo.style.whiteSpace = "pre-wrap";
+      h2Memo.style.marginBottom = "20px";
+      h2Memo.style.color = "var(--f7-theme-color)";
+      buttonWrap.parentNode.insertBefore(h2Memo, buttonWrap);
+    } else {
+      onboardingButtonInner.style.display = "none";
+    }
+  };
+  function updatePageContent(stateProperty, className, title) {
+  const state = store.getState();
+  if (state[stateProperty]) {
+    window.location.hash = stateProperty;
+    let pageSpace = document.querySelector(`.${className}`);
+
+    if (!pageSpace) {
+      pageSpace = document.createElement("div");
+      pageSpace.classList.add(className, "fade-in");
+      elements.surfaceView.insertBefore(pageSpace, elements.surfaceView.firstChild);
+    }
+
+    pageSpace.innerHTML = state[`${stateProperty}Content`];
+    document.title = title;
+    elements.surfaceView.style.opacity = 0;
+    elements.surfaceView.innerHTML = "";
+    elements.surfaceView.appendChild(pageSpace);
 
     setTimeout(() => {
-      document.querySelector(".v-splash").style.display = "none";
-    }, 2000);
+      pageSpace.classList.add("active");
+      elements.surfaceView.style.opacity = 1;
+    }, 100);
   }
-
-  function onboardSuccess() {
-    store.dispatch(showOnboardingSteps());
-
-    fetch("../pages/onboardingSteps.html")
-      .then((response) => response.text())
-      .then((html) => {
-        store.dispatch(setOnboardingStepsContent());
-        let onboardingStepsSpace = document.querySelector(
-          ".onboardingSteps-Space"
-        );
-
-        if (!onboardingStepsSpace) {
-          displaySplash();
-          onboardingStepsSpace = document.createElement("div");
-          onboardingStepsSpace.classList.add(
-            "onboardingSteps-Space",
-            "fade-in"
-          );
-          surfaceView.insertBefore(
-            onboardingStepsSpace,
-            surfaceView.firstChild
-          );
-        }
-
-        onboardingStepsSpace.innerHTML = html;
-        document.title = "Onboarding Steps";
-        surfaceView.style.opacity = 0;
-        surfaceView.innerHTML = "";
-        surfaceView.appendChild(onboardingStepsSpace);
-
-        setTimeout(() => {
-          onboardingStepsSpace.classList.add("active");
-          surfaceView.style.opacity = 1;
-          document.querySelector(".v-splash").style.display = "none";
-          addStepButtonListeners();
-          updateStep(0);
-        }, 1000);
-      });
-  }
-  function onboardingIsComplete() {
-    
-    store.dispatch(showNewsfeed());
-
-    fetch("../pages/newsfeed.html")
-      .then((response) => response.text())
-      .then((html) => {
-        store.dispatch(setNewsfeedContent());
-        let newsfeedSpace = document.querySelector(".newsfeed-Space");
-
-        if (!newsfeedSpace) {
-          newsfeedSpace = document.createElement("div");
-          newsfeedSpace.classList.add("newsfeed-Space", "fade-in");
-          surfaceView.insertBefore(newsfeedSpace, surfaceView.firstChild);
-        }
-
-        displayLongSplash();
-
-        newsfeedSpace.innerHTML = html;
-        document.title = "Newsfeed";
-        surfaceView.style.opacity = 0;
-        footer.style.display = "none";
-        upNav.style.display = "none";
-        surfaceView.innerHTML = "";
-        surfaceView.appendChild(newsfeedSpace);
-
-        setTimeout(() => {
-          newsfeedSpace.classList.add("active");
-          surfaceView.style.opacity = 1;
-          document.querySelector(".v-splash").style.display = "none";
-        }, 2000);
-      });
-  }
-
-  function validateForm(loginNumber, password, confirmPassword, nickname) {
-    if (!/^\d{2,9}$/.test(loginNumber)) {
-      alert("Login Number should be between 2 and 9 digits.");
-      return false;
-    }
-    if (!/^\d{2,9}$/.test(password)) {
-      alert("Password should be between 2 and 9 digits.");
-      return false;
-    }
-    if (password !== confirmPassword) {
-      alert("Confirm Password should match Password.");
-      return false;
-    }
-    if (nickname && !/^[a-zA-Z0-9._-]*$/.test(nickname)) {
-      alert(
-        "Nickname should be alphanumeric and may contain periods, dashes and underscores."
-      );
-      return false;
-    }
-    return {
-      loginNumber,
-      password,
-      nickname,
-    };
-  }
-
-  function validateLoginForm(loginNumber, password) {
-    if (!/^\d{2,9}$/.test(loginNumber)) {
-      alert("Login Number should be between 2 and 9 digits.");
-      return false;
-    }
-    if (!/^\d{2,9}$/.test(password)) {
-      alert("Password should be between 2 and 9 digits.");
-      return false;
-    }
-    return {
-      loginNumber,
-      password,
-    };
-  }
-
-  function addStepButtonListeners() {
-    document
-      .querySelectorAll(".onboarding-steps .nav-button.next")
-      .forEach((button) => {
-        button.addEventListener("click", function (event) {
-          event.preventDefault();
-          event.stopPropagation();
-          updateStep(1);
-        });
-      });
-
-    document
-      .querySelectorAll(".onboarding-steps .nav-button.back")
-      .forEach((button) => {
-        button.addEventListener("click", function (event) {
-          event.preventDefault();
-          event.stopPropagation();
-          updateStep(-1);
-        });
-      });
-  }
-  function updateStep(increment) {
-    let steps = Array.from(
-      document.querySelector(".onboarding-steps").querySelectorAll(".step")
-    );
-
-    let currentStep = steps.find((step) => step.classList.contains("active"));
-
-    if (!currentStep) {
-      steps.find((step) => step.dataset.step == "0").classList.add("active");
-      return;
-    }
-
-    let currentStepNumber = parseInt(currentStep.dataset.step);
-    let nextStepNumber = currentStepNumber + increment;
-
-    let nextStep = steps.find(
-      (step) => parseInt(step.dataset.step) === nextStepNumber
-    );
-
-    if (nextStep) {
-      currentStep.classList.remove("active");
-      nextStep.classList.add("active");
-
-      if (parseInt(nextStep.dataset.step) === 5) {
-        const stepFinishButton = nextStep.querySelector(".step-finish");
-        if (stepFinishButton) {
-          stepFinishButton.addEventListener("click", function () {
-            alert(
-              "Prototype: Data is not connected. Proceeding to news feed..."
-            );
-            onboardingIsComplete();
+  };
+  function handleLoginFormSubmission(loginSpace) {
+    if (!loginSpace.dataset.formEventAttached) {
+      loginSpace.dataset.formEventAttached = "true";
+  
+      setTimeout(() => {
+        const loginForm = document.querySelector(".form");
+  
+        if (loginForm) {
+          loginForm.addEventListener("submit", (event) => {
+            // Prevent form submission at the start of the event handler
+            event.preventDefault();
+  
+            const loginNumberInput = document.querySelector("#login-number");
+            const passwordInput = document.querySelector("#password");
+  
+            // Validate login number and password
+            const loginNumber = loginNumberInput.value;
+            const password = passwordInput.value;
+  
+            const formData = validateLoginForm(loginNumber, password);
+            if (!formData) {
+              // If form data is invalid, return early
+              return;
+            }
+  
+            // Prepare the userLoginData object
+            const userLoginData = {
+              loginNumber: formData.loginNumber,
+              password: formData.password,
+            };
+  
+            // Send a POST request to login.phps
+            fetch("http://study.veras.ca/logins.phps", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(userLoginData),
+            })
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error("Network response was not ok");
+                }
+                return response.text();
+              })
+              .then((data) => {
+                //do something with the data
+              })
+              .catch((error) => {
+                // Handle errors here
+                if (error.message.includes("NetworkError")) {
+                  alert("Network Error: Failed to reach the server.");
+                } else if (error.message.includes("TypeError")) {
+                  alert(
+                    "Type Error: There was a problem with the type of the input."
+                  );
+                } else {
+                  // Handle prototype error
+                  alert(
+                    "This is a prototype, data not connected. Please press OK to proceed."
+                  );
+                  successfulLogin(loginNumberInput, passwordInput);
+                }
+              });
           });
         }
-      }
+      }, 100);
     }
-  }
-  function RedirectDispatchState() {
-    // Get the state from the popstate event
-    let state = event.state;
-    // Dispatch the appropriate action based on the state
-    if (state) {
-      window.location.reload();
-      switch (state.page) {
-        case "login":
-          store.dispatch(showLogin());
-          break;
-        case "logout":
-          store.dispatch(logout());
-          break;
-        case "newsfeed":
-          store.dispatch(showNewsfeed());
-          break;
-        case "insights":
-          store.dispatch(showInsights());
-          break;
-        case "create":
-          store.dispatch(showCreate());
-          break;
-        case "onboarding":
-          store.dispatch(showOnboarding());
-          break;
-        case "onboardingSteps":
-          store.dispatch(showOnboardingSteps());
-          break;
-        default:
-          store.dispatch(setCurrentPage("home"));
-      }
-      
-    }
-    
-  }
-
-  displaySplash();
-  let lastClickedButton = null;
-
-  if (loginButton) {
-    let loginSuccessful = false;
-    
-    loginButton.addEventListener("click", () => {
-      displaySplash();
-
-      store.dispatch(showLogin());
-
-      fetch("../pages/login.html")
-        .then((response) => response.text())
-        .then((html) => {
-          store.dispatch(setLoginContent(html));
-          document.querySelector(".v-splash").style.display = "none";
-
-          const onboardingButton = document.querySelector("#onboarding-button");
-
-          if (loginSuccessful) {
-            onboardingButton.style.display = "flex";
-          } else {
-            onboardingButton.style.display = "none";
-          }
-
-          if (onboardingButton) {
-            onboardingButton.addEventListener("click", () => {
-              displaySplash();
-              store.dispatch(hideLogin());
-              store.dispatch(showOnboarding());
-
-              loginSuccessful = false;
-              onboardingButton.style.display = "none";
-
-              fetch("../pages/onboarding.html")
-                .then((response) => response.text())
-                .then((html) => {
-                  store.dispatch(setOnboardingContent(html));
-                  document.querySelector(".v-splash").style.display = "none";
-
-                  const toStepsButton = document.querySelector("#to-steps");
-
-                  if (toStepsButton) {
-                    toStepsButton.addEventListener("click", async () => {
-                      const loginNumber =
-                        document.getElementById("login-number").value;
-                      const password =
-                        document.getElementById("password").value;
-                      const confirmPassword =
-                        document.getElementById("confirm-password").value;
-                      const nickname =
-                        document.getElementById("nickname").value;
-
-                      const onboardUserData = validateForm(
-                        loginNumber,
-                        password,
-                        confirmPassword,
-                        nickname
-                      );
-
-                      async function postUserData(onboardUserData) {
-                        const response = await fetch(
-                          "http://study.veras.ca/home.phps",
-                          {
-                            method: "POST",
-                            headers: {
-                              "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify(onboardUserData),
-                          }
-                        );
-
-                        if (!response.ok) {
-                          alert(onboardUserData); // onboardUserData contains the error message
-                          throw new Error("Network response was not ok");
-                        }
-
-                        return await response.text();
-                      }
-
-                      // Handle input field errors
-                      if (typeof onboardUserData === "string") {
-                        console.log(onboardUserData);
-                        return; // Stop the function here if there are validation errors
-                      }
-
-                      try {
-                        // Handle posting errors
-                        const data = await postUserData(onboardUserData);
-                        console.log("postUserData", postUserData);
-
-                        if (data.error) {
-                          // Show the error message returned by postUserData()/ after saeed links it properly
-                        }
-                      } catch (error) {
-                        if (error.message.includes("NetworkError")) {
-                          alert("Network Error: Failed to reach the server.");
-                        } else {
-                          // Handle prototype error
-
-                          if (
-                            onboardUserData &&
-                            onboardUserData.loginNumber &&
-                            onboardUserData.password
-                          ) {
-                            alert(
-                              "This is a prototype, data not connected. Please press OK to proceed."
-                            );
-                            onboardSuccess(loginNumber, password, nickname);
-
-                            console.log("onboardUserData", onboardUserData);
-                            
-                          }
-                        }
-                      }
-                    });
-                  }
-
-                })
-
-                .catch((error) => {
-                  console.error("showonbrdCntnt-Error:", error);
-                  document.querySelector(".v-splash").style.display = "none";
-                });
-            });
-          }
-
-        })
-
-        .catch((error) => {
-          console.error("login-Error:", error);
-          document.querySelector(".v-splash").style.display = "none";
-        });
-    });
-  }
-
-  if (insightsButton) {
-    insightsButton.addEventListener("click", function () {
-      lastClickedButton = this;
-      store.dispatch(showInsights());
-      store.dispatch(hideCreate());
-      fetch("../pages/insights.html")
-        .then((response) => response.text())
-        .then((html) => {
-          store.dispatch(setInsightsContent(html));
-        });
-    });
-  }
-  if (createButton) {
-    createButton.addEventListener("click", function () {
-      lastClickedButton = this;
-      store.dispatch(showCreate());
-      store.dispatch(hideInsights());
-      fetch("../pages/create.html")
-        .then((response) => response.text())
-        .then((html) => {
-          store.dispatch(setCreateContent(html));
-        });
-    });
-  }
-
-  window.addEventListener("hashchange", function () {
-    let hash = window.location.hash;
-    hash = hash.substring(1);
-    switch (hash) {
-      case "login":
-        store.dispatch(showLogin());
-        break;
-      case "onboarding":
-        store.dispatch(showOnboarding());
-        break;
-      case "onboardingSteps":
-        store.dispatch(showOnboardingSteps());
-        break;
-      case "newsfeed":
-        store.dispatch(showNewsfeed());
-        break;
-      case "insights":
-        store.dispatch(showInsights());
-        break;
-      case "create":
-        store.dispatch(showCreate());
-        break;
-      // Add other cases for all the possible pages...
-      default:
-        store.dispatch(setCurrentPage("home"));
-    }
-  });
-  
-  // Handle the popstate event
-  window.addEventListener("popstate", RedirectDispatchState);
-
+  };
 
   store.subscribe(() => {
-
+   
     const state = store.getState();
-
+  
     if (state.loginVisible) {
-      window.location.hash = "login";
-
-      let loginSpace = document.querySelector(".login-Space");
-
-      if (!loginSpace) {
-        loginSpace = document.createElement("div");
-        loginSpace.classList.add("login-Space", "fade-in");
-        surfaceView.insertBefore(loginSpace, surfaceView.firstChild);
-      }
-
-      loginSpace.innerHTML = state.loginContent;
-      document.title = "Login";
-      surfaceView.style.opacity = 0;
-      surfaceView.innerHTML = "";
-      surfaceView.appendChild(loginSpace);
-
-      setTimeout(() => {
-        loginSpace.classList.add("active");
-        surfaceView.style.opacity = 1;
-      }, 100);
-
-      // Add event listener for form submission, only if it hasn't been added before
-      if (!loginSpace.dataset.formEventAttached) {
-        loginSpace.dataset.formEventAttached = "true";
-
-        setTimeout(() => {
-          const loginForm = document.querySelector(".form");
-
-          if (loginForm) {
-            loginForm.addEventListener("submit", (event) => {
-              // Prevent form submission at the start of the event handler
-              event.preventDefault();
-  
-              const loginNumberInput = document.querySelector("#login-number");
-              const passwordInput = document.querySelector("#password");
-  
-              // Validate login number and password
-              const loginNumber = loginNumberInput.value;
-              const password = passwordInput.value;
-  
-              const formData = validateLoginForm(loginNumber, password);
-              if (!formData) {
-                // If form data is invalid, return early
-                return;
-              }
-  
-              // Prepare the userLoginData object
-              const userLoginData = {
-                loginNumber: formData.loginNumber,
-                password: formData.password,
-              };
-  
-              // Send a POST request to login.phps
-              fetch("http://study.veras.ca/logins.phps", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(userLoginData),
-              })
-                .then((response) => {
-                  if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                  }
-                  return response.text();
-                })
-                .then((data) => {
-                  //do somethiing with the data
-                })
-                .catch((error) => {
-                  // Handle errors here
-                  if (error.message.includes("NetworkError")) {
-                    alert("Network Error: Failed to reach the server.");
-                  } else if (error.message.includes("TypeError")) {
-                    alert(
-                      "Type Error: There was a problem with the type of the input."
-                    );
-                  } else {
-                    // Handle prototype error
-                    alert(
-                      "This is a prototype, data not connected. Please press OK to proceed."
-                    );
-                    successfulLogin(loginNumberInput, passwordInput);
-                  }
-                });
-            });
-          }
-
-          
-        }, 100);
-      }
       
+      updatePageContent("loginVisible", "login-Space", "Login");
+      let loginSpace = document.querySelector(".login-Space");
+      handleLoginFormSubmission(loginSpace);
+      // ... other logic
     } else if (state.newsfeedVisible) {
-      window.location.hash = "newsfeed";
-      // Your code for newsfeedVisible...
-
-      let newsfeedSpace = document.querySelector(".newsfeed-Space");
-
-      if (!newsfeedSpace) {
-        newsfeedSpace = document.createElement("div");
-        newsfeedSpace.classList.add("newsfeed-Space", "fade-in");
-        surfaceView.insertBefore(newsfeedSpace, surfaceView.firstChild);
-      }
-
-      newsfeedSpace.innerHTML = state.newsfeedContent;
-      document.title = "Newsfeed";
-      surfaceView.style.opacity = 0;
-      surfaceView.innerHTML = "";
-      surfaceView.appendChild(newsfeedSpace);
-
-      setTimeout(() => {
-        surfaceView.style.opacity = 1;
-      }, 100);
+      updatePageContent("newsfeedVisible", "newsfeed-Space", "Newsfeed");
+      // let newsfeedSpace = document.querySelector(".newsfeed-Space");
+      // ... other logic specific to the newsfeed page
     } else if (state.onboardingStepsVisible) {
-      window.location.hash = "onboardingSteps";
-
-      displaySplash();
-      // Call this function after the buttons have been added to the DOM
-
-      let onboardingStepsSpace = document.querySelector(
-        ".onboardingSteps-Space"
-      );
-
-      if (!onboardingStepsSpace) {
-        onboardingStepsSpace = document.createElement("div");
-        onboardingStepsSpace.classList.add("onboardingSteps-Space", "fade-in");
-        surfaceView.insertBefore(onboardingStepsSpace, surfaceView.firstChild);
-      }
-
-      onboardingStepsSpace.innerHTML = state.onboardingStepsContent;
-      document.title = "Onboarding Steps";
-      surfaceView.style.opacity = 0;
-      surfaceView.innerHTML = "";
-      surfaceView.appendChild(onboardingStepsSpace);
-
-      setTimeout(() => {
-        onboardingStepsSpace.classList.add("active");
-        surfaceView.style.opacity = 1;
-      }, 100);
+      updatePageContent("onboardingStepsVisible", "onboardingSteps-Space", "Onboarding Steps");
+      // ... other logic
     } else if (state.onboardingVisible) {
-      window.location.hash = "onboarding";
-
-      let onboardingSpace = document.querySelector(".onboarding-Space");
-      if (!onboardingSpace) {
-        onboardingSpace = document.createElement("div");
-        onboardingSpace.classList.add("onboarding-Space", "fade-in");
-        surfaceView.insertBefore(onboardingSpace, surfaceView.firstChild);
-      }
-
-      onboardingSpace.innerHTML = state.onboardingContent;
-      document.title = "Onboarding";
-      surfaceView.style.opacity = 0;
-      surfaceView.innerHTML = "";
-      surfaceView.appendChild(onboardingSpace);
-
-      setTimeout(() => {
-        onboardingSpace.classList.add("active");
-        surfaceView.style.opacity = 1;
-      }, 100);
-    } else if (lastClickedButton !== null) {
-
-      let insightsNavLink = document
-      .querySelector(".insights-btn")
-      .closest(".nav-lnk");
-    let createNavLink = document
-      .querySelector(".create-btn")
-      .closest(".nav-lnk");
-
-    let insightsSpace = document.querySelector(".insights-Space");
-    let createSpace = document.querySelector(".create-Space");
-
-    let feedWrapper = document.querySelector(".feed-wrapper");
-    let feedScroll = document.querySelector(".feed-scroll");
-
+      updatePageContent("onboardingVisible", "onboarding-Space", "Onboarding");
+      // ... other logic
+    } else if (state.insightsVisible || state.createVisible) {
+      
+      let insightsNavLink = document.querySelector(".insights-btn").closest(".nav-lnk");
+      let createNavLink = document.querySelector(".create-btn").closest(".nav-lnk");
+      let insightsSpace = elements.surfaceView.querySelector(".insights-Space")
+      let createSpace = elements.surfaceView.querySelector(".create-Space");
+      let feedWrapper = elements.surfaceView.querySelector(".feed-wrapper");
+  
       if (state.insightsVisible) {
-        window.location.hash = "insights";
         insightsNavLink.classList.add("btn-active");
         createNavLink.classList.remove("btn-active");
-
         if (!insightsSpace) {
-          insightsSpace = document.createElement("div");
-          insightsSpace.classList.add("insights-Space");
-          feedScroll.appendChild(insightsSpace);
-  
-          fetch("../pages/insights.html")
-            .then((response) => response.text())
-            .then((html) => {
-              insightsSpace.innerHTML = html;
-            });
+          loadPage("insights", actions.showInsights, actions.setInsightsContent);
         } else {
+          updatePageContent("insightsVisible", "insights-Space", "Insights");
           insightsSpace.style.display = "block";
+          if (createSpace) {
+            createSpace.style.display = "none";
+          }
         }
-  
-        if (createSpace) {
-          createSpace.style.display = "none";
-        }
-  
         feedWrapper.style.display = "none";
       } else if (state.createVisible) {
-        window.location.hash = "create";
         createNavLink.classList.add("btn-active");
         insightsNavLink.classList.remove("btn-active");
-
-
         if (!createSpace) {
-          createSpace = document.createElement("div");
-          createSpace.classList.add("create-Space");
-          feedScroll.appendChild(createSpace);
-  
-          fetch("../pages/create.html")
-            .then((response) => response.text())
-            .then((html) => {
-              createSpace.innerHTML = html;
-            });
-        } else {
+          loadPage("create", actions.showCreate, actions.setCreateContent);
+        }
+         else {
+          updatePageContent("createVisible", "create-Space", "Create");
           createSpace.style.display = "block";
-        } 
-        if (insightsSpace) { 
-        insightsSpace.style.display = "none";}
-        
+          if (insightsSpace) {
+            insightsSpace.style.display = "none";
+          }
+        }
         feedWrapper.style.display = "none";
       } else {
         feedWrapper.style.display = "flex";
       }
-      
     }
 
   });
-
+  
 
 });
+
 
 
 
@@ -878,15 +707,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 500);
   }
 
-  function closeNavWrapper() {
-    navbarWrapper.style.transition = "max-height 0.5s";
-    navbarWrapper.style.maxHeight = "100%";
+  // function closeNavWrapper() {
+  //   navbarWrapper.style.transition = "max-height 0.5s";
+  //   navbarWrapper.style.maxHeight = "100%";
 
-    setTimeout(function () {
-      contactUsModalWrapper.style.display = "none";
-      navbarWrapper.style.height = "0px !important";
-    }, 300);
-  }
+  //   setTimeout(function () {
+  //     contactUsModalWrapper.style.display = "none";
+  //     navbarWrapper.style.height = "0px !important";
+  //   }, 300);
+  // }
 
   // Event listener for vFormBtn
   if (vFormBtn) {
