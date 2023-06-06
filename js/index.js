@@ -34,7 +34,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //Triggerers for the login page
   window.onload = function() {
-    Loadsplash.style.display = "none";
+    setTimeout(() => {
+      Loadsplash.style.display = "none";
+    }, 1000);
     if (elements.loginButton) {
       elements.loginButton.addEventListener("click", eventHandlers.handleLoginButtonClick);
     }
@@ -254,7 +256,8 @@ document.addEventListener("DOMContentLoaded", () => {
       store.dispatch(actions.logout());
     },
     handleRefreshButtonClick: () => {
-      window.location.href = "index.html";
+      // Refresh the page
+      window.location.reload();
     },
     
 
