@@ -123,7 +123,7 @@ function updateThemeColor(event) {
   if (url.hash) {
   history.replaceState({}, document.title, url.pathname );
 
-  if (url.hash === "/Veras-1.1-MVP-website/pages/login.html#") {
+  if (url.hash === "login.html#") {
     store.dispatch(actions.showLogin());
     loadPage("login", actions.showLogin, actions.setLoginContent).then(() => {
 
@@ -282,7 +282,7 @@ function updateThemeColor(event) {
     handleNavSlideUpClick: () => {
     },
     handleRefreshButtonClick: () => {
-      window.location.href = "/index.html";
+      window.location.href = "index.html";
     },
  
 
