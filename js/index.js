@@ -67,19 +67,19 @@ document.addEventListener("DOMContentLoaded", () => {
   // Action Creators
   const actions = {
     setCurrentPage: (page) => {
-
+      history.pushState({ page: page }, "", `#${page}`);
       return { type: SET_CURRENT_PAGE, payload: page };
     },
     showLogin: () => {
-
+      history.pushState({ page: "login" }, "", "#login");
       return { type: SHOW_LOGIN };
     },
     hideLogin: () => {
-
+      history.pushState({ page: "home" }, "", "#home");
       return { type: HIDE_LOGIN };
     },
     logout: () => {
-
+      history.pushState({ page: "logout" }, "", "#logout");
       return { type: LOGOUT };
     },
     setLoginContent: (html) => ({
@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
       payload: html,
     }),
     showNewsfeed: () => {
-  
+      history.pushState({ page: "newsfeed" }, "", "#newsfeed");
       return { type: SHOW_NEWSFEED };
     },
     setNewsfeedContent: (html) => ({
@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
       payload: html,
     }),
     showInsights: () => {
-   
+      history.pushState({ page: "insights" }, "", "#insights");
       return { type: SHOW_INSIGHTS };
     },
     hideInsights: () => {
@@ -107,11 +107,11 @@ document.addEventListener("DOMContentLoaded", () => {
       payload: html,
     }),
     showCreate: () => {
-
+      history.pushState({ page: "create" }, "", "#create");
       return { type: SHOW_CREATE };
     },
     hideCreate: () => {
- 
+      history.pushState({ page: "home" }, "", "#home");
       return { type: HIDE_CREATE };
     },
     setCreateContent: (html) => ({
@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
       payload: html,
     }),
     showOnboarding: () => {
-
+      history.pushState({ page: "onboarding" }, "", "#onboarding");
       return { type: SHOW_ONBOARDING };
     },
     hideOnboarding: () => {
@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
       payload: html,
     }),
     showOnboardingSteps: () => {
-    
+      history.pushState({ page: "onboardingSteps" }, "", "#onboardingSteps");
       return { type: SHOW_ONBOARDING_STEPS };
     },
     hideOnboardingSteps: () => {
@@ -458,7 +458,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     store.dispatch(displayLoadSplash,actionToShow);
     // Return the Promise from fetch
-    return fetch(`../pages/${pageName}.html`)
+    return fetch(`/pages/${pageName}.html`)
       .then((response) => response.text())
       .then((html) => {
         store.dispatch(actionToSetContent(html));
