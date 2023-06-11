@@ -15,36 +15,6 @@ function updateThemeColor(event) {
 }
 
 
-// function handleHashChange() {
-//   const hash = window.location.hash.substring(1); // remove the '#' symbol
-//   switch (hash) {
-//     case 'login':
-//       store.dispatch(actions.showLogin());
-//       break;
-//     case 'newsfeed':
-//       store.dispatch(actions.showNewsfeed());
-//       break;
-//     case 'onboardingSteps':
-//       store.dispatch(actions.showOnboardingSteps());
-//       break;
-//     case 'onboarding':
-//       store.dispatch(actions.showOnboarding());
-//       break;
-//     case 'insights':
-//       store.dispatch(actions.showInsights());
-//       break;
-//     case 'create':
-//       store.dispatch(actions.showCreate());
-//       break;
-//     default:
-//       // handle the case when the hash is not recognized
-//       break;
-//   }
-// }
-// window.addEventListener('hashchange', handleHashChange);
-// handleHashChange();
-
-
 const url = new URL(window.location.href);
 if (url.hash) {
   history.replaceState({}, document.title, 'index.html');
@@ -97,19 +67,19 @@ document.addEventListener("DOMContentLoaded", () => {
   // Action Creators
   const actions = {
     setCurrentPage: (page) => {
-      history.pushState({ page: page }, "", `#${page}`);
+
       return { type: SET_CURRENT_PAGE, payload: page };
     },
     showLogin: () => {
-      history.pushState({ page: "login" }, "", "#login");
+
       return { type: SHOW_LOGIN };
     },
     hideLogin: () => {
-      history.pushState({ page: "home" }, "", "#home");
+
       return { type: HIDE_LOGIN };
     },
     logout: () => {
-      history.pushState({ page: "logout" }, "", "#logout");
+
       return { type: LOGOUT };
     },
     setLoginContent: (html) => ({
@@ -117,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
       payload: html,
     }),
     showNewsfeed: () => {
-      history.pushState({ page: "newsfeed" }, "", "#newsfeed");
+  
       return { type: SHOW_NEWSFEED };
     },
     setNewsfeedContent: (html) => ({
@@ -125,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
       payload: html,
     }),
     showInsights: () => {
-      history.pushState({ page: "insights" }, "", "#insights");
+   
       return { type: SHOW_INSIGHTS };
     },
     hideInsights: () => {
@@ -137,11 +107,11 @@ document.addEventListener("DOMContentLoaded", () => {
       payload: html,
     }),
     showCreate: () => {
-      history.pushState({ page: "create" }, "", "#create");
+
       return { type: SHOW_CREATE };
     },
     hideCreate: () => {
-      history.pushState({ page: "home" }, "", "#home");
+ 
       return { type: HIDE_CREATE };
     },
     setCreateContent: (html) => ({
@@ -153,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
       payload: html,
     }),
     showOnboarding: () => {
-      history.pushState({ page: "onboarding" }, "", "#onboarding");
+
       return { type: SHOW_ONBOARDING };
     },
     hideOnboarding: () => {
@@ -165,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
       payload: html,
     }),
     showOnboardingSteps: () => {
-      history.pushState({ page: "onboardingSteps" }, "", "#onboardingSteps");
+    
       return { type: SHOW_ONBOARDING_STEPS };
     },
     hideOnboardingSteps: () => {
@@ -174,6 +144,35 @@ document.addEventListener("DOMContentLoaded", () => {
       return { type: HIDE_ONBOARDING_STEPS };
     },
   };
+
+  function handleHashChange() {
+    const hash = window.location.hash.substring(1); // remove the '#' symbol
+    switch (hash) {
+      case 'login':
+        store.dispatch(actions.showLogin());
+        break;
+      case 'newsfeed':
+        store.dispatch(actions.showNewsfeed());
+        break;
+      case 'onboardingSteps':
+        store.dispatch(actions.showOnboardingSteps());
+        break;
+      case 'onboarding':
+        store.dispatch(actions.showOnboarding());
+        break;
+      case 'insights':
+        store.dispatch(actions.showInsights());
+        break;
+      case 'create':
+        store.dispatch(actions.showCreate());
+        break;
+      default:
+        // handle the case when the hash is not recognized
+        break;
+    }
+  }
+  window.addEventListener('hashchange', handleHashChange);
+  handleHashChange();
   
   // Query the DOM elements
   const elements = {
