@@ -22,8 +22,8 @@ if (url.hash) {
 
 let Loadsplash = document.querySelector(".v-splash");
 let navbarAndSurface = document.querySelectorAll(".navbar-wrapper, .Veras-surface");
-displayLoadSplash();
 
+displayLoadSplash();
 function displayLoadSplash() {
   // If the flag is set, display the splash screen and remove the flag
   if (!Loadsplash) return;
@@ -40,6 +40,7 @@ function displayLoadSplash() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+
 
   //Triggerers for the login page
   window.addEventListener('load', function() {
@@ -71,11 +72,11 @@ document.addEventListener("DOMContentLoaded", () => {
       return { type: SET_CURRENT_PAGE, payload: page };
     },
     showLogin: () => {
-      history.pushState({ page: "login" }, "", "#login");
+      history.pushState({ page: "login" }, "", "pages/login.html#");
       return { type: SHOW_LOGIN };
     },
     hideLogin: () => {
-      history.pushState({ page: "home" }, "", "#home");
+      history.pushState({ page: "home" }, "", "index.html");
       return { type: HIDE_LOGIN };
     },
     logout: () => {
@@ -87,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
       payload: html,
     }),
     showNewsfeed: () => {
-      history.pushState({ page: "newsfeed" }, "", "#newsfeed");
+      history.pushState({ page: "newsfeed" }, "", "pages/newsfeed.html#");
       return { type: SHOW_NEWSFEED };
     },
     setNewsfeedContent: (html) => ({
@@ -123,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
       payload: html,
     }),
     showOnboarding: () => {
-      history.pushState({ page: "onboarding" }, "", "#onboarding");
+      history.pushState({ page: "onboarding" }, "", "pages/onboarding.html#");
       return { type: SHOW_ONBOARDING };
     },
     hideOnboarding: () => {
@@ -135,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
       payload: html,
     }),
     showOnboardingSteps: () => {
-      history.pushState({ page: "onboardingSteps" }, "", "#onboardingSteps");
+      history.pushState({ page: "onboardingSteps" }, "", "pages/onboardingSteps.html#");
       return { type: SHOW_ONBOARDING_STEPS };
     },
     hideOnboardingSteps: () => {
@@ -173,6 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   window.addEventListener('hashchange', handleHashChange);
   handleHashChange();
+
   
   // Query the DOM elements
   const elements = {
@@ -190,7 +192,6 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
 
-  let loginSuccessful = false;
 
   // Event Handlers
   const eventHandlers = {
@@ -215,7 +216,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let waitListButton = document.querySelector("#waitList");
         waitListButton.addEventListener("click", () => {
-          window.location.href = "index.html";  
+          window.location.href = "/index.html";  
         }
         );
 
@@ -304,7 +305,16 @@ document.addEventListener("DOMContentLoaded", () => {
     handleNavSlideUpClick: () => {
     },
     handleRefreshButtonClick: () => {
-      window.location.reload();
+
+      //iff url is index.html then reload the page else go to index.html
+      if (window.location.href.includes("index.html")) {
+        window.location.reload();
+      } else {
+        window.location.href = "/index.html";
+      }
+      
+
+   
     },
  
 
@@ -458,7 +468,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     store.dispatch(displayLoadSplash,actionToShow);
     // Return the Promise from fetch
-    return fetch(`/pages/${pageName}.html`)
+    return fetch(`../pages/${pageName}.html`)
       .then((response) => response.text())
       .then((html) => {
         store.dispatch(actionToSetContent(html));
