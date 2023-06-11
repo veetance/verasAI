@@ -14,90 +14,6 @@ function updateThemeColor(event) {
   }
   }
 
-   // Action Creators
-   const actions = {
-    setCurrentPage: (page) => {
-      history.pushState({ page: page }, "", `#${page}`);
-      return { type: SET_CURRENT_PAGE, payload: page };
-    },
-    showLogin: () => {
-      history.pushState({ page: "login" }, "", "Veras-1.1-MVP-website/pages/login.html#");
-      return { type: SHOW_LOGIN };
-    },
-    hideLogin: () => {
-      history.pushState({ page: "home" }, "", "index.html");
-      return { type: HIDE_LOGIN };
-    },
-    logout: () => {
-      history.pushState({ page: "logout" }, "", "#logout");
-      return { type: LOGOUT };
-    },
-    setLoginContent: (html) => ({
-      type: SET_LOGIN_CONTENT,
-      payload: html,
-    }),
-    showNewsfeed: () => {
-      history.pushState({ page: "newsfeed" }, "", "pages/newsfeed.html#");
-      return { type: SHOW_NEWSFEED };
-    },
-    setNewsfeedContent: (html) => ({
-      type: SET_NEWSFEED_CONTENT,
-      payload: html,
-    }),
-    showInsights: () => {
-      history.pushState({ page: "insights" }, "", "#insights");
-      return { type: SHOW_INSIGHTS };
-    },
-    hideInsights: () => {
-      history.pushState({ page: "home" }, "", "#home");
-      return { type: HIDE_INSIGHTS };
-    },
-    setInsightsContent: (html) => ({
-      type: SET_INSIGHTS_CONTENT,
-      payload: html,
-    }),
-    showCreate: () => {
-      history.pushState({ page: "create" }, "", "#create");
-      return { type: SHOW_CREATE };
-    },
-    hideCreate: () => {
-      history.pushState({ page: "home" }, "", "#home");
-      return { type: HIDE_CREATE };
-    },
-    setCreateContent: (html) => ({
-      type: SET_CREATE_CONTENT,
-      payload: html,
-    }),
-    setOnboardingContent: (html) => ({
-      type: SET_ONBOARDING_CONTENT,
-      payload: html,
-    }),
-    showOnboarding: () => {
-      history.pushState({ page: "onboarding" }, "", "pages/onboarding.html#");
-      return { type: SHOW_ONBOARDING };
-    },
-    hideOnboarding: () => {
-      history.pushState({ page: "home" }, "", "#home");
-      return { type: HIDE_ONBOARDING };
-    },
-    setOnboardingStepsContent: (html) => ({
-      type: SET_ONBOARDING_STEPS_CONTENT,
-      payload: html,
-    }),
-    showOnboardingSteps: () => {
-      history.pushState({ page: "onboardingSteps" }, "", "pages/onboardingSteps.html#");
-      return { type: SHOW_ONBOARDING_STEPS };
-    },
-    hideOnboardingSteps: () => {
-      history.pushState({ page: "home" }, "", "#home");
-      localStorage.removeItem("onboardingStepsVisible");
-      return { type: HIDE_ONBOARDING_STEPS };
-    },
-  };  
-
-
-document.addEventListener("DOMContentLoaded", () => {
-
   let Loadsplash = document.querySelector(".v-splash");
   let navbarAndSurface = document.querySelectorAll(".navbar-wrapper, .Veras-surface");
   displayLoadSplash();
@@ -116,6 +32,90 @@ document.addEventListener("DOMContentLoaded", () => {
   }, remainingTime);
   }
 
+
+  document.addEventListener("DOMContentLoaded", () => {
+
+    // Action Creators
+    const actions = {
+      setCurrentPage: (page) => {
+        history.pushState({ page: page }, "", `#${page}`);
+        return { type: SET_CURRENT_PAGE, payload: page };
+      },
+      showLogin: () => {
+        history.pushState({ page: "login" }, "", "/pages/login.html#");
+        return { type: SHOW_LOGIN };
+      },
+      hideLogin: () => {
+        history.pushState({ page: "home" }, "", "index.html");
+        return { type: HIDE_LOGIN };
+      },
+      logout: () => {
+        history.pushState({ page: "logout" }, "", "#logout");
+        return { type: LOGOUT };
+      },
+      setLoginContent: (html) => ({
+        type: SET_LOGIN_CONTENT,
+        payload: html,
+      }),
+      showNewsfeed: () => {
+        history.pushState({ page: "newsfeed" }, "", "pages/newsfeed.html#");
+        return { type: SHOW_NEWSFEED };
+      },
+      setNewsfeedContent: (html) => ({
+        type: SET_NEWSFEED_CONTENT,
+        payload: html,
+      }),
+      showInsights: () => {
+        history.pushState({ page: "insights" }, "", "#insights");
+        return { type: SHOW_INSIGHTS };
+      },
+      hideInsights: () => {
+        history.pushState({ page: "home" }, "", "#home");
+        return { type: HIDE_INSIGHTS };
+      },
+      setInsightsContent: (html) => ({
+        type: SET_INSIGHTS_CONTENT,
+        payload: html,
+      }),
+      showCreate: () => {
+        history.pushState({ page: "create" }, "", "#create");
+        return { type: SHOW_CREATE };
+      },
+      hideCreate: () => {
+        history.pushState({ page: "home" }, "", "#home");
+        return { type: HIDE_CREATE };
+      },
+      setCreateContent: (html) => ({
+        type: SET_CREATE_CONTENT,
+        payload: html,
+      }),
+      setOnboardingContent: (html) => ({
+        type: SET_ONBOARDING_CONTENT,
+        payload: html,
+      }),
+      showOnboarding: () => {
+        history.pushState({ page: "onboarding" }, "", "pages/onboarding.html#");
+        return { type: SHOW_ONBOARDING };
+      },
+      hideOnboarding: () => {
+        history.pushState({ page: "home" }, "", "#home");
+        return { type: HIDE_ONBOARDING };
+      },
+      setOnboardingStepsContent: (html) => ({
+        type: SET_ONBOARDING_STEPS_CONTENT,
+        payload: html,
+      }),
+      showOnboardingSteps: () => {
+        history.pushState({ page: "onboardingSteps" }, "", "pages/onboardingSteps.html#");
+        return { type: SHOW_ONBOARDING_STEPS };
+      },
+      hideOnboardingSteps: () => {
+        history.pushState({ page: "home" }, "", "#home");
+        localStorage.removeItem("onboardingStepsVisible");
+        return { type: HIDE_ONBOARDING_STEPS };
+      },
+    };  
+
  
 
   // redirrect and dispatch state
@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       let waitListButton = document.querySelector("#waitList");
       waitListButton.addEventListener("click", () => {
-        window.location.href = "Veras-1.1-MVP-website/index.html";  
+        window.location.href = "/Veras-1.1-MVP-website/pages/login.html#";  
       }
       );
 
@@ -282,7 +282,7 @@ document.addEventListener("DOMContentLoaded", () => {
     handleNavSlideUpClick: () => {
     },
     handleRefreshButtonClick: () => {
-      window.location.href = "Veras-1.1-MVP-website/index.html";
+      window.location.href = "/Veras-1.1-MVP-website/index.html";
     },
  
 
