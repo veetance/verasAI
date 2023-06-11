@@ -42,7 +42,7 @@ function updateThemeColor(event) {
         return { type: SET_CURRENT_PAGE, payload: page };
       },
       showLogin: () => {
-        history.pushState({ page: "login" }, "", "/Veras-1.1-MVP-website/pages/login.html#");
+        history.pushState({ page: "login" }, "", "/Veras-1.1-MVP-website/pages/login#.html");
         return { type: SHOW_LOGIN };
       },
       hideLogin: () => {
@@ -123,7 +123,7 @@ function updateThemeColor(event) {
   if (url.hash) {
   history.replaceState({}, document.title, "#");
 
-  if (url.hash === "/Veras-1.1-MVP-website/pages/login.html#") {
+  if (url.hash === "/Veras-1.1-MVP-website/pages/login#.html") {
     store.dispatch(actions.showLogin());
     loadPage("login", actions.showLogin, actions.setLoginContent).then(() => {
 
