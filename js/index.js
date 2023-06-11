@@ -282,7 +282,7 @@ function updateThemeColor(event) {
     handleNavSlideUpClick: () => {
     },
     handleRefreshButtonClick: () => {
-      window.location.href = "Veras-1.1-MVP-website/index.html";
+      window.location.href = "/index.html";
     },
  
 
