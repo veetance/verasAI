@@ -309,7 +309,7 @@ justify-content: space-between;
 
   .full-page .header {
     padding-top: 160px !important;
-    padding: clamp(48px,5.3rem,100px);
+    padding: clamp(30px,11vw,68px);
     height: auto;
     grid-gap: 18px;
   }
