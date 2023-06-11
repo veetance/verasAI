@@ -366,6 +366,10 @@ padding-inline-start: 20px;
   gap: 20px;
 }
 
+#onboarding-button{
+  display: none;
+}
+
 .step-button{
   display: flex !important;
   padding: 12px 12px !important;

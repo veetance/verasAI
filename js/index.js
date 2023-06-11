@@ -15,13 +15,14 @@ function updateThemeColor(event) {
 }
 
 
-const url = new URL(window.location.href);
-if (url.hash) {
-  history.replaceState({}, document.title, 'index.html');
-}
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
 
 let Loadsplash = document.querySelector(".v-splash");
 let navbarAndSurface = document.querySelectorAll(".navbar-wrapper, .Veras-surface");
+
 
 displayLoadSplash();
 function displayLoadSplash() {
@@ -39,32 +40,6 @@ function displayLoadSplash() {
   }, remainingTime);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-
-
-  //Triggerers for the login page
-  window.addEventListener('load', function() {
-   
-    if (elements.loginButton) {
-      elements.loginButton.addEventListener("click", eventHandlers.handleLoginButtonClick);
-    }
-    if (elements.logoutButton) {
-      elements.logoutButton.addEventListener("click", eventHandlers.handleLogoutButtonClick);
-    }
-    if (elements.onboardingButton) {
-      elements.onboardingButton.addEventListener("click", eventHandlers.handleToStepsButtonClick);
-    }
-    if (elements.insightsButton) {
-      elements.insightsButton.addEventListener("click", eventHandlers.handleInsightsButtonClick);
-    }
-    if (elements.createButton) {
-      elements.createButton.addEventListener("click", eventHandlers.handleCreateButtonClick);
-    }
-    if (elements.refreshButtons) {
-      elements.refreshButtons.forEach(button => button.addEventListener("click", eventHandlers.handleRefreshButtonClick));
-    }
-  });
-
   // Action Creators
   const actions = {
     setCurrentPage: (page) => {
@@ -72,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return { type: SET_CURRENT_PAGE, payload: page };
     },
     showLogin: () => {
-      history.pushState({ page: "login" }, "", "pages/login.html#");
+      history.pushState({ page: "login" }, "", "#login");
       return { type: SHOW_LOGIN };
     },
     hideLogin: () => {
@@ -146,36 +121,50 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   };
 
-  function handleHashChange() {
-    const hash = window.location.hash.substring(1); // remove the '#' symbol
-    switch (hash) {
-      case 'login':
-        store.dispatch(actions.showLogin());
-        break;
-      case 'newsfeed':
-        store.dispatch(actions.showNewsfeed());
-        break;
-      case 'onboardingSteps':
-        store.dispatch(actions.showOnboardingSteps());
-        break;
-      case 'onboarding':
-        store.dispatch(actions.showOnboarding());
-        break;
-      case 'insights':
-        store.dispatch(actions.showInsights());
-        break;
-      case 'create':
-        store.dispatch(actions.showCreate());
-        break;
-      default:
-        // handle the case when the hash is not recognized
-        break;
-    }
-  }
-  window.addEventListener('hashchange', handleHashChange);
-  handleHashChange();
+  const url = new URL(window.location.href);
+  if (url.hash) {
+  history.replaceState({}, document.title, url.pathname );
 
-  
+  if (url.hash === "#login") {
+    store.dispatch(actions.showLogin());
+    loadPage("login", actions.showLogin, actions.setLoginContent).then(() => {
+
+      let loginSpace = document.querySelector(".login-Space");
+      handleLoginFormSubmission(loginSpace);
+
+      let waitListButton = document.querySelector("#waitList");
+      waitListButton.addEventListener("click", () => {
+        window.location.href = "/index.html";  
+      }
+      );
+
+    });
+  } 
+  }
+
+  //Triggerers for app
+  window.addEventListener('load', function() {
+
+    if (elements.loginButton) {
+      elements.loginButton.addEventListener("click", eventHandlers.handleLoginButtonClick);
+    }
+    if (elements.logoutButton) {
+      elements.logoutButton.addEventListener("click", eventHandlers.handleLogoutButtonClick);
+    }
+    if (elements.onboardingButton) {
+      elements.onboardingButton.addEventListener("click", eventHandlers.handleToStepsButtonClick);
+    }
+    if (elements.insightsButton) {
+      elements.insightsButton.addEventListener("click", eventHandlers.handleInsightsButtonClick);
+    }
+    if (elements.createButton) {
+      elements.createButton.addEventListener("click", eventHandlers.handleCreateButtonClick);
+    }
+    if (elements.refreshButtons) {
+      elements.refreshButtons.forEach(button => button.addEventListener("click", eventHandlers.handleRefreshButtonClick));
+    }
+  });
+
   // Query the DOM elements
   const elements = {
   loginButton: document.querySelector(".login-button"),
@@ -192,27 +181,16 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
 
-
   // Event Handlers
   const eventHandlers = {
     handleLoginButtonClick: () => {
       store.dispatch(actions.showLogin());
-      let loginSuccessful = false; 
-      loadPage("login", actions.showLogin, actions.setLoginContent).then(() => {
 
-        const onboardingButtonInner = document.querySelector("#onboarding-button");
-        
-        if (loginSuccessful ) {
-          onboardingButtonInner.style.display = "flex";
-        } else {
-          onboardingButtonInner.style.display = "none";
-        }
+      loadPage("login", actions.showLogin, actions.setLoginContent).then(() => {
 
         let loginSpace = document.querySelector(".login-Space");
         handleLoginFormSubmission(loginSpace);
 
-        let loginContent = document.querySelector(".full-page .content");
-        loginContent.style.padding = "clamp(20px, 6vw, 200px)";
 
         let waitListButton = document.querySelector("#waitList");
         waitListButton.addEventListener("click", () => {
@@ -305,22 +283,12 @@ document.addEventListener("DOMContentLoaded", () => {
     handleNavSlideUpClick: () => {
     },
     handleRefreshButtonClick: () => {
-
-      //iff url is index.html then reload the page else go to index.html
-      if (window.location.href.includes("index.html")) {
-        window.location.reload();
-      } else {
-        window.location.href = "/index.html";
-      }
-      
-
-   
+      window.location.href = "./index.html";
     },
  
 
     //curicial eevent handlers
     successfulLogin: (loginNumberInput, passwordInput) => {
-      loginSuccessful = true; // Update loginSuccessful if login is successful
       // Clear the input fields
       loginNumberInput.value = "";
       passwordInput.value = "";
@@ -445,7 +413,6 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   };
 
-
   //crucial base scope functions
   function displayLongSplash() {
   
@@ -551,6 +518,7 @@ document.addEventListener("DOMContentLoaded", () => {
       elements.surfaceView.style.opacity = 1;
     }, 100);
   }
+
   };
   function handleLoginFormSubmission(loginSpace) {
     if (!loginSpace.dataset.formEventAttached) {
@@ -622,15 +590,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
- 
   
-
-
-
-
   store.subscribe(() => {
+
    
     const state = store.getState();
+    
   
     if (state.loginVisible) {
       updatePageContent("stateProperty", "login-Space", "Login");
