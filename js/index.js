@@ -12,42 +12,16 @@ function updateThemeColor(event) {
       .querySelector("meta[name=theme-color]")
       .setAttribute("content", "#FFFFFF");
   }
-}
+  }
 
-
-
-
-
-document.addEventListener("DOMContentLoaded", () => {
-
-let Loadsplash = document.querySelector(".v-splash");
-let navbarAndSurface = document.querySelectorAll(".navbar-wrapper, .Veras-surface");
-
-
-displayLoadSplash();
-function displayLoadSplash() {
-  // If the flag is set, display the splash screen and remove the flag
-  if (!Loadsplash) return;
-  Loadsplash.style.display = "flex";
-  const hideSplashTime = Date.now() + 1000;
-  
-  const remainingTime = Math.max(0, hideSplashTime - Date.now());
-  setTimeout(() => {
-    Loadsplash.style.display = "none";
-    navbarAndSurface.forEach(element => {
-      element.style.opacity = "1"; // Show the content of the page
-    });
-  }, remainingTime);
-}
-
-  // Action Creators
-  const actions = {
+   // Action Creators
+   const actions = {
     setCurrentPage: (page) => {
       history.pushState({ page: page }, "", `#${page}`);
       return { type: SET_CURRENT_PAGE, payload: page };
     },
     showLogin: () => {
-      history.pushState({ page: "login" }, "", "#login");
+      history.pushState({ page: "login" }, "", "Veras-1.1-MVP-website/pages/login.html#");
       return { type: SHOW_LOGIN };
     },
     hideLogin: () => {
@@ -119,13 +93,37 @@ function displayLoadSplash() {
       localStorage.removeItem("onboardingStepsVisible");
       return { type: HIDE_ONBOARDING_STEPS };
     },
-  };
+  };  
 
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  let Loadsplash = document.querySelector(".v-splash");
+  let navbarAndSurface = document.querySelectorAll(".navbar-wrapper, .Veras-surface");
+  displayLoadSplash();
+  function displayLoadSplash() {
+  // If the flag is set, display the splash screen and remove the flag
+  if (!Loadsplash) return;
+  Loadsplash.style.display = "flex";
+  const hideSplashTime = Date.now() + 1000;
+  
+  const remainingTime = Math.max(0, hideSplashTime - Date.now());
+  setTimeout(() => {
+    Loadsplash.style.display = "none";
+    navbarAndSurface.forEach(element => {
+      element.style.opacity = "1"; // Show the content of the page
+    });
+  }, remainingTime);
+  }
+
+ 
+
+  // redirrect and dispatch state
   const url = new URL(window.location.href);
   if (url.hash) {
   history.replaceState({}, document.title, url.pathname );
 
-  if (url.hash === "#login") {
+  if (url.hash === "#login.html") {
     store.dispatch(actions.showLogin());
     loadPage("login", actions.showLogin, actions.setLoginContent).then(() => {
 
@@ -134,13 +132,14 @@ function displayLoadSplash() {
 
       let waitListButton = document.querySelector("#waitList");
       waitListButton.addEventListener("click", () => {
-        window.location.href = "/index.html";  
+        window.location.href = "Veras-1.1-MVP-website/index.html";  
       }
       );
 
     });
   } 
   }
+
 
   //Triggerers for app
   window.addEventListener('load', function() {
@@ -283,7 +282,7 @@ function displayLoadSplash() {
     handleNavSlideUpClick: () => {
     },
     handleRefreshButtonClick: () => {
-      window.location.href = "./index.html";
+      window.location.href = "Veras-1.1-MVP-website/index.html";
     },
  
 
@@ -654,9 +653,6 @@ function displayLoadSplash() {
   
 
 });
-
-
-
 
 
 // main code section for landing page
