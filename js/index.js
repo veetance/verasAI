@@ -121,7 +121,7 @@ function updateThemeColor(event) {
   // redirrect and dispatch state
   const url = new URL(window.location.href);
   if (url.hash) {
-  history.replaceState({}, document.title, url.pathname );
+  history.replaceState({}, document.title, window.location.href.split("#")[0]);
 
   if (url.hash === "login.html#") {
     store.dispatch(actions.showLogin());
@@ -283,7 +283,6 @@ function updateThemeColor(event) {
     },
     handleRefreshButtonClick: () => {
       window.location.href = "/Veras-1.1-MVP-website/index.html";
-      history.replaceState({}, document.title, url.pathname );
     },
  
 
