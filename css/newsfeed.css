@@ -3,22 +3,6 @@
   margin-top: 0px;
 }
 
-body {
-  opacity  : 0;
-  animation: fade-in 0.1s ease-in-out forwards;
-  font-family: "mulish";
-
-  -webkit-tap-highlight-color: transparent !important;
-
-}
-
-html {
-
-  height: 100vh;
-  width: 100vw;
- 
-}
-
 
 
 
