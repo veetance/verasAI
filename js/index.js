@@ -123,7 +123,7 @@ function updateThemeColor(event) {
   if (url.hash) {
   history.replaceState({}, document.title, window.location.href.split("#")[0]);
 
-  if (url.hash === "#login.html") {
+  if (url.hash === "/Veras-1.1-MVP-website/pages/#login.html") {
     store.dispatch(actions.showLogin());
     loadPage("login", actions.showLogin, actions.setLoginContent).then(() => {
 
