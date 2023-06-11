@@ -477,7 +477,6 @@ document.addEventListener("DOMContentLoaded", () => {
         elements.surfaceView.innerHTML = "";
         elements.surfaceView.appendChild(pageSpace);
     
-  
         setTimeout(() => {
           pageSpace.classList.add("active");
           elements.surfaceView.style.opacity = 1;
