@@ -42,7 +42,7 @@ function updateThemeColor(event) {
         return { type: SET_CURRENT_PAGE, payload: page };
       },
       showLogin: () => {
-        history.pushState({ page: "login" }, "", "Veras-1.1-MVP-website/pages/login.html");
+        history.pushState({ page: "login" }, "", "pages/login.html");
         return { type: SHOW_LOGIN };
       },
       hideLogin: () => {
