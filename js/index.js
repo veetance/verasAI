@@ -327,7 +327,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function getPagePath(pageName) {
-    return pageName === "home" ? "/index.html" : `verasAI/pages/${pageName}.html`;
+    return pageName === "home" ? "/index.html" : `../verasAI/pages/${pageName}.html`;
   }
   function loadPage(pageName, actionToShow, actionToSetContent) {
     store.dispatch(actionToShow);
