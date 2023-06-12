@@ -42,7 +42,7 @@ function updateThemeColor(event) {
         return { type: SET_CURRENT_PAGE, payload: page };
       },
       showLogin: () => {
-        history.pushState({ page: "login" }, "", "#Veras-1.1-MVP-website/pages/login.html");
+        history.pushState({ page: "login" }, "", "Veras-1.1-MVP-website/pages/login.html");
         return { type: SHOW_LOGIN };
       },
       hideLogin: () => {
@@ -123,7 +123,7 @@ function updateThemeColor(event) {
   if (url.hash) {
   history.replaceState({}, document.title, `${window.location.pathname}`);
 
-  if (url.hash === "#Veras-1.1-MVP-website/pages/login.html") {
+  if (url.hash === "#login.html") {
     store.dispatch(actions.showLogin());
     loadPage("login", actions.showLogin, actions.setLoginContent).then(() => {
 
@@ -132,7 +132,7 @@ function updateThemeColor(event) {
 
       let waitListButton = document.querySelector("#waitList");
       waitListButton.addEventListener("click", () => {
-        window.location.href = "../index.html";  
+        window.location.href = "/Veras-1.1-MVP-website/index.html";  
       }
       );
 
@@ -193,7 +193,7 @@ function updateThemeColor(event) {
 
         let waitListButton = document.querySelector("#waitList");
         waitListButton.addEventListener("click", () => {
-          window.location.href = "../index.html"; 
+          window.location.href = "/Veras-1.1-MVP-website/index.html"; 
         }
         );
 
