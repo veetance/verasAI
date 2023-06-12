@@ -132,7 +132,7 @@ function updateThemeColor(event) {
 
       let waitListButton = document.querySelector("#waitList");
       waitListButton.addEventListener("click", () => {
-        window.location.href = "Veras-1.1-MVP-website/index.html";  
+        window.location.href = "/index.html";  
       }
       );
 
@@ -193,7 +193,7 @@ function updateThemeColor(event) {
 
         let waitListButton = document.querySelector("#waitList");
         waitListButton.addEventListener("click", () => {
-          window.location.href = "Veras-1.1-MVP-website/index.html"; 
+          window.location.href = "/index.html"; 
         }
         );
 
