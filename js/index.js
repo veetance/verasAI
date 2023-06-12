@@ -21,7 +21,7 @@ function updateThemeColor(event) {
       return { type: SET_CURRENT_PAGE, payload: page };
     },
     showLogin: () => {
-      history.pushState({ page: "login" }, "", "#login.html");
+      history.pushState({ page: "login" }, "", "#pages/login.html");
       return { type: SHOW_LOGIN };
     },
     hideLogin: () => {
@@ -97,89 +97,121 @@ function updateThemeColor(event) {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-
   let Loadsplash = document.querySelector(".v-splash");
-  let navbarAndSurface = document.querySelectorAll(".navbar-wrapper, .Veras-surface");
+  let navbarAndSurface = document.querySelectorAll(
+    ".navbar-wrapper, .Veras-surface"
+  );
   displayLoadSplash();
   function displayLoadSplash() {
-  // If the flag is set, display the splash screen and remove the flag
-  if (!Loadsplash) return;
-  Loadsplash.style.display = "flex";
-  const hideSplashTime = Date.now() + 1000;
-  
-  const remainingTime = Math.max(0, hideSplashTime - Date.now());
-  setTimeout(() => {
-    Loadsplash.style.display = "none";
-    navbarAndSurface.forEach(element => {
-      element.style.opacity = "1"; // Show the content of the page
-    });
-  }, remainingTime);
-  }
+    // If the flag is set, display the splash screen and remove the flag
+    if (!Loadsplash) return;
+    Loadsplash.style.display = "flex";
+    const hideSplashTime = Date.now() + 1000;
 
- 
+    const remainingTime = Math.max(0, hideSplashTime - Date.now());
+    setTimeout(() => {
+      Loadsplash.style.display = "none";
+      navbarAndSurface.forEach((element) => {
+        element.style.opacity = "1"; // Show the content of the page
+      });
+    }, remainingTime);
+  }
 
   // redirrect and dispatch state
   const url = new URL(window.location.href);
-  if (url.hash) {
-  // history.replaceState({}, document.title, url.pathname );
-  history.replaceState({}, document.title, `${url.pathname}`);
 
-  if (url.hash === "#login.html") {
+  if (url.hash) {
+    const page = url.hash.substring(1);
+    store.dispatch(actions.setCurrentPage(page));
+  } else {
+    store.dispatch(actions.setCurrentPage("home"));
+  }
+
+
+
+  history.replaceState({}, document.title, `${url.pathname}`);
+  if (url.hash === "#pages/login.html") {
     store.dispatch(actions.showLogin());
     loadPage("login", actions.showLogin, actions.setLoginContent).then(() => {
-
       let loginSpace = document.querySelector(".login-Space");
       handleLoginFormSubmission(loginSpace);
 
       let waitListButton = document.querySelector("#waitList");
       waitListButton.addEventListener("click", () => {
-        window.location.href = "/index.html";  
-      }
-      );
-
+        window.location.href = "/index.html";
+      });
     });
-  } 
   }
 
 
-  //Triggerers for app
-  window.addEventListener('load', function() {
+  // Handle the back button
+  window.addEventListener("popstate", () => {
+    if (url.hash) {
+      const page = url.hash.substring(1);
+      store.dispatch(actions.setCurrentPage(page));
+    } else {
+      store.dispatch(actions.setCurrentPage("home"));
+    }
+  });
 
+
+
+
+
+  //Triggerers for app
+  window.addEventListener("load", function () {
     if (elements.loginButton) {
-      elements.loginButton.addEventListener("click", eventHandlers.handleLoginButtonClick);
+      elements.loginButton.addEventListener(
+        "click",
+        eventHandlers.handleLoginButtonClick
+      );
     }
     if (elements.logoutButton) {
-      elements.logoutButton.addEventListener("click", eventHandlers.handleLogoutButtonClick);
+      elements.logoutButton.addEventListener(
+        "click",
+        eventHandlers.handleLogoutButtonClick
+      );
     }
     if (elements.onboardingButton) {
-      elements.onboardingButton.addEventListener("click", eventHandlers.handleToStepsButtonClick);
+      elements.onboardingButton.addEventListener(
+        "click",
+        eventHandlers.handleToStepsButtonClick
+      );
     }
     if (elements.insightsButton) {
-      elements.insightsButton.addEventListener("click", eventHandlers.handleInsightsButtonClick);
+      elements.insightsButton.addEventListener(
+        "click",
+        eventHandlers.handleInsightsButtonClick
+      );
     }
     if (elements.createButton) {
-      elements.createButton.addEventListener("click", eventHandlers.handleCreateButtonClick);
+      elements.createButton.addEventListener(
+        "click",
+        eventHandlers.handleCreateButtonClick
+      );
     }
     if (elements.refreshButtons) {
-      elements.refreshButtons.forEach(button => button.addEventListener("click", eventHandlers.handleRefreshButtonClick));
+      elements.refreshButtons.forEach((button) =>
+        button.addEventListener("click", eventHandlers.handleRefreshButtonClick)
+      );
     }
   });
 
   // Query the DOM elements
   const elements = {
-  loginButton: document.querySelector(".login-button"),
-  logoutButton: document.querySelector(".logout-button"),
-  onboardingButton: document.querySelector("#toFeed-button"),
-  surfaceView: document.querySelector(".surface-view"),
-  footer: document.querySelector(".footer-Contents"),
-  insightsButton: document.querySelector(".lnk-ico .insights-btn"),
-  createButton: document.querySelector(".lnk-ico .create-btn"),
-  upNav: document.querySelector(".navbar-wrapper"),
-  splash: document.querySelector(".v-splash"),
-  refreshButtons: document.querySelectorAll(
-    ".nav-logo, .nav-title, .VLOGO-wrapper"),
+    loginButton: document.querySelector(".login-button"),
+    logoutButton: document.querySelector(".logout-button"),
+    onboardingButton: document.querySelector("#toFeed-button"),
+    surfaceView: document.querySelector(".surface-view"),
+    footer: document.querySelector(".footer-Contents"),
+    insightsButton: document.querySelector(".lnk-ico .insights-btn"),
+    createButton: document.querySelector(".lnk-ico .create-btn"),
+    upNav: document.querySelector(".navbar-wrapper"),
+    splash: document.querySelector(".v-splash"),
+    refreshButtons: document.querySelectorAll(
+      ".nav-logo, .nav-title, .VLOGO-wrapper"
+    ),
   };
-
 
   // Event Handlers
   const eventHandlers = {
@@ -187,17 +219,13 @@ document.addEventListener("DOMContentLoaded", () => {
       store.dispatch(actions.showLogin());
 
       loadPage("login", actions.showLogin, actions.setLoginContent).then(() => {
-
         let loginSpace = document.querySelector(".login-Space");
         handleLoginFormSubmission(loginSpace);
 
-
         let waitListButton = document.querySelector("#waitList");
         waitListButton.addEventListener("click", () => {
-          window.location.href = "/index.html";  
-        }
-        );
-
+          window.location.href = "/index.html";
+        });
       });
     },
     handleNewsfeedButtonClick: () => {
@@ -280,12 +308,10 @@ document.addEventListener("DOMContentLoaded", () => {
       store.dispatch(actions.logout());
       window.location.href = "/index.html";
     },
-    handleNavSlideUpClick: () => {
-    },
+    handleNavSlideUpClick: () => {},
     handleRefreshButtonClick: () => {
       window.location.href = "/index.html";
     },
- 
 
     //curicial eevent handlers
     successfulLogin: (loginNumberInput, passwordInput) => {
@@ -415,7 +441,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //crucial base scope functions
   function displayLongSplash() {
-  
     if (!elements.splash) return;
     elements.splash.style.display = "flex";
     let logo = document.querySelector(".v-logo");
@@ -430,21 +455,23 @@ document.addEventListener("DOMContentLoaded", () => {
         logo.style.animation = "";
       }, remainingTime);
     };
-  };
+  }
   function loadPage(pageName, actionToShow, actionToSetContent) {
-    
-    store.dispatch(displayLoadSplash,actionToShow);
+    store.dispatch(displayLoadSplash, actionToShow);
     // Return the Promise from fetch
     return fetch(`../pages/${pageName}.html`)
       .then((response) => response.text())
       .then((html) => {
         store.dispatch(actionToSetContent(html));
         let pageSpace = document.querySelector(`.${pageName}-Space`);
-  
+
         if (!pageSpace) {
           pageSpace = document.createElement("div");
           pageSpace.classList.add(`${pageName}-Space`, "fade-in");
-          elements.surfaceView.insertBefore(pageSpace, elements.surfaceView.firstChild);
+          elements.surfaceView.insertBefore(
+            pageSpace,
+            elements.surfaceView.firstChild
+          );
         }
 
         pageSpace.innerHTML = html;
@@ -453,27 +480,25 @@ document.addEventListener("DOMContentLoaded", () => {
         elements.footer.style.display = "none";
         elements.surfaceView.innerHTML = "";
         elements.surfaceView.appendChild(pageSpace);
-    
+
         setTimeout(() => {
           pageSpace.classList.add("active");
           elements.surfaceView.style.opacity = 1;
           elements.splash.style.display = "none";
         }, 100);
       });
-  };
+  }
   function updateLoginUI(isLoggedIn) {
-   
     const formTitle = document.querySelector(".form-title");
     const ToFeedbtn = document.querySelector("#toFeed-button");
     const title = document.querySelector(".title h1");
     const buttonWrap = document.querySelector(".button-wrap");
 
-    
     const loginNumberInput = document.querySelector("#login-number");
     const passwordInput = document.querySelector("#password");
 
     const onboardingButtonInner = document.querySelector("#onboarding-button");
-    const centerComp  = document.querySelector(".login-Space .content");
+    const centerComp = document.querySelector(".login-Space .content");
 
     if (isLoggedIn) {
       onboardingButtonInner.style.display = "flex";
@@ -494,63 +519,68 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       onboardingButtonInner.style.display = "none";
     }
-  };
-  function updatePageContent(stateProperty, className, title) {
-  const state = store.getState();
-  if (state[stateProperty]) {
-    window.location.hash = stateProperty;
-    let pageSpace = document.querySelector(`.${className}`);
-
-    if (!pageSpace) {
-      pageSpace = document.createElement("div");
-      pageSpace.classList.add(className, "fade-in");
-      elements.surfaceView.insertBefore(pageSpace, elements.surfaceView.firstChild);
-    }
-
-    pageSpace.innerHTML = state[`${stateProperty}Content`];
-    document.title = title;
-    elements.surfaceView.style.opacity = 0;
-    elements.surfaceView.innerHTML = "";
-    elements.surfaceView.appendChild(pageSpace);
-
-    setTimeout(() => {
-      pageSpace.classList.add("active");
-      elements.surfaceView.style.opacity = 1;
-    }, 100);
   }
+  function updatePageContent(stateProperty, className, title) {
+    const state = store.getState();
+    if (state[stateProperty]) {
+      window.location.hash = stateProperty;
+      let pageSpace = document.querySelector(`.${className}`);
 
-  };
+      if (!pageSpace) {
+        pageSpace = document.createElement("div");
+        pageSpace.classList.add(className, "fade-in");
+        elements.surfaceView.insertBefore(
+          pageSpace,
+          elements.surfaceView.firstChild
+        );
+      }
+
+      pageSpace.innerHTML = state[`${stateProperty}Content`];
+      document.title = title;
+      elements.surfaceView.style.opacity = 0;
+      elements.surfaceView.innerHTML = "";
+      elements.surfaceView.appendChild(pageSpace);
+
+      setTimeout(() => {
+        pageSpace.classList.add("active");
+        elements.surfaceView.style.opacity = 1;
+      }, 100);
+    }
+  }
   function handleLoginFormSubmission(loginSpace) {
     if (!loginSpace.dataset.formEventAttached) {
       loginSpace.dataset.formEventAttached = "true";
-  
+
       setTimeout(() => {
         const loginForm = document.querySelector(".form");
-  
+
         if (loginForm) {
           loginForm.addEventListener("submit", (event) => {
             // Prevent form submission at the start of the event handler
             event.preventDefault();
-  
+
             const loginNumberInput = document.querySelector("#login-number");
             const passwordInput = document.querySelector("#password");
-  
+
             // Validate login number and password
             const loginNumber = loginNumberInput.value;
             const password = passwordInput.value;
-  
-            const formData = eventHandlers.validateLoginForm(loginNumber, password);
+
+            const formData = eventHandlers.validateLoginForm(
+              loginNumber,
+              password
+            );
             if (!formData) {
               // If form data is invalid, return early
               return;
             }
-  
+
             // Prepare the userLoginData object
             const userLoginData = {
               loginNumber: formData.loginNumber,
               password: formData.password,
             };
-  
+
             // Send a POST request to login.phps
             fetch("http://study.veras.ca/logins.phps", {
               method: "POST",
@@ -581,22 +611,22 @@ document.addEventListener("DOMContentLoaded", () => {
                   alert(
                     "This is a prototype, data not connected. Please press OK to proceed."
                   );
-                  eventHandlers.successfulLogin(loginNumberInput, passwordInput);
+                  eventHandlers.successfulLogin(
+                    loginNumberInput,
+                    passwordInput
+                  );
                 }
               });
           });
         }
       }, 100);
     }
-  };
+  }
 
-  
+  //UI-UPDATES
   store.subscribe(() => {
-
-   
     const state = store.getState();
-    
-  
+
     if (state.loginVisible) {
       updatePageContent("stateProperty", "login-Space", "Login");
       // ... other logic
@@ -605,24 +635,35 @@ document.addEventListener("DOMContentLoaded", () => {
       // let newsfeedSpace = document.querySelector(".newsfeed-Space");
       // ... other logic specific to the newsfeed page
     } else if (state.onboardingStepsVisible) {
-      updatePageContent("stateProperty", "onboardingSteps-Space", "Onboarding Steps");
+      updatePageContent(
+        "stateProperty",
+        "onboardingSteps-Space",
+        "Onboarding Steps"
+      );
       // ... other logic
     } else if (state.onboardingVisible) {
       updatePageContent("stateProperty", "onboarding-Space", "Onboarding");
       // ... other logic
     } else if (state.insightsVisible || state.createVisible) {
-      
-      let insightsNavLink = document.querySelector(".insights-btn").closest(".nav-lnk");
-      let createNavLink = document.querySelector(".create-btn").closest(".nav-lnk");
-      let insightsSpace = elements.surfaceView.querySelector(".insights-Space")
+      let insightsNavLink = document
+        .querySelector(".insights-btn")
+        .closest(".nav-lnk");
+      let createNavLink = document
+        .querySelector(".create-btn")
+        .closest(".nav-lnk");
+      let insightsSpace = elements.surfaceView.querySelector(".insights-Space");
       let createSpace = elements.surfaceView.querySelector(".create-Space");
       let feedWrapper = elements.surfaceView.querySelector(".feed-wrapper");
-  
+
       if (state.insightsVisible) {
         insightsNavLink.classList.add("btn-active");
         createNavLink.classList.remove("btn-active");
         if (!insightsSpace) {
-          loadPage("insights", actions.showInsights, actions.setInsightsContent);
+          loadPage(
+            "insights",
+            actions.showInsights,
+            actions.setInsightsContent
+          );
         } else {
           updatePageContent("stateProperty", "insights-Space", "Insights");
           insightsSpace.style.display = "block";
@@ -636,8 +677,7 @@ document.addEventListener("DOMContentLoaded", () => {
         insightsNavLink.classList.remove("btn-active");
         if (!createSpace) {
           loadPage("create", actions.showCreate, actions.setCreateContent);
-        }
-         else {
+        } else {
           updatePageContent("stateProperty", "create-Space", "Create");
           createSpace.style.display = "block";
           if (insightsSpace) {
@@ -649,10 +689,7 @@ document.addEventListener("DOMContentLoaded", () => {
         feedWrapper.style.display = "flex";
       }
     }
-
   });
-  
-
 });
 
 
