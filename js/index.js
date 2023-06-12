@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .setAttribute("content", "#FFFFFF");
     }
   }
-
+  
   // function showContactUS()
   const vFormBtn = document.querySelector(".v-form-btn");
   const vFormBtn2 = document.querySelector(".v-form-btn-2");
@@ -38,7 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
       vForminner.style.opacity = "1";
     }, 10);
   }
-
   function closeContactUs() {
     vForminner.style.transition = "all .5s cubic-bezier(0,1.21,0.56,0.96)";
     vForminner.style.maxHeight = "0px";
@@ -48,7 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
       vForminner.style.opacity = "0";
     }, 500);
   }
-
   function closeNavWrapper() {
     navbarWrapper.style.transition = "max-height 0.5s";
     navbarWrapper.style.maxHeight = "100%";
@@ -59,21 +57,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 300);
   }
 
-  // Event listener for vFormBtn
   if (vFormBtn) {
     vFormBtn.addEventListener("click", function () {
       showContactUS();
     });
   }
-
-  // Event listener for vFormBtn2
   if (vFormBtn2) {
     vFormBtn2.addEventListener("click", function () {
       showContactUS();
     });
   }
-
-  // Event listener for vFormClose
   if (vFormClose) {
     vFormClose.addEventListener("click", function () {
       closeContactUs();
@@ -96,12 +89,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   }
-
   window.addEventListener("resize", navTitle);
   navTitle();
 
-  // function refreshhomePage() refreshes the page on the touch or press of .nav-logo
-  // Copy number
   function copyToClipboard() {
     var phoneNumber = document.querySelector(".F-number-L p").innerHTML;
     var textArea = document.createElement("textarea");
@@ -112,14 +102,11 @@ document.addEventListener("DOMContentLoaded", () => {
     textArea.remove();
     alert("Copied the phone number to clipboard: " + phoneNumber);
   }
-
   const FNumberL = document.querySelector(".F-number-L");
   if (FNumberL) {
     FNumberL.addEventListener("touchend", copyToClipboard);
     FNumberL.addEventListener("mouseup", copyToClipboard);
   }
-
-  // Copy email
   function copyEmailToClipboard() {
     var email = document.querySelector(".F-mail-L p").innerHTML;
     var textArea = document.createElement("textarea");
@@ -130,12 +117,12 @@ document.addEventListener("DOMContentLoaded", () => {
     textArea.remove();
     alert("Copied the email to clipboard: " + email);
   }
-
   const FMailL = document.querySelector(".F-mail-L");
   if (FMailL) {
     FMailL.addEventListener("touchend", copyEmailToClipboard);
     FMailL.addEventListener("mouseup", copyEmailToClipboard);
   }
+  
 });
 ///
 ///
@@ -226,7 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return { type: SET_CURRENT_PAGE, payload: page };
     },
     showHome: () => {
-      history.pushState({ page: "home" }, "", "#index");
+      history.pushState({ page: "home" }, "", "index.html#home");
       return { type: SHOW_HOME };
     },
     setHomeContent: (html) => ({
@@ -235,7 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }),
     showLogin: () => {
       history.pushState({ page: "login" }, "", "#login");
-      return { type: SHOW_LOGIN };
+      return { type: SHOW_LOGIN};
     },
     hideLogin: () => {
       history.pushState({ page: "home" }, "", "#index.html");
@@ -321,23 +308,23 @@ document.addEventListener("DOMContentLoaded", () => {
   history.replaceState({}, document.title, `${url.hash}`);
   switch (pageName) {
     case "login":
+      loadPage("login", actions.showLogin, actions.setLoginContent).then(() => {
 
-        loadPage("login", actions.showLogin, actions.setLoginContent).then(
-          () => {
-            let loginSpace = document.querySelector(".login-Space");
-            handleLoginFormSubmission(loginSpace);
+        let loginSpace = document.querySelector(".login-Space");
+        handleLoginFormSubmission(loginSpace);
 
-            let waitListButton = document.querySelector("#waitList");
-            waitListButton.addEventListener("click", () => {
-              store.dispatch(actions.showHome());
-            });
+        let waitListButton = document.querySelector("#waitList");
+        waitListButton.addEventListener("click", () => {
+          store.dispatch(actions.showHome());
+          window.location.reload();
+        });
 
-          }
-          
-        );
-        break;
-        
-      }
+      });
+      break;
+    case "home":
+      store.dispatch(actions.showHome());
+      break;
+  }
 
   function getPagePath(pageName) {
     return pageName === "home" ? "/index.html" : `/pages/${pageName}.html`;
@@ -351,6 +338,7 @@ document.addEventListener("DOMContentLoaded", () => {
         displayLoadSplash();
         store.dispatch(actionToSetContent(html));
         let pageSpace = document.querySelector(`.${pageName}-Space`);
+
 
         if (!pageSpace) {
           pageSpace = document.createElement("div");
@@ -368,11 +356,15 @@ document.addEventListener("DOMContentLoaded", () => {
         elements.surfaceView.innerHTML = "";
         elements.surfaceView.appendChild(pageSpace);
 
+
         setTimeout(() => {
           pageSpace.classList.add("active");
           elements.surfaceView.style.opacity = 1;
           elements.splash.style.display = "none";
         }, 100);
+
+        
+     
       });
   }
   function updatePageContent(stateProperty, className, title) {
@@ -534,7 +526,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let waitListButton = document.querySelector("#waitList");
         waitListButton.addEventListener("click", () => {
-          window.location.href = "/index.html";
+          store.dispatch(actions.showHome());
+          window.location.reload();
         });
       });
     },
@@ -618,12 +611,14 @@ document.addEventListener("DOMContentLoaded", () => {
       store.dispatch(actions.logout());
       window.location.href = "/index.html";
     },
-    handleNavSlideUpClick: () => {},
-    handleRefreshButtonClick: () => {
-      window.location.href = "/index.html";
+    handleNavSlideUpClick: () => {
     },
 
-    //curicial eevent handlers
+    
+    handleRefreshButtonClick: () => {
+      store.dispatch(actions.showHome());
+      window.location.reload();
+    },
     successfulLogin: (loginNumberInput, passwordInput) => {
       // Clear the input fields
       loginNumberInput.value = "";
