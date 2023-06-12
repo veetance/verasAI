@@ -121,7 +121,7 @@ function updateThemeColor(event) {
   // redirrect and dispatch state
   const url = new URL(window.location.href);
   if (url.hash) {
-  history.replaceState({}, document.title, `${window.location.pathname}`);
+  history.replaceState({}, document.title, `${window.location}`);
 
   if (url.hash === "#login.html") {
     store.dispatch(actions.showLogin());
