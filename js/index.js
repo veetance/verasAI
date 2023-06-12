@@ -19,7 +19,7 @@ const actions = {
     return { type: SET_CURRENT_PAGE, payload: page };
   },
   showLogin: () => {
-    history.pushState({ page: "login" }, "", "#login/pages/login.html");
+    history.pushState({ page: "login" }, "", "/pages/login.html#login");
     return { type: SHOW_LOGIN };
   },
   hideLogin: () => {
@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // redirrect and dispatch state
   const url = new URL(window.location.href);
   history.replaceState({}, document.title, url.pathname);
-  if (url.hash === "#login/pages/login.html") {
+  if (url.hash === "#login") {
     store.dispatch(actions.showLogin());
     loadPage("login", actions.showLogin, actions.setLoginContent).then(() => {
       let loginSpace = document.querySelector(".login-Space");
