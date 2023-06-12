@@ -318,7 +318,7 @@ document.addEventListener("DOMContentLoaded", () => {
   url.pathname = getPagePath(pageName);
   url.hash = pageName;
 
-  history.replaceState({}, document.title, url.href);
+  history.replaceState({}, document.title, url.toString(location.pathname));
   switch (pageName) {
     case "login":
       loadPage("home", actions.showHome, actions.setHomeContent).then(() => {
