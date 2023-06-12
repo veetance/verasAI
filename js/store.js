@@ -1,5 +1,7 @@
 const initialState = {
   currentPage: "home",
+  homeVisible: false,
+  homeContent: null,
   loginVisible: false,
   loginContent: null,
   logoutVisible: false,
@@ -17,6 +19,8 @@ const initialState = {
 };
 
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
+const SHOW_HOME = "SHOW_HOME";
+const SET_HOME_CONTENT = "SET_HOME_CONTENT";
 const SHOW_LOGIN = "SHOW_LOGIN";
 const HIDE_LOGIN = "HIDE_LOGIN";
 const SET_LOGIN_CONTENT = "SET_LOGIN_CONTENT";
@@ -43,6 +47,10 @@ function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_CURRENT_PAGE:
       return { ...state, currentPage: action.payload };
+    case SHOW_HOME:
+      return { ...state, homeVisible: true };
+    case SET_HOME_CONTENT:
+      return { ...state, homeContent: action.payload };
     case SHOW_LOGIN:
       return { ...state, loginVisible: true };
     case HIDE_LOGIN:
