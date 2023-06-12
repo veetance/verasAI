@@ -226,7 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return { type: SET_CURRENT_PAGE, payload: page };
     },
     showHome: () => {
-      history.pushState({ page: "home" }, "", "index.html");
+      history.pushState({ page: "home" }, "", "#index");
       return { type: SHOW_HOME };
     },
     setHomeContent: (html) => ({
@@ -234,7 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
       payload: html,
     }),
     showLogin: () => {
-      history.pushState({ page: "login" }, "", "/pages/login.html#login");
+      history.pushState({ page: "login" }, "", `/pages/${"login"}.html${"#login"}`);
       return { type: SHOW_LOGIN };
     },
     hideLogin: () => {
@@ -318,11 +318,9 @@ document.addEventListener("DOMContentLoaded", () => {
   url.pathname = getPagePath(pageName);
   url.hash = pageName;
 
-  history.replaceState({}, document.title, url.toString(location.pathname));
+  history.replaceState({}, document.title, `${url.toString()}`);
   switch (pageName) {
     case "login":
-      loadPage("home", actions.showHome, actions.setHomeContent).then(() => {
-        store.dispatch(actions.showLogin());
 
         loadPage("login", actions.showLogin, actions.setLoginContent).then(
           () => {
@@ -333,24 +331,24 @@ document.addEventListener("DOMContentLoaded", () => {
             waitListButton.addEventListener("click", () => {
               store.dispatch(actions.showHome());
             });
+
           }
+          
         );
-      });
-      break;
-    // Handle other page names...
-    default:
-      break;
-  }
+        break;
+        
+      }
 
   function getPagePath(pageName) {
     return pageName === "home" ? "/index.html" : `/pages/${pageName}.html`;
   }
   function loadPage(pageName, actionToShow, actionToSetContent) {
-    store.dispatch(displayLoadSplash, actionToShow);
+    store.dispatch(actionToShow);
     // Return the Promise from fetch
     return fetch(getPagePath(pageName))
       .then((response) => response.text())
       .then((html) => {
+        displayLoadSplash();
         store.dispatch(actionToSetContent(html));
         let pageSpace = document.querySelector(`.${pageName}-Space`);
 
