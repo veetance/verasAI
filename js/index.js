@@ -96,41 +96,65 @@ const actions = {
     return { type: HIDE_ONBOARDING_STEPS };
   },
 };
-document.addEventListener("DOMContentLoaded", () => {
-  let Loadsplash = document.querySelector(".v-splash");
-  let navbarAndSurface = document.querySelectorAll(
-    ".navbar-wrapper, .Veras-surface"
-  );
-  displayLoadSplash();
-  function displayLoadSplash() {
-    // If the flag is set, display the splash screen and remove the flag
-    if (!Loadsplash) return;
-    Loadsplash.style.display = "flex";
-    const hideSplashTime = Date.now() + 1000;
 
-    const remainingTime = Math.max(0, hideSplashTime - Date.now());
-    setTimeout(() => {
-      Loadsplash.style.display = "none";
-      navbarAndSurface.forEach((element) => {
-        element.style.opacity = "1"; // Show the content of the page
-      });
-    }, remainingTime);
+//splash screen
+let Loadsplash = document.querySelector(".v-splash");
+let navbarAndSurface = document.querySelectorAll(
+  ".navbar-wrapper, .Veras-surface"
+);
+displayLoadSplash();
+function displayLoadSplash() {
+  // If the flag is set, display the splash screen and remove the flag
+  if (!Loadsplash) return;
+  Loadsplash.style.display = "flex";
+  const hideSplashTime = Date.now() + 1000;
+
+  const remainingTime = Math.max(0, hideSplashTime - Date.now());
+  setTimeout(() => {
+    Loadsplash.style.display = "none";
+    navbarAndSurface.forEach((element) => {
+      element.style.opacity = "1"; // Show the content of the page
+    });
+  }, remainingTime);
+}
+
+
+// main index.js
+document.addEventListener("DOMContentLoaded", () => {
+
+ 
+  // Helper function to generate URL pathname
+  function getPagePath(pageName) {
+    return pageName === "home" ? "index.html" : `/pages/${pageName}.html`;
   }
 
   // redirrect and dispatch state
-  const url = new URL(window.location.href);
-  history.replaceState({}, document.title, url.pathname);
-  if (url.hash === "#login") {
-    store.dispatch(actions.showLogin());
-    loadPage("login", actions.showLogin, actions.setLoginContent).then(() => {
-      let loginSpace = document.querySelector(".login-Space");
-      handleLoginFormSubmission(loginSpace);
 
-      let waitListButton = document.querySelector("#waitList");
-      waitListButton.addEventListener("click", () => {
-        window.location.href = "/index.html";
+  const url = new URL(window.location.href);
+
+  const pageName = url.hash ? url.hash.slice(1) : "home"; // default to 'home' if no hash
+  url.pathname = getPagePath(pageName);
+  url.hash = pageName;
+
+  history.replaceState({}, document.title, url.toString());
+
+  switch (pageName) {
+    case "login":
+      // go to index.html first
+      window.location.href = "/index.html";
+      store.dispatch(actions.showLogin());
+      loadPage("login", actions.showLogin, actions.setLoginContent).then(() => {
+        let loginSpace = document.querySelector(".login-Space");
+        handleLoginFormSubmission(loginSpace);
+
+        let waitListButton = document.querySelector("#waitList");
+        waitListButton.addEventListener("click", () => {
+          window.location.href = "/index.html";
+        });
       });
-    });
+      break;
+    default:
+      break;
   }
 
   //Triggerers for app
