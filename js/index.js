@@ -1,5 +1,3 @@
-
-
 const darkModeQuery = window.matchMedia("not all and (prefers-color-scheme)");
 darkModeQuery.addEventListener("change", updateThemeColor);
 function updateThemeColor(event) {
@@ -12,90 +10,92 @@ function updateThemeColor(event) {
       .querySelector("meta[name=theme-color]")
       .setAttribute("content", "#FFFFFF");
   }
-  }
+}
 
-   // Action Creators
-   const actions = {
-    setCurrentPage: (page) => {
-      history.pushState({ page: page }, "", `#${page}`);
-      return { type: SET_CURRENT_PAGE, payload: page };
-    },
-    showLogin: () => {
-      history.pushState({ page: "login" }, "", "#pages/login.html");
-      return { type: SHOW_LOGIN };
-    },
-    hideLogin: () => {
-      history.pushState({ page: "home" }, "", "index.html");
-      return { type: HIDE_LOGIN };
-    },
-    logout: () => {
-      history.pushState({ page: "logout" }, "", "#logout");
-      return { type: LOGOUT };
-    },
-    setLoginContent: (html) => ({
-      type: SET_LOGIN_CONTENT,
-      payload: html,
-    }),
-    showNewsfeed: () => {
-      history.pushState({ page: "newsfeed" }, "", "pages/newsfeed.html#");
-      return { type: SHOW_NEWSFEED };
-    },
-    setNewsfeedContent: (html) => ({
-      type: SET_NEWSFEED_CONTENT,
-      payload: html,
-    }),
-    showInsights: () => {
-      history.pushState({ page: "insights" }, "", "#insights");
-      return { type: SHOW_INSIGHTS };
-    },
-    hideInsights: () => {
-      history.pushState({ page: "home" }, "", "#home");
-      return { type: HIDE_INSIGHTS };
-    },
-    setInsightsContent: (html) => ({
-      type: SET_INSIGHTS_CONTENT,
-      payload: html,
-    }),
-    showCreate: () => {
-      history.pushState({ page: "create" }, "", "#create");
-      return { type: SHOW_CREATE };
-    },
-    hideCreate: () => {
-      history.pushState({ page: "home" }, "", "#home");
-      return { type: HIDE_CREATE };
-    },
-    setCreateContent: (html) => ({
-      type: SET_CREATE_CONTENT,
-      payload: html,
-    }),
-    setOnboardingContent: (html) => ({
-      type: SET_ONBOARDING_CONTENT,
-      payload: html,
-    }),
-    showOnboarding: () => {
-      history.pushState({ page: "onboarding" }, "", "pages/onboarding.html#");
-      return { type: SHOW_ONBOARDING };
-    },
-    hideOnboarding: () => {
-      history.pushState({ page: "home" }, "", "#home");
-      return { type: HIDE_ONBOARDING };
-    },
-    setOnboardingStepsContent: (html) => ({
-      type: SET_ONBOARDING_STEPS_CONTENT,
-      payload: html,
-    }),
-    showOnboardingSteps: () => {
-      history.pushState({ page: "onboardingSteps" }, "", "pages/onboardingSteps.html#");
-      return { type: SHOW_ONBOARDING_STEPS };
-    },
-    hideOnboardingSteps: () => {
-      history.pushState({ page: "home" }, "", "#home");
-      localStorage.removeItem("onboardingStepsVisible");
-      return { type: HIDE_ONBOARDING_STEPS };
-    },
-  };  
-
-
+// Action Creators
+const actions = {
+  setCurrentPage: (page) => {
+    history.pushState({ page: page }, "", `#${page}`);
+    return { type: SET_CURRENT_PAGE, payload: page };
+  },
+  showLogin: () => {
+    history.pushState({ page: "login" }, "", "#login/pages/login.html");
+    return { type: SHOW_LOGIN };
+  },
+  hideLogin: () => {
+    history.pushState({ page: "home" }, "", "index.html");
+    return { type: HIDE_LOGIN };
+  },
+  logout: () => {
+    history.pushState({ page: "logout" }, "", "#logout");
+    return { type: LOGOUT };
+  },
+  setLoginContent: (html) => ({
+    type: SET_LOGIN_CONTENT,
+    payload: html,
+  }),
+  showNewsfeed: () => {
+    history.pushState({ page: "newsfeed" }, "", "pages/newsfeed.html#");
+    return { type: SHOW_NEWSFEED };
+  },
+  setNewsfeedContent: (html) => ({
+    type: SET_NEWSFEED_CONTENT,
+    payload: html,
+  }),
+  showInsights: () => {
+    history.pushState({ page: "insights" }, "", "#insights");
+    return { type: SHOW_INSIGHTS };
+  },
+  hideInsights: () => {
+    history.pushState({ page: "home" }, "", "#home");
+    return { type: HIDE_INSIGHTS };
+  },
+  setInsightsContent: (html) => ({
+    type: SET_INSIGHTS_CONTENT,
+    payload: html,
+  }),
+  showCreate: () => {
+    history.pushState({ page: "create" }, "", "#create");
+    return { type: SHOW_CREATE };
+  },
+  hideCreate: () => {
+    history.pushState({ page: "home" }, "", "#home");
+    return { type: HIDE_CREATE };
+  },
+  setCreateContent: (html) => ({
+    type: SET_CREATE_CONTENT,
+    payload: html,
+  }),
+  setOnboardingContent: (html) => ({
+    type: SET_ONBOARDING_CONTENT,
+    payload: html,
+  }),
+  showOnboarding: () => {
+    history.pushState({ page: "onboarding" }, "", "pages/onboarding.html#");
+    return { type: SHOW_ONBOARDING };
+  },
+  hideOnboarding: () => {
+    history.pushState({ page: "home" }, "", "#home");
+    return { type: HIDE_ONBOARDING };
+  },
+  setOnboardingStepsContent: (html) => ({
+    type: SET_ONBOARDING_STEPS_CONTENT,
+    payload: html,
+  }),
+  showOnboardingSteps: () => {
+    history.pushState(
+      { page: "onboardingSteps" },
+      "",
+      "pages/onboardingSteps.html#"
+    );
+    return { type: SHOW_ONBOARDING_STEPS };
+  },
+  hideOnboardingSteps: () => {
+    history.pushState({ page: "home" }, "", "#home");
+    localStorage.removeItem("onboardingStepsVisible");
+    return { type: HIDE_ONBOARDING_STEPS };
+  },
+};
 document.addEventListener("DOMContentLoaded", () => {
   let Loadsplash = document.querySelector(".v-splash");
   let navbarAndSurface = document.querySelectorAll(
@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // redirrect and dispatch state
   const url = new URL(window.location.href);
   history.replaceState({}, document.title, url.pathname);
-  if (url.hash === "#pages/login.html") {
+  if (url.hash === "#login/pages/login.html") {
     store.dispatch(actions.showLogin());
     loadPage("login", actions.showLogin, actions.setLoginContent).then(() => {
       let loginSpace = document.querySelector(".login-Space");
@@ -132,8 +132,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
-
-
 
   //Triggerers for app
   window.addEventListener("load", function () {
@@ -669,7 +667,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-
 // main code section for landing page
 document.addEventListener("DOMContentLoaded", () => {
   // function showContactUS()
@@ -793,6 +790,4 @@ document.addEventListener("DOMContentLoaded", () => {
     FMailL.addEventListener("touchend", copyEmailToClipboard);
     FMailL.addEventListener("mouseup", copyEmailToClipboard);
   }
-
-
 });
