@@ -234,11 +234,11 @@ document.addEventListener("DOMContentLoaded", () => {
       payload: html,
     }),
     showLogin: () => {
-      history.pushState({ page: "login" }, "", `/pages/${"login"}.html${"#login"}`);
+      history.pushState({ page: "login" }, "", "#login");
       return { type: SHOW_LOGIN };
     },
     hideLogin: () => {
-      history.pushState({ page: "home" }, "", "index.html");
+      history.pushState({ page: "home" }, "", "#index.html");
       return { type: HIDE_LOGIN };
     },
     logout: () => {
@@ -250,7 +250,7 @@ document.addEventListener("DOMContentLoaded", () => {
       payload: html,
     }),
     showNewsfeed: () => {
-      history.pushState({ page: "newsfeed" }, "", "pages/newsfeed.html#");
+      history.pushState({ page: "newsfeed" }, "", "#newsfeed.html");
       return { type: SHOW_NEWSFEED };
     },
     setNewsfeedContent: (html) => ({
@@ -318,7 +318,7 @@ document.addEventListener("DOMContentLoaded", () => {
   url.pathname = getPagePath(pageName);
   url.hash = pageName;
 
-  history.replaceState({}, document.title, `${url.toString()}`);
+  history.replaceState({}, document.title, `${url.hash}`);
   switch (pageName) {
     case "login":
 
