@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .setAttribute("content", "#FFFFFF");
     }
   }
-  
+
   // function showContactUS()
   const vFormBtn = document.querySelector(".v-form-btn");
   const vFormBtn2 = document.querySelector(".v-form-btn-2");
@@ -327,7 +327,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function getPagePath(pageName) {
-    return pageName === "home" ? "/index.html" : `/pages/${pageName}.html`;
+    return pageName === "home" ? "/index.html" : `verasAI/pages/${pageName}.html`;
   }
   function loadPage(pageName, actionToShow, actionToSetContent) {
     store.dispatch(actionToShow);
