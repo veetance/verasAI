@@ -119,17 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // redirrect and dispatch state
   const url = new URL(window.location.href);
-
-  if (url.hash) {
-    const page = url.hash.substring(1);
-    store.dispatch(actions.setCurrentPage(page));
-  } else {
-    store.dispatch(actions.setCurrentPage("home"));
-  }
-
-
-
-  history.replaceState({}, document.title, `${url.pathname}`);
+  history.replaceState({}, document.title, url.pathname);
   if (url.hash === "#pages/login.html") {
     store.dispatch(actions.showLogin());
     loadPage("login", actions.showLogin, actions.setLoginContent).then(() => {
@@ -142,19 +132,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
-
-
-  // Handle the back button
-  window.addEventListener("popstate", () => {
-    if (url.hash) {
-      const page = url.hash.substring(1);
-      store.dispatch(actions.setCurrentPage(page));
-    } else {
-      store.dispatch(actions.setCurrentPage("home"));
-    }
-  });
-
-
 
 
 
