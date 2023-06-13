@@ -224,10 +224,6 @@ document.addEventListener("DOMContentLoaded", () => {
       history.pushState({ page: "login" }, "", "#login");
       return { type: SHOW_LOGIN};
     },
-    hideLogin: () => {
-      history.pushState({ page: "home" }, "", "#index.html");
-      return { type: HIDE_LOGIN };
-    },
     logout: () => {
       history.pushState({ page: "logout" }, "", "#logout");
       return { type: LOGOUT };
@@ -248,10 +244,6 @@ document.addEventListener("DOMContentLoaded", () => {
       history.pushState({ page: "insights" }, "", "#insights");
       return { type: SHOW_INSIGHTS };
     },
-    hideInsights: () => {
-      history.pushState({ page: "home" }, "", "#home");
-      return { type: HIDE_INSIGHTS };
-    },
     setInsightsContent: (html) => ({
       type: SET_INSIGHTS_CONTENT,
       payload: html,
@@ -259,10 +251,6 @@ document.addEventListener("DOMContentLoaded", () => {
     showCreate: () => {
       history.pushState({ page: "create" }, "", "#create");
       return { type: SHOW_CREATE };
-    },
-    hideCreate: () => {
-      history.pushState({ page: "home" }, "", "#home");
-      return { type: HIDE_CREATE };
     },
     setCreateContent: (html) => ({
       type: SET_CREATE_CONTENT,
@@ -276,10 +264,6 @@ document.addEventListener("DOMContentLoaded", () => {
       history.pushState({ page: "onboarding" }, "", "pages/onboarding.html#");
       return { type: SHOW_ONBOARDING };
     },
-    hideOnboarding: () => {
-      history.pushState({ page: "home" }, "", "#home");
-      return { type: HIDE_ONBOARDING };
-    },
     setOnboardingStepsContent: (html) => ({
       type: SET_ONBOARDING_STEPS_CONTENT,
       payload: html,
@@ -291,11 +275,6 @@ document.addEventListener("DOMContentLoaded", () => {
         "pages/onboardingSteps.html#"
       );
       return { type: SHOW_ONBOARDING_STEPS };
-    },
-    hideOnboardingSteps: () => {
-      history.pushState({ page: "home" }, "", "#home");
-      localStorage.removeItem("onboardingStepsVisible");
-      return { type: HIDE_ONBOARDING_STEPS };
     },
   };
 
@@ -328,6 +307,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function getPagePath(pageName) {
     return pageName === "home" ? "/index.html" : `../verasAI/pages/${pageName}.html`;
+    // return pageName === "home" ? "/index.html" : `pages/${pageName}.html`;
+
   }
   function loadPage(pageName, actionToShow, actionToSetContent) {
     store.dispatch(actionToShow);
