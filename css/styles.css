@@ -30,7 +30,12 @@ body {
   height: 100vh;
   max-width: 3080px;
   overflow: hidden !important;
-  -webkit-tap-highlight-color: transparent !important;
+
+  -moz-tap-highlight-color: transparent !important;
+  -ms-tap-highlight-color: transparent !important;
+  -o-tap-highlight-color: transparent !important;
+  --webkit-tap-highlight-color: transparent !important;
+  outline: none;
 }
 img {
   display: flex;
@@ -48,8 +53,8 @@ img {
   height: 100vh;
   width: 100vw;
   z-index: 9999;
-  background-color: #f7f3ffbb;
-  backdrop-filter: blur(15px);
+  background-color: #f7f3ffc2;
+  backdrop-filter: blur(20px);
   overflow: hidden;
 }
 .v-splash .v-logo {
@@ -65,8 +70,8 @@ img {
   height: 100vh;
   width: 100vw;
   z-index: 9999;
-  background-color: #f7f3ffbb;
-  backdrop-filter: blur(15px);
+  background-color: #f7f3ffc2;
+  backdrop-filter: blur(20px);
   overflow: hidden;
 }
 .v-splash-min-dlplay-size .v-logo {
@@ -960,10 +965,12 @@ h5 {
   -o-user-select: none;
   user-select: none;
 }
-.navbar-wrapper, .Veras-surface {
+/* 777 */
+/* .navbar-wrapper, .Veras-surface {
   opacity: 0;
-  transition: opacity 0.5s cubic-bezier(0,1.02,0,1.02); /* Smooth transition when showing the content */
-}
+  transition: opacity 0.5s cubic-bezier(0,1.02,0,1.02); }
+   */
+
 .mobile-nav {
   display: flex;
 }

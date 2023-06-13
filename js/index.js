@@ -132,23 +132,18 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
   //splash screen
   let Loadsplash = document.querySelector(".v-splash");
-  let navbarAndSurface = document.querySelectorAll(
-    ".navbar-wrapper, .Veras-surface"
-  );
   function displayLoadSplash() {
     // If the flag is set, display the splash screen and remove the flag
     if (!Loadsplash) return;
     Loadsplash.style.display = "flex";
-    const hideSplashTime = Date.now() + 1000;
+    const hideSplashTime = Date.now() + 800;
 
     const remainingTime = Math.max(0, hideSplashTime - Date.now());
     setTimeout(() => {
       Loadsplash.style.display = "none";
-      navbarAndSurface.forEach((element) => {
-        element.style.opacity = "1"; // Show the content of the page
-      });
     }, remainingTime);
   }
+  displayLoadSplash();
   function displayLongSplash() {
     if (!elements.splash) return;
     elements.splash.style.display = "flex";
@@ -165,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }, remainingTime);
     };
   }
-  displayLoadSplash();
+
 
   //Triggerers for app
   window.addEventListener("load", function () {
@@ -311,6 +306,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   }
   function loadPage(pageName, actionToShow, actionToSetContent) {
+    
     store.dispatch(actionToShow);
     // Return the Promise from fetch
     return fetch(getPagePath(pageName))

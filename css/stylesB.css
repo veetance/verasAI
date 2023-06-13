@@ -971,16 +971,8 @@
     align-items: flex-start;
   }
   
-  .v-security-space .v-page-styled-header .Tagline {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: fit-content;
-  }
-  
-  
-  
-  
+
+
   
   /* container queries */
   /* styles for desktop devices */
