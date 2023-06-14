@@ -139,8 +139,8 @@ document.addEventListener("DOMContentLoaded", () => {
     history.pushState(state, '', url);
     return { type, payload };
   };
-
   const actions = {
+
     setCurrentPage: (page) => createAction(`#${page}`, SET_CURRENT_PAGE, page),
     showHome: () => createAction('#home', SHOW_HOME),
     setHomeContent: (html) => ({ type: SET_HOME_CONTENT, payload: html }),
@@ -157,71 +157,8 @@ document.addEventListener("DOMContentLoaded", () => {
     showOnboarding: () => createAction('pages/onboarding.html#', SHOW_ONBOARDING),
     setOnboardingStepsContent: (html) => ({ type: SET_ONBOARDING_STEPS_CONTENT, payload: html }),
     showOnboardingSteps: () => createAction('pages/onboardingSteps.html#', SHOW_ONBOARDING_STEPS),
-  };
-    // redirect and dispatch Logic
-    const url = new URL(window.location.href);
-    const pageName = url.hash ? url.hash.slice(1) : "home";
-    url.pathname = getPagePath(pageName);
-    url.hash = pageName;
-    history.replaceState({}, document.title, `${url.hash}`);
 
-    switch (pageName) {
-      case "login":
-        loadPage("login", actions.showLogin, actions.setLoginContent).then(() => {
-  
-          let loginSpace = document.querySelector(".login-Space");
-          handleLoginFormSubmission(loginSpace);
-  
-          let waitListButton = document.querySelector("#waitList");
-          waitListButton.addEventListener("click", () => {
-          store.dispatch(actions.showHome()), window.location.reload();
-          });
-  
-        });
-        break;
-      case "home":
-        store.dispatch(actions.showHome());
-        break;
-    }
-  
-  //attatch event listeners
-  window.addEventListener("load", function () {
-    if (elements.loginButton) {
-      elements.loginButton.addEventListener(
-        "click",
-        eventHandlers.handleLoginButtonClick
-      );
-    }
-    if (elements.logoutButton) {
-      elements.logoutButton.addEventListener(
-        "click",
-        eventHandlers.handleLogoutButtonClick
-      );
-    }
-    if (elements.onboardingButton) {
-      elements.onboardingButton.addEventListener(
-        "click",
-        eventHandlers.handleToStepsButtonClick
-      );
-    }
-    if (elements.insightsButton) {
-      elements.insightsButton.addEventListener(
-        "click",
-        eventHandlers.handleInsightsButtonClick
-      );
-    }
-    if (elements.createButton) {
-      elements.createButton.addEventListener(
-        "click",
-        eventHandlers.handleCreateButtonClick
-      );
-    }
-    if (elements.refreshButtons) {
-      elements.refreshButtons.forEach((button) =>
-        button.addEventListener("click", eventHandlers.handleRefreshButtonClick)
-      );
-    }
-  });
+  };
 
   const elements = {
     loginButton: document.querySelector(".login-button"),
@@ -238,6 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ),
   };
   const eventHandlers = {
+
     handleLoginButtonClick: () => {
       loadPage("login", actions.showLogin, actions.setLoginContent).then(() => {
 
@@ -334,7 +272,23 @@ document.addEventListener("DOMContentLoaded", () => {
     handleNavSlideUpClick: () => {
     },
 
-    
+    handleReirectDispatchOnLoad: () => {
+      const url = new URL(window.location.href);
+      const pageName = url.hash ? url.hash.slice(1) : "home";
+      url.pathname = getPagePath(pageName);
+      url.hash = pageName;
+      history.replaceState({}, document.title, `${url.hash}`);
+  
+      switch (pageName) {
+        case "login":
+          eventHandlers.handleLoginButtonClick();
+          break;
+        case "home":
+          store.dispatch(actions.showHome());
+          break;
+      }
+    },
+
     handleRefreshButtonClick: () => {
       store.dispatch(actions.showHome());
       window.location.reload();
@@ -463,6 +417,49 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     },
   };
+  
+  
+  //attatch event listeners
+  window.addEventListener("load", function () {
+
+    eventHandlers.handleReirectDispatchOnLoad();
+
+    if (elements.loginButton) {
+      elements.loginButton.addEventListener(
+        "click",
+        eventHandlers.handleLoginButtonClick
+      );
+    }
+    if (elements.logoutButton) {
+      elements.logoutButton.addEventListener(
+        "click",
+        eventHandlers.handleLogoutButtonClick
+      );
+    }
+    if (elements.onboardingButton) {
+      elements.onboardingButton.addEventListener(
+        "click",
+        eventHandlers.handleToStepsButtonClick
+      );
+    }
+    if (elements.insightsButton) {
+      elements.insightsButton.addEventListener(
+        "click",
+        eventHandlers.handleInsightsButtonClick
+      );
+    }
+    if (elements.createButton) {
+      elements.createButton.addEventListener(
+        "click",
+        eventHandlers.handleCreateButtonClick
+      );
+    }
+    if (elements.refreshButtons) {
+      elements.refreshButtons.forEach((button) =>
+        button.addEventListener("click", eventHandlers.handleRefreshButtonClick)
+      );
+    }
+  });
 
 
   function displayLoadSplash() {
@@ -493,13 +490,11 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-
-function getPagePath(pageName) {
+  function getPagePath(pageName) {
   const isHome = pageName === "home";
   const path = isHome ? "" : "./pages/";
   return `${path}${pageName}.html`;
-}
-  
+  }
   function loadPage(pageName, actionToShow, actionToSetContent) {
     
     store.dispatch(actionToShow);
@@ -539,6 +534,7 @@ function getPagePath(pageName) {
      
       });
   }
+
   function updatePageContent(stateProperty, className, title) {
     const state = store.getState();
     if (state[stateProperty]) {
@@ -741,4 +737,5 @@ function getPagePath(pageName) {
       }
     }
   });
+  
 });
