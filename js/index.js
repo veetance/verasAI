@@ -132,34 +132,37 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
 
   let Loadsplash = document.querySelector(".v-splash");
-  displayLoadSplash();
+  let isLoadPageRunning = false;
+  if (!isLoadPageRunning) {
+    displayLoadSplash();
+  }
 
   const createAction = (url, type, payload) => {
-    const state = { page: url.split('#')[1] };
-    history.pushState(state, '', url);
+    const urlObj = new URL(url, window.location.href);
+    const state = { page: urlObj.hash.slice(1) };
+    history.pushState(state, '', urlObj.toString());
+  
     return { type, payload };
   };
+  
   const actions = {
-
     setCurrentPage: (page) => createAction(`#${page}`, SET_CURRENT_PAGE, page),
-    showHome: () => createAction('#home', SHOW_HOME),
+    showHome: () => createAction('#home', SHOW_HOME, 'home'),
     setHomeContent: (html) => ({ type: SET_HOME_CONTENT, payload: html }),
-    showLogin: () => createAction('#login', SHOW_LOGIN),
-    logout: () => createAction('#logout', LOGOUT),
+    showLogin: () => createAction('#login', SHOW_LOGIN, 'login'),
+    logout: () => createAction('#logout', LOGOUT, 'logout'),
     setLoginContent: (html) => ({ type: SET_LOGIN_CONTENT, payload: html }),
-    showNewsfeed: () => createAction('#newsfeed.html', SHOW_NEWSFEED),
+    showNewsfeed: () => createAction('#newsfeed.html', SHOW_NEWSFEED, 'newsfeed'),
     setNewsfeedContent: (html) => ({ type: SET_NEWSFEED_CONTENT, payload: html }),
-    showInsights: () => createAction('#insights', SHOW_INSIGHTS),
+    showInsights: () => createAction('#insights', SHOW_INSIGHTS, 'insights'),
     setInsightsContent: (html) => ({ type: SET_INSIGHTS_CONTENT, payload: html }),
-    showCreate: () => createAction('#create', SHOW_CREATE),
+    showCreate: () => createAction('#create', SHOW_CREATE, 'create'),
     setCreateContent: (html) => ({ type: SET_CREATE_CONTENT, payload: html }),
     setOnboardingContent: (html) => ({ type: SET_ONBOARDING_CONTENT, payload: html }),
-    showOnboarding: () => createAction('pages/onboarding.html#', SHOW_ONBOARDING),
+    showOnboarding: () => createAction('pages/onboarding.html#', SHOW_ONBOARDING, 'onboarding'),
     setOnboardingStepsContent: (html) => ({ type: SET_ONBOARDING_STEPS_CONTENT, payload: html }),
-    showOnboardingSteps: () => createAction('pages/onboardingSteps.html#', SHOW_ONBOARDING_STEPS),
-
+    showOnboardingSteps: () => createAction('pages/onboardingSteps.html#', SHOW_ONBOARDING_STEPS, 'onboardingSteps'),
   };
-
   const elements = {
     loginButton: document.querySelector(".login-button"),
     logoutButton: document.querySelector(".logout-button"),
@@ -189,17 +192,11 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       });
     },
-    handleNewsfeedButtonClick: () => {
-      store.dispatch(actions.showNewsfeed());
+    handleLogoutButtonClick: () => {
+      store.dispatch(actions.logout());
+      window.location.href = "/index.html";
     },
-    handleInsightsButtonClick: () => {
-      store.dispatch(actions.hideCreate());
-      loadPage("insights", actions.showInsights, actions.setInsightsContent);
-    },
-    handleCreateButtonClick: () => {
-      store.dispatch(actions.hideInsights());
-      loadPage("create", actions.showCreate, actions.setCreateContent);
-    },
+
     handleToStepsButtonClick: async () => {
       const loginNumber = document.getElementById("login-number").value;
       const password = document.getElementById("password").value;
@@ -265,20 +262,30 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
     },
-    handleLogoutButtonClick: () => {
-      store.dispatch(actions.logout());
-      window.location.href = "/index.html";
+
+    handleNewsfeedButtonClick: () => {
+      store.dispatch(actions.showNewsfeed());
     },
-    handleNavSlideUpClick: () => {
+    handleInsightsButtonClick: () => {
+      store.dispatch(actions.hideCreate());
+      loadPage("insights", actions.showInsights, actions.setInsightsContent);
+    },
+    handleCreateButtonClick: () => {
+      store.dispatch(actions.hideInsights());
+      loadPage("create", actions.showCreate, actions.setCreateContent);
     },
 
     handleReirectDispatchOnLoad: () => {
+
       const url = new URL(window.location.href);
       const pageName = url.hash ? url.hash.slice(1) : "home";
       url.pathname = getPagePath(pageName);
       url.hash = pageName;
       history.replaceState({}, document.title, `${url.hash}`);
-  
+    
+      // Dispatch setCurrentPage action
+      store.dispatch(actions.setCurrentPage(pageName));
+    
       switch (pageName) {
         case "login":
           eventHandlers.handleLoginButtonClick();
@@ -286,13 +293,33 @@ document.addEventListener("DOMContentLoaded", () => {
         case "home":
           store.dispatch(actions.showHome());
           break;
+        case "newsfeed":
+          store.dispatch(actions.showNewsfeed());
+          break;
+        case "insights":
+          store.dispatch(actions.showInsights());
+          break;
+        case "create":
+          store.dispatch(actions.showCreate());
+          break;
+        case "onboarding":
+          store.dispatch(actions.showOnboarding());
+          break;
+        case "onboardingSteps":
+          store.dispatch(actions.showOnboardingSteps());
+          break;
+        default:
+          console.warn(`Unknown page: ${pageName}`);
+          break;
       }
     },
-
     handleRefreshButtonClick: () => {
       store.dispatch(actions.showHome());
       window.location.reload();
     },
+    handleNavSlideUpClick: () => {
+    },
+  
     successfulLogin: (loginNumberInput, passwordInput) => {
       // Clear the input fields
       loginNumberInput.value = "";
@@ -320,6 +347,7 @@ document.addEventListener("DOMContentLoaded", () => {
       loadPage("newsfeed", actions.showNewsfeed, actions.setNewsfeedContent);
       // Add any additional code specific to onboardingIsComplete here
     },
+
     validateForm: (loginNumber, password, confirmPassword, nickname) => {
       if (!/^\d{2,9}$/.test(loginNumber)) {
         alert("Login Number should be between 2 and 9 digits.");
@@ -359,6 +387,7 @@ document.addEventListener("DOMContentLoaded", () => {
         password,
       };
     },
+
     addStepButtonListeners: () => {
       document
         .querySelectorAll(".onboarding-steps .nav-button.next")
@@ -416,10 +445,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
     },
+
   };
-  
-  
-  //attatch event listeners
+
+
   window.addEventListener("load", function () {
 
     eventHandlers.handleReirectDispatchOnLoad();
@@ -496,6 +525,8 @@ document.addEventListener("DOMContentLoaded", () => {
   return `${path}${pageName}.html`;
   }
   function loadPage(pageName, actionToShow, actionToSetContent) {
+
+    isLoadPageRunning = true;
     
     store.dispatch(actionToShow);
     // Return the Promise from fetch
@@ -528,6 +559,7 @@ document.addEventListener("DOMContentLoaded", () => {
           pageSpace.classList.add("active");
           elements.surfaceView.style.opacity = 1;
           elements.splash.style.display = "none";
+          isLoadPageRunning = false;
         }, 100);
 
         
@@ -737,5 +769,5 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   });
-  
+
 });
