@@ -493,9 +493,9 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
   function getPagePath(pageName) {
-  const isHome = pageName === "home";
-  const path = isHome ? "" : "../";
-  return `${path}pages/${pageName}.html`;
+    const isHome = pageName === "home";
+    const path = isHome ? "" : "pages/";
+    return `/${path}${pageName}.html`;
   }
   
   function loadPage(pageName, actionToShow, actionToSetContent) {
