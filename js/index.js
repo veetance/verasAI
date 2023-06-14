@@ -188,7 +188,7 @@ document.addEventListener("DOMContentLoaded", () => {
     upNav: document.querySelector(".navbar-wrapper"),
     splash: document.querySelector(".v-splash"),
     refreshButtons: document.querySelectorAll(
-      ".nav-logo, .nav-title, .VLOGO-wrapper,"
+      ".nav-logo, .nav-title, .VLOGO-wrapper"
     ),
   };
   const eventHandlers = {
