@@ -131,6 +131,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let isLoadPageRunning = false;
   if (!isLoadPageRunning) {
     displayLoadSplash();
+  } else if (isLoadPageRunning) {
+    removeLongSplash();
   }
 
   const createAction = (url, type, payload) => {
@@ -192,6 +194,51 @@ document.addEventListener("DOMContentLoaded", () => {
     ),
   };
   const eventHandlers = {
+    handleReirectDispatchOnLoad: () => {
+      const url = new URL(window.location.href);
+      const pageName = url.hash ? url.hash.slice(1) : "home";
+      url.pathname = getPagePath(pageName);
+      url.hash = pageName;
+      history.replaceState({}, document.title, `${url.hash}`);
+
+      // Dispatch setCurrentPage action
+      store.dispatch(actions.setCurrentPage(pageName));
+
+      switch (pageName) {
+        case "login":
+          eventHandlers.handleLoginButtonClick();
+          break;
+        case "home":
+          store.dispatch(actions.showHome());
+          break;
+        case "newsfeed":
+          eventHandlers.handleNewsfeedButtonClick();
+          break;
+        case "insights":
+          store.dispatch(actions.showInsights());
+          break;
+        case "create":
+          store.dispatch(actions.showCreate());
+          break;
+        case "onboarding":
+          store.dispatch(actions.showOnboarding());
+          break;
+        case "onboardingSteps":
+          store.dispatch(actions.showOnboardingSteps());
+          break;
+        default:
+          console.warn(`Unknown page: ${pageName}`);
+          break;
+      }
+
+      window.addEventListener("popstate", function (event) {
+        // Get the state from the event object
+        const state = event.state;
+        if (state) {
+          window.location.reload();
+        }
+      });
+    },
     handleLoginButtonClick: () => {
       loadPage("login", actions.showLogin, actions.setLoginContent).then(() => {
         let loginSpace = document.querySelector(".login-Space");
@@ -288,51 +335,6 @@ document.addEventListener("DOMContentLoaded", () => {
     handleCreateButtonClick: () => {
       store.dispatch(actions.hideInsights());
       loadPage("create", actions.showCreate, actions.setCreateContent);
-    },
-    handleReirectDispatchOnLoad: () => {
-      const url = new URL(window.location.href);
-      const pageName = url.hash ? url.hash.slice(1) : "home";
-      url.pathname = getPagePath(pageName);
-      url.hash = pageName;
-      history.replaceState({}, document.title, `${url.hash}`);
-
-      // Dispatch setCurrentPage action
-      store.dispatch(actions.setCurrentPage(pageName));
-
-      switch (pageName) {
-        case "login":
-          eventHandlers.handleLoginButtonClick();
-          break;
-        case "home":
-          store.dispatch(actions.showHome());
-          break;
-        case "newsfeed":
-          eventHandlers.handleNewsfeedButtonClick();
-          break;
-        case "insights":
-          store.dispatch(actions.showInsights());
-          break;
-        case "create":
-          store.dispatch(actions.showCreate());
-          break;
-        case "onboarding":
-          store.dispatch(actions.showOnboarding());
-          break;
-        case "onboardingSteps":
-          store.dispatch(actions.showOnboardingSteps());
-          break;
-        default:
-          console.warn(`Unknown page: ${pageName}`);
-          break;
-      }
-
-      window.addEventListener("popstate", function (event) {
-        // Get the state from the event object
-        const state = event.state;
-        if (state) {
-          window.location.reload();
-        }
-      });
     },
     handleRefreshButtonClick: () => {
       store.dispatch(actions.showHome());
@@ -553,19 +555,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   function loadPage(pageName, actionToShow, actionToSetContent) {
     store.dispatch(actionToShow);
-
     // Return the Promise from fetch
     return fetch(getPagePath(pageName))
       .then((response) => response.text())
       .then((html) => {
-
-        isLoadPageRunning = false;
-        if (!isLoadPageRunning) {
-          displayLoadSplash();
-        } else {
-          displayLongSplash();
-        }
-
+        displayLoadSplash();
+       
         store.dispatch(actionToSetContent(html));
         let pageSpace = document.querySelector(`.${pageName}-Space`);
 
