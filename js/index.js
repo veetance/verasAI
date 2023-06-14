@@ -452,7 +452,6 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("load", function () {
 
     eventHandlers.handleReirectDispatchOnLoad();
-
     if (elements.loginButton) {
       elements.loginButton.addEventListener(
         "click",
@@ -488,6 +487,7 @@ document.addEventListener("DOMContentLoaded", () => {
         button.addEventListener("click", eventHandlers.handleRefreshButtonClick)
       );
     }
+
   });
 
 
@@ -707,22 +707,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const state = store.getState();
 
     if (state.loginVisible) {
+
       updatePageContent("stateProperty", "login-Space", "Login");
       // ... other logic
     } else if (state.newsfeedVisible) {
-      updatePageContent("stateProperty", "newsfeed-Space", "Newsfeed");
-      // let newsfeedSpace = document.querySelector(".newsfeed-Space");
-      // ... other logic specific to the newsfeed page
+    updatePageContent("stateProperty", "newsfeed-Space", "Newsfeed");
+
     } else if (state.onboardingStepsVisible) {
       updatePageContent(
         "stateProperty",
         "onboardingSteps-Space",
         "Onboarding Steps"
       );
-      // ... other logic
     } else if (state.onboardingVisible) {
       updatePageContent("stateProperty", "onboarding-Space", "Onboarding");
-      // ... other logic
     } else if (state.insightsVisible || state.createVisible) {
       let insightsNavLink = document
         .querySelector(".insights-btn")
