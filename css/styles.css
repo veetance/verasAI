@@ -53,7 +53,7 @@ img {
   height: 100vh;
   width: 100vw;
   z-index: 9999;
-  background-color: #f3f1ff;
+  background-color: #f3f1ffdc;
   backdrop-filter: blur(20px);
   overflow: hidden;
 }
