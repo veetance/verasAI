@@ -492,6 +492,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }, remainingTime);
     };
   }
+  
   function getPagePath(pageName) {
     const isHome = pageName === "home";
     const path = isHome ? "" : "../";
