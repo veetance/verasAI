@@ -492,11 +492,13 @@ document.addEventListener("DOMContentLoaded", () => {
       }, remainingTime);
     };
   }
-  function getPagePath(pageName) {
-    const isHome = pageName === "home";
-    const path = isHome ? "" : "pages/";
-    return `/${path}${pageName}.html`;
-  }
+
+
+function getPagePath(pageName) {
+  const isHome = pageName === "home";
+  const path = isHome ? "" : "./pages/";
+  return `${path}${pageName}.html`;
+}
   
   function loadPage(pageName, actionToShow, actionToSetContent) {
     
