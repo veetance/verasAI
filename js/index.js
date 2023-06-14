@@ -312,6 +312,45 @@ document.addEventListener("DOMContentLoaded", () => {
           console.warn(`Unknown page: ${pageName}`);
           break;
       }
+
+      window.addEventListener('popstate', function(event) {
+        // Get the state from the event object
+        const state = event.state;
+      
+        // If there's a state object, use it to load the appropriate page
+        if (state && state.page) {
+          switch (state.page) {
+            case 'login':
+              loadPage('login', actions.showLogin, actions.setLoginContent);
+              break;
+            case 'home':
+              window.location.reload();
+              break;
+            case 'newsfeed':
+              loadPage('newsfeed', actions.showNewsfeed, actions.setNewsfeedContent);
+              break;
+            case 'insights':
+              loadPage('insights', actions.showInsights, actions.setInsightsContent);
+              break;
+            case 'create':
+              loadPage('create', actions.showCreate, actions.setCreateContent);
+              break;
+            case 'onboarding':
+              loadPage('onboarding', actions.showOnboarding, actions.setOnboardingContent);
+              break;
+            case 'onboardingSteps':
+              loadPage('onboardingSteps', actions.showOnboardingSteps, actions.setOnboardingStepsContent);
+              break;
+            default:
+              console.warn(`Unknown page: ${state.page}`);
+              break;
+          }
+          updatePageContent(state.page, `${state.page}-Space`, state.page.charAt(0).toUpperCase() + state.page.slice(1));
+        }
+      });
+      
+
+
     },
     handleRefreshButtonClick: () => {
       store.dispatch(actions.showHome());
@@ -319,75 +358,6 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     handleNavSlideUpClick: () => {
     },
-  
-    successfulLogin: (loginNumberInput, passwordInput) => {
-      // Clear the input fields
-      loginNumberInput.value = "";
-      passwordInput.value = "";
-
-      // Display the splash screen
-      displayLongSplash();
-
-      // Update the UI based on the login status
-      updateLoginUI(true);
-
-      setTimeout(() => {
-        elements.splash.style.display = "none";
-      }, 2000);
-    },
-    onboardSuccess: () => {
-      loadPage(
-        "onboardingSteps",
-        actions.showOnboardingSteps,
-        actions.setOnboardingStepsContent
-      );
-      // Add any additional code specific to onboardSuccess here
-    },
-    onboardingIsComplete: () => {
-      loadPage("newsfeed", actions.showNewsfeed, actions.setNewsfeedContent);
-      // Add any additional code specific to onboardingIsComplete here
-    },
-
-    validateForm: (loginNumber, password, confirmPassword, nickname) => {
-      if (!/^\d{2,9}$/.test(loginNumber)) {
-        alert("Login Number should be between 2 and 9 digits.");
-        return false;
-      }
-      if (!/^\d{2,9}$/.test(password)) {
-        alert("Password should be between 2 and 9 digits.");
-        return false;
-      }
-      if (password !== confirmPassword) {
-        alert("Confirm Password should match Password.");
-        return false;
-      }
-      if (nickname && !/^[a-zA-Z0-9._-]*$/.test(nickname)) {
-        alert(
-          "Nickname should be alphanumeric and may contain periods, dashes and underscores."
-        );
-        return false;
-      }
-      return {
-        loginNumber,
-        password,
-        nickname,
-      };
-    },
-    validateLoginForm: (loginNumber, password) => {
-      if (!/^\d{2,9}$/.test(loginNumber)) {
-        alert("Login Number should be between 2 and 9 digits.");
-        return false;
-      }
-      if (!/^\d{2,9}$/.test(password)) {
-        alert("Password should be between 2 and 9 digits.");
-        return false;
-      }
-      return {
-        loginNumber,
-        password,
-      };
-    },
-
     addStepButtonListeners: () => {
       document
         .querySelectorAll(".onboarding-steps .nav-button.next")
@@ -445,6 +415,80 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
     },
+  
+    successfulLogin: (loginNumberInput, passwordInput) => {
+      // Clear the input fields
+      loginNumberInput.value = "";
+      passwordInput.value = "";
+
+      // Display the splash screen
+      displayLongSplash();
+
+      // Update the UI based on the login status
+      updateLoginUI(true);
+
+      setTimeout(() => {
+        elements.splash.style.display = "none";
+      }, 2000);
+    },
+    onboardSuccess: () => {
+      loadPage(
+        "onboardingSteps",
+        actions.showOnboardingSteps,
+        actions.setOnboardingStepsContent
+      );
+      // Add any additional code specific to onboardSuccess here
+    },
+    onboardingIsComplete: () => {
+      loadPage("newsfeed", actions.showNewsfeed, actions.setNewsfeedContent);
+      // Add any additional code specific to onboardingIsComplete here
+    },
+
+    validateForm: (loginNumber, password, confirmPassword, nickname) => {
+      if (!/^\d{2,9}$/.test(loginNumber)) {
+        alert("Login Number should be between 2 and 9 digits.");
+        return false;
+      }
+      if (!/^\d{2,9}$/.test(password)) {
+        alert("Password should be between 2 and 9 digits.");
+        return false;
+      }
+      if (password !== confirmPassword) {
+        alert("Confirm Password should match Password.");
+        return false;
+      }
+      if (nickname && !/^[a-zA-Z0-9._-]*$/.test(nickname)) {
+        alert(
+          "Nickname should be alphanumeric and may contain periods, dashes and underscores."
+        );
+        return false;
+      }
+      return {
+        loginNumber,
+        password,
+        nickname,
+      };
+    },
+    validateLoginForm: (loginNumber, password) => {
+
+      if (!/^\d{3,9}$/.test(loginNumber)) {
+        alert("Login Number should be between 3 and 9 digits.");
+        return false;
+      }
+
+      if (!/^\d{3,9}$/.test(password)) {
+        alert("Password should be between 3 and 9 digits.");
+        return false;
+      }
+
+      return {
+        loginNumber,
+        password
+      };
+      
+    },
+
+ 
 
   };
 
@@ -489,7 +533,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
   });
-
+ 
 
   function displayLoadSplash() {
     // If the flag is set, display the splash screen and remove the flag

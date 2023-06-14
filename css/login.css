@@ -200,7 +200,7 @@ justify-content: space-between;
 }
 
 .checkbox {
-  display: none;
+  display: flex;
 }
 
 .checkbox-label {
