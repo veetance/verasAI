@@ -1100,7 +1100,8 @@ h5 {
   justify-items: start;
   grid-gap: 4.5vw;
   grid-template-columns: 1fr 1fr;
-  grid-template-areas: "text svg";
+  grid-template-areas:
+    "text svg";
   margin: 2.5vw;
 }
 .v-page-plane :nth-child(2) .v-page-plane-cont {
@@ -1516,8 +1517,8 @@ h5 {
   height: auto;
   background-color: var(--v-lavender-plane);
   padding: 5vw;
-
-  grid-gap: 80npx;
+  gap: 80px;
+  
 }
 .Tagline {
   display: flex;
