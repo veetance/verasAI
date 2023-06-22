@@ -569,6 +569,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!pageSpace) {
         pageSpace = document.createElement("div");
         pageSpace.classList.add(`${pageName}-Space`, "fade-in");
+        
         elements.surfaceView.insertBefore(
           pageSpace,
           elements.surfaceView.firstChild
@@ -577,6 +578,8 @@ document.addEventListener("DOMContentLoaded", () => {
       pageSpace.innerHTML = html;
       document.title = pageName.charAt(0).toUpperCase() + pageName.slice(1);
       elements.surfaceView.style.opacity = 0;
+      pageSpace.style.height = "100vh";
+      pageSpace.style.width = "100%";
       elements.footer.style.display = "none";
       elements.surfaceView.innerHTML = "";
       elements.surfaceView.appendChild(pageSpace);
