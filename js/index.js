@@ -203,9 +203,6 @@ document.addEventListener("DOMContentLoaded", () => {
       url.hash = pageName;
       history.replaceState({}, document.title, `${url.hash}`);
 
-      // Dispatch setCurrentPage action
-      store.dispatch(actions.setCurrentPage(pageName));
-
 
       switch (pageName) {
         case "login":
@@ -258,8 +255,8 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     handleToOnboardFormClick: () => {
   
-      loadPage("onboarding", actions.showOnboarding, actions.setOnboardingContent).then(() => {});
-    
+      loadPage("onboarding", actions.showOnboarding, actions.setOnboardingContent).then(() => {
+
       const loginNumber = document.getElementById("login-number").value;
       const password = document.getElementById("password").value;
       const confirmPassword = document.getElementById("confirm-password").value;
@@ -326,6 +323,9 @@ document.addEventListener("DOMContentLoaded", () => {
             }
           }
         });
+      });
+    
+      
 
     },
     handleNewsfeedButtonClick: () => {
@@ -437,6 +437,12 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     onboardingIsComplete: () => {
       store.dispatch(actions.showNewsfeed());
+      const LogOutButton = document.querySelector(".logout-button");
+      LogOutButton.addEventListener("click", function () {
+        alert("You are about to be logged out.");
+        store.dispatch(actions.showHome());
+        window.location.reload();
+      });
     },
     validateForm: (loginNumber, password, confirmPassword, nickname) => {
       if (!/^\d{2,9}$/.test(loginNumber)) {

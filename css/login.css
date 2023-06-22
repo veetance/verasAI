@@ -13,9 +13,7 @@
 }
 
 
-.full-page::-webkit-scrollbar{
-  display: none;
-}
+
 
 .login-Space {
   display: flex;
