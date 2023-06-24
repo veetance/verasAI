@@ -221,11 +221,11 @@ document.addEventListener("DOMContentLoaded", () => {
           store.dispatch(actions.showCreate());
           break;
         case "onboarding":
-          store.dispatch(actions.showOnboarding());
           eventHandlers.handleToOnboardFormClick();
           break;
         case "onboardingSteps":
           store.dispatch(actions.showOnboardingSteps());
+          eventHandlers.onboardSuccess();
           break;
         default:
           console.warn(`Unknown page: ${pageName}`);
@@ -256,77 +256,20 @@ document.addEventListener("DOMContentLoaded", () => {
     handleToOnboardFormClick: () => {
   
       loadPage("onboarding", actions.showOnboarding, actions.setOnboardingContent).then(() => {
+       
+        let onboardingSpace = document.querySelector(".onboarding-Space");
+        handleOnboardingFormSubmission(onboardingSpace);
 
-      const loginNumber = document.getElementById("login-number").value;
-      const password = document.getElementById("password").value;
-      const confirmPassword = document.getElementById("confirm-password").value;
-      const nickname = document.getElementById("nickname").value;
-    
-      const onboardUserData = eventHandlers.validateForm(
-        loginNumber,
-        password,
-        confirmPassword,
-        nickname
-      );
-    
-      function postUserData(onboardUserData) {
-        return fetch("http://study.veras.ca/home.phps", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(onboardUserData),
-        })
-        .then(response => {
-          if (!response.ok) {
-            alert(onboardUserData); // onboardUserData contains the error message
-            throw new Error("Network response was not ok");
-          }
-    
-          return response.text();
+  
+        let waitListButton = document.querySelector("#waitList");
+        waitListButton.addEventListener("click", () => {
+          store.dispatch(actions.showHome()), window.location.reload();
         });
-      }
-    
-      // Handle input field errors
-      if (typeof onboardUserData === "string") {
-        console.log(onboardUserData);
-        return; // Stop the function here if there are validation errors
-      }
-    
-      // Handle posting errors
-      postUserData(onboardUserData)
 
-        .then(data => {
-          console.log("postUserData", postUserData);
-    
-          if (data.error) {
-            // Show the error message returned by postUserData()/ after saeed links it properly
-          }
-        })
-        .catch(error => {
-          if (error.message.includes("NetworkError")) {
-            alert("Network Error: Failed to reach the server.");
-          } else {
-            // Handle prototype error
-    
-            if (
-              onboardUserData &&
-              onboardUserData.loginNumber &&
-              onboardUserData.password
-            ) {
-              alert(
-                "This is a prototype, data not connected. Please press OK to proceed."
-              );
-              eventHandlers.onboardSuccess(loginNumber, password, nickname);
-    
-              console.log("onboardUserData", onboardUserData);
-            }
-          }
-        });
       });
-    
-      
 
+     
+  
     },
     handleNewsfeedButtonClick: () => {
       loadPage(
@@ -358,7 +301,7 @@ document.addEventListener("DOMContentLoaded", () => {
           button.addEventListener("click", function (event) {
             event.preventDefault();
             event.stopPropagation();
-            updateStep(1);
+            eventHandlers.updateStep(1);
           });
         });
 
@@ -368,7 +311,7 @@ document.addEventListener("DOMContentLoaded", () => {
           button.addEventListener("click", function (event) {
             event.preventDefault();
             event.stopPropagation();
-            updateStep(-1);
+            eventHandlers.updateStep(-1);
           });
         });
     },
@@ -432,7 +375,12 @@ document.addEventListener("DOMContentLoaded", () => {
         "onboardingSteps",
         actions.showOnboardingSteps,
         actions.setOnboardingStepsContent
-      );
+      ).then(() => {
+        eventHandlers.addStepButtonListeners();
+        eventHandlers.updateStep();
+      });
+
+      
       // Add any additional code specific to onboardSuccess here
     },
     onboardingIsComplete: () => {
@@ -501,7 +449,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.addEventListener("load", function () {
     eventHandlers.handleReirectDispatchOnLoad();
-
    
     if (elements.loginButton) {
       elements.loginButton.addEventListener(
@@ -607,6 +554,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const passwordInput = document.querySelector("#password");
 
     const onboardingButtonInner = document.querySelector("#onboarding-button");
+ 
     const centerComp = document.querySelector(".login-Space .content");
 
     if (isLoggedIn) {
@@ -720,6 +668,96 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  
+  function handleOnboardingFormSubmission(onboardingSpace) {
+    if (!onboardingSpace.dataset.formEventAttached) {
+      onboardingSpace.dataset.formEventAttached = "true";
+
+      setTimeout(() => {
+        const onboardingForm = document.querySelector(".form");
+
+        if (onboardingForm) {
+          onboardingForm.addEventListener("submit", (event) => {
+            // Prevent form submission at the start of the event handler
+            event.preventDefault();
+
+            const loginNumber = document.getElementById("login-number").value;
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirm-password").value;
+            const nickname = document.getElementById("nickname").value;
+          
+            const onboardUserData = eventHandlers.validateForm(
+              loginNumber,
+              password,
+              confirmPassword,
+              nickname
+            );
+          
+            function postUserData(onboardUserData) {
+              return fetch("http://study.veras.ca/home.phps", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(onboardUserData),
+              })
+              .then(response => {
+                if (!response.ok) {
+                  alert(onboardUserData); // onboardUserData contains the error message
+                  throw new Error("Network response was not ok");
+                }
+          
+                return response.text();
+              });
+            }
+          
+            // Handle input field errors
+            if (typeof onboardUserData === "string") {
+              console.log(onboardUserData);
+              return; // Stop the function here if there are validation errors
+            }
+          
+            // Handle posting errors
+            postUserData(onboardUserData)
+      
+              .then(data => {
+                console.log("postUserData", postUserData);
+          
+                if (data.error) {
+                  // Show the error message returned by postUserData()/ after saeed links it properly
+                }
+              })
+              .catch(error => {
+                if (error.message.includes("NetworkError")) {
+                  alert("Network Error: Failed to reach the server.");
+                } else {
+                  // Handle prototype error
+          
+                  if (
+                    onboardUserData &&
+                    onboardUserData.loginNumber &&
+                    onboardUserData.password
+                  ) {
+                    alert(
+                      "This is a prototype, data not connected. Please press OK to proceed."
+                    );
+                    eventHandlers.onboardSuccess(loginNumber, password, nickname);
+          
+                    console.log("onboardUserData", onboardUserData);
+                  }
+                }
+              });
+
+          });
+        }
+      }, 100);
+    }
+  }
+
+
+
+
+          
   //UI-UPDATES
   store.subscribe(() => {
     const state = store.getState();
