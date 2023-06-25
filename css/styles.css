@@ -161,8 +161,8 @@ h2 {
   white-space    : nowrap;
   flex-direction : column;
   justify-content: flex-start;
-  font-size      : clamp(1.2rem, 1.8vw, 4vw);
-  line-height    : clamp(1.5rem, 2.1vw, 2.6rem);
+  font-size      : clamp(1rem, 1.2vw, 4vw);
+  line-height    : clamp(1.2rem, 2vw, 2.6rem);
   font-weight    : 800;
   color          : var(--f7-2ndry-theme-color-tint);
   padding        : 0px;
@@ -1687,10 +1687,6 @@ h5 {
     align-items: flex-start;
   }
 
-  h2 {
-    font-size: clamp(0.3rem, 3.3vw, 3rem) !important;
-    line-height: clamp(1.3rem, 3.6vw, 3rem) !important;
-  }
 
   #vFstFrame h1 {
     font-size: clamp(2rem, 4.6vw, 10rem);

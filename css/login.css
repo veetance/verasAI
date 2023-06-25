@@ -31,9 +31,9 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: clamp(20px,8vw,92px);
+  padding: clamp(20px,7.5vw,50vw);
   grid-area: header;
-  gap: 24px;
+  gap: 34px;
 }
 
 .overline .material-symbols-outlined{
@@ -68,7 +68,7 @@
   align-items: flex-start;
   grid-area: content;
   overflow:visible;
-  padding: clamp(20px,8vw,92px);
+  padding: clamp(20px,7.5vw,50vw);
   box-sizing: border-box;
 }
 
@@ -251,10 +251,10 @@ justify-content: space-between;
 
 /* Styles for desktop min width */
 
-@media (min-width: 1530px) {
+@media (min-width: 1550px) {
 
   .full-page .content, .header{
-    padding-top: clamp(1em,9vw, 50vh) !important;
+    padding-top: clamp(1em,9vw,50vh) !important;
   }
 
   .full-page .title {

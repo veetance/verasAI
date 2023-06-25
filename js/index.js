@@ -259,17 +259,9 @@ document.addEventListener("DOMContentLoaded", () => {
        
         let onboardingSpace = document.querySelector(".onboarding-Space");
         handleOnboardingFormSubmission(onboardingSpace);
-
-  
-        let waitListButton = document.querySelector("#waitList");
-        waitListButton.addEventListener("click", () => {
-          store.dispatch(actions.showHome()), window.location.reload();
-        });
-
+      
       });
 
-     
-  
     },
     handleNewsfeedButtonClick: () => {
       loadPage(
@@ -345,7 +337,10 @@ document.addEventListener("DOMContentLoaded", () => {
               alert(
                 "Prototype: Data is not connected. Proceeding to news feed..."
               );
-              onboardingIsComplete();
+
+              store.dispatch(actions.showNewsfeed());
+              eventHandlers.handleNewsfeedButtonClick();
+          
             });
           }
         }
@@ -376,11 +371,10 @@ document.addEventListener("DOMContentLoaded", () => {
         actions.showOnboardingSteps,
         actions.setOnboardingStepsContent
       ).then(() => {
-        eventHandlers.addStepButtonListeners();
-        eventHandlers.updateStep();
+          eventHandlers.addStepButtonListeners();
+          eventHandlers.updateStep();
+          elements.splash.style.display = "none";
       });
-
-      
       // Add any additional code specific to onboardSuccess here
     },
     onboardingIsComplete: () => {
@@ -512,13 +506,23 @@ document.addEventListener("DOMContentLoaded", () => {
     return `${path}${pageName}.html`;
   }
   async function loadPage(pageName, actionToShow, actionToSetContent) {
+    
+    isLoadPageRunning = false;
+    if (!isLoadPageRunning) {
+      displayLoadSplash();
+    } else if (isLoadPageRunning) {
+      displayLongSplash();
+    }
+
     store.dispatch(actionToShow);
+ 
     try {
       const response = await fetch(getPagePath(pageName));
       const html = await response.text();
-      displayLoadSplash();
+
       store.dispatch(actionToSetContent(html));
       let pageSpace = document.querySelector(`.${pageName}-Space`);
+
       if (!pageSpace) {
         pageSpace = document.createElement("div");
         pageSpace.classList.add(`${pageName}-Space`, "fade-in");
@@ -528,6 +532,7 @@ document.addEventListener("DOMContentLoaded", () => {
           elements.surfaceView.firstChild
         );
       }
+
       pageSpace.innerHTML = html;
       document.title = pageName.charAt(0).toUpperCase() + pageName.slice(1);
       elements.surfaceView.style.opacity = 0;
@@ -540,6 +545,7 @@ document.addEventListener("DOMContentLoaded", () => {
       pageSpace.classList.add("active");
       elements.surfaceView.style.opacity = 1;
       elements.splash.style.display = "none";
+      
     } catch (error) {
       console.error(error);
     }
@@ -667,17 +673,29 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 100);
     }
   }
-
-  
   function handleOnboardingFormSubmission(onboardingSpace) {
     if (!onboardingSpace.dataset.formEventAttached) {
       onboardingSpace.dataset.formEventAttached = "true";
 
+      isLoadPageRunning = true;
+      if (!isLoadPageRunning) {
+        displayLoadSplash();
+      } else if (isLoadPageRunning) {
+        displayLongSplash();
+      }
+
       setTimeout(() => {
         const onboardingForm = document.querySelector(".form");
+        isLoadPageRunning = false;
+
+        let waitListButton = document.querySelector("#waitList");
+        waitListButton.addEventListener("click", () => {
+          store.dispatch(actions.showHome()), window.location.reload();
+        });
 
         if (onboardingForm) {
           onboardingForm.addEventListener("submit", (event) => {
+
             // Prevent form submission at the start of the event handler
             event.preventDefault();
 
