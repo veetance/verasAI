@@ -127,6 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
 ///
 /// main index.js section
 document.addEventListener("DOMContentLoaded", () => {
+  
   let Loadsplash = document.querySelector(".v-splash");
   let isLoadPageRunning = false;
   if (!isLoadPageRunning) {
@@ -264,13 +265,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     },
     handleNewsfeedButtonClick: () => {
-      loadPage(
-        "newsfeed",
-        actions.showNewsfeed,
-        actions.setNewsfeedContent
-      ).then(() => {
-        eventHandlers.onboardingIsComplete();
+      store.dispatch(actions.showNewsfeed());
+      loadPage("newsfeed",actions.showNewsfeed,actions.setNewsfeedContent).then(() => {
+
+        isLoadPageRunning = true;
+        if (!isLoadPageRunning) {
+          displayLoadSplash();
+        } else {
+          displayLongSplash();
+        }
+
+        setTimeout(() => { 
+          isLoadPageRunning = false;
+          eventHandlers.onboardingIsComplete();
+          elements.splash.style.display = "none";
+        },2000);
       });
+
     },
     handleInsightsButtonClick: () => {
       store.dispatch(actions.hideCreate());
@@ -334,13 +345,15 @@ document.addEventListener("DOMContentLoaded", () => {
           const stepFinishButton = nextStep.querySelector(".step-finish");
           if (stepFinishButton) {
             stepFinishButton.addEventListener("click", function () {
+
+              eventHandlers.handleNewsfeedButtonClick();
+
               alert(
                 "Prototype: Data is not connected. Proceeding to news feed..."
               );
 
-              store.dispatch(actions.showNewsfeed());
-              eventHandlers.handleNewsfeedButtonClick();
-          
+             
+      
             });
           }
         }
@@ -358,6 +371,7 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         displayLongSplash();
       }
+
       // Update the UI based on the login status
       updateLoginUI(true);
 
@@ -366,19 +380,26 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 2000);
     },
     onboardSuccess: () => {
-      loadPage(
-        "onboardingSteps",
-        actions.showOnboardingSteps,
-        actions.setOnboardingStepsContent
-      ).then(() => {
+
+      loadPage("onboardingSteps",actions.showOnboardingSteps,actions.setOnboardingStepsContent).then(() => {
+
+        isLoadPageRunning = true;
+        if (!isLoadPageRunning) {
+          displayLoadSplash();
+        } else {
+          displayLongSplash();
+        }
           eventHandlers.addStepButtonListeners();
           eventHandlers.updateStep();
-          elements.splash.style.display = "none";
+
+          setTimeout(() => {
+            elements.splash.style.display = "none";
+          }
+          , 2000);
       });
-      // Add any additional code specific to onboardSuccess here
+   
     },
     onboardingIsComplete: () => {
-      store.dispatch(actions.showNewsfeed());
       const LogOutButton = document.querySelector(".logout-button");
       LogOutButton.addEventListener("click", function () {
         alert("You are about to be logged out.");
@@ -424,11 +445,13 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Please check your password.");
         return false;
       } else if (loginNumber === "123456789" && password === "123456") {
+
         isLoadPageRunning = true;
         if (!isLoadPageRunning) {
           displayLoadSplash();
         } else {
           displayLongSplash();
+
           setTimeout(() => {
             eventHandlers.handleNewsfeedButtonClick();
           }, 2000);
@@ -506,16 +529,10 @@ document.addEventListener("DOMContentLoaded", () => {
     return `${path}${pageName}.html`;
   }
   async function loadPage(pageName, actionToShow, actionToSetContent) {
-    
-    isLoadPageRunning = false;
-    if (!isLoadPageRunning) {
-      displayLoadSplash();
-    } else if (isLoadPageRunning) {
-      displayLongSplash();
-    }
 
     store.dispatch(actionToShow);
- 
+
+  
     try {
       const response = await fetch(getPagePath(pageName));
       const html = await response.text();
@@ -771,9 +788,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 100);
     }
   }
-
-
-
 
           
   //UI-UPDATES
