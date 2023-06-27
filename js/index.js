@@ -406,6 +406,18 @@ document.addEventListener("DOMContentLoaded", () => {
         store.dispatch(actions.showHome());
         window.location.reload();
       });
+
+      const navLink = document.querySelector('#hamBurg');
+      const settingsModal = document.querySelector('.settings-modal');
+      if (navLink && settingsModal) {
+        navLink.addEventListener('click', function() {
+          this.classList.toggle('active');
+          settingsModal.classList.toggle('shown');
+        });
+      }
+
+
+
     },
     validateForm: (loginNumber, password, confirmPassword, nickname) => {
       if (!/^\d{2,9}$/.test(loginNumber)) {
@@ -575,14 +587,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const loginNumberInput = document.querySelector("#login-number");
     const passwordInput = document.querySelector("#password");
-
+    
     const onboardingButtonInner = document.querySelector("#onboarding-button");
  
-    const centerComp = document.querySelector(".login-Space .content");
 
     if (isLoggedIn) {
       onboardingButtonInner.style.display = "flex";
-      centerComp.style.paddingTop = "64px";
+ 
       formTitle.textContent = "Login Success";
       ToFeedbtn.style.display = "none";
       title.innerHTML = "Veras<span>Authentication</span>";
@@ -611,11 +622,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const upNavNewsfeed = document.querySelector(".navbar-wrapper");
     if (newsfeedVisible) {
       upNavNewsfeed.style.display = "none";
-    } else {
+       console.log('navLink or settingsModal not found');
+     } else {
       upNavNewsfeed.style.display = "flex";
     }
   }
-  function handleLoginFormSubmission(loginSpace) {
+  
+
+    function handleLoginFormSubmission(loginSpace) {
     if (!loginSpace.dataset.formEventAttached) {
       loginSpace.dataset.formEventAttached = "true";
 
