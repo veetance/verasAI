@@ -210,7 +210,7 @@
   justify-content: flex-start;
   margin-left    : 94px;
   margin-bottom  : 10px;
-  padding: 10px;
+  padding: 4px;
   overflow       : hidden;
 }
 
@@ -226,15 +226,15 @@
   border-radius: 10px;
   overflow     : hidden;
   position     : relative;
-  left         : -2000px;
-
-  transition   : all 0.2s cubic-bezier(0,1.02,0,1.02);
+  left         : -200px;
+  transition   : all 1s cubic-bezier(0,1.02,0,1.02);
 }
 
 .settings-modal.shown {
-  left: 0;
-  box-shadow   : rgba(165, 148, 243, 0.349) 0px -1px 009px 0px;
-  transition   : all 0.2s cubic-bezier(0,1.02,0,1.02);
+  left: 0px;
+  box-shadow   : rgba(165, 148, 243, 0.26) 0px -1px 008px 0px;
+  transition   : all .5s cubic-bezier(0,1.02,0,1.02);
+ 
 }
 
 .modal-btn {
@@ -552,8 +552,7 @@
     justify-content: flex-start;
     margin-right   : 10px;
     margin-bottom  : 90px;
-
-
+    overflow:visible;
   }
 
   .settings-modal {
@@ -564,10 +563,19 @@
     border          : solid 1px #ffffff86;
     height          : 180px;
     width           : 150px;
-
+    overflow     : hidden;
+    position     : relative;
+    left         : 200px;
     border-radius: 10px;
     overflow     : hidden;
   }
+
+  .settings-modal.shown {
+    left: 0px;
+  }
+
+
+  
 
   .modal-btn {
     display: flex;

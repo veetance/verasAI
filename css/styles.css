@@ -82,27 +82,27 @@ img {
 }
 /* style scroll bar */
 ::-webkit-scrollbar {
-  display: flex;
-  position: relative !important;
-  background-color: hsla(0, 0%, 1%, 0) !important;
+  display: flex !important;
+  position: absolute;
+  left: -100px !important;
   width: 4px;
   height: 100%;
 }
+
 ::-webkit-scrollbar-track {
   display: flex;
   box-shadow: 0 0 3px hsla(236, 15%, 35%, 0);
-  background-color: hsla(0, 0%, 1%, 0) !important;
   border-radius: 10px;
-  margin-top: 96px;
+  margin-top: 96px !important;
+  
 }
 ::-webkit-scrollbar-thumb {
-  display: flex !important;
+  display: flex;
   background-image: linear-gradient(
     to top,
     rgba(97, 83, 163, 0.582),
     rgba(97, 83, 163, 0.582)
   );
-
   border-radius: 10px;
   height: calc(100% / 8) !important;
 }
@@ -1007,24 +1007,14 @@ h5 {
   height: 100%;
   margin: 0px;
   grid-gap: 0px;
-  /* background-color: #e2ddff; */
+  background-color: #e2ddff;
   border-radius: 0px;
-  padding: 0px 0px;
+  padding: 0px ;
 
-  overflow-y: scroll !important;
   overflow: overlay !important;
+  overflow-y: auto !important;
   overflow-x: hidden !important;
 
-  -webkit-user-select: none;
-  /* Chrome all / Safari all */
-  -moz-user-select: none;
-  /* Firefox all */
-  -ms-user-select: none;
-  /* IE 10+ */
-
-  /* No support for these yet, use at own risk */
-  -o-user-select: none;
-  user-select: none;
 }
 .mobile-nav {
   display: flex;
