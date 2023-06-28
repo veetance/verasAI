@@ -6,10 +6,14 @@
 
 .onboardingSteps-Space {
   display: flex;
-  height: 100vh!important;
+  height: 100vh;
   width: 100%;
   align-content: flex-start;
   align-items: flex-start;
+
+  overflow-y: scroll !important;
+  overflow: overlay !important;
+  overflow-x: hidden !important;
 }
 
 
@@ -29,8 +33,6 @@
   height: 100%;
   gap: 20px;
   justify-content: space-between;
-
-  overflow: hidden;
 }
 
 .tri-colm-img{
@@ -38,6 +40,8 @@
   display: flex ;
   flex-direction: row;
   gap: 40px;
+
+  padding-bottom: 20px;
   
 
 }
@@ -49,7 +53,6 @@
   justify-content: flex-start;
   width: 100%;
   height: 100%;
-  overflow-y: scroll;
 }
 
 
@@ -130,7 +133,6 @@ padding-inline-start: 20px;
   height: 100% !important;
   width: 100% !important;
   gap: 40px;
-  justify-content: space-between;
 }
 
 .step-img {
@@ -257,7 +259,6 @@ padding-inline-start: 20px;
   justify-content: space-between;
   padding: 40px;
   width: 100%;
-  height: 100%;
   gap:20px;
 }
 
@@ -276,6 +277,7 @@ padding-inline-start: 20px;
 .step-header {
   display: flex;
   flex-direction: column;
+
   border: solid 0px black;
   background-image: linear-gradient(to bottom,#8278c600,#8c7edf,#6a5db6,#5e50b2, #5e50b2);
   width:100%;
@@ -394,13 +396,11 @@ padding-inline-start: 20px;
 
 .step.active {
   display: flex;
+  height: 100%;
+  width: 100%;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
   padding: 0px;
   margin-bottom: 0px;
-  width: 100%;
-  height: 100%;
 }
 
 .global-back-btn{
@@ -431,22 +431,25 @@ padding-inline-start: 20px;
   /* desktop devices */
 
 @media (min-width: 1055px) and (max-width: 3080px) {
-    .onboarding-Space{
 
+
+    .onboarding-Space{
       height: 100vh !important;
     } 
 
-    
-
   }
-  
+
+
 
 /* Tablet devices */
 @media (min-width: 580px) and (max-width: 1055px) {
 
+  .step.active {
+    height: auto;
+  }
 
 
- 
+
   .step-nav{
     display:flex !important;
   }
@@ -501,7 +504,11 @@ padding-inline-start: 20px;
 /* Mobile devices */
 @media (min-width: 370px) and (max-width: 579px) {
 
-
+ 
+  .step.active {
+    height: auto;
+    }
+ 
   .step-nav{
     display: none !important;
   }
@@ -529,7 +536,7 @@ padding-inline-start: 20px;
   display: flex;
   flex-direction: column !important;
   gap: 40px;
-  padding-bottom: 40px !important;
+  padding-bottom: 20px;
 }
 
 
@@ -595,6 +602,10 @@ height: auto;
 
 /* Small mobile devices */
 @media (min-width: 200px) and (max-width: 369px) {
+  
+  .step.active {
+    height: auto;
+  }
 
 
   .step-nav{
@@ -628,7 +639,6 @@ height: auto;
   display: flex;
   flex-direction: column !important;
   gap: 40px;
-  padding-bottom: 40px !important;
 }
  
 

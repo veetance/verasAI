@@ -204,7 +204,6 @@ document.addEventListener("DOMContentLoaded", () => {
       url.hash = pageName;
       history.replaceState({}, document.title, `${url.hash}`);
 
-
       switch (pageName) {
         case "login":
           eventHandlers.handleLoginButtonClick();
@@ -342,21 +341,17 @@ document.addEventListener("DOMContentLoaded", () => {
         nextStep.classList.add("active");
 
         if (parseInt(nextStep.dataset.step) === 5) {
-          const stepFinishButton = nextStep.querySelector(".step-finish");
-          if (stepFinishButton) {
-            stepFinishButton.addEventListener("click", function () {
-
-              eventHandlers.handleNewsfeedButtonClick();
-
-              alert(
-                "Prototype: Data is not connected. Proceeding to news feed..."
-              );
-
-             
-      
+          const stepFinishButtons = nextStep.querySelectorAll(".step-finish");
+          if (stepFinishButtons) {
+            stepFinishButtons.forEach(function(button) {
+              button.addEventListener("click", function () {
+                eventHandlers.handleNewsfeedButtonClick();
+                alert("Prototype: Data is not connected. Proceeding to news feed...");
+              });
             });
           }
         }
+        
       }
     },
     successfulLogin: (loginNumberInput, passwordInput) => {
@@ -391,7 +386,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
           eventHandlers.addStepButtonListeners();
           eventHandlers.updateStep();
-
           setTimeout(() => {
             elements.splash.style.display = "none";
           }

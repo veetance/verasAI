@@ -4,7 +4,7 @@
   grid-template-rows: 1fr;
   padding-top: 90px;
   width: 100%;
-  height: auto;
+  height: 100%;
   grid-template-areas:
     " content header";
 

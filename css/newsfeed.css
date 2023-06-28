@@ -552,7 +552,7 @@
     justify-content: flex-start;
     margin-right   : 10px;
     margin-bottom  : 90px;
-    overflow:visible;
+    overflow:hidden;
   }
 
   .settings-modal {
