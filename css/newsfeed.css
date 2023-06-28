@@ -210,7 +210,7 @@
   justify-content: flex-start;
   margin-left    : 94px;
   margin-bottom  : 10px;
-  padding: 4px;
+  padding        : 4px;
   overflow       : hidden;
 }
 
@@ -222,19 +222,19 @@
   border          : solid 1px #ffffff86;
   height          : 180px;
   width           : 150px;
-  box-shadow   : rgba(165, 148, 243, 0.349) 0px -1px 0px 0px;
-  border-radius: 10px;
-  overflow     : hidden;
-  position     : relative;
-  left         : -200px;
-  transition   : all 1s cubic-bezier(0,1.02,0,1.02);
+  box-shadow      : rgba(165, 148, 243, 0.349) 0px -1px 0px 0px;
+  border-radius   : 10px;
+  overflow        : hidden;
+  position        : relative;
+  left            : -200px;
+  transition      : all 1s cubic-bezier(0, 1.02, 0, 1.02);
 }
 
 .settings-modal.shown {
-  left: 0px;
-  box-shadow   : rgba(165, 148, 243, 0.26) 0px -1px 008px 0px;
-  transition   : all .5s cubic-bezier(0,1.02,0,1.02);
- 
+  left      : 0px;
+  box-shadow: rgba(165, 148, 243, 0.26) 0px -1px 008px 0px;
+  transition: all .5s cubic-bezier(0, 1.02, 0, 1.02);
+
 }
 
 .modal-btn {
@@ -335,7 +335,7 @@
 }
 
 .SWAP-sidebar .bottom .nav-lnk:active {
-  background: #f7f7ff;
+  background         : #f7f7ff;
   background-position: center -100% !important;
   /* move the midpoint down by 30% */
   border             : solid 1px #ebe7ffcb;
@@ -552,7 +552,7 @@
     justify-content: flex-start;
     margin-right   : 10px;
     margin-bottom  : 90px;
-    overflow:hidden;
+    overflow       : hidden;
   }
 
   .settings-modal {
@@ -563,11 +563,11 @@
     border          : solid 1px #ffffff86;
     height          : 180px;
     width           : 150px;
-    overflow     : hidden;
-    position     : relative;
-    left         : 200px;
-    border-radius: 10px;
-    overflow     : hidden;
+    overflow        : hidden;
+    position        : relative;
+    left            : 200px;
+    border-radius   : 10px;
+    overflow        : hidden;
   }
 
   .settings-modal.shown {
@@ -575,7 +575,7 @@
   }
 
 
-  
+
 
   .modal-btn {
     display: flex;
