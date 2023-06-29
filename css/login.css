@@ -4,11 +4,11 @@
   grid-template-rows   : 1fr;
   padding-top          : 90px;
   width                : 100%;
-  height               : 100%;
+  height               : auto;
   grid-template-areas  :
     " content header";
 
-  overflow-y: scroll;
+  overflow:hidden;  
 }
 
 
@@ -342,7 +342,7 @@
     flex-direction: column !important;
     width         : 100%;
     padding-top   : 0px;
-
+    justify-content: flex-start;
   }
 
   .full-page .header {
@@ -514,6 +514,7 @@
 .onboarding-Space.fade-in.active {
   opacity  : 1;
   transform: translateY(0);
+  overflow-y: scroll;
 }
 
 .translate-up {
