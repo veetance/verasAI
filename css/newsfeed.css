@@ -8,6 +8,7 @@
   display: flex;
 
   padding-top:0px;
+
 }
 
 
@@ -50,7 +51,7 @@
 .newsfeed-Zone{
   display       : flex;
   flex-direction: column;
-  height        : 100vh;
+  height        : 100%;
   width         : 100%;
   justify-content: space-between;
 }
@@ -71,14 +72,12 @@
 .feed-wrapper {
   display              : grid;
   height               : 100%;
+  width: 100%;
   grid-template-columns: 2fr 1fr;
   padding              : 0px !important;
   background-color     : #f7f7ff !important;
   grid-gap             : 8px;
-  overflow-y           : scroll;
-  overflow-x           : hidden;
-  scroll-behavior      : smooth;
-  overflow             : overlay;
+ 
 }
 
 .feed-scroll {
