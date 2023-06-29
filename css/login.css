@@ -8,7 +8,6 @@
   grid-template-areas  :
     " content header";
 
-  overflow:hidden;  
 }
 
 
@@ -116,7 +115,8 @@
 
   font-weight: 900 !important;
 
-  background-color: var(--v-header-light-mint);
+  /* background-color: var(--v-header-light-mint); */
+  background-color: rgba(252, 100, 100, 0.151);
 
   border-bottom: solid 1px #3caa8b41;
 
@@ -514,7 +514,6 @@
 .onboarding-Space.fade-in.active {
   opacity  : 1;
   transform: translateY(0);
-  overflow-y: scroll;
 }
 
 .translate-up {

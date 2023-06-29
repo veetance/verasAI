@@ -1117,16 +1117,9 @@ h5 {
   background-color: #e2ddff;
   border-radius   : 0px;
   padding         : 0px;
-
   overflow-y: scroll !important;
   overflow  : overlay !important;
   overflow-x: hidden !important;
-
-
-
-
-
-
 }
 
 .mobile-nav {
