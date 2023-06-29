@@ -618,6 +618,7 @@
 
 /* Small mobile devices */
 @media (min-width: 200px) and (max-width: 369px) {
+  
   #rulesStep{
     height: auto !important;
   }
