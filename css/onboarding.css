@@ -25,6 +25,8 @@
   flex-direction : column;
   align-items    : center;
   justify-content: flex-start;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 .rules .step-info-main {
@@ -618,7 +620,6 @@
 
 /* Small mobile devices */
 @media (min-width: 200px) and (max-width: 369px) {
-
   #rulesStep{
     height: auto !important;
   }
@@ -649,7 +650,6 @@
 
   .step-main {
     padding: 20px !important;
-    padding-bottom: 80px !important;
   }
 
   .tri-colm-img {
