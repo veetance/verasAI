@@ -5,8 +5,9 @@
   padding-top          : 90px;
   width                : 100%;
   height               : 100vh;
-  overflow: hidden;
-  overflow-y: scroll;
+  overflow-y: scroll !important;
+  overflow: overlay !important;
+  overflow-x: hidden !important;
   grid-template-areas  :
     " content header";
 }
@@ -14,8 +15,12 @@
 
 
 
+
+
 .login-Space {
   display: flex;
+  align-content: flex-start;
+  align-items: flex-start;
 }
 
 .header {
