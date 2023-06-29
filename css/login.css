@@ -4,10 +4,11 @@
   grid-template-rows   : 1fr;
   padding-top          : 90px;
   width                : 100%;
-  height               : auto;
+  height               : 100vh;
+  overflow: hidden;
+  overflow-y: scroll;
   grid-template-areas  :
     " content header";
-
 }
 
 
@@ -115,8 +116,8 @@
 
   font-weight: 900 !important;
 
-  /* background-color: var(--v-header-light-mint); */
-  background-color: rgba(252, 100, 100, 0.151);
+  background-color: var(--v-header-light-mint);
+ 
 
   border-bottom: solid 1px #3caa8b41;
 
