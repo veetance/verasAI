@@ -1,53 +1,42 @@
 .onboarding-Space {
   display: flex;
-  height : 100vh !important;
   width  : 100%;
+  height : 100vh !important;
 }
 
 .onboardingSteps-Space {
   display      : flex;
-  height       : 100vh;
+  height: 100%;
   width        : 100%;
   align-content: flex-start;
   align-items  : flex-start;
+  overflow  : hidden;
 
-  overflow-y: scroll !important;
-  overflow  : overlay !important;
-  overflow-x: hidden !important;
 }
-
-
 
 .onboarding-steps {
   display        : flex;
-  height         : 100%;
-  width          : 100%;
+  height: 100%;
   flex-direction : column;
   align-items    : center;
   justify-content: flex-start;
-  overflow: hidden;
-  overflow-y: scroll;
+
+  overflow: scroll;
 }
 
 .rules .step-info-main {
   display        : flex;
-  flex-direction : column !important;
   height         : 100%;
   gap            : 20px;
   justify-content: space-between;
+  flex-direction : column !important;
 }
 
-
-
 .tri-colm-img {
-
   display       : flex;
   flex-direction: row;
   gap           : 40px;
-
   padding-bottom: 20px;
-
-
 }
 
 .steps {
@@ -57,9 +46,9 @@
   justify-content: flex-start;
   width          : 100%;
   height         : 100%;
+
+  
 }
-
-
 
 .steps-ul {
   height      : 100%;
@@ -79,54 +68,38 @@
 }
 
 .steps-ul ul {
-
-  display: block;
-
-  list-style-type: disc;
-
-  margin-block-start: 0px;
-
-  margin-block-end: 1em;
-
-  margin-inline-start: 0px;
-
-  margin-inline-end: 0px;
-
+  display             : block;
+  list-style-type     : disc;
+  margin-block        : 0px 1em;
+  margin-inline       : 0px;
   padding-inline-start: 20px;
 }
 
 .steps-ul ul li {
   margin-bottom       : 10px;
-  list-style-type     : style circle;
-  color               : #34a786;
+  color               : rgb(52, 167, 134);
   font-size           : x-large;
   padding-inline-start: 16px;
 }
 
 .steps-ul ul li p {
-  font-family: "mulish" !important;
   font-size  : clamp(1rem, 2vw, 1rem);
   line-height: clamp(1.5rem, 2vw, 1rem);
+  font-family: mulish !important;
 }
-
-
 
 .steps::-webkit-scrollbar {
   display: none !important;
-
 }
 
 .step-quote-wrapper {
   display         : flex;
   height          : auto;
-  /* margin       : 20px 0px; */
-  justify-content : flex-start;
-  align-content   : center;
+  place-content   : center flex-start;
   align-items     : center;
-  /* border       : solid 1px #34a786; */
   padding         : 4px;
   border-radius   : 8px;
-  background-color: #fbfffdb3;
+  background-color: rgba(251, 255, 253, 0.7);
 }
 
 .step-quote-wrapper h2 {
@@ -136,9 +109,9 @@
 .step-info {
   display       : flex;
   flex-direction: column;
+  gap           : 40px;
   height        : 100% !important;
   width         : 100% !important;
-  gap           : 40px;
 }
 
 .step-img {
@@ -146,13 +119,13 @@
   width              : 100%;
   height             : 100%;
   min-height         : 150px;
-  background-color   : #554c7d26;
+  background-color   : rgba(85, 76, 125, 0.15);
   border-radius      : 10px;
-  background-image   : url(../img/featured-img-8.png);
+  background-image   : url("../img/featured-img-8.png");
   mix-blend-mode     : multiply;
-  background-position: center;
+  background-position: center center;
   background-size    : cover;
-  border             : solid 1px #dbd6ff;
+  border             : 1px solid rgb(219, 214, 255);
 }
 
 .steps-article {
@@ -163,9 +136,6 @@
   height         : 100%;
 }
 
-
-
-
 .steps-article .Tagline {
   flex-direction: row;
   width         : 100%;
@@ -175,12 +145,10 @@
 .rules .steps-article .Tagline {
   flex-direction: row;
   width         : 100%;
-  padding       : 10px;
-  padding-left  : 16px;
+  padding       : 10px 10px 10px 16px;
 }
 
 .rules .steps-article .Tagline::before {
-
   margin-right: 16px;
   display     : none;
 }
@@ -199,20 +167,17 @@
 }
 
 .steps-article .Tagline::before {
-  display                   : flex;
-  /* Set the content of the ::before pseudo-element */
-  content                   : "";
-  /* Position the           ::before pseudo-element */
-  position                  : relative;
-  top                       : 0;
-  left                      : 0;
-  /* Set the background color and size */
-  background-image          : linear-gradient(to top, #ffffff00, #ffffff00);
-  border                    : solid 2px #34a786;
-  border-radius             : 50px;
-  width                     : 6px;
-  height                    : 100% !important;
-  margin-right              : 20px;
+  display         : flex;
+  content         : "";
+  position        : relative;
+  top             : 0px;
+  left            : 0px;
+  background-image: linear-gradient(to top, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
+  border          : 2px solid rgb(52, 167, 134);
+  border-radius   : 50px;
+  width           : 6px;
+  margin-right    : 20px;
+  height          : 100% !important;
 }
 
 .steps-article .Tagline-li {
@@ -221,36 +186,23 @@
   margin-top    : 0px !important;
 }
 
-
 .steps-article .Tagline-li::before {
-  content                   : "1";
-  /* Set the content of the ::before pseudo-element to the digit */
-  display                   : flex;
-  justify-content           : center;
-  align-items               : center;
-  padding                   : 10px;
-  /* Add padding */
-  margin-right              : 10px;
-  color                     : var(--f7-2ndry-theme-color-tint);
-  border                    : solid 2px #34a786;
-  /* Set the border */
-  border-radius             : 10%;
-  /* Make it circular */
-  width                     : 30px;
-  /* Set the width */
-  height                    : 30px;
-  /* Set the height */
-  font-weight               : 900;
-  /* Make the content bold */
-  font-family               : "poppins";
-  font-size                 : 1.3em;
-  /* Set the font size similar to h2 */
-
-  aspect-ratio: 1/1;
+  content        : "1";
+  display        : flex;
+  justify-content: center;
+  align-items    : center;
+  padding        : 10px;
+  margin-right   : 10px;
+  color          : var(--f7-2ndry-theme-color-tint);
+  border         : 2px solid rgb(52, 167, 134);
+  border-radius  : 10%;
+  width          : 30px;
+  height         : 30px;
+  font-weight    : 900;
+  font-family    : poppins;
+  font-size      : 1.3em;
+  aspect-ratio   : 1 / 1;
 }
-
-
-
 
 .step-info-main {
   display       : flex;
@@ -260,7 +212,6 @@
   gap           : 40px;
 }
 
-
 .step-main {
   display        : flex;
   flex-direction : column;
@@ -269,6 +220,7 @@
   width          : 100%;
   height         : 100%;
   gap            : 20px;
+
 }
 
 .rules {
@@ -280,28 +232,22 @@
   gap            : 20px;
 }
 
-
-
 .steps p {
   color: var(--f7-theme-color);
 }
-
-
 
 .step {
   display: none;
 }
 
 .step-header {
-  display       : flex;
-  flex-direction: column;
-
-  border          : solid 0px black;
-  background-image: linear-gradient(to bottom, #8278c600, #8c7edf, #6a5db6, #5e50b2, #5e50b2);
+  display         : flex;
+  flex-direction  : column;
+  border          : 0px solid black;
+  background-image: linear-gradient(rgba(130, 120, 198, 0), rgb(140, 126, 223), rgb(106, 93, 182), rgb(94, 80, 178), rgb(94, 80, 178));
   width           : 100%;
   height          : auto;
-  padding         : 40px;
-  padding-top     : 130px;
+  padding         : 130px 40px 40px;
   gap             : 20px;
 }
 
@@ -316,68 +262,53 @@
   color          : aliceblue;
   white-space    : nowrap;
   justify-content: space-between;
-
 }
-
-
 
 .overline strong {
   display      : flex;
   opacity      : 1;
-  border       : solid 1px #5f50b200;
-  width        : fit-content !important;
-  height       : fit-content !important;
+  border       : 1px solid rgba(95, 80, 178, 0);
   border-radius: 7px;
   cursor       : pointer;
-
+  width        : fit-content !important;
+  height       : fit-content !important;
 }
 
-
 .overline strong p {
-  display    : flex;
-  color      : #5e50b2;
-  font-weight: 500;
-  height     : 100%;
-  align-items: center;
-
-  padding-bottom: .7px;
+  display       : flex;
+  color         : rgb(94, 80, 178);
+  font-weight   : 500;
+  height        : 100%;
+  align-items   : center;
+  padding-bottom: 0.7px;
 }
 
 .overline strong span {
   display    : flex;
-  color      : #5e50b2;
+  color      : rgb(94, 80, 178);
   font-weight: 500;
   height     : 100%;
   align-items: center;
-  transition : all 1s cubic-bezier(0, 1.02, 0, 1.02);
-
-
+  transition : all 1s cubic-bezier(0, 1.02, 0, 1.02) 0s;
 }
 
 .overline strong span:hover {
-
   font-weight     : 500;
   height          : 100%;
   padding-left    : 8px;
   margin-top      : 4px;
   align-items     : center;
-  border          : solid 1px #5f50b271;
+  border          : 1px solid rgba(95, 80, 178, 0.443);
   border-radius   : 6px;
-  background-color: #f2f0ff;
-  ;
-
-
+  background-color: rgb(242, 240, 255);
 }
 
 .overline strong span:active {
-
-  padding-left: 8px;
-  margin-top  : 4px;
-
-  scale           : 98%;
-  background-color: #eae7fd;
-  opacity         : .8;
-
+  padding-left    : 8px;
+  margin-top      : 4px;
+  scale           : 0.98;
+  background-color: rgb(234, 231, 253);
+  opacity         : 0.8;
 }
 
 .step-nav {
@@ -397,13 +328,12 @@
 }
 
 .step-button {
-  display        : flex !important;
-  padding        : 12px 12px !important;
-  height         : auto !important;
-  width          : 100% !important;
   border-radius  : 8px;
   justify-content: space-between;
-  padding-left   : 20px;
+  display        : flex !important;
+  padding        : 12px !important;
+  height         : auto !important;
+  width          : 100% !important;
 }
 
 .step .next {
@@ -421,51 +351,25 @@
   flex-direction: column;
   padding       : 0px;
   margin-bottom : 0px;
+
+
 }
 
 .global-back-btn {
   display    : flex;
-  scale      : 140%;
-  border     : solid 2px #34a78600;
+  scale      : 1.4;
+  border     : 2px solid rgba(52, 167, 134, 0);
   font-weight: 600;
 }
 
-/* .global-back-btn:hover{
-  border: solid 2px #2181665b;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.global-back-btn:active {
-  opacity: .5;
-  border: solid 1px #2181665b;
-} */
-
-
-
-
-/* Media queries for onboarding page */
-
-
-
-/* desktop devices */
-
 @media (min-width: 1055px) and (max-width: 3080px) {
-
-
   .onboarding-Space {
     height: 100vh !important;
   }
-
 }
 
-
-
-/* Tablet devices */
 @media (min-width: 580px) and (max-width: 1055px) {
-
- 
-  #rulesStep{
+  #rulesStep {
     height: auto !important;
   }
 
@@ -474,7 +378,6 @@
   }
 
   .steps-ul ul {
-
     margin-right: 40px;
   }
 
@@ -482,29 +385,19 @@
     display: none;
   }
 
-
   .step-info {
-
     flex-direction: column;
-
   }
 
   .tri-colm-img {
     display       : flex;
-    flex-direction: column !important;
     gap           : 40px;
+    flex-direction: column !important;
     padding-bottom: 40px !important;
   }
 
-
-
-
   .onboarding-page {
-    grid-template-columns: 1fr;
-    grid-template-rows   : auto auto;
-    grid-template-areas  :
-      "header"
-      "content";
+    grid-template: "header"auto "content"auto / 1fr;
   }
 
   .onboarding-page .header {
@@ -520,12 +413,11 @@
   }
 }
 
-/* Mobile devices */
 @media (min-width: 370px) and (max-width: 579px) {
-
-  #rulesStep{
+  #rulesStep {
     height: auto !important;
   }
+
   .step-nav {
     display: none !important;
   }
@@ -539,32 +431,27 @@
   }
 
   .step-info-main {
-
-    flex-direction: column-reverse !important;
     gap           : 20px;
-
+    flex-direction: column-reverse !important;
   }
 
-
   .rules .step-quote-wrapper {
-    margin: 0px 0px;
+    margin: 0px;
   }
 
   .tri-colm-img {
     display       : flex;
-    flex-direction: column !important;
     gap           : 40px;
     padding-bottom: 20px;
+    flex-direction: column !important;
   }
-
 
   .step-main {
     padding: 20px !important;
   }
 
   .step-header {
-    padding    : 20px;
-    padding-top: 120px;
+    padding: 120px 20px 20px;
   }
 
   .steps-article .Tagline-li {
@@ -583,27 +470,13 @@
     margin-top  : 10px;
   }
 
-
-
-
-
-
-
   .steps-article {
     height: auto;
   }
 
-
-
   .onboarding-page {
-    grid-template-columns: 1fr;
-    grid-template-rows   : auto auto;
-    grid-template-areas  :
-      "header"
-      "content";
+    grid-template: "header"auto "content"auto / 1fr;
   }
-
-
 
   .onboarding-page .header {
     padding: 2rem;
@@ -618,9 +491,8 @@
   }
 }
 
-/* Small mobile devices */
 @media (min-width: 200px) and (max-width: 369px) {
-  #rulesStep{
+  #rulesStep {
     height: auto !important;
   }
 
@@ -636,55 +508,42 @@
     height: auto;
   }
 
-
   .step-info {
     gap: 20px;
   }
 
   .step-info-main {
-
-    flex-direction: column-reverse !important;
     gap           : 20px;
-
+    flex-direction: column-reverse !important;
   }
 
   .step-main {
-    padding: 20px !important;
+    padding: 20px 20px 80px !important;
   }
 
   .tri-colm-img {
     display       : flex;
-    flex-direction: column !important;
     gap           : 40px;
+    flex-direction: column !important;
   }
 
-
-
   .onboarding-page {
-    grid-template-columns: 1fr;
-    grid-template-rows   : auto auto;
-    grid-template-areas  :
-      "header"
-      "content";
+    grid-template: "header"auto "content"auto / 1fr;
   }
 
-
   .onboarding-page {
-    grid-template-columns: 1fr;
-    grid-template-rows   : auto auto;
-    grid-template-areas  :
-      "header"
-      "content";
+    grid-template: "header"auto "content"auto / 1fr;
   }
 
   .onboarding-page .header {
-
     padding: 1rem;
   }
 
   .step-header {
-    padding-top: 100px !important;
-    padding    : 20px;
+    padding-right : 20px;
+    padding-bottom: 20px;
+    padding-left  : 20px;
+    padding-top   : 100px !important;
   }
 
   .onboarding-page .content {
@@ -696,9 +555,7 @@
   }
 }
 
-/* Smallest mobile devices */
 @media (min-width: 1px) and (max-width: 260px) {
-
   .step-nav {
     display: none !important;
   }
@@ -719,35 +576,25 @@
     height: auto;
   }
 
-
   .step-info {
     gap: 20px;
   }
 
   .step-info-main {
-
-    flex-direction: column-reverse !important;
     gap           : 20px;
-
+    flex-direction: column-reverse !important;
   }
 
   .step-main {
     padding: 20px !important;
   }
 
-
   .step-quote-wrapper {
     margin: 20px 0px;
   }
 
-
-
   .onboarding-page {
-    grid-template-columns: 1fr;
-    grid-template-rows   : auto auto;
-    grid-template-areas  :
-      "header"
-      "content";
+    grid-template: "header"auto "content"auto / 1fr;
   }
 
   .step-header {
