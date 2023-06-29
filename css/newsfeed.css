@@ -6,6 +6,7 @@
 
 .newsfeed-Space .full-page {
   display: flex;
+
   padding-top:0px;
 }
 
@@ -39,6 +40,14 @@
 }
 
 .newsfeed-Space {
+  display       : flex;
+  flex-direction: column;
+  height        : 100vh;
+  width         : 100%;
+  justify-content: space-between;
+}
+
+.newsfeed-Zone{
   display       : flex;
   flex-direction: column;
   height        : 100vh;
@@ -527,11 +536,10 @@
 
 
 
-
 /* mobile newsfeed layer  */
 
 
-@media (min-width: 200px) and (max-width: 1000px) {
+@media (min-width: 200px) and (max-width: 1060px) {
 
   .surface-view {
     flex-direction: column;
@@ -543,6 +551,13 @@
     height        : 100%;
     width         : 100%;
   }
+
+  .newsfeed-Space .full-page{
+    flex-direction: column;
+  }
+  
+  
+  
 
   .collapsable-comp {
     display        : flex;
@@ -629,7 +644,7 @@
 
     background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 100%);
 
-    position: absolute;
+    position: relative;
     bottom  : 0;
 
   }
@@ -684,10 +699,6 @@
     grid-row: 2/ span 1;
   }
 
-  .feed-scroll {
-
-    margin-bottom: 80px;
-  }
 
 
 
