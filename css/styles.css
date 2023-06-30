@@ -10,7 +10,6 @@ html {
   font-family     : "Mulish", sans-serif;
   scroll-behavior : smooth;
   overflow        : hidden !important;
-  background-color: #fcfcfe;
 }
 
 html {
@@ -1092,7 +1091,7 @@ h5 {
 
 .touched-pressed:active {
   transform: scale(0.95);
-  border   : solid 0.01px #c8c8e725;
+  border   : solid 0.01px #c8c8e72a;
 }
 
 /* page-content */

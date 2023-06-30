@@ -6,7 +6,7 @@
 
 .newsfeed-Space .full-page {
   display: flex;
-
+  flex-direction: row-reverse;
   padding-top:0px;
 
 }
@@ -552,6 +552,7 @@
   }
 
   .newsfeed-Space .full-page{
+    display: flex;
     flex-direction: column;
   }
   
@@ -617,7 +618,7 @@
 
     height: auto !important;
 
-    border-top: solid 1px var(--v-lavender-plane);
+    border: solid 1px var(--v-lavender-plane);
 
   }
 
@@ -686,12 +687,14 @@
     grid-template-rows   : 1fr 70px;
     grid-gap             : 8px;
 
-    width: 100%;
+    width: auto;
 
   }
 
   .Newsfeed-Left {
     grid-row: 1 / span 1;
+    min-height: 400px;
+    height: 100%;
   }
 
   .Newsfeed-Right {
