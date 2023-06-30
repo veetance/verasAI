@@ -545,10 +545,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       store.dispatch(actionToSetContent(html));
       let pageSpace = document.querySelector(`.${pageName}-Space`);
+      let homeScroll = document.querySelector(".Veras-surface");
 
       if (!pageSpace) {
         pageSpace = document.createElement("div");
         pageSpace.classList.add(`${pageName}-Space`, "fade-in");
+        homeScroll.style.overflowY = "hidden";
         
         elements.surfaceView.insertBefore(
           pageSpace,
@@ -559,8 +561,11 @@ document.addEventListener("DOMContentLoaded", () => {
       pageSpace.innerHTML = html;
       document.title = pageName.charAt(0).toUpperCase() + pageName.slice(1);
       elements.surfaceView.style.opacity = 0;
-      pageSpace.style.height = "100%";
+      pageSpace.style.height = "100vh";
       pageSpace.style.width = "100%";
+      pageSpace.style.overflow = "hidden";
+      pageSpace.style.overflowY = "scroll";
+      pageSpace.style.overflow = "overlay";
       elements.footer.style.display = "none";
       elements.surfaceView.innerHTML = "";
       elements.surfaceView.appendChild(pageSpace);

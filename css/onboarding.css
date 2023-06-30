@@ -12,7 +12,7 @@
 
 .onboarding-steps {
   display        : flex;
-  height: auto;
+  height: 100%;
   width: 100%;
   flex-direction : column;
   align-items    : center;
@@ -22,10 +22,10 @@
 
 .rules .step-info-main {
   display        : flex;
-  height         : 100%;
+  height         : auto;
   gap            : 20px;
   justify-content: space-between;
-  flex-direction : column !important;
+  flex-direction : row;
 }
 
 .tri-colm-img {
@@ -44,10 +44,8 @@
   align-items    : center;
   justify-content: flex-start;
   width          : 100%;
-  height         : auto;
+  height         : 100%;
 
-  
-  
 }
 
 .steps-ul {
@@ -112,8 +110,8 @@
   display       : flex;
   flex-direction: column;
   gap           : 40px;
-  height        : 100% !important;
-  width         : 100% !important;
+  height        : auto; ;
+  width         : 100% ;
 }
 
 .step-img {
@@ -229,6 +227,10 @@
   height         : 100%;
   gap            : 20px;
 
+  overflow: hidden;
+  overflow: overlay;
+  overflow-y: scroll;
+
 }
 
 .rules {
@@ -238,6 +240,9 @@
   padding        : 40px;
   width          : 100%;
   gap            : 20px;
+
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 .steps p {
@@ -354,7 +359,7 @@
 
 .step.active {
   display       : flex;
-  height        : auto;
+  height        : 100%;
   width         : 100%;
   flex-direction: column;
   padding       : 0px;
@@ -371,13 +376,15 @@
   font-weight: 600;
 }
 
-@media (min-width: 1055px) and (max-width: 3080px) {
-  .onboarding-Space {
-    height: 100vh !important;
-  }
-}
+
 
 @media (min-width: 580px) and (max-width: 1055px) {
+
+
+  .rules .step-info-main {
+    flex-direction: column;
+  }
+
 
 
 
@@ -423,6 +430,9 @@
 
 @media (min-width: 370px) and (max-width: 579px) {
 
+  .rules .step-info-main {
+    flex-direction: column;
+  }
 
   .step-nav {
     display: none !important;
@@ -493,6 +503,10 @@
 }
 
 @media (min-width: 200px) and (max-width: 369px) {
+
+  .rules .step-info-main {
+    flex-direction: column;
+  }
 
   .step-nav {
     display: none !important;
