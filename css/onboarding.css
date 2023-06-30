@@ -34,6 +34,9 @@
   gap           : 40px;
   padding-bottom: 20px;
 }
+.tri-colm-img .steps-article{
+  gap: 0px;
+}
 
 .steps {
   display        : flex;
@@ -48,10 +51,9 @@
 }
 
 .steps-ul {
-  height      : 100%;
+  height      : auto;
   margin-left : 32px;
-  margin-right: 20px;
-  margin-top  : 20px;
+  margin-right: 10px;
 }
 
 .getStrtd .steps-ul {
@@ -65,11 +67,14 @@
 }
 
 .steps-ul ul {
-  display             : block;
+  display             :flex;
+  flex-direction: column;
   list-style-type     : disc;
   margin-block        : 0px 1em;
-  margin-inline       : 0px;
+  margin-inline       : 0px !important;
   padding-inline-start: 20px;
+  margin-bottom: 0px;
+  gap: 10px;
 }
 
 .steps-ul ul li {
@@ -123,6 +128,7 @@
   background-position: center center;
   background-size    : cover;
   border             : 1px solid rgb(219, 214, 255);
+  align-items: flex-end;
 }
 
 .steps-article {
@@ -131,6 +137,7 @@
   justify-content: space-between;
   width          : 100%;
   height         : 100%;
+  gap: 20px;
 }
 
 .steps-article .Tagline {
@@ -139,11 +146,7 @@
   padding       : 20px;
 }
 
-.rules .steps-article .Tagline {
-  flex-direction: row;
-  width         : 100%;
-  padding       : 10px 10px 10px 16px;
-}
+
 
 .rules .steps-article .Tagline::before {
   margin-right: 16px;
@@ -151,12 +154,19 @@
 }
 
 .rules p {
-  margin-top : 10px;
-  margin-left: 16px;
+  margin-top : 6px;
 }
 
 .rules .step-quote-wrapper {
-  border-radius: 0px 0px 10px 10px;
+  display: flex;
+  flex-direction: column !important;
+
+  border-radius: 0px 0px 8px 8px;
+  align-items: flex-start;
+  flex-direction: row;
+  width         : 100%;
+  height: fit-content;
+  padding       : 10px 10px 10px 16px;
 }
 
 .rules .step-img {
@@ -174,7 +184,7 @@
   border-radius   : 50px;
   width           : 6px;
   margin-right    : 20px;
-  height          : 100% !important;
+  height          : 100%;
 }
 
 .steps-article .Tagline-li {
@@ -344,7 +354,7 @@
 
 .step.active {
   display       : flex;
-  height        : 100%;
+  height        : auto;
   width         : 100%;
   flex-direction: column;
   padding       : 0px;
@@ -431,10 +441,6 @@
     flex-direction: column-reverse !important;
   }
 
-  .rules .step-quote-wrapper {
-    margin: 0px;
-  }
-
   .tri-colm-img {
     display       : flex;
     gap           : 40px;
@@ -456,8 +462,7 @@
   }
 
   .steps-ul {
-    margin-left: 32px;
-    margin-top : 10px;
+    margin-left: 31px;
   }
 
   .getStrtd .steps-ul {
@@ -511,7 +516,7 @@
   }
 
   .step-main {
-    padding: 20px 20px 80px !important;
+    padding: 20px !important;
   }
 
   .tri-colm-img {
