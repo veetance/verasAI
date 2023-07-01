@@ -14,11 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-
-    // ... your existing code ...
-  
-  
-
+  // ... your existing code ...
 
   const vFormBtn = document.querySelector(".v-form-btn");
   const vFormBtn2 = document.querySelector(".v-form-btn-2");
@@ -409,11 +405,10 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.reload();
       });
 
-
       const newsfeedButton = document.querySelector(".newsfeed-button");
-         newsfeedButton.addEventListener("click", function () {
-           window.location.reload();
-         });
+      newsfeedButton.addEventListener("click", function () {
+        window.location.reload();
+      });
 
       const navLink = document.querySelector("#hamBurg");
       const settingsModal = document.querySelector(".settings-modal");
@@ -579,7 +574,6 @@ document.addEventListener("DOMContentLoaded", () => {
       pageSpace.classList.add("active");
       elements.surfaceView.style.opacity = 1;
       elements.splash.style.display = "none";
-
     } catch (error) {
       console.error(error);
     }
@@ -646,7 +640,6 @@ document.addEventListener("DOMContentLoaded", () => {
       upNavNewsfeed.style.display = "flex";
     }
   }
-
   function handleLoginFormSubmission(loginSpace) {
     if (!loginSpace.dataset.formEventAttached) {
       loginSpace.dataset.formEventAttached = "true";

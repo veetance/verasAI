@@ -25,10 +25,9 @@ body {
   align-items    : center;
   width          : 100%;
   height         : 100dvh;
-  overflow: auto;
+  overflow       : auto;
 
   max-width: 3080px;
-
 
   -moz-tap-highlight-color    : transparent !important;
   -ms-tap-highlight-color     : transparent !important;
@@ -86,9 +85,9 @@ img {
 
 /* style scroll bar */
 ::-webkit-scrollbar {
-  display : flex !important;
-  width   : 4px;
-  height  : 100%;
+  display: flex !important;
+  width  : 4px;
+  height : 100%;
 }
 
 ::-webkit-scrollbar-track {
@@ -99,7 +98,6 @@ img {
 .Veras-surface::-webkit-scrollbar-track {
   margin-top: 92px !important;
 }
-
 
 ::-webkit-scrollbar-thumb {
   display: flex;
@@ -540,7 +538,6 @@ h5 {
   transition      : all 0.1s ease-in-out;
 }
 
-
 .v-btn-i:hover {
   border     : solid 1px #5f50b2bd;
   cursor     : pointer;
@@ -688,7 +685,7 @@ h5 {
 .v-button-filled p {
   color      : white;
   font-weight: 500;
-  font-size  : clamp(.9rem, 1vw, .8vw) !important;
+  font-size  : clamp(0.9rem, 1vw, 0.8vw) !important;
   line-height: 100% !important;
   white-space: nowrap;
 }
@@ -775,7 +772,6 @@ h5 {
   color           : #ffffff;
   border          : solid 1px var(--f7-theme-color);
 }
-
 
 /* footer */
 .F-header {
@@ -1104,22 +1100,20 @@ h5 {
   align-items     : center;
   justify-content : flex-start;
   width           : 100%;
-  height: 100%;
+  height          : 100%;
   margin          : 0px;
   grid-gap        : 0px;
   background-color: #e2ddff;
   border-radius   : 0px;
   padding         : 0px;
 
-  overflow: hidden;
-  overflow-y: scroll ;
-
+  overflow  : hidden;
+  overflow-y: scroll;
 }
 
 .mobile-nav {
   display: flex;
 }
-
 
 .surface-view {
   display         : flex;
@@ -1203,9 +1197,8 @@ h5 {
   justify-items        : start;
   grid-gap             : 4.5vw;
   grid-template-columns: 1fr 1fr;
-  grid-template-areas  :
-    "text svg";
-  margin: 2.5vw;
+  grid-template-areas  : "text svg";
+  margin               : 2.5vw;
 }
 
 .v-page-plane :nth-child(2) .v-page-plane-cont {
@@ -1310,8 +1303,6 @@ h5 {
   line-height    : 100%;
 }
 
-
-
 .v-page-plane-cont-text {
   display       : flex;
   flex-direction: column;
@@ -1323,7 +1314,12 @@ h5 {
 .v-page-plane-cont-text h2 {
   color             : #372c6b;
   width             : fit-content !important;
-  /* background-clip: text; -webkit-background-clip: text; color: transparent; -webkit-text-fill-color: transparent; background-image: linear-gradient(to right, #288369, #372c6b); */
+  
+  /* background-clip: text; 
+  -webkit-background-clip: text; 
+  color: transparent; 
+  -webkit-text-fill-color: transparent; 
+  background-image: linear-gradient(to right, #288369, #372c6b); */
 }
 
 .v-page-plane-text-style {
@@ -1400,7 +1396,7 @@ h5 {
   background-color: rgb(255 255 255 / 100%);
   border-radius   : 16px;
   width           : 100%;
-  height          : calc((100px)*(1.6)) !important;
+  height          : calc((100px) * (1.6)) !important;
   padding         : 10px;
   gap             : 10px;
   box-shadow      : 0px 1px 6px rgba(29, 130, 113, 0.15);
@@ -1670,7 +1666,6 @@ h5 {
   background-color: var(--v-lavender-plane);
   padding         : 5vw;
   gap             : 80px;
-
 }
 
 .Tagline {
@@ -1691,9 +1686,7 @@ h5 {
   align-items    : center;
 }
 
-
 /*Breakpoints*/
-
 
 @media (min-width: 3080px) {
   .footer-Contents {
@@ -1837,12 +1830,10 @@ h5 {
     align-items    : flex-start;
   }
 
-
   #vFstFrame h1 {
     font-size  : clamp(2rem, 4.6vw, 10rem);
     line-height: clamp(2.5rem, 5.5vw, 10rem);
   }
-
 
   .v-page-CTA {
     grid-gap   : 30px;
@@ -2065,8 +2056,6 @@ h5 {
     border     : 0px rgba(0, 0, 0, 0) solid;
   }
 
-
-
   .v-page-plane {
     display       : flex;
     flex-direction: column;
@@ -2202,7 +2191,6 @@ h5 {
 
   /* product */
 
-
   .v-product {
     height         : fit-content !important;
     justify-content: center;
@@ -2321,7 +2309,6 @@ h5 {
     border-radius: 13px;
   }
 
-
   .v-page-plane {
     display       : flex;
     flex-direction: column;
@@ -2431,13 +2418,14 @@ h5 {
   }
 
   /* ///// */
+
   h5 {
     font-size  : clamp(0.7rem, 4.5vw, 8vw);
     line-height: clamp(0.7rem, 6vw, 8vw);
   }
 
   p {
-    font-size: clamp(0.8rem, 0.7vw, 3rem) !important;
+    font-size  : clamp(0.8rem, 0.7vw, 3rem) !important;
     line-height: clamp(0.7rem, 0.9vw, 8vw) !important;
   }
 
