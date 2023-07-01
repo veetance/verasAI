@@ -24,7 +24,7 @@
 .rules .step-info-main {
   display        : flex;
   height         : auto;
-  gap            : 20px;
+  gap            : 40px;
   justify-content: space-between;
   flex-direction : row;
 }
@@ -35,6 +35,7 @@
 
 .tri-colm-img {
   display       : flex;
+  width: 100%;
   flex-direction: row;
   gap           : 40px;
   padding-bottom: 20px;
@@ -55,16 +56,17 @@
 
 .steps-ul {
   height      : 100%;
- padding-left : 32px;
+ padding-left : 31px;
   margin-right: 0px;
   overflow: hidden;
   overflow-y: auto;
 }
 
 .getStrtd .steps-ul {
-  margin-left : 24px;
+
   margin-right: 0px;
-  margin-top  : 20px;
+  margin-top  : 0px;
+  padding-left: 23px;
 }
 
 .getStrtd .steps-ul li {
@@ -388,6 +390,7 @@
 
   .rules .step-info-main {
     flex-direction: column;
+    gap: 0px !important;
   }
 
   .rules {
@@ -442,6 +445,7 @@
 
   .rules .step-info-main {
     flex-direction: column;
+    gap: 0px;
   }
 
   .rules {
@@ -464,8 +468,7 @@
 
   .step-info-main {
     gap           : 20px;
-    flex-direction: column-reverse !important;
-   
+    flex-direction: column-reverse;
   }
 
   .step-main {
@@ -492,13 +495,13 @@
   }
 
   .steps-ul {
-    padding-left: 30px;
+    padding-left: 23px;
   }
 
   .getStrtd .steps-ul {
-    margin-left : 25px;
+    margin-left : 0px;
     margin-right: 10px;
-    margin-top  : 10px;
+    margin-top  : 0px;
   }
 
 
