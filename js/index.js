@@ -565,9 +565,7 @@ document.addEventListener("DOMContentLoaded", () => {
       pageSpace.style.width = "100%";
 
       
-      pageSpace.style.overflow = "overlay";
-      pageSpace.style.overflowX = "hidden";
-      pageSpace.style.overflowY = "scroll !important";
+      
       
     
       elements.footer.style.display = "none";

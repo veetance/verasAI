@@ -170,8 +170,8 @@ h2 {
   white-space    : nowrap;
   flex-direction : column;
   justify-content: flex-start;
-  font-size      : clamp(1.3rem, 2vw, 1.8rem);
-  line-height    : clamp(1.6rem, 2.6vw, 2.4rem);
+  font-size      : clamp(1.3rem, 2vw, 1.5rem);
+  line-height    : clamp(1.6rem, 2.6vw, 2.1rem);
   font-weight    : 800;
   color          : var(--f7-2ndry-theme-color-tint);
   padding        : 0px;

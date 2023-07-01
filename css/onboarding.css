@@ -18,6 +18,7 @@
   align-items    : center;
   justify-content: flex-start;
   overflow: hidden;
+  overflow-y: auto;
 }
 
 .rules .step-info-main {
@@ -53,9 +54,11 @@
 }
 
 .steps-ul {
-  height      : auto;
-  margin-left : 32px;
-  margin-right: 10px;
+  height      : 100%;
+ padding-left : 32px;
+  margin-right: 0px;
+  overflow: hidden;
+  overflow-y: auto;
 }
 
 .getStrtd .steps-ul {
@@ -76,6 +79,7 @@
   margin-inline       : 0px !important;
   padding-inline-start: 20px;
   margin-bottom: 0px;
+  margin-right: 10px !important;
   gap: 10px;
 }
 
@@ -114,7 +118,7 @@
   display       : flex;
   flex-direction: column;
   gap           : 40px;
-  height        : 100%; ;
+  height        : 100%;
   width         : 100% ;
 }
 
@@ -220,6 +224,8 @@
   width         : 100%;
   gap           : 40px;
   justify-content: flex-end;
+
+  
 }
 
 .step-main {
@@ -231,9 +237,6 @@
   height         : 100%;
   gap            : 20px;
 
-  overflow: hidden;
-  overflow: overlay;
-  overflow-y: scroll;
 
 }
 
@@ -244,8 +247,6 @@
   padding        : 40px;
   width          : 100%;
   gap            : 20px;
-
-  overflow: hidden;
  
 }
 
@@ -453,6 +454,12 @@
   .step-info-main {
     gap           : 20px;
     flex-direction: column-reverse !important;
+    height: auto;
+  }
+
+  .step-main {
+    padding: 20px !important;
+    height: auto;
   }
 
   .tri-colm-img {
@@ -462,9 +469,7 @@
     flex-direction: column !important;
   }
 
-  .step-main {
-    padding: 20px !important;
-  }
+ 
 
   .step-header {
     padding: 120px 20px 20px;
@@ -476,7 +481,7 @@
   }
 
   .steps-ul {
-    margin-left: 31px;
+    padding-left: 31px;
   }
 
   .getStrtd .steps-ul {
@@ -485,9 +490,7 @@
     margin-top  : 10px;
   }
 
-  .steps-article {
-    height: auto;
-  }
+
 
   .onboarding-page {
     grid-template: "header"auto "content"auto / 1fr;
@@ -520,9 +523,7 @@
     display: flex;
   }
 
-  .steps-article {
-    height: auto;
-  }
+
 
   .step-info {
     gap: 20px;
@@ -531,11 +532,14 @@
   .step-info-main {
     gap           : 20px;
     flex-direction: column-reverse !important;
+    height: auto;
   }
 
   .step-main {
     padding: 20px !important;
+    height: auto;
   }
+
 
   .tri-colm-img {
     display       : flex;
