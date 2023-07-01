@@ -563,9 +563,11 @@ document.addEventListener("DOMContentLoaded", () => {
       elements.surfaceView.style.opacity = 0;
       pageSpace.style.height = "100vh";
       pageSpace.style.width = "100%";
+
       pageSpace.style.overflow = "hidden";
       pageSpace.style.overflowY = "scroll";
       pageSpace.style.overflow = "overlay";
+    
       elements.footer.style.display = "none";
       elements.surfaceView.innerHTML = "";
       elements.surfaceView.appendChild(pageSpace);
