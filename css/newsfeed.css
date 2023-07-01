@@ -51,7 +51,7 @@
 .newsfeed-Zone{
   display       : flex;
   flex-direction: column;
-  height        : 100%;
+  height        : 100vh;
   width         : 100%;
   justify-content: space-between;
 }
@@ -640,11 +640,12 @@
     width : 100% !important;
     height: auto !important;
 
+
     /* create a liner gradient white botop top transparent*/
 
     background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 100%);
 
-    position: relative;
+    position: sticky;
     bottom  : 0;
 
   }
@@ -693,8 +694,8 @@
 
   .Newsfeed-Left {
     grid-row: 1 / span 1;
-    min-height: 400px;
     height: 100%;
+    min-height: 66px;
   }
 
   .Newsfeed-Right {
