@@ -14,6 +14,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+
+    // ... your existing code ...
+  
+  
+
+
   const vFormBtn = document.querySelector(".v-form-btn");
   const vFormBtn2 = document.querySelector(".v-form-btn-2");
   const contactUsModalWrapper = document.querySelector(
@@ -127,7 +133,6 @@ document.addEventListener("DOMContentLoaded", () => {
 ///
 /// main index.js section
 document.addEventListener("DOMContentLoaded", () => {
-  
   let Loadsplash = document.querySelector(".v-splash");
   let isLoadPageRunning = false;
   if (!isLoadPageRunning) {
@@ -241,7 +246,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     },
     handleLoginButtonClick: () => {
-
       loadPage("login", actions.showLogin, actions.setLoginContent).then(() => {
         let loginSpace = document.querySelector(".login-Space");
         handleLoginFormSubmission(loginSpace);
@@ -251,22 +255,24 @@ document.addEventListener("DOMContentLoaded", () => {
           store.dispatch(actions.showHome()), window.location.reload();
         });
       });
-
     },
     handleToOnboardFormClick: () => {
-  
-      loadPage("onboarding", actions.showOnboarding, actions.setOnboardingContent).then(() => {
-       
+      loadPage(
+        "onboarding",
+        actions.showOnboarding,
+        actions.setOnboardingContent
+      ).then(() => {
         let onboardingSpace = document.querySelector(".onboarding-Space");
         handleOnboardingFormSubmission(onboardingSpace);
-      
       });
-
     },
     handleNewsfeedButtonClick: () => {
       store.dispatch(actions.showNewsfeed());
-      loadPage("newsfeed",actions.showNewsfeed,actions.setNewsfeedContent).then(() => {
-
+      loadPage(
+        "newsfeed",
+        actions.showNewsfeed,
+        actions.setNewsfeedContent
+      ).then(() => {
         isLoadPageRunning = true;
         if (!isLoadPageRunning) {
           displayLoadSplash();
@@ -274,13 +280,12 @@ document.addEventListener("DOMContentLoaded", () => {
           displayLongSplash();
         }
 
-        setTimeout(() => { 
+        setTimeout(() => {
           isLoadPageRunning = false;
           eventHandlers.onboardingIsComplete();
           elements.splash.style.display = "none";
-        },2000);
+        }, 2000);
       });
-
     },
     handleInsightsButtonClick: () => {
       store.dispatch(actions.hideCreate());
@@ -294,8 +299,7 @@ document.addEventListener("DOMContentLoaded", () => {
       store.dispatch(actions.showHome());
       window.location.reload();
     },
-    handleNavSlideUpClick: () => {
-    },
+    handleNavSlideUpClick: () => {},
     addStepButtonListeners: () => {
       document
         .querySelectorAll(".onboarding-steps .nav-button.next")
@@ -318,6 +322,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     },
     updateStep: (increment) => {
+      stepMainAdjust();
+
       let steps = Array.from(
         document.querySelector(".onboarding-steps").querySelectorAll(".step")
       );
@@ -343,15 +349,16 @@ document.addEventListener("DOMContentLoaded", () => {
         if (parseInt(nextStep.dataset.step) === 5) {
           const stepFinishButtons = nextStep.querySelectorAll(".step-finish");
           if (stepFinishButtons) {
-            stepFinishButtons.forEach(function(button) {
+            stepFinishButtons.forEach(function (button) {
               button.addEventListener("click", function () {
                 eventHandlers.handleNewsfeedButtonClick();
-                alert("Prototype: Data is not connected. Proceeding to news feed...");
+                alert(
+                  "Prototype: Data is not connected. Proceeding to news feed..."
+                );
               });
             });
           }
         }
-        
       }
     },
     successfulLogin: (loginNumberInput, passwordInput) => {
@@ -375,23 +382,24 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 2000);
     },
     onboardSuccess: () => {
-
-      loadPage("onboardingSteps",actions.showOnboardingSteps,actions.setOnboardingStepsContent).then(() => {
-
+      loadPage(
+        "onboardingSteps",
+        actions.showOnboardingSteps,
+        actions.setOnboardingStepsContent
+      ).then(() => {
         isLoadPageRunning = true;
         if (!isLoadPageRunning) {
           displayLoadSplash();
         } else {
           displayLongSplash();
         }
-          eventHandlers.addStepButtonListeners();
-          eventHandlers.updateStep();
-          setTimeout(() => {
-            elements.splash.style.display = "none";
-          }
-          , 2000);
+        eventHandlers.addStepButtonListeners();
+        eventHandlers.updateStep();
+
+        setTimeout(() => {
+          elements.splash.style.display = "none";
+        }, 2000);
       });
-   
     },
     onboardingIsComplete: () => {
       const LogOutButton = document.querySelector(".logout-button");
@@ -401,17 +409,14 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.reload();
       });
 
-      const navLink = document.querySelector('#hamBurg');
-      const settingsModal = document.querySelector('.settings-modal');
+      const navLink = document.querySelector("#hamBurg");
+      const settingsModal = document.querySelector(".settings-modal");
       if (navLink && settingsModal) {
-        navLink.addEventListener('click', function() {
-          this.classList.toggle('active');
-          settingsModal.classList.toggle('shown');
+        navLink.addEventListener("click", function () {
+          this.classList.toggle("active");
+          settingsModal.classList.toggle("shown");
         });
       }
-
-
-
     },
     validateForm: (loginNumber, password, confirmPassword, nickname) => {
       if (!/^\d{2,9}$/.test(loginNumber)) {
@@ -451,7 +456,6 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Please check your password.");
         return false;
       } else if (loginNumber === "123456789" && password === "123456") {
-
         isLoadPageRunning = true;
         if (!isLoadPageRunning) {
           displayLoadSplash();
@@ -472,7 +476,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.addEventListener("load", function () {
     eventHandlers.handleReirectDispatchOnLoad();
-   
+
     if (elements.loginButton) {
       elements.loginButton.addEventListener(
         "click",
@@ -535,10 +539,8 @@ document.addEventListener("DOMContentLoaded", () => {
     return `${path}${pageName}.html`;
   }
   async function loadPage(pageName, actionToShow, actionToSetContent) {
-
     store.dispatch(actionToShow);
 
-  
     try {
       const response = await fetch(getPagePath(pageName));
       const html = await response.text();
@@ -551,7 +553,7 @@ document.addEventListener("DOMContentLoaded", () => {
         pageSpace = document.createElement("div");
         pageSpace.classList.add(`${pageName}-Space`, "fade-in");
         homeScroll.style.overflowY = "hidden";
-        
+
         elements.surfaceView.insertBefore(
           pageSpace,
           elements.surfaceView.firstChild
@@ -564,10 +566,6 @@ document.addEventListener("DOMContentLoaded", () => {
       pageSpace.style.height = "100dvh";
       pageSpace.style.width = "100%";
 
-      
-      
-      
-    
       elements.footer.style.display = "none";
       elements.surfaceView.innerHTML = "";
       elements.surfaceView.appendChild(pageSpace);
@@ -575,11 +573,33 @@ document.addEventListener("DOMContentLoaded", () => {
       pageSpace.classList.add("active");
       elements.surfaceView.style.opacity = 1;
       elements.splash.style.display = "none";
-      
+
     } catch (error) {
       console.error(error);
     }
   }
+
+  // Function to adjust the stepMain elements
+
+  function stepMainAdjust() {
+    const stepMains = document.querySelectorAll(".step-main");
+    if (stepMains.length > 0) {
+      stepMains.forEach((stepMain) => {
+        if (window.innerHeight < 500) {
+          stepMain.style.setProperty("height", "auto", "important");
+          console.log("Y is Less than 500px.step-main height is auto");
+        } else {
+          console.log("Y is greater than 500px, .step-main height 100%");
+          stepMain.style.setProperty("height", "100%", "important");
+        }
+      });
+      return true;
+    } else {
+      console.log(".step-main not found.");
+      return false;
+    }
+  }
+
   function updateLoginUI(isLoggedIn) {
     const formTitle = document.querySelector(".form-title");
     const ToFeedbtn = document.querySelector("#toFeed-button");
@@ -588,13 +608,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const loginNumberInput = document.querySelector("#login-number");
     const passwordInput = document.querySelector("#password");
-    
+
     const onboardingButtonInner = document.querySelector("#onboarding-button");
- 
 
     if (isLoggedIn) {
       onboardingButtonInner.style.display = "flex";
- 
+
       formTitle.textContent = "Login Success";
       ToFeedbtn.style.display = "none";
       title.innerHTML = "Veras<span>Authentication</span>";
@@ -609,12 +628,10 @@ document.addEventListener("DOMContentLoaded", () => {
       PMemo.style.color = "var(--f7-theme-color)";
       buttonWrap.parentNode.insertBefore(PMemo, buttonWrap);
 
-
       /// GO TO ONBOARDING FORM
       onboardingButtonInner.addEventListener("click", () => {
         eventHandlers.handleToOnboardFormClick();
       });
-
     } else {
       onboardingButtonInner.style.display = "none";
     }
@@ -623,14 +640,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const upNavNewsfeed = document.querySelector(".navbar-wrapper");
     if (newsfeedVisible) {
       upNavNewsfeed.style.display = "none";
-       console.log('navLink or settingsModal not found');
-     } else {
+      console.log("navLink or settingsModal not found");
+    } else {
       upNavNewsfeed.style.display = "flex";
     }
   }
-  
 
-    function handleLoginFormSubmission(loginSpace) {
+  function handleLoginFormSubmission(loginSpace) {
     if (!loginSpace.dataset.formEventAttached) {
       loginSpace.dataset.formEventAttached = "true";
 
@@ -727,22 +743,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (onboardingForm) {
           onboardingForm.addEventListener("submit", (event) => {
-
             // Prevent form submission at the start of the event handler
             event.preventDefault();
 
             const loginNumber = document.getElementById("login-number").value;
             const password = document.getElementById("password").value;
-            const confirmPassword = document.getElementById("confirm-password").value;
+            const confirmPassword =
+              document.getElementById("confirm-password").value;
             const nickname = document.getElementById("nickname").value;
-          
+
             const onboardUserData = eventHandlers.validateForm(
               loginNumber,
               password,
               confirmPassword,
               nickname
             );
-          
+
             function postUserData(onboardUserData) {
               return fetch("http://study.veras.ca/home.phps", {
                 method: "POST",
@@ -750,39 +766,37 @@ document.addEventListener("DOMContentLoaded", () => {
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify(onboardUserData),
-              })
-              .then(response => {
+              }).then((response) => {
                 if (!response.ok) {
                   alert(onboardUserData); // onboardUserData contains the error message
                   throw new Error("Network response was not ok");
                 }
-          
+
                 return response.text();
               });
             }
-          
+
             // Handle input field errors
             if (typeof onboardUserData === "string") {
               console.log(onboardUserData);
               return; // Stop the function here if there are validation errors
             }
-          
+
             // Handle posting errors
             postUserData(onboardUserData)
-      
-              .then(data => {
+              .then((data) => {
                 console.log("postUserData", postUserData);
-          
+
                 if (data.error) {
                   // Show the error message returned by postUserData()/ after saeed links it properly
                 }
               })
-              .catch(error => {
+              .catch((error) => {
                 if (error.message.includes("NetworkError")) {
                   alert("Network Error: Failed to reach the server.");
                 } else {
                   // Handle prototype error
-          
+
                   if (
                     onboardUserData &&
                     onboardUserData.loginNumber &&
@@ -791,27 +805,40 @@ document.addEventListener("DOMContentLoaded", () => {
                     alert(
                       "This is a prototype, data not connected. Please press OK to proceed."
                     );
-                    eventHandlers.onboardSuccess(loginNumber, password, nickname);
-          
+                    eventHandlers.onboardSuccess(
+                      loginNumber,
+                      password,
+                      nickname
+                    );
+
                     console.log("onboardUserData", onboardUserData);
                   }
                 }
               });
-
           });
         }
       }, 100);
     }
   }
 
-          
   //UI-UPDATES
   store.subscribe(() => {
     const state = store.getState();
     if (state.loginVisible) {
     } else if (state.newsfeedVisible) {
       updateNewsfeedUI(true);
-    } else if (state.onboardingStepsVisible) {
+    } else if (state.onboardingStepsVisible || stepMainAdjust()) {
+      console.log(
+        "stepMain found | state.onboardingStepsVisible Calling stepMainAdjust function."
+      );
+      window.addEventListener("resize", function () {
+        stepMainAdjust();
+        //console.log("Window resize event triggered.")//
+      });
+    } else if (!state.onboardingStepsVisible) {
+      console.log(
+        "state.onboardingStepsVisible is false. Not calling stepMainAdjust function."
+      );
     } else if (state.onboardingVisible) {
     } else if (state.insightsVisible || state.createVisible) {
       let insightsNavLink = document
