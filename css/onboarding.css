@@ -298,7 +298,7 @@
   display       : flex;
   color         : rgb(94, 80, 178);
   font-weight   : 500;
-  height        : 100%;
+  height        : auto;
   align-items   : center;
   padding-bottom: 0.7px;
 }
@@ -494,9 +494,6 @@
     width         : 100%;
   }
 
-  .steps-ul {
-    padding-left: 23px;
-  }
 
   .getStrtd .steps-ul {
     margin-left : 0px;

@@ -409,6 +409,12 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.reload();
       });
 
+
+      const newsfeedButton = document.querySelector(".newsfeed-button");
+         newsfeedButton.addEventListener("click", function () {
+           window.location.reload();
+         });
+
       const navLink = document.querySelector("#hamBurg");
       const settingsModal = document.querySelector(".settings-modal");
       if (navLink && settingsModal) {
@@ -578,9 +584,6 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error(error);
     }
   }
-
-  // Function to adjust the stepMain elements
-
   function stepMainAdjust() {
     const stepMains = document.querySelectorAll(".step-main");
     if (stepMains.length > 0) {
@@ -599,7 +602,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return false;
     }
   }
-
   function updateLoginUI(isLoggedIn) {
     const formTitle = document.querySelector(".form-title");
     const ToFeedbtn = document.querySelector("#toFeed-button");
@@ -640,7 +642,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const upNavNewsfeed = document.querySelector(".navbar-wrapper");
     if (newsfeedVisible) {
       upNavNewsfeed.style.display = "none";
-      console.log("navLink or settingsModal not found");
     } else {
       upNavNewsfeed.style.display = "flex";
     }

@@ -31,9 +31,9 @@
   display            : flex;
   justify-content    : flex-start;
   align-items        : center;
-  padding            : clamp(20px, 7.5vw, 50vw);
+  padding            : clamp(10px, 6.5vw, 50vw);
   grid-area          : header;
-  gap                : 34px;
+  gap: 24px;
 }
 
 .overline .material-symbols-outlined {
@@ -57,6 +57,7 @@
   justify-content: flex-start;
   color          : #5f50b2;
   font-family    : "mulish", sans-serif;
+  white-space: nowrap;
 
 }
 
@@ -143,14 +144,18 @@
   width          : 100%;
   justify-content: flex-start;
   align-content  : flex-start;
+
+  margin-top: 36px;
 }
+
+
 
 .full-page h1 {
   display    : flex;
-  font-size  : clamp(2rem, 3vw, 5rem);
-  line-height: clamp(2rem, 3.8vw, 4rem);
-  white-space: pre-wrap !important;
-  width      : fit-content;
+  font-size  : clamp(1em, 2.6vw, 5rem);
+  line-height: clamp(1em, 3.3vw, 4rem);
+  white-space: nowrap;
+  width      : auto;
 }
 
 .form .v-button-filled {
@@ -255,15 +260,6 @@
 
 @media (min-width: 1550px) {
 
-  .full-page .content,
-  .header {
-    padding-top: clamp(1em, 9vw, 50vh) !important;
-  }
-
-  .full-page .title {
-    margin-top: 20px;
-  }
-
 
 }
 
@@ -306,6 +302,12 @@
     height     : auto;
     grid-gap   : 30px;
   }
+
+  .full-page,
+  .header .title {
+ margin-top: 0px;
+  }
+
 
   .full-page h1 {
     display    : flex;
@@ -355,6 +357,11 @@
     height       : auto;
 
     gap: 20px;
+  }
+
+  .full-page,
+  .header .title {
+ margin-top: 0px;
   }
 
 
@@ -413,8 +420,14 @@
     grid-gap: 18px;
   }
 
+  .full-page,
+  .header .title {
+ margin-top: 0px;
+  }
+
+
   .overline {
-    font-size: clamp(0.8rem, 0.6vw, 3rem);
+    font-size: clamp(0.7rem, 4.2vw, 8rem);
     grid-gap : 3px;
   }
 

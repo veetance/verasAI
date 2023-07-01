@@ -93,6 +93,9 @@
   padding    : 8px;
   padding-top: 0px;
 
+  overflow: hidden;
+
+
 
 }
 
@@ -219,9 +222,9 @@
   /* border      : solid 2px red; */
   align-items    : flex-end;
   justify-content: flex-start;
-  margin-left    : 94px;
-  margin-bottom  : 10px;
-  padding        : 4px;
+  margin-left    : 91px;
+  margin-bottom  : 8px;
+  padding        : 10px;
   overflow       : hidden;
 }
 
@@ -238,12 +241,14 @@
   overflow        : hidden;
   position        : relative;
   left            : -200px;
+  opacity: 0;
   transition      : all 1s cubic-bezier(0, 1.02, 0, 1.02);
 }
 
 .settings-modal.shown {
   left      : 0px;
-  box-shadow: rgba(165, 148, 243, 0.26) 0px -1px 008px 0px;
+  opacity: 1;
+  box-shadow: rgba(165, 148, 243, 0.26) 0px -1px 011px 0px;
   transition: all .5s cubic-bezier(0, 1.02, 0, 1.02);
 
 }
@@ -623,6 +628,9 @@
   .SWAP-sidebar .bottom {
 
     height: auto !important;
+    width: 100%;
+    overflow: hidden;
+    overflow-x: scroll;
   }
 
   .top {
@@ -650,6 +658,8 @@
 
   .SWAP-sidebar .nav-links {
     flex-direction: row;
+    gap: 0px;
+    width: 100%;
   }
 
 
@@ -671,9 +681,23 @@
 
   .SWAP-sidebar .nav-links span {
     flex-direction: row;
-    width         : auto !important;
-
+    width         : 100% !important;
   }
+  
+  #hamburgSpan{
+    display: flex;
+    width:auto!important;
+    justify-content: flex-end;
+  }
+
+  #linkSpan{
+    display: flex;
+    width: 100% !important;
+    overflow:hidden !important ;
+    overflow-x: SCROLL !important;
+  }
+
+
 
 
 
@@ -693,7 +717,7 @@
   .Newsfeed-Left {
     grid-row: 1 / span 1;
     height: 100%;
-    min-height: 66px;
+    min-height: 100px;
   }
 
   .Newsfeed-Right {
