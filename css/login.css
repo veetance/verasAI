@@ -7,10 +7,6 @@
   height               : 100%;
   overflow: hidden;
   overflow-y: auto;
-
-  
-
-
   grid-template-areas  :
     " content header";
 }
@@ -67,16 +63,13 @@
 .full-page .content {
   display        : flex;
   width          : 100%;
-  height: 100%;
+  height: auto;
   justify-content: center;
   align-items    : flex-start;
   grid-area      : content;
   padding        : clamp(20px, 7.5vw, 50vw);
   box-sizing     : border-box;
 
-  overflow: hidden;
-  overflow: overlay;
-  overflow-y: scroll;
 }
 
 
