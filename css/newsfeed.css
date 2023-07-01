@@ -3,16 +3,11 @@
   margin-top: 0px;
 }
 
-
 .newsfeed-Space .full-page {
-  display: flex;
+  display       : flex;
   flex-direction: row-reverse;
-  padding-top:0px;
-
+  padding-top   : 0px;
 }
-
-
-
 
 .VLOGO {
   display            : flex;
@@ -28,11 +23,7 @@
   cursor: pointer;
 }
 
-
-
-
 .VLOGO-wrapper {
-
   display         : flex;
   background-color: rgba(255, 255, 255, 0);
   justify-content : center;
@@ -41,20 +32,18 @@
 }
 
 .newsfeed-Space {
-  display       : flex;
-  flex-direction: column;
+  display        : flex;
+  flex-direction : column;
   justify-content: space-between;
 }
 
-.newsfeed-Zone{
-  display       : flex;
-  flex-direction: column;
-  height        : 100%;
-  width         : 100%;
+.newsfeed-Zone {
+  display        : flex;
+  flex-direction : column;
+  height         : 100%;
+  width          : 100%;
   justify-content: space-between;
 }
-
-
 
 .surface-wrap {
   display         : flex;
@@ -64,22 +53,19 @@
   height          : 100%;
   background-color: var(--v-lavender-plane);
   padding         : 8px;
-
 }
 
 .feed-wrapper {
   display              : grid;
   height               : 100%;
-  width: 100%;
+  width                : 100%;
   grid-template-columns: 2fr 1fr;
   padding              : 0px !important;
   background-color     : #f7f7ff !important;
   grid-gap             : 8px;
- 
 }
 
 .feed-scroll {
-
   display: flex;
 
   flex-direction: column;
@@ -93,7 +79,7 @@
   padding    : 8px;
   padding-top: 0px;
 
-
+  overflow: hidden;
 }
 
 .page-name {
@@ -102,11 +88,10 @@
   height          : 66px;
   border          : solid 1px var(--v-lavender-plane);
   background-color: #fefdff;
-  border-radius   : 10px
+  border-radius   : 10px;
 }
 
 .N-Header {
-
   display: flex;
 
   height: auto;
@@ -127,7 +112,6 @@
   border-radius   : 10px;
 }
 
-
 .Newsfeed-Right {
   display         : flex;
   flex-direction  : column;
@@ -135,12 +119,8 @@
   height          : 100%;
   border          : solid 1px var(--v-lavender-plane);
   background-color: #fefdff;
-  border-radius   : 10px
+  border-radius   : 10px;
 }
-
-
-
-
 
 @keyframes fade-in {
   from {
@@ -152,35 +132,26 @@
   }
 }
 
-
-
 /* animations */
 
 .v-pressed {
-
   display: flex;
   width  : auto;
   height : auto;
 
   transition: all 0.1s cubic-bezier(0.165, 0.84, 0.44, 1);
   transform : scale(100%);
-
 }
 
 .v-pressed:hover {
-
   transition: all 0.1s cubic-bezier(0.165, 0.84, 0.44, 1);
   transform : scale(103%);
-
 }
 
 .v-pressed:active {
-
   transition: all 0.18s cubic-bezier(0.165, 0.84, 0.44, 1);
   transform : scale(100%);
-
 }
-
 
 .nav-lnk i {
   transition: transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -197,9 +168,7 @@
   transform : scale(110%);
 }
 
-
 /* asside bar */
-
 
 .static-bar {
   display       : flex;
@@ -219,9 +188,9 @@
   /* border      : solid 2px red; */
   align-items    : flex-end;
   justify-content: flex-start;
-  margin-left    : 94px;
-  margin-bottom  : 10px;
-  padding        : 4px;
+  margin-left    : 91px;
+  margin-bottom  : 8px;
+  padding        : 10px;
   overflow       : hidden;
 }
 
@@ -238,14 +207,15 @@
   overflow        : hidden;
   position        : relative;
   left            : -200px;
+  opacity         : 0;
   transition      : all 1s cubic-bezier(0, 1.02, 0, 1.02);
 }
 
 .settings-modal.shown {
   left      : 0px;
-  box-shadow: rgba(165, 148, 243, 0.26) 0px -1px 008px 0px;
-  transition: all .5s cubic-bezier(0, 1.02, 0, 1.02);
-
+  opacity   : 1;
+  box-shadow: rgba(165, 148, 243, 0.26) 0px -1px 011px 0px;
+  transition: all 0.5s cubic-bezier(0, 1.02, 0, 1.02);
 }
 
 .modal-btn {
@@ -258,12 +228,9 @@
   border-radius: 0;
   width        : 100% !important;
   max-width    : 100% !important;
-
 }
 
-
 .SWAP-sidebar .nav-lnk .lnk-ico {
-
   display        : flex;
   justify-content: center;
   flex-direction : column;
@@ -275,15 +242,13 @@
   text-decoration: none;
   color          : #362c6b;
   font-weight    : 800;
-  font-size      : .75em;
+  font-size      : 0.75em;
 }
 
-
 .SWAP-sidebar .nav-lnk .lnk-ico i {
-
   display   : flex;
   transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
-  opacity   : .1;
+  opacity   : 0.1;
 }
 
 .insights-btn {
@@ -303,16 +268,12 @@
 }
 
 .settings-btn {
-
   display       : flex;
   flex-direction: column;
 
   align-items    : center;
   justify-content: center;
-
 }
-
-
 
 .SWAP-sidebar .nav-links {
   display        : flex;
@@ -329,20 +290,18 @@
   display        : flex;
   width          : 60px !important;
   border         : solid 1px #ffffff00;
-  border-radius  : .4em;
+  border-radius  : 0.4em;
   transition     : all 0.05s cubic-bezier(0.165, 0.84, 0.44, 1);
   justify-content: center;
   align-items    : center;
   cursor         : pointer;
 }
 
-
 .SWAP-sidebar .bottom .nav-lnk:hover {
   border          : solid 1px #ebe7ffef;
   transition      : transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
   transform       : translate(0, 0);
   background-color: #fefdff;
-
 }
 
 .SWAP-sidebar .bottom .nav-lnk:active {
@@ -352,7 +311,6 @@
   border             : solid 1px #ebe7ffcb;
 }
 
-
 .SWAP-sidebar .bottom .nav-lnk.active {
   border          : solid 1px var(--f7-theme-color-light-40);
   border-bottom   : solid 1px var(--f7-theme-color-light-40);
@@ -360,9 +318,6 @@
   transform       : translate(0, 0);
   background-color: #fefdff;
 }
-
-
-
 
 .nav-links span {
   display       : flex;
@@ -377,42 +332,33 @@
   align-items    : center;
   justify-content: center;
   line-height    : 100%;
-
 }
 
 .nav-lnk:hover span {
   display: flex;
 }
 
-
-
 .SWAP-sidebar .bottom .lnk-ico .material-icons {
-
   font-size: 30px;
 
-  opacity: .8;
+  opacity: 0.8;
 
   color: #5b50a8;
 }
 
 .SWAP-sidebar .bottom .nav-lnk:hover .material-icons {
-
-  opacity: .7;
+  opacity: 0.7;
   color  : #5e50b2;
 
   background             : linear-gradient(to bottom, #60dbb8, #44397e);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-
 }
 
 .SWAP-sidebar .bottom .nav-lnk:active .material-icons {
-
   opacity: 1;
   color  : var(--f7-theme-color);
 }
-
-
 
 .SWAP-navbar-wrapper {
   display       : flex;
@@ -424,7 +370,6 @@
 }
 
 .SWAP-sidebar {
-
   display: flex;
 
   flex-direction: column-reverse;
@@ -476,14 +421,8 @@
   height        : 100%;
   padding       : 10px;
   align-items   : center;
-  grid-gap      : 10px
+  grid-gap      : 10px;
 }
-
-
-
-
-
-
 
 /* Create.css */
 
@@ -494,16 +433,13 @@
   width          : 100%;
   height         : 100%;
   /* border      : solid 1.5px #50b27630; */
-
-
 }
 
 .create-Space .surface-wrap {
-  border-radius   : .5vw;
+  border-radius   : 0.5vw;
   /* box-shadow   : 0px 6px 20px 4px rgba(134, 105, 227, 0.095), 0px 2px 3px rgba(112, 98, 176, 0.05); */
   background-color: #ffffff;
   background-color: #c2b6ff46;
-
 }
 
 /* insight.css */
@@ -516,28 +452,16 @@
   height         : 100%;
 
   /* border: solid 1.5px #506ab230; */
-
-
 }
 
 .insights-Space .surface-wrap {
-  border-radius   : .5vw;
+  border-radius   : 0.5vw;
   background-color: #ffffff;
 }
 
-
-
-
-
-
-
-
-
 /* mobile newsfeed layer  */
 
-
 @media (min-width: 200px) and (max-width: 1060px) {
-
   .surface-view {
     flex-direction: column;
   }
@@ -549,13 +473,10 @@
     width         : 100%;
   }
 
-  .newsfeed-Space .full-page{
-    display: flex;
+  .newsfeed-Space .full-page {
+    display       : flex;
     flex-direction: column;
   }
-  
-  
-  
 
   .collapsable-comp {
     display        : flex;
@@ -592,9 +513,6 @@
     left: 0px;
   }
 
-
-
-
   .modal-btn {
     display: flex;
     width  : 100%;
@@ -605,11 +523,9 @@
     border-radius: 0;
     width        : 100% !important;
     max-width    : 100% !important;
-
   }
 
   .SWAP-sidebar {
-
     display: flex;
 
     flex-direction: row;
@@ -617,12 +533,13 @@
     height: auto !important;
 
     border: solid 1px var(--v-lavender-plane);
-
   }
 
   .SWAP-sidebar .bottom {
-
-    height: auto !important;
+    height    : auto !important;
+    width     : 100%;
+    overflow  : hidden;
+    overflow-x: scroll;
   }
 
   .top {
@@ -634,49 +551,53 @@
   }
 
   .SWAP-navbar-wrapper {
-
     width : 100% !important;
     height: auto !important;
 
-
     /* create a liner gradient white botop top transparent*/
 
-    background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 100%);
+    background: linear-gradient(rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 1) 100%);
 
     position: sticky;
     bottom  : 0;
-
   }
 
   .SWAP-sidebar .nav-links {
     flex-direction: row;
+    gap           : 0px;
+    width         : 100%;
   }
 
-
   .SWAP-sidebar .bottom .nav-lnk {
-
     height      : 60px !important;
     width       : auto !important;
     aspect-ratio: 1/1 !important;
-
   }
 
   .SWAP-sidebar .nav-lnk a {
     height      : 60px !important;
     width       : 60px !important;
     aspect-ratio: 1/1 !important;
-
   }
-
 
   .SWAP-sidebar .nav-links span {
     flex-direction: row;
-    width         : auto !important;
-
+    width         : 100% !important;
   }
 
+  #hamburgSpan {
+    display        : flex;
+    width          : auto !important;
+    justify-content: flex-end;
+  }
 
-
+  #linkSpan {
+    display   : flex;
+    width     : 100% !important;
+    overflow  : hidden !important;
+    overflow-x: SCROLL !important;
+  }
 
   /* newsfeed */
 
@@ -687,28 +608,20 @@
     grid-gap             : 8px;
 
     width: auto;
-
   }
 
   .Newsfeed-Left {
-    grid-row: 1 / span 1;
-    height: 100%;
-    min-height: 66px;
+    grid-row  : 1 / span 1;
+    height    : 100%;
+    min-height: 100px;
   }
 
   .Newsfeed-Right {
-    grid-row: 2/ span 1;
+    grid-row: 2 / span 1;
   }
-
-
-
-
 }
 
-
-
 @media (min-width: 0px) and (max-width: 200px) {
-
   .surface-view {
     display: none !important;
   }
