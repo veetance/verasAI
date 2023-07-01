@@ -590,7 +590,7 @@ document.addEventListener("DOMContentLoaded", () => {
           console.log("Y is Less than 500px.step-main height is auto");
         } else {
           console.log("Y is greater than 500px, .step-main height 100%");
-          stepMain.style.setProperty("height", "100%", "important");
+          stepMain.style.setProperty("height", "100%");
         }
       });
       return true;

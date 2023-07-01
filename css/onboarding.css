@@ -390,6 +390,11 @@
     flex-direction: column;
   }
 
+  .rules {
+  height: auto !important;
+  }
+  
+
 
 
 
@@ -438,6 +443,12 @@
   .rules .step-info-main {
     flex-direction: column;
   }
+
+  .rules {
+    height: auto !important;
+    }
+
+
 
   .step-nav {
     display: none !important;
@@ -514,6 +525,11 @@
   .rules .step-info-main {
     flex-direction: column;
   }
+
+  .rules {
+    height: auto !important;
+    }
+
 
   .step-nav {
     display: none !important;
