@@ -16,8 +16,6 @@ html {
   flex-direction : column;
   justify-content: flex-start;
   align-items    : center;
-  height         : auto;
-  width          : auto;
 }
 
 body {
@@ -26,7 +24,7 @@ body {
   justify-content: flex-start;
   align-items    : center;
   width          : 100%;
-  height         : 100vh;
+  height         : 100%;
   overflow: hidden;
 
   max-width: 3080px;
@@ -1106,7 +1104,7 @@ h5 {
   align-items     : center;
   justify-content : flex-start;
   width           : 100%;
-  height: 100vh;
+  height: 100%;
   margin          : 0px;
   grid-gap        : 0px;
   background-color: #e2ddff;

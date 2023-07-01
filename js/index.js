@@ -564,9 +564,11 @@ document.addEventListener("DOMContentLoaded", () => {
       pageSpace.style.height = "100vh";
       pageSpace.style.width = "100%";
 
-      pageSpace.style.overflow = "hidden";
-      pageSpace.style.overflowY = "scroll";
+      
       pageSpace.style.overflow = "overlay";
+      pageSpace.style.overflowX = "hidden";
+      pageSpace.style.overflowY = "scroll !important";
+      
     
       elements.footer.style.display = "none";
       elements.surfaceView.innerHTML = "";
