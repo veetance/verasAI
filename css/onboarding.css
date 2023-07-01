@@ -28,6 +28,10 @@
   flex-direction : row;
 }
 
+.step-info{
+  justify-content: space-between;
+}
+
 .tri-colm-img {
   display       : flex;
   flex-direction: row;
@@ -110,7 +114,7 @@
   display       : flex;
   flex-direction: column;
   gap           : 40px;
-  height        : auto; ;
+  height        : 100%; ;
   width         : 100% ;
 }
 
@@ -242,7 +246,7 @@
   gap            : 20px;
 
   overflow: hidden;
-  overflow-y: scroll;
+ 
 }
 
 .steps p {

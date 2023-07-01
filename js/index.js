@@ -561,7 +561,7 @@ document.addEventListener("DOMContentLoaded", () => {
       pageSpace.innerHTML = html;
       document.title = pageName.charAt(0).toUpperCase() + pageName.slice(1);
       elements.surfaceView.style.opacity = 0;
-      pageSpace.style.height = "100vh";
+      pageSpace.style.height = "100dvh";
       pageSpace.style.width = "100%";
 
       
