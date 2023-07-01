@@ -142,7 +142,7 @@
   flex-direction : column;
   justify-content: space-between;
   width          : 100%;
-  height         : 100%;
+  height         : auto;
   gap: 20px;
 }
 
@@ -454,12 +454,12 @@
   .step-info-main {
     gap           : 20px;
     flex-direction: column-reverse !important;
-    height: auto;
+   
   }
 
   .step-main {
     padding: 20px !important;
-    height: auto;
+
   }
 
   .tri-colm-img {
@@ -481,7 +481,7 @@
   }
 
   .steps-ul {
-    padding-left: 31px;
+    padding-left: 30px;
   }
 
   .getStrtd .steps-ul {
@@ -532,12 +532,10 @@
   .step-info-main {
     gap           : 20px;
     flex-direction: column-reverse !important;
-    height: auto;
   }
 
   .step-main {
     padding: 20px !important;
-    height: auto;
   }
 
 
