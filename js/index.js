@@ -129,14 +129,10 @@ document.addEventListener("DOMContentLoaded", () => {
 ///
 /// main index.js section
 document.addEventListener("DOMContentLoaded", () => {
-  let Loadsplash = document.querySelector(".v-splash");
-  let isLoadPageRunning = false;
-  if (!isLoadPageRunning) {
-    displayLoadSplash();
-  } else if (isLoadPageRunning) {
-    displayLongSplash();
-  }
 
+let Loadsplash = document.querySelector(".v-splash");
+
+ 
   const createAction = (url, type, payload) => {
     const urlObj = new URL(url, window.location.href);
     const state = { page: urlObj.hash.slice(1) };
@@ -198,7 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   const eventHandlers = {
     handleReirectDispatchOnLoad: () => {
-      isLoadPageRunning = true; // this is to allow the long splash to run
+      loadLong();
       const url = new URL(window.location.href);
       const pageName = url.hash ? url.hash.slice(1) : "home";
       url.pathname = getPagePath(pageName);
@@ -228,9 +224,14 @@ document.addEventListener("DOMContentLoaded", () => {
           store.dispatch(actions.showOnboardingSteps());
           eventHandlers.onboardSuccess();
           break;
-        default:
-          console.warn(`Unknown page: ${pageName}`);
-          break;
+          default:
+            // Show a popup alert
+            console.warn(`Unknown page | REDIRECTING TO HOME: ${pageName}`);
+            alert(`Unknown page | Click ok to go to [Home]: ${pageName}`);
+          
+            // Redirect the user to the home page
+            store.dispatch(actions.showHome());
+            break;
       }
 
       window.addEventListener("popstate", function (event) {
@@ -253,34 +254,41 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     },
     handleToOnboardFormClick: () => {
-      loadPage(
-        "onboarding",
-        actions.showOnboarding,
-        actions.setOnboardingContent
-      ).then(() => {
-        let onboardingSpace = document.querySelector(".onboarding-Space");
-        handleOnboardingFormSubmission(onboardingSpace);
-      });
+
+      isLoadPageRunning = true;
+      loadLong();
+
+      setTimeout(() => {
+
+        loadPage(
+          "onboarding",
+          store.dispatch(actions.showOnboarding()),
+          actions.setOnboardingContent
+        ).then(() => {
+          isLoadPageRunning = false;
+          elements.splash.style.display = "none";
+          
+          let onboardingSpace = document.querySelector(".onboarding-Space");
+          handleOnboardingFormSubmission(onboardingSpace);
+        });
+
+      }, 800);
+
     },
     handleNewsfeedButtonClick: () => {
-      store.dispatch(actions.showNewsfeed());
+
       loadPage(
         "newsfeed",
-        actions.showNewsfeed,
+        store.dispatch(actions.showNewsfeed),
         actions.setNewsfeedContent
       ).then(() => {
-        isLoadPageRunning = true;
-        if (!isLoadPageRunning) {
-          displayLoadSplash();
-        } else {
-          displayLongSplash();
-        }
-
+        
         setTimeout(() => {
           isLoadPageRunning = false;
           eventHandlers.onboardingIsComplete();
           elements.splash.style.display = "none";
         }, 2000);
+
       });
     },
     handleInsightsButtonClick: () => {
@@ -358,44 +366,39 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     },
     successfulLogin: (loginNumberInput, passwordInput) => {
-      // Clear the input fields
+
       loginNumberInput.value = "";
       passwordInput.value = "";
 
-      // Display the splash screen
       isLoadPageRunning = true;
-      if (!isLoadPageRunning) {
-        displayLoadSplash();
-      } else {
-        displayLongSplash();
-      }
-
-      // Update the UI based on the login status
+      loadLong();
       updateLoginUI(true);
 
       setTimeout(() => {
         elements.splash.style.display = "none";
-      }, 2000);
+      }, 800);
+
     },
     onboardSuccess: () => {
-      loadPage(
-        "onboardingSteps",
-        actions.showOnboardingSteps,
-        actions.setOnboardingStepsContent
-      ).then(() => {
-        isLoadPageRunning = true;
-        if (!isLoadPageRunning) {
-          displayLoadSplash();
-        } else {
-          displayLongSplash();
-        }
-        eventHandlers.addStepButtonListeners();
-        eventHandlers.updateStep();
 
+      isLoadPageRunning = true;
+     
         setTimeout(() => {
-          elements.splash.style.display = "none";
-        }, 2000);
-      });
+
+          loadPage(
+            "onboardingSteps",
+            store.dispatch(actions.showOnboardingSteps),
+            actions.setOnboardingStepsContent
+          ).then(() => {
+            elements.splash.style.display = "none";
+            isLoadPageRunning = false;
+            eventHandlers.addStepButtonListeners();
+            eventHandlers.updateStep();
+          });
+
+        }, 800);
+        
+      
     },
     onboardingIsComplete: () => {
       const LogOutButton = document.querySelector(".logout-button");
@@ -539,8 +542,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const path = isHome ? "" : "./pages/";
     return `${path}${pageName}.html`;
   }
+  function loadLong() {
+    let isLoadPageRunning = false;
+    if (!isLoadPageRunning) {
+      displayLoadSplash();
+    } else if (isLoadPageRunning) {
+      displayLongSplash();
+    }
+  }
   async function loadPage(pageName, actionToShow, actionToSetContent) {
     store.dispatch(actionToShow);
+
+    isLoadPageRunning = false;
+    loadLong();
+    if (isLoadPageRunning) {
+      loadLong();
+    }
 
     try {
       const response = await fetch(getPagePath(pageName));
@@ -704,10 +721,12 @@ document.addEventListener("DOMContentLoaded", () => {
                   alert(
                     "This is a prototype, data not connected. Please press OK to proceed."
                   );
+                  
                   eventHandlers.successfulLogin(
                     loginNumberInput,
                     passwordInput
                   );
+
                 }
               });
           });
@@ -719,14 +738,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!onboardingSpace.dataset.formEventAttached) {
       onboardingSpace.dataset.formEventAttached = "true";
 
-      isLoadPageRunning = true;
-      if (!isLoadPageRunning) {
-        displayLoadSplash();
-      } else if (isLoadPageRunning) {
-        displayLongSplash();
-      }
-
       setTimeout(() => {
+      
         const onboardingForm = document.querySelector(".form");
         isLoadPageRunning = false;
 
@@ -736,6 +749,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         if (onboardingForm) {
+          isLoadPageRunning = false;
+          elements.splash.style.display = "none";
+
           onboardingForm.addEventListener("submit", (event) => {
             // Prevent form submission at the start of the event handler
             event.preventDefault();
@@ -811,7 +827,9 @@ document.addEventListener("DOMContentLoaded", () => {
               });
           });
         }
-      }, 100);
+      
+      },100)
+
     }
   }
 
@@ -822,9 +840,9 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (state.newsfeedVisible) {
       updateNewsfeedUI(true);
     } else if (state.onboardingStepsVisible || stepMainAdjust()) {
-      console.log(
-        "stepMain found | state.onboardingStepsVisible Calling stepMainAdjust function."
-      );
+      // console.log(
+      //   "stepMain found | state.onboardingStepsVisible Calling stepMainAdjust function."
+      // );
       window.addEventListener("resize", function () {
         stepMainAdjust();
         //console.log("Window resize event triggered.")//
@@ -878,4 +896,5 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   });
+
 });

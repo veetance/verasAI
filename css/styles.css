@@ -322,7 +322,7 @@ h5 {
   padding         : 10px;
   cursor          : pointer;
   background-color: #8972d307;
-  border          : solid 1px #5f50b217;
+  border          :  solid 1px #5f50b2c7 !important;
 }
 
 .nav-title:active {
@@ -721,7 +721,7 @@ h5 {
   height          : 60px;
   background-color: #ffffff0c;
   border-radius   : 8px;
-  border          : solid 1px #5f50b257;
+  border          : solid 1px #5f50b200;
   padding         : 16px 24px;
   overflow        : hidden;
   color           : var(--f7-theme-color);
@@ -731,22 +731,38 @@ h5 {
   line-height     : 1rem;
   width           : clamp(150px, 10vw, 170px);
   font-family     : "poppins";
-  transition      : 0.1s cubic-bezier(0, 1.02, 0, 1.02);
+  transition: all .3s cubic-bezier(0, 0.82, 0.14, 0.99) !important;
 }
+
+.login-button{
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 8px !important;
+  padding:4px;
+  padding-left: 12px;
+  width: auto !important;
+  height: auto !important;
+}
+
+
 
 .nav-button:hover {
   background-image: linear-gradient(to left, #f7f5ff, #ffffff);
   cursor          : pointer;
   border          : solid 1px #5f50b2c7;
   box-shadow      : 0px 1px 4px rgba(48, 29, 130, 0.082);
+  transition: all .3s cubic-bezier(0, 0.82, 0.14, 0.99) !important;
 }
 
-.nav-button:active {
+
+.nav-button:active,
+.nav-button:focus {
   background-image: linear-gradient(to top, #5e50b2, #5e50b2);
   cursor          : pointer;
   color           : #ffffff;
   border          : solid 1px var(--f7-theme-color);
 }
+
 
 .nav-button-active {
   display         : flex;
@@ -1973,6 +1989,10 @@ h5 {
     margin-left: 0px !important;
   }
 
+  .login-button {
+    margin-right: 4px !important;
+  }
+
   .v-security .v-page-styled-header .Tagline::before {
     margin-right: 20px;
     width       : 4px;
@@ -2368,17 +2388,17 @@ h5 {
   }
 
   /* Buttons */
-  .nav-button {
-    width  : fit-content;
-    padding: 18px 7vw;
-    height : 100%;
-  }
 
   .nav-button,
   .nav-title p {
     font-size  : clamp(0.7rem, 4vw, 8vw);
     line-height: clamp(0.7rem, 4vw, 8vw);
   }
+
+  .login-button {
+    margin-right: 4px !important;
+  }
+
 
   .v-button-filled {
     display    : flex;
@@ -2426,7 +2446,7 @@ h5 {
 
   p {
     font-size  : clamp(0.8rem, 0.7vw, 3rem) !important;
-    line-height: clamp(0.7rem, 0.9vw, 8vw) !important;
+    line-height: clamp(1rem, 0.9vw, 8vw) !important;
   }
 
   .F-center {

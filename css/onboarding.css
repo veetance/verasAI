@@ -257,11 +257,24 @@
   display       : flex;
   flex-direction: column;
   border        : 0px solid black;
-  background-image: linear-gradient(rgba(130, 120, 198, 0),
-      rgb(140, 126, 223),
-      rgb(106, 93, 182),
-      rgb(94, 80, 178),
-      rgb(94, 80, 178));
+  /* background-image: linear-gradient(
+      #8278c600,
+      #8c7edf,
+      #6a5db6,
+      #5e50b2,
+      #5e50b2); */
+
+  background-color:rgb(94,80,178);
+
+  background: linear-gradient(0deg, 
+  rgba(94,80,178,1) 0%, 
+  rgba(101,87,185,1) 30%, 
+  rgba(109,95,193,1) 47%,
+   rgba(120,106,203,1) 63%, 
+   rgba(129,115,212,1) 75%, 
+   rgba(140,126,223,1) 85%, 
+   rgba(115,101,199,0) 100%);
+
   width  : 100%;
   height : auto;
   padding: 130px 40px 40px;
@@ -351,6 +364,7 @@
   padding        : 12px !important;
   height         : auto !important;
   width          : 100% !important;
+  border: solid 1px #5f50b24d;
 }
 
 .step .next {
@@ -382,6 +396,7 @@
   .rules .step-info-main {
     flex-direction: column;
     gap           : 0px !important;
+    border-bottom: solid 1px #5f50b24d;
   }
 
   .rules {
@@ -432,6 +447,7 @@
   .rules .step-info-main {
     flex-direction: column;
     gap           : 0px;
+    border-bottom: solid 1px #5f50b24d;
   }
 
   .rules {
@@ -467,7 +483,7 @@
   }
 
   .step-header {
-    padding: 120px 20px 20px;
+    padding: clamp(107px,26vw,110px) 20px 20px;
   }
 
   .steps-article .Tagline-li {
@@ -501,6 +517,8 @@
 @media (min-width: 200px) and (max-width: 369px) {
   .rules .step-info-main {
     flex-direction: column;
+    border-bottom: solid 1px #5f50b24d;
+    gap: 20px;
   }
 
   .rules {

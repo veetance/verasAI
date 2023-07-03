@@ -80,12 +80,12 @@ function reducer(state = initialState, action) {
 }
 
 // Create Redux store with the initial state
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Redux.compose;
 const store = Redux.createStore(
-  reducer, 
+  reducer,
   initialState,
-  Redux.applyMiddleware(ReduxThunk.default)
+  composeEnhancers(Redux.applyMiddleware(ReduxThunk.default))
 );
-
 
 
 
