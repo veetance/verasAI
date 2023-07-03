@@ -22,11 +22,12 @@ document.addEventListener("DOMContentLoaded", () => {
     ".contact-us-modal-wrapper"
   );
   const vForminner = document.querySelector(".v-form-inner-wrapper");
-  const vFormClose = document.querySelector("#v-form-close ");
+  const vFormClose = document.querySelector("#v-form-close , .login-button , .navbar-wrapper");
   const navbarWrapper = document.querySelector(".navbar-wrapper");
 
   function showContactUS() {
     contactUsModalWrapper.style.display = "flex";
+    navbarWrapper.style.cursor = "pointer";
 
     vForminner.style.transition = "all .5s cubic-bezier(0,1.21,0.56,0.96)";
     vForminner.style.maxHeight = "0px";
@@ -132,7 +133,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 let Loadsplash = document.querySelector(".v-splash");
 
- 
   const createAction = (url, type, payload) => {
     const urlObj = new URL(url, window.location.href);
     const state = { page: urlObj.hash.slice(1) };
@@ -194,7 +194,10 @@ let Loadsplash = document.querySelector(".v-splash");
   };
   const eventHandlers = {
     handleReirectDispatchOnLoad: () => {
+
+      isLoadPageRunning = false;
       loadLong();
+
       const url = new URL(window.location.href);
       const pageName = url.hash ? url.hash.slice(1) : "home";
       url.pathname = getPagePath(pageName);
@@ -235,15 +238,16 @@ let Loadsplash = document.querySelector(".v-splash");
       }
 
       window.addEventListener("popstate", function (event) {
-        // Get the state from the event object
         const state = event.state;
         if (state) {
           window.location.reload();
         }
       });
+
+
     },
     handleLoginButtonClick: () => {
-      loadPage("login", actions.showLogin, actions.setLoginContent).then(() => {
+      loadPage("login", actions.showLogin(), actions.setLoginContent).then(() => {
         let loginSpace = document.querySelector(".login-Space");
         handleLoginFormSubmission(loginSpace);
 
@@ -257,19 +261,18 @@ let Loadsplash = document.querySelector(".v-splash");
 
       isLoadPageRunning = true;
       loadLong();
-
+      
       setTimeout(() => {
-
+        
         loadPage(
           "onboarding",
-          store.dispatch(actions.showOnboarding()),
+          actions.showOnboarding(),
           actions.setOnboardingContent
         ).then(() => {
-          isLoadPageRunning = false;
-          elements.splash.style.display = "none";
-          
           let onboardingSpace = document.querySelector(".onboarding-Space");
           handleOnboardingFormSubmission(onboardingSpace);
+          isLoadPageRunning = false;
+          elements.splash.style.display = "none";
         });
 
       }, 800);
@@ -277,19 +280,24 @@ let Loadsplash = document.querySelector(".v-splash");
     },
     handleNewsfeedButtonClick: () => {
 
-      loadPage(
-        "newsfeed",
-        store.dispatch(actions.showNewsfeed),
-        actions.setNewsfeedContent
-      ).then(() => {
-        
-        setTimeout(() => {
-          isLoadPageRunning = false;
-          eventHandlers.onboardingIsComplete();
-          elements.splash.style.display = "none";
-        }, 2000);
+      isLoadPageRunning = true;
+      loadLong();
 
-      });
+      setTimeout(() => {
+        loadPage(
+          "newsfeed",
+          actions.showNewsfeed(),
+          actions.setNewsfeedContent
+        ).then(() => {
+          isLoadPageRunning = false;
+          updateNewsfeedNAV(true);
+          eventHandlers.updateNewsfeedUI();
+          updateNewsfeedNAV(newsfeedVisible) 
+          
+        });
+      }, 800);
+
+      
     },
     handleInsightsButtonClick: () => {
       store.dispatch(actions.hideCreate());
@@ -372,35 +380,38 @@ let Loadsplash = document.querySelector(".v-splash");
 
       isLoadPageRunning = true;
       loadLong();
-      updateLoginUI(true);
 
-      setTimeout(() => {
+      setTimeout(() => { 
+        updateLoginUI(true);
+        isLoadPageRunning = false;
         elements.splash.style.display = "none";
       }, 800);
-
+     
     },
     onboardSuccess: () => {
 
       isLoadPageRunning = true;
+      loadLong();
+      
      
         setTimeout(() => {
 
           loadPage(
             "onboardingSteps",
-            store.dispatch(actions.showOnboardingSteps),
+            actions.showOnboardingSteps(),
             actions.setOnboardingStepsContent
           ).then(() => {
-            elements.splash.style.display = "none";
-            isLoadPageRunning = false;
             eventHandlers.addStepButtonListeners();
             eventHandlers.updateStep();
+            isLoadPageRunning = false;
+            elements.splash.style.display = "none";
           });
 
-        }, 800);
+        }, 700);
         
       
     },
-    onboardingIsComplete: () => {
+    updateNewsfeedUI: () => {
       const LogOutButton = document.querySelector(".logout-button");
       LogOutButton.addEventListener("click", function () {
         alert("You are about to be logged out.");
@@ -460,16 +471,9 @@ let Loadsplash = document.querySelector(".v-splash");
         alert("Please check your password.");
         return false;
       } else if (loginNumber === "123456789" && password === "123456") {
-        isLoadPageRunning = true;
-        if (!isLoadPageRunning) {
-          displayLoadSplash();
-        } else {
-          displayLongSplash();
-
-          setTimeout(() => {
-            eventHandlers.handleNewsfeedButtonClick();
-          }, 2000);
-        }
+      
+          eventHandlers.handleNewsfeedButtonClick();
+  
       }
       return {
         loginNumber,
@@ -479,7 +483,9 @@ let Loadsplash = document.querySelector(".v-splash");
   };
 
   window.addEventListener("load", function () {
+ 
     eventHandlers.handleReirectDispatchOnLoad();
+    
 
     if (elements.loginButton) {
       elements.loginButton.addEventListener(
@@ -516,12 +522,13 @@ let Loadsplash = document.querySelector(".v-splash");
     // If the flag is set, display the splash screen and remove the flag
     if (!Loadsplash) return;
     Loadsplash.style.display = "flex";
-    const hideSplashTime = Date.now() + 800;
+    const hideSplashTime = Date.now() + 1100;
 
     const remainingTime = Math.max(0, hideSplashTime - Date.now());
     setTimeout(() => {
-      Loadsplash.style.display = "none";
-    }, remainingTime);
+      elements.splash.style.display = "none";
+      isLoadPageRunning = false;
+    }, remainingTime)+100;
   }
   function displayLongSplash() {
     if (!elements.splash) return;
@@ -534,6 +541,7 @@ let Loadsplash = document.querySelector(".v-splash");
     const remainingTime = Math.max(0, hideSplashTime - Date.now());
     setTimeout(() => {
       elements.splash.style.display = "none";
+      isLoadPageRunning = false;
       logo.style.animation = "";
     }, remainingTime);
   }
@@ -542,8 +550,8 @@ let Loadsplash = document.querySelector(".v-splash");
     const path = isHome ? "" : "./pages/";
     return `${path}${pageName}.html`;
   }
+  let isLoadPageRunning = false;
   function loadLong() {
-    let isLoadPageRunning = false;
     if (!isLoadPageRunning) {
       displayLoadSplash();
     } else if (isLoadPageRunning) {
@@ -552,13 +560,7 @@ let Loadsplash = document.querySelector(".v-splash");
   }
   async function loadPage(pageName, actionToShow, actionToSetContent) {
     store.dispatch(actionToShow);
-
-    isLoadPageRunning = false;
-    loadLong();
-    if (isLoadPageRunning) {
-      loadLong();
-    }
-
+ 
     try {
       const response = await fetch(getPagePath(pageName));
       const html = await response.text();
@@ -590,7 +592,6 @@ let Loadsplash = document.querySelector(".v-splash");
       await new Promise((resolve) => setTimeout(resolve, 50));
       pageSpace.classList.add("active");
       elements.surfaceView.style.opacity = 1;
-      elements.splash.style.display = "none";
     } catch (error) {
       console.error(error);
     }
@@ -609,11 +610,11 @@ let Loadsplash = document.querySelector(".v-splash");
       });
       return true;
     } else {
-      console.log(".step-main not found.");
       return false;
     }
   }
   function updateLoginUI(isLoggedIn) {
+   
     const formTitle = document.querySelector(".form-title");
     const ToFeedbtn = document.querySelector("#toFeed-button");
     const title = document.querySelector(".title h1");
@@ -640,6 +641,8 @@ let Loadsplash = document.querySelector(".v-splash");
       PMemo.style.marginBottom = "20px";
       PMemo.style.color = "var(--f7-theme-color)";
       buttonWrap.parentNode.insertBefore(PMemo, buttonWrap);
+      isLoadPageRunning = false;
+
 
       /// GO TO ONBOARDING FORM
       onboardingButtonInner.addEventListener("click", () => {
@@ -649,7 +652,7 @@ let Loadsplash = document.querySelector(".v-splash");
       onboardingButtonInner.style.display = "none";
     }
   }
-  function updateNewsfeedUI(newsfeedVisible) {
+  function updateNewsfeedNAV(newsfeedVisible) {
     const upNavNewsfeed = document.querySelector(".navbar-wrapper");
     if (newsfeedVisible) {
       upNavNewsfeed.style.display = "none";
@@ -838,19 +841,11 @@ let Loadsplash = document.querySelector(".v-splash");
     const state = store.getState();
     if (state.loginVisible) {
     } else if (state.newsfeedVisible) {
-      updateNewsfeedUI(true);
+      updateNewsfeedNAV(true);
     } else if (state.onboardingStepsVisible || stepMainAdjust()) {
-      // console.log(
-      //   "stepMain found | state.onboardingStepsVisible Calling stepMainAdjust function."
-      // );
       window.addEventListener("resize", function () {
         stepMainAdjust();
-        //console.log("Window resize event triggered.")//
       });
-    } else if (!state.onboardingStepsVisible) {
-      console.log(
-        "state.onboardingStepsVisible is false. Not calling stepMainAdjust function."
-      );
     } else if (state.onboardingVisible) {
     } else if (state.insightsVisible || state.createVisible) {
       let insightsNavLink = document

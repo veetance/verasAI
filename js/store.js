@@ -80,7 +80,11 @@ function reducer(state = initialState, action) {
 }
 
 // Create Redux store with the initial state
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Redux.compose;
+const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ?   
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+    trace: true, 
+  }) : Redux.compose;
+
 const store = Redux.createStore(
   reducer,
   initialState,
