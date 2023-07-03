@@ -280,24 +280,19 @@ let Loadsplash = document.querySelector(".v-splash");
     },
     handleNewsfeedButtonClick: () => {
 
-      isLoadPageRunning = true;
-      loadLong();
 
-      setTimeout(() => {
-        loadPage(
-          "newsfeed",
-          actions.showNewsfeed(),
-          actions.setNewsfeedContent
-        ).then(() => {
-          isLoadPageRunning = false;
-          updateNewsfeedNAV(true);
-          eventHandlers.updateNewsfeedUI();
-          updateNewsfeedNAV(newsfeedVisible) 
-          
-        });
-      }, 800);
+      loadPage(
+        "newsfeed",
+        actions.showNewsfeed(),
+        actions.setNewsfeedContent
+      ).then(() => {
+        isLoadPageRunning = false;
+        updateNewsfeedNAV(true);
+        eventHandlers.updateNewsfeedUI();
+        updateNewsfeedNAV(newsfeedVisible) 
+        
+      });
 
-      
     },
     handleInsightsButtonClick: () => {
       store.dispatch(actions.hideCreate());
@@ -363,10 +358,18 @@ let Loadsplash = document.querySelector(".v-splash");
           if (stepFinishButtons) {
             stepFinishButtons.forEach(function (button) {
               button.addEventListener("click", function () {
-                eventHandlers.handleNewsfeedButtonClick();
-                alert(
-                  "Prototype: Data is not connected. Proceeding to news feed..."
-                );
+
+                isLoadPageRunning = true;
+                loadLong();
+          
+                setTimeout(() => {
+                  alert(
+                    "Prototype: Data is not connected. Proceeding to news feed..."
+                  );
+                    eventHandlers.handleNewsfeedButtonClick();
+                }, 800);
+               
+
               });
             });
           }
