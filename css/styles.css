@@ -1950,6 +1950,12 @@ h5 {
   /* your styles go here */
   /* demo page */
 
+  .Veras-surface::-webkit-scrollbar-track {
+    margin-top:78px !important;
+}
+
+
+
   h4 {
     font-size  : clamp(1rem, 2.1vw, 3rem) !important;
     line-height: clamp(1.5rem, 3.3vw, 2.5rem) !important;
@@ -2169,6 +2175,11 @@ h5 {
 @media (min-width: 200px) and (max-width: 369px) {
   /* your styles go here */
   /* demo page */
+
+  .Veras-surface::-webkit-scrollbar-track {
+    margin-top:78px !important;
+}
+
 
   h4 {
     font-size  : clamp(0.5rem, 4.6vw, 2rem) !important;
