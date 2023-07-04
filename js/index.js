@@ -133,6 +133,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 let Loadsplash = document.querySelector(".v-splash");
 
+let isLoadPageRunning = false;
+loadLong();
+
   const createAction = (url, type, payload) => {
     const urlObj = new URL(url, window.location.href);
     const state = { page: urlObj.hash.slice(1) };
@@ -553,7 +556,7 @@ let Loadsplash = document.querySelector(".v-splash");
     const path = isHome ? "" : "./pages/";
     return `${path}${pageName}.html`;
   }
-  let isLoadPageRunning = false;
+ 
   function loadLong() {
     if (!isLoadPageRunning) {
       displayLoadSplash();
