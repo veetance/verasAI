@@ -22,7 +22,9 @@ document.addEventListener("DOMContentLoaded", () => {
     ".contact-us-modal-wrapper"
   );
   const vForminner = document.querySelector(".v-form-inner-wrapper");
-  const vFormClose = document.querySelector("#v-form-close , .login-button , .navbar-wrapper");
+  const vFormClose = document.querySelector(
+    "#v-form-close , .login-button , .navbar-wrapper"
+  );
   const navbarWrapper = document.querySelector(".navbar-wrapper");
 
   function showContactUS() {
@@ -130,8 +132,10 @@ document.addEventListener("DOMContentLoaded", () => {
 ///
 /// main index.js section
 document.addEventListener("DOMContentLoaded", () => {
+  let Loadsplash = document.querySelector(".v-splash");
 
-let Loadsplash = document.querySelector(".v-splash");
+  let isLoadPageRunning = false;
+  loadLong();
 
   const createAction = (url, type, payload) => {
     const urlObj = new URL(url, window.location.href);
@@ -194,7 +198,6 @@ let Loadsplash = document.querySelector(".v-splash");
   };
   const eventHandlers = {
     handleReirectDispatchOnLoad: () => {
-
       isLoadPageRunning = false;
       loadLong();
 
@@ -227,14 +230,14 @@ let Loadsplash = document.querySelector(".v-splash");
           store.dispatch(actions.showOnboardingSteps());
           eventHandlers.onboardSuccess();
           break;
-          default:
-            // Show a popup alert
-            console.warn(`Unknown page | REDIRECTING TO HOME: ${pageName}`);
-            alert(`Unknown page | Click ok to go to [Home]: ${pageName}`);
-          
-            // Redirect the user to the home page
-            store.dispatch(actions.showHome());
-            break;
+        default:
+          // Show a popup alert
+          console.warn(`Unknown page | REDIRECTING TO HOME: ${pageName}`);
+          alert(`Unknown page | Click ok to go to [Home]: ${pageName}`);
+
+          // Redirect the user to the home page
+          store.dispatch(actions.showHome());
+          break;
       }
 
       window.addEventListener("popstate", function (event) {
@@ -243,27 +246,25 @@ let Loadsplash = document.querySelector(".v-splash");
           window.location.reload();
         }
       });
-
-
     },
     handleLoginButtonClick: () => {
-      loadPage("login", actions.showLogin(), actions.setLoginContent).then(() => {
-        let loginSpace = document.querySelector(".login-Space");
-        handleLoginFormSubmission(loginSpace);
+      loadPage("login", actions.showLogin(), actions.setLoginContent).then(
+        () => {
+          let loginSpace = document.querySelector(".login-Space");
+          handleLoginFormSubmission(loginSpace);
 
-        let waitListButton = document.querySelector("#waitList");
-        waitListButton.addEventListener("click", () => {
-          store.dispatch(actions.showHome()), window.location.reload();
-        });
-      });
+          let waitListButton = document.querySelector("#waitList");
+          waitListButton.addEventListener("click", () => {
+            store.dispatch(actions.showHome()), window.location.reload();
+          });
+        }
+      );
     },
     handleToOnboardFormClick: () => {
-
       isLoadPageRunning = true;
       loadLong();
-      
+
       setTimeout(() => {
-        
         loadPage(
           "onboarding",
           actions.showOnboarding(),
@@ -274,25 +275,18 @@ let Loadsplash = document.querySelector(".v-splash");
           isLoadPageRunning = false;
           elements.splash.style.display = "none";
         });
-
       }, 800);
-
     },
     handleNewsfeedButtonClick: () => {
-
-
       loadPage(
         "newsfeed",
         actions.showNewsfeed(),
         actions.setNewsfeedContent
       ).then(() => {
         isLoadPageRunning = false;
-        updateNewsfeedNAV(true);
         eventHandlers.updateNewsfeedUI();
-        updateNewsfeedNAV(newsfeedVisible) 
-        
+        updateNewsfeedNAV(true);
       });
-
     },
     handleInsightsButtonClick: () => {
       store.dispatch(actions.hideCreate());
@@ -358,18 +352,15 @@ let Loadsplash = document.querySelector(".v-splash");
           if (stepFinishButtons) {
             stepFinishButtons.forEach(function (button) {
               button.addEventListener("click", function () {
-
                 isLoadPageRunning = true;
                 loadLong();
-          
+
                 setTimeout(() => {
                   alert(
                     "Prototype: Data is not connected. Proceeding to news feed..."
                   );
-                    eventHandlers.handleNewsfeedButtonClick();
+                  eventHandlers.handleNewsfeedButtonClick();
                 }, 800);
-               
-
               });
             });
           }
@@ -377,42 +368,34 @@ let Loadsplash = document.querySelector(".v-splash");
       }
     },
     successfulLogin: (loginNumberInput, passwordInput) => {
-
       loginNumberInput.value = "";
       passwordInput.value = "";
 
       isLoadPageRunning = true;
       loadLong();
 
-      setTimeout(() => { 
+      setTimeout(() => {
         updateLoginUI(true);
         isLoadPageRunning = false;
         elements.splash.style.display = "none";
       }, 800);
-     
     },
     onboardSuccess: () => {
-
       isLoadPageRunning = true;
       loadLong();
-      
-     
-        setTimeout(() => {
 
-          loadPage(
-            "onboardingSteps",
-            actions.showOnboardingSteps(),
-            actions.setOnboardingStepsContent
-          ).then(() => {
-            eventHandlers.addStepButtonListeners();
-            eventHandlers.updateStep();
-            isLoadPageRunning = false;
-            elements.splash.style.display = "none";
-          });
-
-        }, 700);
-        
-      
+      setTimeout(() => {
+        loadPage(
+          "onboardingSteps",
+          actions.showOnboardingSteps(),
+          actions.setOnboardingStepsContent
+        ).then(() => {
+          eventHandlers.addStepButtonListeners();
+          eventHandlers.updateStep();
+          isLoadPageRunning = false;
+          elements.splash.style.display = "none";
+        });
+      }, 700);
     },
     updateNewsfeedUI: () => {
       const LogOutButton = document.querySelector(".logout-button");
@@ -423,18 +406,83 @@ let Loadsplash = document.querySelector(".v-splash");
       });
 
       const newsfeedButton = document.querySelector(".newsfeed-button");
+      const modal = document.querySelector(".collapsable-comp");
       newsfeedButton.addEventListener("click", function () {
         window.location.reload();
       });
 
       const navLink = document.querySelector("#hamBurg");
       const settingsModal = document.querySelector(".settings-modal");
+
       if (navLink && settingsModal) {
         navLink.addEventListener("click", function () {
-          this.classList.toggle("active");
-          settingsModal.classList.toggle("shown");
+          modal.style.display = "flex";
+
+          setTimeout(() => {
+            this.classList.toggle("active");
+            settingsModal.classList.toggle("shown");
+          });
         });
       }
+      // We listen to the transitionend event which will be fired when the toggle animation finishes
+      settingsModal.addEventListener("transitionend", function () {
+        if (!settingsModal.classList.contains("shown")) {
+          setTimeout(() => {
+            modal.style.display = "none";
+          }, 0);
+        }
+      });
+
+      // get references to the elements
+const newsfeedLeft = document.querySelector(".Newsfeed-Left");
+const quickSurvey = document.querySelector(".Quick-survey");
+
+// functions to handle the click events
+function handleNewsfeedLeftClick() {
+    newsfeedLeft.style.maxHeight = "100%";
+    quickSurvey.style.maxHeight = "60px";
+}
+
+function handleQuickSurveyClick() {
+    quickSurvey.style.maxHeight = "100%";
+    newsfeedLeft.style.maxHeight = "60px";
+}
+
+// function to handle the change in media query
+function handleScreenChange() {
+    if (window.innerWidth >= 200 && window.innerWidth <= 1060) {
+        // tablet mode
+        newsfeedLeft.style.transition = "max-height .5s cubic-bezier(0.4, 0, 0.2, 1)";
+        quickSurvey.style.transition = "max-height .5s cubic-bezier(0.4, 0, 0.2, 1)";
+        
+        // add event listeners to the elements
+        newsfeedLeft.addEventListener("click", handleNewsfeedLeftClick);
+        quickSurvey.addEventListener("click", handleQuickSurveyClick);
+    } else {
+        // desktop mode
+        newsfeedLeft.style.transition = "width .5s cubic-bezier(0.4, 0, 0.2, 1)";
+        quickSurvey.style.transition = "width .5s cubic-bezier(0.4, 0, 0.2, 1)";
+        
+        // set the heights to 100%
+        newsfeedLeft.style.maxHeight = "100%";
+        quickSurvey.style.maxHeight = "100%";
+        
+        // remove event listeners from the elements
+        newsfeedLeft.removeEventListener("click", handleNewsfeedLeftClick);
+        quickSurvey.removeEventListener("click", handleQuickSurveyClick);
+    }
+}
+
+// initial setup
+handleScreenChange();
+
+// add the event listener
+window.addEventListener('resize', handleScreenChange);
+
+
+      
+
+     
     },
     validateForm: (loginNumber, password, confirmPassword, nickname) => {
       if (!/^\d{2,9}$/.test(loginNumber)) {
@@ -474,9 +522,7 @@ let Loadsplash = document.querySelector(".v-splash");
         alert("Please check your password.");
         return false;
       } else if (loginNumber === "123456789" && password === "123456") {
-      
-          eventHandlers.handleNewsfeedButtonClick();
-  
+        eventHandlers.handleNewsfeedButtonClick();
       }
       return {
         loginNumber,
@@ -486,9 +532,7 @@ let Loadsplash = document.querySelector(".v-splash");
   };
 
   window.addEventListener("load", function () {
- 
     eventHandlers.handleReirectDispatchOnLoad();
-    
 
     if (elements.loginButton) {
       elements.loginButton.addEventListener(
@@ -531,7 +575,7 @@ let Loadsplash = document.querySelector(".v-splash");
     setTimeout(() => {
       elements.splash.style.display = "none";
       isLoadPageRunning = false;
-    }, remainingTime)+100;
+    }, remainingTime) + 100;
   }
   function displayLongSplash() {
     if (!elements.splash) return;
@@ -553,7 +597,7 @@ let Loadsplash = document.querySelector(".v-splash");
     const path = isHome ? "" : "./pages/";
     return `${path}${pageName}.html`;
   }
-  let isLoadPageRunning = false;
+
   function loadLong() {
     if (!isLoadPageRunning) {
       displayLoadSplash();
@@ -563,7 +607,7 @@ let Loadsplash = document.querySelector(".v-splash");
   }
   async function loadPage(pageName, actionToShow, actionToSetContent) {
     store.dispatch(actionToShow);
- 
+
     try {
       const response = await fetch(getPagePath(pageName));
       const html = await response.text();
@@ -617,7 +661,6 @@ let Loadsplash = document.querySelector(".v-splash");
     }
   }
   function updateLoginUI(isLoggedIn) {
-   
     const formTitle = document.querySelector(".form-title");
     const ToFeedbtn = document.querySelector("#toFeed-button");
     const title = document.querySelector(".title h1");
@@ -645,7 +688,6 @@ let Loadsplash = document.querySelector(".v-splash");
       PMemo.style.color = "var(--f7-theme-color)";
       buttonWrap.parentNode.insertBefore(PMemo, buttonWrap);
       isLoadPageRunning = false;
-
 
       /// GO TO ONBOARDING FORM
       onboardingButtonInner.addEventListener("click", () => {
@@ -727,12 +769,11 @@ let Loadsplash = document.querySelector(".v-splash");
                   alert(
                     "This is a prototype, data not connected. Please press OK to proceed."
                   );
-                  
+
                   eventHandlers.successfulLogin(
                     loginNumberInput,
                     passwordInput
                   );
-
                 }
               });
           });
@@ -745,7 +786,6 @@ let Loadsplash = document.querySelector(".v-splash");
       onboardingSpace.dataset.formEventAttached = "true";
 
       setTimeout(() => {
-      
         const onboardingForm = document.querySelector(".form");
         isLoadPageRunning = false;
 
@@ -833,9 +873,7 @@ let Loadsplash = document.querySelector(".v-splash");
               });
           });
         }
-      
-      },100)
-
+      }, 100);
     }
   }
 
@@ -844,7 +882,6 @@ let Loadsplash = document.querySelector(".v-splash");
     const state = store.getState();
     if (state.loginVisible) {
     } else if (state.newsfeedVisible) {
-      updateNewsfeedNAV(true);
     } else if (state.onboardingStepsVisible || stepMainAdjust()) {
       window.addEventListener("resize", function () {
         stepMainAdjust();
@@ -894,5 +931,4 @@ let Loadsplash = document.querySelector(".v-splash");
       }
     }
   });
-
 });
