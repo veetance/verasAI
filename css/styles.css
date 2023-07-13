@@ -429,7 +429,7 @@ h5 {
   justify-content : space-between;
   background-color: var(--v-header-light-mint-80);
   width           : 100%;
-  height          : fit-content;
+  height          : auto;
   padding         : 20px;
   gap        : 20px;
   border-radius   : 2rem 2rem 0px 0px;
