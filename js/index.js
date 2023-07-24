@@ -278,15 +278,15 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 800);
     },
     handleNewsfeedButtonClick: () => {
+      updateNewsfeedNAV(true);
       loadPage(
         "newsfeed",
         actions.showNewsfeed(),
         actions.setNewsfeedContent
       ).then(() => {
-        isLoadPageRunning = false;
         eventHandlers.updateNewsfeedUI();
-        updateNewsfeedNAV(true);
-      });
+        isLoadPageRunning = false;
+      }, 800);
     },
     handleInsightsButtonClick: () => {
       store.dispatch(actions.hideCreate());
@@ -368,13 +368,13 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     },
     successfulLogin: (loginNumberInput, passwordInput) => {
-      loginNumberInput.value = "";
-      passwordInput.value = "";
-
       isLoadPageRunning = true;
       loadLong();
 
       setTimeout(() => {
+        loginNumberInput.value = "";
+        passwordInput.value = "";
+
         updateLoginUI(true);
         isLoadPageRunning = false;
         elements.splash.style.display = "none";
@@ -434,55 +434,85 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       // get references to the elements
-const newsfeedLeft = document.querySelector(".Newsfeed-Left");
-const quickSurvey = document.querySelector(".Quick-survey");
+      const newsfeedLeft = document.querySelector(".Newsfeed-Left");
+      const quickSurvey = document.querySelector(".Quick-survey");
 
-// functions to handle the click events
-function handleNewsfeedLeftClick() {
-    newsfeedLeft.style.maxHeight = "100%";
-    quickSurvey.style.maxHeight = "60px";
-}
-
-function handleQuickSurveyClick() {
-    quickSurvey.style.maxHeight = "100%";
-    newsfeedLeft.style.maxHeight = "60px";
-}
-
-// function to handle the change in media query
-function handleScreenChange() {
-    if (window.innerWidth >= 200 && window.innerWidth <= 1060) {
-        // tablet mode
-        newsfeedLeft.style.transition = "max-height .5s cubic-bezier(0.4, 0, 0.2, 1)";
-        quickSurvey.style.transition = "max-height .5s cubic-bezier(0.4, 0, 0.2, 1)";
-        
-        // add event listeners to the elements
-        newsfeedLeft.addEventListener("click", handleNewsfeedLeftClick);
-        quickSurvey.addEventListener("click", handleQuickSurveyClick);
-    } else {
-        // desktop mode
-        newsfeedLeft.style.transition = "width .5s cubic-bezier(0.4, 0, 0.2, 1)";
-        quickSurvey.style.transition = "width .5s cubic-bezier(0.4, 0, 0.2, 1)";
-        
-        // set the heights to 100%
+      // functions to handle the click events
+      function handleNewsfeedLeftClick() {
         newsfeedLeft.style.maxHeight = "100%";
+        quickSurvey.style.maxHeight = "60px";
+      }
+
+      function handleQuickSurveyClick() {
         quickSurvey.style.maxHeight = "100%";
-        
-        // remove event listeners from the elements
-        newsfeedLeft.removeEventListener("click", handleNewsfeedLeftClick);
-        quickSurvey.removeEventListener("click", handleQuickSurveyClick);
-    }
-}
+        newsfeedLeft.style.maxHeight = "60px";
+      }
 
-// initial setup
-handleScreenChange();
+      // function to handle the change in media query
+      function handleScreenChange() {
+        if (window.innerWidth >= 200 && window.innerWidth <= 1060) {
+          // tablet mode
+          newsfeedLeft.style.transition =
+            "max-height .5s cubic-bezier(0.4, 0, 0.2, 1)";
+          quickSurvey.style.transition =
+            "max-height .5s cubic-bezier(0.4, 0, 0.2, 1)";
 
-// add the event listener
-window.addEventListener('resize', handleScreenChange);
+          // add event listeners to the elements
+          newsfeedLeft.addEventListener("click", handleNewsfeedLeftClick);
+          quickSurvey.addEventListener("click", handleQuickSurveyClick);
+        } else {
+          // desktop mode
+          newsfeedLeft.style.transition =
+            "width .5s cubic-bezier(0.4, 0, 0.2, 1)";
+          quickSurvey.style.transition =
+            "width .5s cubic-bezier(0.4, 0, 0.2, 1)";
 
+          // set the heights to 100%
+          newsfeedLeft.style.maxHeight = "100%";
+          quickSurvey.style.maxHeight = "100%";
 
-      
+          // remove event listeners from the elements
+          newsfeedLeft.removeEventListener("click", handleNewsfeedLeftClick);
+          quickSurvey.removeEventListener("click", handleQuickSurveyClick);
+        }
+      }
 
-     
+      // initial setup
+      handleScreenChange();
+
+      // add the event listener
+      window.addEventListener("resize", handleScreenChange);
+
+      //////
+      document
+        .getElementById("written-survey-tab")
+        .addEventListener("click", function () {
+          activateTab("written-survey");
+        });
+
+      document
+        .getElementById("multiple-choice-tab")
+        .addEventListener("click", function () {
+          activateTab("multiple-choice");
+        });
+
+      function activateTab(tabName) {
+        // Hide all tab content
+        var tabContents = document.getElementsByClassName("tab-content");
+        for (var i = 0; i < tabContents.length; i++) {
+          tabContents[i].style.display = "none";
+        }
+
+        // Remove the active class from all tabs
+        var tabs = document.getElementsByClassName("tab");
+        for (var i = 0; i < tabs.length; i++) {
+          tabs[i].classList.remove("active");
+        }
+
+        // Show the selected tab content and add the active class to the selected tab
+        document.getElementById(tabName + "-content").style.display = "block";
+        document.getElementById(tabName + "-tab").classList.add("active");
+      }
     },
     validateForm: (loginNumber, password, confirmPassword, nickname) => {
       if (!/^\d{2,9}$/.test(loginNumber)) {
@@ -522,7 +552,20 @@ window.addEventListener('resize', handleScreenChange);
         alert("Please check your password.");
         return false;
       } else if (loginNumber === "123456789" && password === "123456") {
-        eventHandlers.handleNewsfeedButtonClick();
+        isLoadPageRunning = true;
+        loadLong();
+
+        setTimeout(() => {
+          loadPage(
+            "newsfeed",
+            actions.showNewsfeed(),
+            actions.setNewsfeedContent
+          ).then(() => {
+            eventHandlers.handleNewsfeedButtonClick();
+            isLoadPageRunning = false;
+            elements.splash.style.display = "none";
+          });
+        }, 700);
       }
       return {
         loginNumber,
@@ -569,13 +612,12 @@ window.addEventListener('resize', handleScreenChange);
     // If the flag is set, display the splash screen and remove the flag
     if (!Loadsplash) return;
     Loadsplash.style.display = "flex";
-    const hideSplashTime = Date.now() + 1100;
-
+    const hideSplashTime = Date.now() ;
     const remainingTime = Math.max(0, hideSplashTime - Date.now());
     setTimeout(() => {
       elements.splash.style.display = "none";
       isLoadPageRunning = false;
-    }, remainingTime) + 100;
+    }, remainingTime + 600);
   }
   function displayLongSplash() {
     if (!elements.splash) return;
@@ -597,7 +639,6 @@ window.addEventListener('resize', handleScreenChange);
     const path = isHome ? "" : "./pages/";
     return `${path}${pageName}.html`;
   }
-
   function loadLong() {
     if (!isLoadPageRunning) {
       displayLoadSplash();
@@ -705,82 +746,73 @@ window.addEventListener('resize', handleScreenChange);
       upNavNewsfeed.style.display = "flex";
     }
   }
+
   function handleLoginFormSubmission(loginSpace) {
-    if (!loginSpace.dataset.formEventAttached) {
+    if (loginSpace.dataset.formEventAttached !== "true") {
       loginSpace.dataset.formEventAttached = "true";
 
-      setTimeout(() => {
-        const loginForm = document.querySelector(".form");
+      const loginForm = document.querySelector(".form");
 
-        if (loginForm) {
-          loginForm.addEventListener("submit", (event) => {
-            // Prevent form submission at the start of the event handler
-            event.preventDefault();
+      if (loginForm) {
+        loginForm.onsubmit = (event) => {
+          event.preventDefault();
 
-            const loginNumberInput = document.querySelector("#login-number");
-            const passwordInput = document.querySelector("#password");
+          const loginNumberInput = document.querySelector("#login-number");
+          const passwordInput = document.querySelector("#password");
 
-            // Validate login number and password
-            const loginNumber = loginNumberInput.value;
-            const password = passwordInput.value;
+          const loginNumber = loginNumberInput.value;
+          const password = passwordInput.value;
 
-            const formData = eventHandlers.validateLoginForm(
-              loginNumber,
-              password
-            );
-            if (!formData) {
-              // If form data is invalid, return early
-              return;
-            }
+          const formData = eventHandlers.validateLoginForm(
+            loginNumber,
+            password
+          );
 
-            // Prepare the userLoginData object
-            const userLoginData = {
-              loginNumber: formData.loginNumber,
-              password: formData.password,
-            };
+          if (!formData) {
+            return;
+          }
 
-            // Send a POST request to login.phps
-            fetch("http://study.veras.ca/logins.phps", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(userLoginData),
+          eventHandlers.successfulLogin(loginNumberInput, passwordInput);
+
+          const userLoginData = {
+            loginNumber: formData.loginNumber,
+            password: formData.password,
+          };
+
+          fetch("http://study.veras.ca/logins.phps", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userLoginData),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
+              return response.text();
             })
-              .then((response) => {
-                if (!response.ok) {
-                  throw new Error("Network response was not ok");
-                }
-                return response.text();
-              })
-              .then((data) => {
-                //do something with the data
-              })
-              .catch((error) => {
-                // Handle errors here
-                if (error.message.includes("NetworkError")) {
-                  alert("Network Error: Failed to reach the server.");
-                } else if (error.message.includes("TypeError")) {
-                  alert(
-                    "Type Error: There was a problem with the type of the input."
-                  );
-                } else {
-                  // Handle prototype error
-                  alert(
-                    "This is a prototype, data not connected. Please press OK to proceed."
-                  );
-
-                  eventHandlers.successfulLogin(
-                    loginNumberInput,
-                    passwordInput
-                  );
-                }
-              });
-          });
-        }
-      }, 100);
+            .then((data) => {
+              // do something with the data
+            })
+            .catch((error) => {
+              if (error.message.includes("NetworkError")) {
+                alert("Network Error: Failed to reach the server.");
+              } else if (error.message.includes("TypeError")) {
+                alert(
+                  "Type Error: There was a problem with the type of the input."
+                );
+              } else {
+                alert(
+                  "This is a prototype, data not connected. Please press OK to proceed."
+                );
+              }
+            });
+        };
+      }
     }
   }
+
   function handleOnboardingFormSubmission(onboardingSpace) {
     if (!onboardingSpace.dataset.formEventAttached) {
       onboardingSpace.dataset.formEventAttached = "true";

@@ -427,7 +427,7 @@ h5 {
   display         : flex;
   align-items     : center;
   justify-content : space-between;
-  background-color: var(--v-header-light-mint-80);
+  background-color: #e7f7f3bc;
   width           : 100%;
   height          : auto;
   padding         : 20px;
@@ -740,6 +740,9 @@ h5 {
   padding-left: 12px;
   width: auto !important;
   height: auto !important;
+}
+.nav-button .material-symbols-outlined {
+  color           : var(--f7-theme-color);
 }
 
 
