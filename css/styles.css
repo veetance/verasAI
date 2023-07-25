@@ -171,7 +171,7 @@ h2 {
   font-size      : clamp(1.3rem, 2vw, 1.5rem);
   line-height    : clamp(1.6rem, 2.6vw, 2.1rem);
   font-weight    : 800;
-  color          : var(--f7-2ndry-theme-color-tint);
+  color: #2a6655;
   padding        : 0px;
   margin         : 0px;
   /* border      :solid #161124 1px; */
@@ -322,7 +322,7 @@ h5 {
   padding         : 10px;
   cursor          : pointer;
   background-color: #8972d307;
-  border          :  solid 1px #5f50b2c7 !important;
+  border          :  solid .5px #5f50b226 !important;
 }
 
 .nav-title:active {
@@ -557,7 +557,7 @@ h5 {
 }
 
 .v-button-filled .material-symbols-outlined {
-  color           : #ffffffea;
+  color           : #ffffffea !important;
   font-size       : clamp(20px, 1.3vw, 1.8vw) !important;
   line-height     : 100% !important;
   font-weight     : 500 !important;
@@ -568,11 +568,11 @@ h5 {
 }
 
 .v-button-filled:hover .material-symbols-outlined {
-  color: #5e50b2;
+  color: #5e50b2 !important;
 }
 
 .v-button-filled:active .material-symbols-outlined {
-  color: white;
+  color: white !important;
 }
 
 .material-symbols-outlined {
@@ -732,6 +732,10 @@ h5 {
   transition: all .3s cubic-bezier(0, 0.82, 0.14, 0.99) !important;
 }
 
+.nav-button i{
+  color: var(--f7-theme-color) !important;
+}
+
 .login-button{
   display: flex;
   justify-content: flex-end;
@@ -756,13 +760,35 @@ h5 {
 }
 
 
-.nav-button:active,
-.nav-button:focus {
+.nav-button:active {
   background-image: linear-gradient(to top, #5e50b2, #5e50b2);
   cursor          : pointer;
   color           : #ffffff;
   border          : solid 1px var(--f7-theme-color);
 }
+.nav-button:active { 
+  color           : #ffffff;
+} 
+
+.nav-button:focus-within{
+  border : solid 1px var(--f7-theme-color) !important;
+}
+.nav-button:focus .material-symbols-outlined {
+  color           : #ffffff;
+}
+
+
+.nav-button:active .material-symbols-outlined{
+  color           : #ffffff !important;
+}
+
+.nav-button:active h2{
+  color           : #ffffff !important;
+}
+.nav-button:active h2 i{
+  color           : #ffffff !important;
+}
+
 
 
 .nav-button-active {
@@ -1249,6 +1275,7 @@ h5 {
   opacity         : 0.8;
   padding         : 14px 24px;
   background-color: var(--v-header-light-mint-80);
+  border: solid 1px var(--v-mint-plane);
   border-radius   : 25px;
 }
 
@@ -2559,6 +2586,7 @@ h5 {
   --v-white-plane-clear   : #ffffff00;
   --v-white-plane-clear-80: #ffffffc4;
   --v-lavender-plane      : #ebe8ff;
+  --v-mint-plane      : #cae8dc;
   --v-backbround-grey-100 : #efecff;
   --v-header-light-mint   : #f4fff9;
   --v-header-light-mint-80: #e7f7f3bc;

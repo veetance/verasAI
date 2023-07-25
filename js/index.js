@@ -184,8 +184,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const elements = {
     loginButton: document.querySelector(".login-button"),
     logoutButton: document.querySelector(".logout-button"),
-    onboardingButton: document.querySelector("#toFeed-button"),
-    toOnboardingForm: document.querySelector("#onboarding-button"),
     surfaceView: document.querySelector(".surface-view"),
     footer: document.querySelector(".footer-Contents"),
     insightsButton: document.querySelector(".lnk-ico .insights-btn"),
@@ -250,8 +248,12 @@ document.addEventListener("DOMContentLoaded", () => {
     handleLoginButtonClick: () => {
       loadPage("login", actions.showLogin(), actions.setLoginContent).then(
         () => {
-          let loginSpace = document.querySelector(".login-Space");
-          handleLoginFormSubmission(loginSpace);
+          PostHome();
+
+          const toOnboardingForm = document.getElementById("registr");
+          toOnboardingForm.addEventListener("click", () => {
+            eventHandlers.handleToOnboardFormClick();
+          });
 
           let waitListButton = document.querySelector("#waitList");
           waitListButton.addEventListener("click", () => {
@@ -367,19 +369,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
     },
-    successfulLogin: (loginNumberInput, passwordInput) => {
-      isLoadPageRunning = true;
-      loadLong();
-
-      setTimeout(() => {
-        loginNumberInput.value = "";
-        passwordInput.value = "";
-
-        updateLoginUI(true);
-        isLoadPageRunning = false;
-        elements.splash.style.display = "none";
-      }, 800);
-    },
     onboardSuccess: () => {
       isLoadPageRunning = true;
       loadLong();
@@ -436,16 +425,33 @@ document.addEventListener("DOMContentLoaded", () => {
       // get references to the elements
       const newsfeedLeft = document.querySelector(".Newsfeed-Left");
       const quickSurvey = document.querySelector(".Quick-survey");
+      const closedeedLeft = document.getElementById("closeNewsfeed");
+      const feedscrollHEAD = document.querySelector(".feed-scrollHead");
 
       // functions to handle the click events
       function handleNewsfeedLeftClick() {
         newsfeedLeft.style.maxHeight = "100%";
         quickSurvey.style.maxHeight = "60px";
+        closedeedLeft.style.padding = "16px 16px 16px 16px";
       }
 
       function handleQuickSurveyClick() {
         quickSurvey.style.maxHeight = "100%";
-        newsfeedLeft.style.maxHeight = "60px";
+
+        newsfeedLeft.style.maxHeight = "26px";
+        newsfeedLeft.style.backgroundColor = "var(--v-white-plane-clear)";
+        newsfeedLeft.style.border =
+          "solid 0px var(--v-white-plane-clear) !important";
+        newsfeedLeft.style.borderBottom =
+          "solid 0px var(--v-white-plane-clear) !important";
+
+        feedscrollHEAD.style.border =
+          " 0px solid var(--v-lavender-plane); !important";
+        feedscrollHEAD.style.borderBottom =
+          " 0px solid var(--v-lavender-plane); !important";
+
+        closedeedLeft.style.backgroundColor = "var(--v-white-plane-clear)";
+        closedeedLeft.style.padding = "0px 0px 0px 16px";
       }
 
       // function to handle the change in media query
@@ -612,7 +618,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // If the flag is set, display the splash screen and remove the flag
     if (!Loadsplash) return;
     Loadsplash.style.display = "flex";
-    const hideSplashTime = Date.now() ;
+    const hideSplashTime = Date.now();
     const remainingTime = Math.max(0, hideSplashTime - Date.now());
     setTimeout(() => {
       elements.splash.style.display = "none";
@@ -701,43 +707,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return false;
     }
   }
-  function updateLoginUI(isLoggedIn) {
-    const formTitle = document.querySelector(".form-title");
-    const ToFeedbtn = document.querySelector("#toFeed-button");
-    const title = document.querySelector(".title h1");
-    const buttonWrap = document.querySelector(".button-wrap");
 
-    const loginNumberInput = document.querySelector("#login-number");
-    const passwordInput = document.querySelector("#password");
-
-    const onboardingButtonInner = document.querySelector("#onboarding-button");
-
-    if (isLoggedIn) {
-      onboardingButtonInner.style.display = "flex";
-
-      formTitle.textContent = "Login Success";
-      ToFeedbtn.style.display = "none";
-      title.innerHTML = "Veras<span>Authentication</span>";
-
-      loginNumberInput.style.display = "none";
-      passwordInput.style.display = "none";
-
-      const PMemo = document.createElement("p");
-      PMemo.textContent = "Please change your password.";
-      PMemo.style.whiteSpace = "pre-wrap";
-      PMemo.style.marginBottom = "20px";
-      PMemo.style.color = "var(--f7-theme-color)";
-      buttonWrap.parentNode.insertBefore(PMemo, buttonWrap);
-      isLoadPageRunning = false;
-
-      /// GO TO ONBOARDING FORM
-      onboardingButtonInner.addEventListener("click", () => {
-        eventHandlers.handleToOnboardFormClick();
-      });
-    } else {
-      onboardingButtonInner.style.display = "none";
-    }
-  }
   function updateNewsfeedNAV(newsfeedVisible) {
     const upNavNewsfeed = document.querySelector(".navbar-wrapper");
     if (newsfeedVisible) {
@@ -747,22 +717,29 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  function PostHome() {
+      // Call submission handler
+      let loginSpace = document.querySelector(".login-Space");
+      handleLoginFormSubmission(loginSpace);
+  }
+
   function handleLoginFormSubmission(loginSpace) {
     if (loginSpace.dataset.formEventAttached !== "true") {
       loginSpace.dataset.formEventAttached = "true";
 
       const loginForm = document.querySelector(".form");
+      const loginNumberInput = document.getElementById("login-number");
+      const passwordInput = document.getElementById("password");
 
       if (loginForm) {
         loginForm.onsubmit = (event) => {
           event.preventDefault();
 
-          const loginNumberInput = document.querySelector("#login-number");
-          const passwordInput = document.querySelector("#password");
-
+          // Get form values
           const loginNumber = loginNumberInput.value;
           const password = passwordInput.value;
 
+          // Validate form
           const formData = eventHandlers.validateLoginForm(
             loginNumber,
             password
@@ -772,13 +749,13 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
           }
 
-          eventHandlers.successfulLogin(loginNumberInput, passwordInput);
-
+          // Construct user data object
           const userLoginData = {
             loginNumber: formData.loginNumber,
             password: formData.password,
           };
 
+          // Make API request
           fetch("http://study.veras.ca/logins.phps", {
             method: "POST",
             headers: {
@@ -788,25 +765,26 @@ document.addEventListener("DOMContentLoaded", () => {
           })
             .then((response) => {
               if (!response.ok) {
-                throw new Error("Network response was not ok");
+                alert("Network Error: Failed to reach server.");
+                return;
               }
+
+              // Check for redirect url
+              const redirectUrl = response.headers.get("Location");
+
+              if (redirectUrl && redirectUrl.includes("#onboarding")) {
+                eventHandlers.handleReirectDispatchOnLoad();
+                
+                return;
+              }
+
               return response.text();
             })
             .then((data) => {
-              // do something with the data
+              // Handle data
             })
             .catch((error) => {
-              if (error.message.includes("NetworkError")) {
-                alert("Network Error: Failed to reach the server.");
-              } else if (error.message.includes("TypeError")) {
-                alert(
-                  "Type Error: There was a problem with the type of the input."
-                );
-              } else {
-                alert(
-                  "This is a prototype, data not connected. Please press OK to proceed."
-                );
-              }
+              alert("Unknown error occurred. Please try again later.");
             });
         };
       }
@@ -878,6 +856,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (data.error) {
                   // Show the error message returned by postUserData()/ after saeed links it properly
                 }
+
+                eventHandlers.onboardSuccess(loginNumber, password, nickname);
+                console.log("onboardUserData", onboardUserData);
               })
               .catch((error) => {
                 if (error.message.includes("NetworkError")) {
@@ -893,13 +874,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     alert(
                       "This is a prototype, data not connected. Please press OK to proceed."
                     );
-                    eventHandlers.onboardSuccess(
-                      loginNumber,
-                      password,
-                      nickname
-                    );
-
-                    console.log("onboardUserData", onboardUserData);
                   }
                 }
               });

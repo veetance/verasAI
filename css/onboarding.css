@@ -302,6 +302,7 @@
   cursor       : pointer;
   width        : fit-content !important;
   height       : fit-content !important;
+  margin-top   : px;
 }
 
 .overline strong p {
@@ -330,7 +331,7 @@
   align-items     : center;
   border          : 1px solid rgba(95, 80, 178, 0.443);
   border-radius   : 6px;
-  background-color: rgb(242, 240, 255);
+  background-color: rgba(242, 240, 255, 0.685);
 }
 
 .overline strong span:active {
@@ -387,9 +388,9 @@
 
 .global-back-btn {
   display    : flex;
-  scale      : 1.4;
+  scale      : 1.5;
   border     : 2px solid rgba(52, 167, 134, 0);
-  font-weight: 600;
+  font-weight: 600 !important;
 }
 
 @media (min-width: 580px) and (max-width: 1055px) {
