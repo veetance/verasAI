@@ -248,7 +248,9 @@ document.addEventListener("DOMContentLoaded", () => {
     handleLoginButtonClick: () => {
       loadPage("login", actions.showLogin(), actions.setLoginContent).then(
         () => {
-          PostHome();
+          // Call submission handler
+          let loginSpace = document.querySelector(".login-Space");
+          handleLoginFormSubmission(loginSpace);
 
           const toOnboardingForm = document.getElementById("registr");
           toOnboardingForm.addEventListener("click", () => {
@@ -717,12 +719,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  function PostHome() {
-      // Call submission handler
-      let loginSpace = document.querySelector(".login-Space");
-      handleLoginFormSubmission(loginSpace);
-  }
-
   function handleLoginFormSubmission(loginSpace) {
     if (loginSpace.dataset.formEventAttached !== "true") {
       loginSpace.dataset.formEventAttached = "true";
@@ -774,7 +770,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
               if (redirectUrl && redirectUrl.includes("#onboarding")) {
                 eventHandlers.handleReirectDispatchOnLoad();
-                
+
                 return;
               }
 

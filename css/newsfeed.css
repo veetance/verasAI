@@ -78,7 +78,7 @@
   line-height: clamp(1.6rem, 2.6vw, 2.1rem);
   white-space: nowrap;
   width      : auto;
-  color: var(--f7-theme-color);
+  color: var(--f7-theme-color-muted);
 }
 
 .feed-scroll {
