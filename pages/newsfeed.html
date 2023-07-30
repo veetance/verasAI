@@ -4,17 +4,23 @@
       <div class="page-name">
         <div class="top-Left">
           <span>
-            <div class="Ucity"><h2>Newsfeed</h2></div>
-            <div class="Utime"><h4>Lethbridge</h4></div>
+            <div class="Ucity">
+              <h2>Newsfeed</h2>
+            </div>
+            <div class="Utime">
+              <h4>Lethbridge</h4>
+            </div>
           </span>
         </div>
         <div class="top-Right">
           <span class="nav-button login-button">
-            <div class="Uuser"><h2>User<i>000</i></h2></div>
-            <div class="Uico"> <i class="material-symbols-outlined">Account_Circle</i></div>
+            <div class="Uuser">
+              <h2>Blog <!--<i>000</i>--> </h2>
+            </div>
+            <div class="Uico"> <i class="material-symbols-outlined">full_coverage</i></div>
           </span>
         </div>
-      
+
       </div>
     </section>
 
@@ -25,17 +31,35 @@
             <div id="closeNewsfeed" class="v-form-header">
               <h1>All Surveys</h1>
               <!-- <i id="v-form-close" class="material-symbols-outlined">close</i> -->
-           </div>
+            </div>
           </div>
 
         </article>
         <article class="Newsfeed-Right Quick-survey">
           <div id="closeSurvey" class="v-form-header ">
-            
-            <h2>Create a quick survey</h2>
-            <i id="v-form-close" class="material-symbols-outlined">Create</i>
-         </div>
 
+            <h2>Create a quick survey</h2>
+            <i id="v-form-close" class="material-symbols-outlined">circles_ext</i>
+          </div>
+
+          <!-- 2 tabs toggle nav component -->
+          <div class="tabs">
+            <button class="tab" id="written-survey-tab"> <i class="material-symbols-outlined"> edit_note </i><p>Written Survey</p></button>
+            <button class="tab" id="multiple-choice-tab"><i class="material-symbols-outlined"> format_list_bulleted</i> <p>Multiple Choice</p></button>
+          </div>
+          <div class="tab-content" id="initial-content">
+
+            <img src="../img/arrow.svg" alt="" class="guide-arrow" > 
+            <h2>Select a survey mode</h2>
+            <P>tap written response or select <br>multiple Choice</P>
+          
+          </div>
+          <div class="tab-content" id="written-survey-content">
+            <!-- Written survey content goes here -->
+          </div>
+          <div class="tab-content" id="multiple-choice-content">
+            <!-- Multiple choice content goes here -->
+          </div>
 
         </article>
       </div>
@@ -71,8 +95,7 @@
               <div class="nav-lnk">
                 <div class="lnk-ico">
                   <div class="create-btn">
-                    <i class="material-icons">add_circle</i
-                    ><span id="create-text">Create</span>
+                    <i class="material-icons">add_circle</i><span id="create-text">Create</span>
                   </div>
                 </div>
               </div>

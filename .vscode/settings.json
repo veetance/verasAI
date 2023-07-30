@@ -1,7 +1,7 @@
 {
-    "Codegeex.EnableExtension": false,
+
     "vscode-edge-devtools.defaultEntrypoint": "",
-    "vscode-edge-devtools.defaultUrl": ""
-    
-    
+    "vscode-edge-devtools.defaultUrl": "",
+    "fiveServer.settings.port":55515
+
 }

@@ -184,8 +184,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const elements = {
     loginButton: document.querySelector(".login-button"),
     logoutButton: document.querySelector(".logout-button"),
-    onboardingButton: document.querySelector("#toFeed-button"),
-    toOnboardingForm: document.querySelector("#onboarding-button"),
     surfaceView: document.querySelector(".surface-view"),
     footer: document.querySelector(".footer-Contents"),
     insightsButton: document.querySelector(".lnk-ico .insights-btn"),
@@ -250,8 +248,14 @@ document.addEventListener("DOMContentLoaded", () => {
     handleLoginButtonClick: () => {
       loadPage("login", actions.showLogin(), actions.setLoginContent).then(
         () => {
+          // Call submission handler
           let loginSpace = document.querySelector(".login-Space");
           handleLoginFormSubmission(loginSpace);
+
+          const toOnboardingForm = document.getElementById("registr");
+          toOnboardingForm.addEventListener("click", () => {
+            eventHandlers.handleToOnboardFormClick();
+          });
 
           let waitListButton = document.querySelector("#waitList");
           waitListButton.addEventListener("click", () => {
@@ -261,6 +265,14 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     },
     handleToOnboardFormClick: () => {
+
+      //reload #onboarding page
+
+      if (window.location.hash === "#onboarding") {
+        window.location.reload();
+        return;
+      }
+
       isLoadPageRunning = true;
       loadLong();
 
@@ -275,18 +287,18 @@ document.addEventListener("DOMContentLoaded", () => {
           isLoadPageRunning = false;
           elements.splash.style.display = "none";
         });
-      }, 800);
+      }, 200);
     },
     handleNewsfeedButtonClick: () => {
+      updateNewsfeedNAV(true);
       loadPage(
         "newsfeed",
         actions.showNewsfeed(),
         actions.setNewsfeedContent
       ).then(() => {
-        isLoadPageRunning = false;
         eventHandlers.updateNewsfeedUI();
-        updateNewsfeedNAV(true);
-      });
+        isLoadPageRunning = false;
+      }, 800);
     },
     handleInsightsButtonClick: () => {
       store.dispatch(actions.hideCreate());
@@ -367,19 +379,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
     },
-    successfulLogin: (loginNumberInput, passwordInput) => {
-      loginNumberInput.value = "";
-      passwordInput.value = "";
-
-      isLoadPageRunning = true;
-      loadLong();
-
-      setTimeout(() => {
-        updateLoginUI(true);
-        isLoadPageRunning = false;
-        elements.splash.style.display = "none";
-      }, 800);
-    },
     onboardSuccess: () => {
       isLoadPageRunning = true;
       loadLong();
@@ -398,6 +397,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 700);
     },
     updateNewsfeedUI: () => {
+
       const LogOutButton = document.querySelector(".logout-button");
       LogOutButton.addEventListener("click", function () {
         alert("You are about to be logged out.");
@@ -434,55 +434,98 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       // get references to the elements
-const newsfeedLeft = document.querySelector(".Newsfeed-Left");
-const quickSurvey = document.querySelector(".Quick-survey");
+      const newsfeedLeft = document.querySelector(".Newsfeed-Left");
+      const quickSurvey = document.querySelector(".Quick-survey");
+      const closedeedLeft = document.getElementById("closeNewsfeed");
+      const feedscrollHEAD = document.querySelector(".feed-scrollHead");
 
-// functions to handle the click events
-function handleNewsfeedLeftClick() {
-    newsfeedLeft.style.maxHeight = "100%";
-    quickSurvey.style.maxHeight = "60px";
-}
-
-function handleQuickSurveyClick() {
-    quickSurvey.style.maxHeight = "100%";
-    newsfeedLeft.style.maxHeight = "60px";
-}
-
-// function to handle the change in media query
-function handleScreenChange() {
-    if (window.innerWidth >= 200 && window.innerWidth <= 1060) {
-        // tablet mode
-        newsfeedLeft.style.transition = "max-height .5s cubic-bezier(0.4, 0, 0.2, 1)";
-        quickSurvey.style.transition = "max-height .5s cubic-bezier(0.4, 0, 0.2, 1)";
-        
-        // add event listeners to the elements
-        newsfeedLeft.addEventListener("click", handleNewsfeedLeftClick);
-        quickSurvey.addEventListener("click", handleQuickSurveyClick);
-    } else {
-        // desktop mode
-        newsfeedLeft.style.transition = "width .5s cubic-bezier(0.4, 0, 0.2, 1)";
-        quickSurvey.style.transition = "width .5s cubic-bezier(0.4, 0, 0.2, 1)";
-        
-        // set the heights to 100%
+      // functions to handle the click events
+      function handleNewsfeedLeftClick() {
         newsfeedLeft.style.maxHeight = "100%";
+        quickSurvey.style.maxHeight = "60px";
+        closedeedLeft.style.padding = "16px 16px 16px 16px";
+      }
+
+      function handleQuickSurveyClick() {
         quickSurvey.style.maxHeight = "100%";
-        
-        // remove event listeners from the elements
-        newsfeedLeft.removeEventListener("click", handleNewsfeedLeftClick);
-        quickSurvey.removeEventListener("click", handleQuickSurveyClick);
-    }
-}
 
-// initial setup
-handleScreenChange();
+        newsfeedLeft.style.maxHeight = "26px";
+        newsfeedLeft.style.backgroundColor = "var(--v-white-plane-clear)";
+        newsfeedLeft.style.border =
+          "solid 0px var(--v-white-plane-clear) !important";
+        newsfeedLeft.style.borderBottom =
+          "solid 0px var(--v-white-plane-clear) !important";
 
-// add the event listener
-window.addEventListener('resize', handleScreenChange);
+        feedscrollHEAD.style.border =
+          " 0px solid var(--v-lavender-plane); !important";
+        feedscrollHEAD.style.borderBottom =
+          " 0px solid var(--v-lavender-plane); !important";
 
+        closedeedLeft.style.backgroundColor = "var(--v-white-plane-clear)";
+        closedeedLeft.style.padding = "0px 0px 0px 16px";
+      }
 
-      
+      // function to handle the change in media query
+      function handleScreenChange() {
+        if (window.innerWidth >= 200 && window.innerWidth <= 1060) {
+          // tablet mode
+          newsfeedLeft.style.transition =
+            "max-height .5s cubic-bezier(0.4, 0, 0.2, 1)";
+          quickSurvey.style.transition =
+            "max-height .5s cubic-bezier(0.4, 0, 0.2, 1)";
 
-     
+          // add event listeners to the elements
+          newsfeedLeft.addEventListener("click", handleNewsfeedLeftClick);
+          quickSurvey.addEventListener("click", handleQuickSurveyClick);
+        } else {
+          // desktop mode
+          newsfeedLeft.style.transition =
+            "width .5s cubic-bezier(0.4, 0, 0.2, 1)";
+          quickSurvey.style.transition =
+            "width .5s cubic-bezier(0.4, 0, 0.2, 1)";
+
+          // set the heights to 100%
+          newsfeedLeft.style.maxHeight = "100%";
+          quickSurvey.style.maxHeight = "100%";
+
+          // remove event listeners from the elements
+          newsfeedLeft.removeEventListener("click", handleNewsfeedLeftClick);
+          quickSurvey.removeEventListener("click", handleQuickSurveyClick);
+        }
+      }
+      handleScreenChange();
+      window.addEventListener("resize", handleScreenChange);
+
+      //////
+      document
+        .getElementById("written-survey-tab")
+        .addEventListener("click", function () {
+          activateTab("written-survey");
+        });
+
+      document
+        .getElementById("multiple-choice-tab")
+        .addEventListener("click", function () {
+          activateTab("multiple-choice");
+        });
+
+      function activateTab(tabName) {
+        // Hide all tab content
+        var tabContents = document.getElementsByClassName("tab-content");
+        for (var i = 0; i < tabContents.length; i++) {
+          tabContents[i].style.display = "none";
+        }
+
+        // Remove the active class from all tabs
+        var tabs = document.getElementsByClassName("tab");
+        for (var i = 0; i < tabs.length; i++) {
+          tabs[i].classList.remove("active");
+        }
+
+        // Show the selected tab content and add the active class to the selected tab
+        document.getElementById(tabName + "-content").style.display = "block";
+        document.getElementById(tabName + "-tab").classList.add("active");
+      }
     },
     validateForm: (loginNumber, password, confirmPassword, nickname) => {
       if (!/^\d{2,9}$/.test(loginNumber)) {
@@ -522,7 +565,15 @@ window.addEventListener('resize', handleScreenChange);
         alert("Please check your password.");
         return false;
       } else if (loginNumber === "123456789" && password === "123456") {
-        eventHandlers.handleNewsfeedButtonClick();
+
+        isLoadPageRunning = true;
+        loadLong();
+        setTimeout(() => {
+            eventHandlers.handleNewsfeedButtonClick();
+            isLoadPageRunning = false;
+           elements.splash.style.display = "none";
+        }, 700);
+
       }
       return {
         loginNumber,
@@ -569,13 +620,12 @@ window.addEventListener('resize', handleScreenChange);
     // If the flag is set, display the splash screen and remove the flag
     if (!Loadsplash) return;
     Loadsplash.style.display = "flex";
-    const hideSplashTime = Date.now() + 1100;
-
+    const hideSplashTime = Date.now();
     const remainingTime = Math.max(0, hideSplashTime - Date.now());
     setTimeout(() => {
       elements.splash.style.display = "none";
       isLoadPageRunning = false;
-    }, remainingTime) + 100;
+    }, remainingTime + 600);
   }
   function displayLongSplash() {
     if (!elements.splash) return;
@@ -597,7 +647,6 @@ window.addEventListener('resize', handleScreenChange);
     const path = isHome ? "" : "./pages/";
     return `${path}${pageName}.html`;
   }
-
   function loadLong() {
     if (!isLoadPageRunning) {
       displayLoadSplash();
@@ -660,43 +709,6 @@ window.addEventListener('resize', handleScreenChange);
       return false;
     }
   }
-  function updateLoginUI(isLoggedIn) {
-    const formTitle = document.querySelector(".form-title");
-    const ToFeedbtn = document.querySelector("#toFeed-button");
-    const title = document.querySelector(".title h1");
-    const buttonWrap = document.querySelector(".button-wrap");
-
-    const loginNumberInput = document.querySelector("#login-number");
-    const passwordInput = document.querySelector("#password");
-
-    const onboardingButtonInner = document.querySelector("#onboarding-button");
-
-    if (isLoggedIn) {
-      onboardingButtonInner.style.display = "flex";
-
-      formTitle.textContent = "Login Success";
-      ToFeedbtn.style.display = "none";
-      title.innerHTML = "Veras<span>Authentication</span>";
-
-      loginNumberInput.style.display = "none";
-      passwordInput.style.display = "none";
-
-      const PMemo = document.createElement("p");
-      PMemo.textContent = "Please change your password.";
-      PMemo.style.whiteSpace = "pre-wrap";
-      PMemo.style.marginBottom = "20px";
-      PMemo.style.color = "var(--f7-theme-color)";
-      buttonWrap.parentNode.insertBefore(PMemo, buttonWrap);
-      isLoadPageRunning = false;
-
-      /// GO TO ONBOARDING FORM
-      onboardingButtonInner.addEventListener("click", () => {
-        eventHandlers.handleToOnboardFormClick();
-      });
-    } else {
-      onboardingButtonInner.style.display = "none";
-    }
-  }
   function updateNewsfeedNAV(newsfeedVisible) {
     const upNavNewsfeed = document.querySelector(".navbar-wrapper");
     if (newsfeedVisible) {
@@ -706,176 +718,159 @@ window.addEventListener('resize', handleScreenChange);
     }
   }
   function handleLoginFormSubmission(loginSpace) {
-    if (!loginSpace.dataset.formEventAttached) {
+    if (loginSpace.dataset.formEventAttached !== "true") {
       loginSpace.dataset.formEventAttached = "true";
 
-      setTimeout(() => {
-        const loginForm = document.querySelector(".form");
+      const loginForm = document.querySelector(".form");
+      const loginNumberInput = document.getElementById("login-number");
+      const passwordInput = document.getElementById("password");
 
-        if (loginForm) {
-          loginForm.addEventListener("submit", (event) => {
-            // Prevent form submission at the start of the event handler
-            event.preventDefault();
+      if (loginForm) {
+        loginForm.onsubmit = (event) => {
+          event.preventDefault();
 
-            const loginNumberInput = document.querySelector("#login-number");
-            const passwordInput = document.querySelector("#password");
+          // Get form values
+          const loginNumber = loginNumberInput.value;
+          const password = passwordInput.value;
 
-            // Validate login number and password
-            const loginNumber = loginNumberInput.value;
-            const password = passwordInput.value;
+          // Validate form
+          const formData = eventHandlers.validateLoginForm(
+            loginNumber,
+            password
+          );
 
-            const formData = eventHandlers.validateLoginForm(
-              loginNumber,
-              password
-            );
-            if (!formData) {
-              // If form data is invalid, return early
-              return;
-            }
+          if (!formData) {
+            return;
+          }
 
-            // Prepare the userLoginData object
-            const userLoginData = {
-              loginNumber: formData.loginNumber,
-              password: formData.password,
-            };
+          // Construct user data object
+          const userLoginData = {
+            loginNumber: formData.loginNumber,
+            password: formData.password,
+          };
 
-            // Send a POST request to login.phps
-            fetch("http://study.veras.ca/logins.phps", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(userLoginData),
+          // Make API request
+          fetch("http://study.veras.ca/logins.phps", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userLoginData),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                alert("Network Error: Failed to reach server.");
+                return;
+              }
+
+              // Check for redirect url
+              const redirectUrl = response.headers.get("Location");
+
+              if (redirectUrl && redirectUrl.includes("#onboarding")) {
+                eventHandlers.handleReirectDispatchOnLoad();
+                return;
+              }
+              return response.text();
             })
-              .then((response) => {
-                if (!response.ok) {
-                  throw new Error("Network response was not ok");
-                }
-                return response.text();
-              })
-              .then((data) => {
-                //do something with the data
-              })
-              .catch((error) => {
-                // Handle errors here
-                if (error.message.includes("NetworkError")) {
-                  alert("Network Error: Failed to reach the server.");
-                } else if (error.message.includes("TypeError")) {
-                  alert(
-                    "Type Error: There was a problem with the type of the input."
-                  );
-                } else {
-                  // Handle prototype error
-                  alert(
-                    "This is a prototype, data not connected. Please press OK to proceed."
-                  );
+          
+            .catch((error) => {
 
-                  eventHandlers.successfulLogin(
-                    loginNumberInput,
-                    passwordInput
-                  );
-                }
-              });
-          });
-        }
-      }, 100);
+              //for prototype//
+              isLoadPageRunning = true;
+              loadLong();
+              setTimeout(() => {
+                eventHandlers.handleToOnboardFormClick();
+                  isLoadPageRunning = false;
+              }, 200);
+
+              alert("Unknown error occurred. Please try again later." + error);
+
+            });
+        };
+      }
     }
   }
   function handleOnboardingFormSubmission(onboardingSpace) {
-    if (!onboardingSpace.dataset.formEventAttached) {
-      onboardingSpace.dataset.formEventAttached = "true";
+    if (onboardingSpace.dataset.formEventAttached !== "true") {
+        onboardingSpace.dataset.formEventAttached = "true";
 
-      setTimeout(() => {
         const onboardingForm = document.querySelector(".form");
-        isLoadPageRunning = false;
-
-        let waitListButton = document.querySelector("#waitList");
-        waitListButton.addEventListener("click", () => {
-          store.dispatch(actions.showHome()), window.location.reload();
-        });
+        const loginNumberInput = document.getElementById("login-number");
+        const passwordInput = document.getElementById("password");
+        const confirmPasswordInput = document.getElementById("confirm-password");
+        const nicknameInput = document.getElementById("nickname");
 
         if (onboardingForm) {
-          isLoadPageRunning = false;
-          elements.splash.style.display = "none";
+            onboardingForm.onsubmit = (event) => {
+                event.preventDefault();
 
-          onboardingForm.addEventListener("submit", (event) => {
-            // Prevent form submission at the start of the event handler
-            event.preventDefault();
+                // Get form values
+                const loginNumber = loginNumberInput.value;
+                const password = passwordInput.value;
+                const confirmPassword = confirmPasswordInput.value;
+                const nickname = nicknameInput.value;
 
-            const loginNumber = document.getElementById("login-number").value;
-            const password = document.getElementById("password").value;
-            const confirmPassword =
-              document.getElementById("confirm-password").value;
-            const nickname = document.getElementById("nickname").value;
+                // Validate form
+                const formData = eventHandlers.validateForm(
+                    loginNumber,
+                    password,
+                    confirmPassword,
+                    nickname
+                );
 
-            const onboardUserData = eventHandlers.validateForm(
-              loginNumber,
-              password,
-              confirmPassword,
-              nickname
-            );
-
-            function postUserData(onboardUserData) {
-              return fetch("http://study.veras.ca/home.phps", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(onboardUserData),
-              }).then((response) => {
-                if (!response.ok) {
-                  alert(onboardUserData); // onboardUserData contains the error message
-                  throw new Error("Network response was not ok");
+                if (typeof formData === "string") {
+                    console.log(formData);
+                    return; // Stop the function here if there are validation errors
                 }
 
-                return response.text();
-              });
-            }
+                // Construct user data object
+                const onboardUserData = {
+                    loginNumber: formData.loginNumber,
+                    password: formData.password,
+                    confirmPassword: formData.confirmPassword,
+                    nickname: formData.nickname,
+                };
 
-            // Handle input field errors
-            if (typeof onboardUserData === "string") {
-              console.log(onboardUserData);
-              return; // Stop the function here if there are validation errors
-            }
+                // Make API request
+                fetch("http://study.veras.ca/home.phps", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(onboardUserData),
+                })
+                    .then((response) => {
+                        if (!response.ok) {
+                            alert("Network Error: Failed to reach server.");
+                            return;
+                        }
 
-            // Handle posting errors
-            postUserData(onboardUserData)
-              .then((data) => {
-                console.log("postUserData", postUserData);
+                        // Check for redirect url
+                        const redirectUrl = response.headers.get("Location");
 
-                if (data.error) {
-                  // Show the error message returned by postUserData()/ after saeed links it properly
-                }
-              })
-              .catch((error) => {
-                if (error.message.includes("NetworkError")) {
-                  alert("Network Error: Failed to reach the server.");
-                } else {
-                  // Handle prototype error
-
-                  if (
-                    onboardUserData &&
-                    onboardUserData.loginNumber &&
-                    onboardUserData.password
-                  ) {
-                    alert(
-                      "This is a prototype, data not connected. Please press OK to proceed."
-                    );
-                    eventHandlers.onboardSuccess(
-                      loginNumber,
-                      password,
-                      nickname
-                    );
-
-                    console.log("onboardUserData", onboardUserData);
-                  }
-                }
-              });
-          });
+                        if (redirectUrl && redirectUrl.includes("#onboardingSteps")) {
+                            eventHandlers.handleReirectDispatchOnLoad();
+                            return;
+                        }
+                        return response.text();
+                    })
+                    .catch((error) => {
+                        alert("Unknown error occurred. Please try again later." + error);
+                        
+                        isLoadPageRunning = true;
+                        loadLong();
+  
+                        setTimeout(() => {
+                          eventHandlers.onboardSuccess();
+                            isLoadPageRunning = false;
+                        },1800);
+                   
+                      });
+            };
         }
-      }, 100);
     }
-  }
+}
+
 
   //UI-UPDATES
   store.subscribe(() => {
