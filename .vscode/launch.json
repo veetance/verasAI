@@ -4,7 +4,7 @@
             "name": "Launch Edge",
             "request": "launch",
             "type": "msedge",
-            "url": "http://localhost:8080",
+            "url": "http://",
             "webRoot": "${workspaceFolder}"
         },
         {
@@ -14,7 +14,7 @@
             "runtimeArgs": [
                 "--remote-debugging-port=9222"
             ],
-            "url": "http://127.0.0.1:5500/index.html", // Provide your project's url to finish configuring
+            "url": "http://127.0.0.1:55515/index.html", // Provide your project's url to finish configuring
             "presentation": {
                 "hidden": true
             }
@@ -27,7 +27,7 @@
                 "--headless",
                 "--remote-debugging-port=9222"
             ],
-            "url": "http://127.0.0.1:5500/index.html", // Provide your project's url to finish configuring
+            "url": "http://127.0.0.1:55515/index.html", // Provide your project's url to finish configuring
             "presentation": {
                 "hidden": true
             }
@@ -36,7 +36,7 @@
             "type": "vscode-edge-devtools.debug",
             "name": "Open Edge DevTools",
             "request": "attach",
-            "url": "http://127.0.0.1:5500/index.html", // Provide your project's url to finish configuring
+            "url": "http://127.0.0.1:55515/index.html", // Provide your project's url to finish configuring
             "presentation": {
                 "hidden": true
             }

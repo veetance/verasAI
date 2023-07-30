@@ -252,10 +252,10 @@ document.addEventListener("DOMContentLoaded", () => {
           let loginSpace = document.querySelector(".login-Space");
           handleLoginFormSubmission(loginSpace);
 
-          const toOnboardingForm = document.getElementById("registr");
-          toOnboardingForm.addEventListener("click", () => {
-            eventHandlers.handleToOnboardFormClick();
-          });
+          // const toOnboardingForm = document.getElementById("registr");
+          // toOnboardingForm.addEventListener("click", () => {
+          //   eventHandlers.handleToOnboardFormClick();
+          // });
 
           let waitListButton = document.querySelector("#waitList");
           waitListButton.addEventListener("click", () => {
@@ -484,11 +484,7 @@ document.addEventListener("DOMContentLoaded", () => {
           quickSurvey.removeEventListener("click", handleQuickSurveyClick);
         }
       }
-
-      // initial setup
       handleScreenChange();
-
-      // add the event listener
       window.addEventListener("resize", handleScreenChange);
 
       //////
@@ -560,20 +556,15 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Please check your password.");
         return false;
       } else if (loginNumber === "123456789" && password === "123456") {
+
         isLoadPageRunning = true;
         loadLong();
-
         setTimeout(() => {
-          loadPage(
-            "newsfeed",
-            actions.showNewsfeed(),
-            actions.setNewsfeedContent
-          ).then(() => {
             eventHandlers.handleNewsfeedButtonClick();
             isLoadPageRunning = false;
-            elements.splash.style.display = "none";
-          });
+           elements.splash.style.display = "none";
         }, 700);
+
       }
       return {
         loginNumber,
@@ -709,7 +700,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return false;
     }
   }
-
   function updateNewsfeedNAV(newsfeedVisible) {
     const upNavNewsfeed = document.querySelector(".navbar-wrapper");
     if (newsfeedVisible) {
@@ -718,7 +708,6 @@ document.addEventListener("DOMContentLoaded", () => {
       upNavNewsfeed.style.display = "flex";
     }
   }
-
   function handleLoginFormSubmission(loginSpace) {
     if (loginSpace.dataset.formEventAttached !== "true") {
       loginSpace.dataset.formEventAttached = "true";
@@ -770,23 +759,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
               if (redirectUrl && redirectUrl.includes("#onboarding")) {
                 eventHandlers.handleReirectDispatchOnLoad();
-
                 return;
               }
-
               return response.text();
             })
-            .then((data) => {
-              // Handle data
-            })
+          
             .catch((error) => {
-              alert("Unknown error occurred. Please try again later.");
+        
+              isLoadPageRunning = true;
+              loadLong();
+              setTimeout(() => {
+                eventHandlers.handleToOnboardFormClick();
+                  isLoadPageRunning = false;
+              }, 200);
+
+              alert("Unknown error occurred. Please try again later." + error);
+
             });
         };
       }
     }
   }
-
   function handleOnboardingFormSubmission(onboardingSpace) {
     if (!onboardingSpace.dataset.formEventAttached) {
       onboardingSpace.dataset.formEventAttached = "true";
