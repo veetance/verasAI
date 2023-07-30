@@ -131,7 +131,7 @@ a {
   display    : flex;
   font-size  : 1.2rem;
   font-weight: 600;
-  color      : var(--f7-theme-color);
+  color      : var(--f7-theme-color-muted);
   line-height: 1.2rem;
   margin     : 0px;
   padding    : 0px;
@@ -152,11 +152,10 @@ h1 {
   flex-direction : column;
   justify-content: center;
   align-items    : flex-start;
-
   font-size  : clamp(2.8rem, 3vw, 4rem);
-  line-height: clamp(3.3rem, 3.9vw, 4.4rem);
+  line-height: clamp(3.3rem, 3vw, 4.4rem);
   font-weight: 850;
-  color      : var(--f7-theme-color-muted);
+  color: var(--f7-theme-color-muted);
   padding    : 0px;
   margin     : 0px;
   /* border  :solid #161124 1px; */
@@ -168,8 +167,8 @@ h2 {
   white-space    : nowrap;
   flex-direction : column;
   justify-content: flex-start;
-  font-size      : clamp(1.3rem, 2vw, 1.5rem);
-  line-height    : clamp(1.6rem, 2.6vw, 2.1rem);
+  font-size      : clamp(1.2rem, 2.19vw, 1.8rem);
+  line-height    : clamp(1.3rem, 2vw, 2.1rem);
   font-weight    : 800;
   color: #2a6655;
   padding        : 0px;
@@ -240,11 +239,10 @@ h5 {
   max-width      : 3080px;
   min-height     : fit-content;
   max-height     : 100%;
-  padding        : 6px;
+  padding        : 1vw;
   padding-bottom : 0px;
   margin         : 0px;
   z-index        : 999;
-
   background-image: linear-gradient(to top,
       var(--v-white-plane-clear),
       var(--v-white-plane),
@@ -261,7 +259,7 @@ h5 {
   border                 : solid 2px rgba(0, 0, 0, 0);
   padding                : 10px;
   margin                 : 0px;
-  border-radius          : 16px;
+  border-radius   : clamp(10px, 2vw, 16px);
   background-color       : var(--v-white-plane-clear-80);
   box-shadow             : 0px 1px 6px rgba(47, 29, 130, 0.15);
   -webkit-backdrop-filter: blur(25px);
@@ -284,8 +282,8 @@ h5 {
   border-radius      : 0px;
   padding            : 0px;
   margin             : 0px;
-  margin-left        : 8px;
-  transition         : all 1s cubic-bezier(0, 1.02, 0, 1.02);
+  margin-left: clamp(2px, 2vw, 4px);
+  transition         : all .5s cubic-bezier(0, 1.02, 0, 1.02);
 }
 
 .nav-logo:hover {
@@ -722,7 +720,7 @@ h5 {
   border          : solid 1px #5f50b200;
   padding         : 16px 24px;
   overflow        : hidden;
-  color           : var(--f7-theme-color);
+  color           : var(--f7-theme-color-muted);
   font-size       : 1rem;
   white-space     : nowrap;
   font-weight     : 600;
@@ -733,7 +731,7 @@ h5 {
 }
 
 .nav-button i{
-  color: var(--f7-theme-color) !important;
+  color: var(--f7-2ndry-theme-color-muted) !important;
 }
 
 .login-button{
@@ -745,9 +743,7 @@ h5 {
   width: auto !important;
   height: auto !important;
 }
-.nav-button .material-symbols-outlined {
-  color           : var(--f7-theme-color);
-}
+
 
 
 
@@ -1981,6 +1977,12 @@ h5 {
     margin-top:78px !important;
 }
 
+.navbar-wrapper{
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 8px;
+}
+
 
 
   h4 {
@@ -2100,6 +2102,8 @@ h5 {
     padding-top: 110px !important;
   }
 
+
+
   h1 {
     width      : 100%;
     font-size  : clamp(1.5rem, 6.2vw, 2.5rem);
@@ -2206,6 +2210,13 @@ h5 {
   .Veras-surface::-webkit-scrollbar-track {
     margin-top:78px !important;
 }
+
+.navbar-wrapper{
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 8px;
+}
+
 
 
   h4 {
@@ -2571,7 +2582,7 @@ h5 {
   --f7-theme-color-light-60: #e0dcff;
   --f7-theme-color-light-40: #968fc9;
   --f7-theme-color         : #5e50b2;
-  --f7-theme-color-muted: #5e50b2;
+  --f7-theme-color-muted: #372c6b;
   --f7-theme-color-rgb     : 190, 179, 255;
   --f7-theme-color-shade   : #372c5b;
   --f7-theme-color-tint    : #241d3c;

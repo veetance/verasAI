@@ -827,6 +827,7 @@ padding: 0px;
   #hamburgSpan {
     display        : flex;
     width          : auto !important;
+    height: auto;
     justify-content: flex-end;
   }
 
