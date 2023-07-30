@@ -252,10 +252,10 @@ document.addEventListener("DOMContentLoaded", () => {
           let loginSpace = document.querySelector(".login-Space");
           handleLoginFormSubmission(loginSpace);
 
-          // const toOnboardingForm = document.getElementById("registr");
-          // toOnboardingForm.addEventListener("click", () => {
-          //   eventHandlers.handleToOnboardFormClick();
-          // });
+          const toOnboardingForm = document.getElementById("registr");
+          toOnboardingForm.addEventListener("click", () => {
+            eventHandlers.handleToOnboardFormClick();
+          });
 
           let waitListButton = document.querySelector("#waitList");
           waitListButton.addEventListener("click", () => {
@@ -265,6 +265,14 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     },
     handleToOnboardFormClick: () => {
+
+      //reload #onboarding page
+
+      if (window.location.hash === "#onboarding") {
+        window.location.reload();
+        return;
+      }
+
       isLoadPageRunning = true;
       loadLong();
 
@@ -279,7 +287,7 @@ document.addEventListener("DOMContentLoaded", () => {
           isLoadPageRunning = false;
           elements.splash.style.display = "none";
         });
-      }, 800);
+      }, 200);
     },
     handleNewsfeedButtonClick: () => {
       updateNewsfeedNAV(true);
@@ -389,6 +397,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 700);
     },
     updateNewsfeedUI: () => {
+
       const LogOutButton = document.querySelector(".logout-button");
       LogOutButton.addEventListener("click", function () {
         alert("You are about to be logged out.");
@@ -765,7 +774,8 @@ document.addEventListener("DOMContentLoaded", () => {
             })
           
             .catch((error) => {
-        
+
+              //for prototype//
               isLoadPageRunning = true;
               loadLong();
               setTimeout(() => {
@@ -781,96 +791,86 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
   function handleOnboardingFormSubmission(onboardingSpace) {
-    if (!onboardingSpace.dataset.formEventAttached) {
-      onboardingSpace.dataset.formEventAttached = "true";
+    if (onboardingSpace.dataset.formEventAttached !== "true") {
+        onboardingSpace.dataset.formEventAttached = "true";
 
-      setTimeout(() => {
         const onboardingForm = document.querySelector(".form");
-        isLoadPageRunning = false;
-
-        let waitListButton = document.querySelector("#waitList");
-        waitListButton.addEventListener("click", () => {
-          store.dispatch(actions.showHome()), window.location.reload();
-        });
+        const loginNumberInput = document.getElementById("login-number");
+        const passwordInput = document.getElementById("password");
+        const confirmPasswordInput = document.getElementById("confirm-password");
+        const nicknameInput = document.getElementById("nickname");
 
         if (onboardingForm) {
-          isLoadPageRunning = false;
-          elements.splash.style.display = "none";
+            onboardingForm.onsubmit = (event) => {
+                event.preventDefault();
 
-          onboardingForm.addEventListener("submit", (event) => {
-            // Prevent form submission at the start of the event handler
-            event.preventDefault();
+                // Get form values
+                const loginNumber = loginNumberInput.value;
+                const password = passwordInput.value;
+                const confirmPassword = confirmPasswordInput.value;
+                const nickname = nicknameInput.value;
 
-            const loginNumber = document.getElementById("login-number").value;
-            const password = document.getElementById("password").value;
-            const confirmPassword =
-              document.getElementById("confirm-password").value;
-            const nickname = document.getElementById("nickname").value;
+                // Validate form
+                const formData = eventHandlers.validateForm(
+                    loginNumber,
+                    password,
+                    confirmPassword,
+                    nickname
+                );
 
-            const onboardUserData = eventHandlers.validateForm(
-              loginNumber,
-              password,
-              confirmPassword,
-              nickname
-            );
-
-            function postUserData(onboardUserData) {
-              return fetch("http://study.veras.ca/home.phps", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(onboardUserData),
-              }).then((response) => {
-                if (!response.ok) {
-                  alert(onboardUserData); // onboardUserData contains the error message
-                  throw new Error("Network response was not ok");
+                if (typeof formData === "string") {
+                    console.log(formData);
+                    return; // Stop the function here if there are validation errors
                 }
 
-                return response.text();
-              });
-            }
+                // Construct user data object
+                const onboardUserData = {
+                    loginNumber: formData.loginNumber,
+                    password: formData.password,
+                    confirmPassword: formData.confirmPassword,
+                    nickname: formData.nickname,
+                };
 
-            // Handle input field errors
-            if (typeof onboardUserData === "string") {
-              console.log(onboardUserData);
-              return; // Stop the function here if there are validation errors
-            }
+                // Make API request
+                fetch("http://study.veras.ca/home.phps", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(onboardUserData),
+                })
+                    .then((response) => {
+                        if (!response.ok) {
+                            alert("Network Error: Failed to reach server.");
+                            return;
+                        }
 
-            // Handle posting errors
-            postUserData(onboardUserData)
-              .then((data) => {
-                console.log("postUserData", postUserData);
+                        // Check for redirect url
+                        const redirectUrl = response.headers.get("Location");
 
-                if (data.error) {
-                  // Show the error message returned by postUserData()/ after saeed links it properly
-                }
-
-                eventHandlers.onboardSuccess(loginNumber, password, nickname);
-                console.log("onboardUserData", onboardUserData);
-              })
-              .catch((error) => {
-                if (error.message.includes("NetworkError")) {
-                  alert("Network Error: Failed to reach the server.");
-                } else {
-                  // Handle prototype error
-
-                  if (
-                    onboardUserData &&
-                    onboardUserData.loginNumber &&
-                    onboardUserData.password
-                  ) {
-                    alert(
-                      "This is a prototype, data not connected. Please press OK to proceed."
-                    );
-                  }
-                }
-              });
-          });
+                        if (redirectUrl && redirectUrl.includes("#onboardingSteps")) {
+                            eventHandlers.handleReirectDispatchOnLoad();
+                            return;
+                        }
+                        return response.text();
+                    })
+                    .catch((error) => {
+                        alert("Unknown error occurred. Please try again later." + error);
+                        
+                        isLoadPageRunning = true;
+                        loadLong();
+  
+                        setTimeout(() => {
+                          eventHandlers.onboardSuccess();
+                            isLoadPageRunning = false;
+                        },1800);
+                   
+                      });
+            };
         }
-      }, 100);
     }
-  }
+}
+
 
   //UI-UPDATES
   store.subscribe(() => {

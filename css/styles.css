@@ -101,9 +101,9 @@ img {
 
 ::-webkit-scrollbar-thumb {
   display: flex;
-  /* background-image: linear-gradient(to top,
+  background-image: linear-gradient(to top,
       rgba(97, 83, 163, 0.582),
-      rgba(97, 83, 163, 0.582)); */
+      rgba(97, 83, 163, 0.582));
   border-radius: 10px;
   height       : calc(100% / 8) !important;
 }
