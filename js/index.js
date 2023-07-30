@@ -267,12 +267,6 @@ document.addEventListener("DOMContentLoaded", () => {
     handleToOnboardFormClick: () => {
 
       //reload #onboarding page
-
-      if (window.location.hash === "#onboarding") {
-        window.location.reload();
-        return;
-      }
-
       isLoadPageRunning = true;
       loadLong();
 
