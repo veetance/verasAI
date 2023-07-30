@@ -731,7 +731,7 @@ h5 {
 }
 
 .nav-button i{
-  color: var(--f7-2ndry-theme-color-muted) !important;
+  color: var(--f7-theme-color-muted) !important;
 }
 
 .login-button{
