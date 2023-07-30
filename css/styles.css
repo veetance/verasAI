@@ -153,7 +153,7 @@ h1 {
   justify-content: center;
   align-items    : flex-start;
   font-size  : clamp(2.8rem, 3vw, 4rem);
-  line-height: clamp(3.3rem, 3vw, 4.4rem);
+  line-height: clamp(3.3rem, 3.8vw, 6rem);
   font-weight: 850;
   color: var(--f7-theme-color-muted);
   padding    : 0px;
