@@ -107,7 +107,7 @@
   line-height   : clamp(1.2em, 1.9vw, 1.2rem);
   flex-direction: row;
   font-weight: 700 !important;
-  color: var(--f7-theme-color);
+  color: var(--f7-theme-color-muted);
 }
 
 .page-name h2 i {
