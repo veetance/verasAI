@@ -132,11 +132,11 @@ document.addEventListener("DOMContentLoaded", () => {
 ///
 /// main index.js section
 document.addEventListener("DOMContentLoaded", () => {
-  
   let Loadsplash = document.querySelector(".v-splash");
+
   isLoadPageRunning = false;
   loadLong();
-  
+
   const createAction = (url, type, payload) => {
     const urlObj = new URL(url, window.location.href);
     const state = { page: urlObj.hash.slice(1) };
@@ -184,6 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const elements = {
     loginButton: document.querySelector(".login-button"),
     logoutButton: document.querySelector(".logout-button"),
+    closeAlertButton: document.getElementById("closeAlertButton"),
     surfaceView: document.querySelector(".surface-view"),
     footer: document.querySelector(".footer-Contents"),
     insightsButton: document.querySelector(".lnk-ico .insights-btn"),
@@ -195,9 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ),
   };
   const eventHandlers = {
-    
     dispatchPageAction: async (pageName) => {
-
       switch (pageName) {
         case "login":
           await eventHandlers.handleLoginButtonClick();
@@ -222,44 +221,55 @@ document.addEventListener("DOMContentLoaded", () => {
           await eventHandlers.onboardSuccess();
           break;
         default:
+    
+          const navbarWrapperElement =
+            document.querySelector(".navbar-wrapper");
+          const verasSurfaceElement = document.querySelector(".Veras-surface");
+
+          if (navbarWrapperElement) {
+            navbarWrapperElement.remove();
+          }
+          if (verasSurfaceElement) {
+            verasSurfaceElement.remove();
+          }
+
           // Show a popup alert
           console.warn(`Unknown page | REDIRECTING TO HOME: ${pageName}`);
-          alert(`Unknown page | Click ok to go to [Home]: ${pageName}`);
-    
-          // Redirect the user to the home page
-          await store.dispatch(actions.showHome());
+          showAlert(`Unknown page | Click ok to go to [Home]: ${pageName}`);
+          isLoadPageRunning = false;
           break;
       }
 
       setTimeout(() => {
-         // Now hide the splash screen
-         isLoadPageRunning = false;
-         elements.splash.style.display = "none";
+        if (!isLoadPageRunning) {
+          isLoadPageRunning = true;
+          loadLong();
+        } else if (isLoadPageRunning) {
+          isLoadPageRunning = false;
+          elements.splash.style.display = "none";
+        }
       }, 260);
 
-
-    },
-    handleReirectDispatchOnLoad: async () => {
-
-      const url = new URL(window.location.href);
-      const pageName = url.hash ? url.hash.slice(1) : "home";
-      url.pathname = getPagePath(pageName);
-      url.hash = pageName;
-      history.replaceState({}, document.title, `${url.hash}`);
-    
       window.addEventListener("popstate", function (event) {
         const state = event.state;
         if (state) {
           window.location.reload();
         }
       });
-    
+
+    },
+    handleReirectDispatchOnLoad: async () => {
+      const url = new URL(window.location.href);
+      const pageName = url.hash ? url.hash.slice(1) : "home";
+      url.pathname = getPagePath(pageName);
+      url.hash = pageName;
+      history.replaceState({}, document.title, `${url.hash}`);
+
       setTimeout(async () => {
         await eventHandlers.dispatchPageAction(pageName);
-      }, 1000);
+      },1200);
     },
     handleLoginButtonClick: () => {
-
       loadPage("login", actions.showLogin(), actions.setLoginContent).then(
         () => {
           // Call submission handler
@@ -288,10 +298,9 @@ document.addEventListener("DOMContentLoaded", () => {
           let onboardingSpace = document.querySelector(".onboarding-Space");
           handleOnboardingFormSubmission(onboardingSpace);
         });
-      },20);
+      }, 20);
     },
     handleNewsfeedButtonClick: () => {
-
       isLoadPageRunning = true;
       loadLong();
 
@@ -403,7 +412,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 700);
     },
     updateNewsfeedUI: () => {
-
       const LogOutButton = document.querySelector(".logout-button");
       LogOutButton.addEventListener("click", function () {
         alert("You are about to be logged out.");
@@ -567,21 +575,15 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Password should be between 3 and 9 digits.");
         return false;
       }
-      if (loginNumber === "123456789" && password !== "123456") {
-        alert("Please check your password.");
+      if (loginNumber !== "123456789" || password !== "123456") {
+        alert("Please check your login number and password.");
         return false;
-      } else if (loginNumber === "123456789" && password === "123456") {
-        
-        setTimeout(() => {
-            eventHandlers.handleNewsfeedButtonClick();
-        },0);
-
       }
       return {
         loginNumber,
         password,
       };
-    }
+    },
   };
 
   //attatch event listiners
@@ -627,6 +629,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const hideSplashTime = Date.now();
     const remainingTime = Math.max(0, hideSplashTime + Date.now());
     setTimeout(() => {
+      isLoadPageRunning = false;
       Loadsplash.style.display = "none";
     }, remainingTime);
   }
@@ -637,12 +640,24 @@ document.addEventListener("DOMContentLoaded", () => {
     let rotationSpeed = 5;
 
     logo.style.animation = `rotate ${rotationSpeed}s linear infinite`;
-    const hideSplashTime = Date.now() + 5000;
+    const hideSplashTime = Date.now() + 50000;
     const remainingTime = Math.max(0, hideSplashTime + Date.now());
     setTimeout(() => {
       isLoadPageRunning = false;
     }, remainingTime);
   }
+
+  function showAlert(message) {
+    document.getElementById("alertMessage").innerText = message;
+    document.getElementById("customAlert").style.display = "block";
+  }
+  function closeAlert() {
+    customAlert.style.display = "none";
+
+    window.location.hash = "home";
+    window.location.reload();
+  }
+  closeAlertButton.onclick = closeAlert;
 
   function getPagePath(pageName) {
     const isHome = pageName === "home";
@@ -687,7 +702,7 @@ document.addEventListener("DOMContentLoaded", () => {
       elements.footer.style.display = "none";
       elements.surfaceView.innerHTML = "";
       elements.surfaceView.appendChild(pageSpace);
-      await new Promise((resolve) => setTimeout(resolve,40));
+      await new Promise((resolve) => setTimeout(resolve, 40));
       pageSpace.classList.add("active");
       elements.surfaceView.style.opacity = 1;
     } catch (error) {
@@ -745,6 +760,19 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
           }
 
+          // If the loginNumber and password match the predefined ones, simulate the successful login process
+          if (loginNumber === "123456789" && password === "123456") {
+            isLoadPageRunning = true;
+            loadLong();
+
+            alert("Data not connected. Proceeding to news feed...");
+            setTimeout(() => {
+              eventHandlers.handleNewsfeedButtonClick();
+              isLoadPageRunning = false;
+            }, 1000);
+            return;
+          }
+
           // Construct user data object
           const userLoginData = {
             loginNumber: formData.loginNumber,
@@ -761,6 +789,89 @@ document.addEventListener("DOMContentLoaded", () => {
           })
             .then((response) => {
               if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+              }
+
+              // Check for redirect url
+              const redirectUrl = response.headers.get("Location");
+
+              if (redirectUrl && redirectUrl.includes("#newsfeed")) {
+                setTimeout(() => {
+                  eventHandlers.handleNewsfeedButtonClick();
+                  isLoadPageRunning = false;
+                }, 200);
+                return;
+              } else {
+                throw new Error(
+                  "Unexpected server response. No redirect URL found."
+                );
+              }
+            })
+            .catch((error) => {
+              alert("An error occurred during login: " + error.message);
+            });
+        };
+      }
+    }
+  }
+
+  function handleOnboardingFormSubmission(onboardingSpace) {
+    if (onboardingSpace.dataset.formEventAttached !== "true") {
+      onboardingSpace.dataset.formEventAttached = "true";
+
+      const onboardingForm = document.querySelector(".form");
+      const loginNumberInput = document.getElementById("login-number");
+      const passwordInput = document.getElementById("password");
+      const confirmPasswordInput = document.getElementById("confirm-password");
+      const nicknameInput = document.getElementById("nickname");
+
+      let waitListButton = document.querySelector("#waitList");
+      waitListButton.addEventListener("click", () => {
+        store.dispatch(actions.showHome());
+        window.location.reload();
+      });
+
+      if (onboardingForm) {
+        onboardingForm.onsubmit = (event) => {
+          event.preventDefault();
+
+          // Get form values
+          const loginNumber = loginNumberInput.value;
+          const password = passwordInput.value;
+          const confirmPassword = confirmPasswordInput.value;
+          const nickname = nicknameInput.value;
+
+          // Validate form
+          const formData = eventHandlers.validateForm(
+            loginNumber,
+            password,
+            confirmPassword,
+            nickname
+          );
+
+          if (typeof formData === "string") {
+            console.log(formData);
+            return; // Stop the function here if there are validation errors
+          }
+
+          // Construct user data object
+          const onboardUserData = {
+            loginNumber: formData.loginNumber,
+            password: formData.password,
+            confirmPassword: formData.confirmPassword,
+            nickname: formData.nickname,
+          };
+
+          // Make API request
+          fetch("http://study.veras.ca/home.phps", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(onboardUserData),
+          })
+            .then((response) => {
+              if (!response.ok) {
                 alert("Network Error: Failed to reach server.");
                 return;
               }
@@ -768,119 +879,27 @@ document.addEventListener("DOMContentLoaded", () => {
               // Check for redirect url
               const redirectUrl = response.headers.get("Location");
 
-              if (redirectUrl && redirectUrl.includes("#onboarding")) {
+              if (redirectUrl && redirectUrl.includes("#onboardingSteps")) {
                 eventHandlers.handleReirectDispatchOnLoad();
                 return;
               }
               return response.text();
             })
-          
             .catch((error) => {
-
-              //for prototype//
-              isLoadPageRunning = true;
-              loadLong();
-              setTimeout(() => {
-                eventHandlers.handleToOnboardFormClick();
-                  isLoadPageRunning = false;
-              }, 200);
-
               alert("Unknown error occurred. Please try again later." + error);
 
+              isLoadPageRunning = true;
+              loadLong();
+
+              setTimeout(() => {
+                eventHandlers.onboardSuccess();
+                isLoadPageRunning = false;
+              }, 1800);
             });
         };
       }
     }
   }
-
-
-  function handleOnboardingFormSubmission(onboardingSpace) {
-    if (onboardingSpace.dataset.formEventAttached !== "true") {
-        onboardingSpace.dataset.formEventAttached = "true";
-
-        const onboardingForm = document.querySelector(".form");
-        const loginNumberInput = document.getElementById("login-number");
-        const passwordInput = document.getElementById("password");
-        const confirmPasswordInput = document.getElementById("confirm-password");
-        const nicknameInput = document.getElementById("nickname");
-
-        let waitListButton = document.querySelector("#waitList");
-        waitListButton.addEventListener("click", () => {
-            store.dispatch(actions.showHome());
-            window.location.reload();
-        })
-
-        if (onboardingForm) {
-            onboardingForm.onsubmit = (event) => {
-                event.preventDefault();
-
-                // Get form values
-                const loginNumber = loginNumberInput.value;
-                const password = passwordInput.value;
-                const confirmPassword = confirmPasswordInput.value;
-                const nickname = nicknameInput.value;
-
-                // Validate form
-                const formData = eventHandlers.validateForm(
-                    loginNumber,
-                    password,
-                    confirmPassword,
-                    nickname
-                );
-
-                if (typeof formData === "string") {
-                    console.log(formData);
-                    return; // Stop the function here if there are validation errors
-                }
-
-                // Construct user data object
-                const onboardUserData = {
-                    loginNumber: formData.loginNumber,
-                    password: formData.password,
-                    confirmPassword: formData.confirmPassword,
-                    nickname: formData.nickname,
-                };
-
-                // Make API request
-                fetch("http://study.veras.ca/home.phps", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(onboardUserData),
-                })
-                    .then((response) => {
-                        if (!response.ok) {
-                            alert("Network Error: Failed to reach server.");
-                            return;
-                        }
-
-                        // Check for redirect url
-                        const redirectUrl = response.headers.get("Location");
-
-                        if (redirectUrl && redirectUrl.includes("#onboardingSteps")) {
-                            eventHandlers.handleReirectDispatchOnLoad();
-                            return;
-                        }
-                        return response.text();
-                    })
-                    .catch((error) => {
-                        alert("Unknown error occurred. Please try again later." + error);
-                        
-                        isLoadPageRunning = true;
-                        loadLong();
-  
-                        setTimeout(() => {
-                          eventHandlers.onboardSuccess();
-                            isLoadPageRunning = false;
-                        },1800);
-                   
-                      });
-            };
-        }
-    }
-}
-
 
   //UI-UPDATES
   store.subscribe(() => {
@@ -937,3 +956,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+//TN TASKS
+
+// added custum alert -done
+// fix login form to correctly handle where new users and existing users go | existing users enter fields and go to home.phps, if fields nor eecognized alert with message about the error , new users click register btn go to onboarding.phps 5/10
+
+//to start tomorrow
+
+// fix what message is shown when user is creating a new account
+// go over all written post requests and make sure the timings are correct and that the correct data is being sent

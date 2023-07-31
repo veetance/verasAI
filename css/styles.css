@@ -52,7 +52,7 @@ img {
   left            : 0;
   height          : 100vh;
   width           : 100vw;
-  z-index         : 9999;
+  z-index         : 9988;
   background-color: #f3f1ffdc;
   backdrop-filter : blur(20px);
   overflow        : hidden;
@@ -259,7 +259,7 @@ h5 {
   border                 : solid 2px rgba(0, 0, 0, 0);
   padding                : 10px;
   margin                 : 0px;
-  border-radius   : clamp(10px, 2vw, 16px);
+  border-radius   : clamp(14px, 2vw, 16px);
   background-color       : var(--v-white-plane-clear-80);
   box-shadow             : 0px 1px 6px rgba(47, 29, 130, 0.15);
   -webkit-backdrop-filter: blur(25px);
@@ -319,13 +319,13 @@ h5 {
 .nav-title:hover {
   padding         : 10px;
   cursor          : pointer;
-  background-color: #8972d307;
+  background-color: rgb(245 243 255);
   border          :  solid .5px #5f50b226 !important;
 }
 
 .nav-title:active {
   cursor          : pointer;
-  background-color: #a08be421;
+  background-color: #a08be400;
   border          : solid 1px #5f50b217;
 }
 
@@ -721,7 +721,7 @@ h5 {
   padding         : 16px 24px;
   overflow        : hidden;
   color           : var(--f7-theme-color-muted);
-  font-size       : 1rem;
+  font-size       : 1.05rem;
   white-space     : nowrap;
   font-weight     : 600;
   line-height     : 1rem;
@@ -738,21 +738,23 @@ h5 {
   display: flex;
   justify-content: flex-end;
   margin-right: 8px !important;
-  padding:4px;
+  padding:6px;
   padding-left: 12px;
   width: auto !important;
   height: auto !important;
+  align-items: center;
+}
+
+.login-button:active{
+  background-image: rgba(255, 255, 255, 0) !important;
 }
 
 
-
-
 .nav-button:hover {
-  background-image: linear-gradient(to left, #f7f5ff, #ffffff);
   cursor          : pointer;
-  border          : solid 1px #5f50b2c7;
-  box-shadow      : 0px 1px 4px rgba(48, 29, 130, 0.082);
-  transition: all .3s cubic-bezier(0, 0.82, 0.14, 0.99) !important;
+  background-color: rgb(245 243 255);
+  border          :  solid .5px #5f50b226 !important;
+  transition     : all 150ms cubic-bezier(0, 0.82, 0.14, 0.99) !important;
 }
 
 
@@ -762,9 +764,7 @@ h5 {
   color           : #ffffff;
   border          : solid 1px var(--f7-theme-color);
 }
-.nav-button:active { 
-  color           : #ffffff;
-} 
+
 
 .nav-button:focus-within{
   border : solid 1px var(--f7-theme-color) !important;
@@ -1122,6 +1122,29 @@ h5 {
   transform: scale(0.95);
   border   : solid 0.01px #c8c8e72a;
 }
+
+
+.alert {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 50%;
+  top: 64%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+  border-radius: 5px;
+  z-index: 9999;
+}
+
+.alert button {
+  color: white;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+
 
 /* page-content */
 .home-page {
@@ -2440,7 +2463,7 @@ h5 {
 
   .nav-button,
   .nav-title p {
-    font-size  : clamp(0.7rem, 4vw, 8vw);
+    font-size  : clamp(0.7rem, 5vw, 8vw);
     line-height: clamp(0.7rem, 4vw, 8vw);
   }
 
