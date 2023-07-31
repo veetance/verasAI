@@ -132,11 +132,11 @@ document.addEventListener("DOMContentLoaded", () => {
 ///
 /// main index.js section
 document.addEventListener("DOMContentLoaded", () => {
+  
   let Loadsplash = document.querySelector(".v-splash");
-
-  let isLoadPageRunning = false;
+  isLoadPageRunning = false;
   loadLong();
-
+  
   const createAction = (url, type, payload) => {
     const urlObj = new URL(url, window.location.href);
     const state = { page: urlObj.hash.slice(1) };
@@ -195,57 +195,71 @@ document.addEventListener("DOMContentLoaded", () => {
     ),
   };
   const eventHandlers = {
-    handleReirectDispatchOnLoad: () => {
-      isLoadPageRunning = false;
-      loadLong();
+    
+    dispatchPageAction: async (pageName) => {
+
+      switch (pageName) {
+        case "login":
+          await eventHandlers.handleLoginButtonClick();
+          break;
+        case "home":
+          await store.dispatch(actions.showHome());
+          break;
+        case "newsfeed":
+          await eventHandlers.handleNewsfeedButtonClick();
+          break;
+        case "insights":
+          await store.dispatch(actions.showInsights());
+          break;
+        case "create":
+          await store.dispatch(actions.showCreate());
+          break;
+        case "onboarding":
+          await eventHandlers.handleToOnboardFormClick();
+          break;
+        case "onboardingSteps":
+          await store.dispatch(actions.showOnboardingSteps());
+          await eventHandlers.onboardSuccess();
+          break;
+        default:
+          // Show a popup alert
+          console.warn(`Unknown page | REDIRECTING TO HOME: ${pageName}`);
+          alert(`Unknown page | Click ok to go to [Home]: ${pageName}`);
+    
+          // Redirect the user to the home page
+          await store.dispatch(actions.showHome());
+          break;
+      }
+
+      setTimeout(() => {
+         // Now hide the splash screen
+         isLoadPageRunning = false;
+         elements.splash.style.display = "none";
+      }, 260);
+
+
+    },
+    handleReirectDispatchOnLoad: async () => {
 
       const url = new URL(window.location.href);
       const pageName = url.hash ? url.hash.slice(1) : "home";
       url.pathname = getPagePath(pageName);
       url.hash = pageName;
       history.replaceState({}, document.title, `${url.hash}`);
-
-      switch (pageName) {
-        case "login":
-          eventHandlers.handleLoginButtonClick();
-          break;
-        case "home":
-          store.dispatch(actions.showHome());
-          break;
-        case "newsfeed":
-          eventHandlers.handleNewsfeedButtonClick();
-          break;
-        case "insights":
-          store.dispatch(actions.showInsights());
-          break;
-        case "create":
-          store.dispatch(actions.showCreate());
-          break;
-        case "onboarding":
-          eventHandlers.handleToOnboardFormClick();
-          break;
-        case "onboardingSteps":
-          store.dispatch(actions.showOnboardingSteps());
-          eventHandlers.onboardSuccess();
-          break;
-        default:
-          // Show a popup alert
-          console.warn(`Unknown page | REDIRECTING TO HOME: ${pageName}`);
-          alert(`Unknown page | Click ok to go to [Home]: ${pageName}`);
-
-          // Redirect the user to the home page
-          store.dispatch(actions.showHome());
-          break;
-      }
-
+    
       window.addEventListener("popstate", function (event) {
         const state = event.state;
         if (state) {
           window.location.reload();
         }
       });
+    
+      setTimeout(async () => {
+        await eventHandlers.dispatchPageAction(pageName);
+      }, 1000);
     },
     handleLoginButtonClick: () => {
+
       loadPage("login", actions.showLogin(), actions.setLoginContent).then(
         () => {
           // Call submission handler
@@ -265,11 +279,6 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     },
     handleToOnboardFormClick: () => {
-
-      //reload #onboarding page
-      isLoadPageRunning = true;
-      loadLong();
-
       setTimeout(() => {
         loadPage(
           "onboarding",
@@ -278,12 +287,14 @@ document.addEventListener("DOMContentLoaded", () => {
         ).then(() => {
           let onboardingSpace = document.querySelector(".onboarding-Space");
           handleOnboardingFormSubmission(onboardingSpace);
-          isLoadPageRunning = false;
-          elements.splash.style.display = "none";
         });
-      }, 200);
+      },20);
     },
     handleNewsfeedButtonClick: () => {
+
+      isLoadPageRunning = true;
+      loadLong();
+
       updateNewsfeedNAV(true);
       loadPage(
         "newsfeed",
@@ -292,6 +303,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ).then(() => {
         eventHandlers.updateNewsfeedUI();
         isLoadPageRunning = false;
+        elements.splash.style.display = "none";
       }, 800);
     },
     handleInsightsButtonClick: () => {
@@ -559,23 +571,20 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Please check your password.");
         return false;
       } else if (loginNumber === "123456789" && password === "123456") {
-
-        isLoadPageRunning = true;
-        loadLong();
+        
         setTimeout(() => {
             eventHandlers.handleNewsfeedButtonClick();
-            isLoadPageRunning = false;
-           elements.splash.style.display = "none";
-        }, 700);
+        },0);
 
       }
       return {
         loginNumber,
         password,
       };
-    },
+    }
   };
 
+  //attatch event listiners
   window.addEventListener("load", function () {
     eventHandlers.handleReirectDispatchOnLoad();
 
@@ -614,28 +623,27 @@ document.addEventListener("DOMContentLoaded", () => {
     // If the flag is set, display the splash screen and remove the flag
     if (!Loadsplash) return;
     Loadsplash.style.display = "flex";
+    isLoadPageRunning = true;
     const hideSplashTime = Date.now();
-    const remainingTime = Math.max(0, hideSplashTime - Date.now());
+    const remainingTime = Math.max(0, hideSplashTime + Date.now());
     setTimeout(() => {
-      elements.splash.style.display = "none";
-      isLoadPageRunning = false;
-    }, remainingTime + 600);
+      Loadsplash.style.display = "none";
+    }, remainingTime);
   }
   function displayLongSplash() {
     if (!elements.splash) return;
     elements.splash.style.display = "flex";
     let logo = document.querySelector(".v-logo");
     let rotationSpeed = 5;
+
     logo.style.animation = `rotate ${rotationSpeed}s linear infinite`;
     const hideSplashTime = Date.now() + 5000;
-
-    const remainingTime = Math.max(0, hideSplashTime - Date.now());
+    const remainingTime = Math.max(0, hideSplashTime + Date.now());
     setTimeout(() => {
-      elements.splash.style.display = "none";
       isLoadPageRunning = false;
-      logo.style.animation = "";
     }, remainingTime);
   }
+
   function getPagePath(pageName) {
     const isHome = pageName === "home";
     const path = isHome ? "" : "./pages/";
@@ -679,7 +687,7 @@ document.addEventListener("DOMContentLoaded", () => {
       elements.footer.style.display = "none";
       elements.surfaceView.innerHTML = "";
       elements.surfaceView.appendChild(pageSpace);
-      await new Promise((resolve) => setTimeout(resolve, 50));
+      await new Promise((resolve) => setTimeout(resolve,40));
       pageSpace.classList.add("active");
       elements.surfaceView.style.opacity = 1;
     } catch (error) {
@@ -784,6 +792,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   }
+
+
   function handleOnboardingFormSubmission(onboardingSpace) {
     if (onboardingSpace.dataset.formEventAttached !== "true") {
         onboardingSpace.dataset.formEventAttached = "true";
@@ -793,6 +803,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const passwordInput = document.getElementById("password");
         const confirmPasswordInput = document.getElementById("confirm-password");
         const nicknameInput = document.getElementById("nickname");
+
+        let waitListButton = document.querySelector("#waitList");
+        waitListButton.addEventListener("click", () => {
+            store.dispatch(actions.showHome());
+            window.location.reload();
+        })
 
         if (onboardingForm) {
             onboardingForm.onsubmit = (event) => {
