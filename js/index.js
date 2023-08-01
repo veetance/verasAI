@@ -780,7 +780,7 @@ document.addEventListener("DOMContentLoaded", () => {
           };
 
           // Make API request
-          fetch("http://study.veras.ca/logins.phps", {
+          fetch("http://study.veras.ca/login.phps", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -956,6 +956,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
 
 //TN TASKS
 
