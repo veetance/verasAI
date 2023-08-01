@@ -960,7 +960,7 @@ document.addEventListener("DOMContentLoaded", () => {
 //TN TASKS
 
 // added custum alert -done
-// fix login form to correctly handle where new users and existing users go | existing users enter fields and go to home.phps, if fields nor eecognized alert with message about the error , new users click register btn go to onboarding.phps 5/10
+// fix login form to correctly handle where new users and existing users go | existing users enter fields and go to home.phps, if fields nor eecognized alert with message about the error , new users click register btn go to onboarding.phps 10/10
 
 //to start tomorrow
 
