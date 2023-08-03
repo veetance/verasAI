@@ -134,9 +134,6 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
   let Loadsplash = document.querySelector(".v-splash");
 
-  isLoadPageRunning = false;
-  loadLong();
-
   const createAction = (url, type, payload) => {
     const urlObj = new URL(url, window.location.href);
     const state = { page: urlObj.hash.slice(1) };
@@ -190,85 +187,68 @@ document.addEventListener("DOMContentLoaded", () => {
     insightsButton: document.querySelector(".lnk-ico .insights-btn"),
     createButton: document.querySelector(".lnk-ico .create-btn"),
     upNav: document.querySelector(".navbar-wrapper"),
+    navbarWrapperElement: document.querySelector(".navbar-wrapper"),
+    verasSurfaceElement: document.querySelector(".Veras-surface"),
     splash: document.querySelector(".v-splash"),
     refreshButtons: document.querySelectorAll(
       ".nav-logo, .nav-title, .VLOGO-wrapper"
     ),
   };
   const eventHandlers = {
+    pageActions: {
+      login: () => eventHandlers.handleLoginButtonClick(),
+      home: () => {
+        store.dispatch(actions.setHomeContent);
+        store.dispatch(actions.showHome);
+        window.onhashchange = function () {
+          window.location.reload(true);
+        };
+      },
+      newsfeed: () => eventHandlers.handleNewsfeedButtonClick(),
+      insights: () => store.dispatch(actions.showInsights()),
+      create: () => store.dispatch(actions.showCreate()),
+      onboarding: () => eventHandlers.handleToOnboardFormClick(),
+      onboardingSteps: () => eventHandlers.onboardSuccess(),
+    },
     dispatchPageAction: async (pageName) => {
-      switch (pageName) {
-        case "login":
-          await eventHandlers.handleLoginButtonClick();
-          break;
-        case "home":
-          await store.dispatch(actions.showHome());
-          break;
-        case "newsfeed":
-          await eventHandlers.handleNewsfeedButtonClick();
-          break;
-        case "insights":
-          await store.dispatch(actions.showInsights());
-          break;
-        case "create":
-          await store.dispatch(actions.showCreate());
-          break;
-        case "onboarding":
-          await eventHandlers.handleToOnboardFormClick();
-          break;
-        case "onboardingSteps":
-          await store.dispatch(actions.showOnboardingSteps());
-          await eventHandlers.onboardSuccess();
-          break;
-        default:
-    
-          const navbarWrapperElement =
-            document.querySelector(".navbar-wrapper");
-          const verasSurfaceElement = document.querySelector(".Veras-surface");
+      if (pageName in eventHandlers.pageActions) {
+       
+        await eventHandlers.pageActions[pageName]();
+        isLoadPageRunning = false;
+        loadLong();
 
-          if (navbarWrapperElement) {
-            navbarWrapperElement.remove();
-          }
-          if (verasSurfaceElement) {
-            verasSurfaceElement.remove();
-          }
+      } else {
+        await new Promise((resolve) => setTimeout(resolve, 800));
 
-          // Show a popup alert
-          console.warn(`Unknown page | REDIRECTING TO HOME: ${pageName}`);
-          showAlert(`Unknown page | Click ok to go to [Home]: ${pageName}`);
-          isLoadPageRunning = false;
-          break;
+        await showAlert(`Unknown page | Click ok to go to [Home]: ${pageName}`);
+        isLoadPageRunning = true;
+        loadLong();
+
+        window.location.href = "#home";
+        if (window.location.href.includes("#home")) {
+          eventHandlers.pageActions(pageName);
+        }
       }
 
-      setTimeout(() => {
-        if (!isLoadPageRunning) {
-          isLoadPageRunning = true;
-          loadLong();
-        } else if (isLoadPageRunning) {
-          isLoadPageRunning = false;
-          elements.splash.style.display = "none";
-        }
-      }, 260);
-
-      window.addEventListener("popstate", function (event) {
-        const state = event.state;
-        if (state) {
-          window.location.reload();
-        }
-      });
-
+    },
+    init: () => {
+      window.onhashchange = function () {
+        const newUrl = new URL(window.location.href);
+        let newPageName = newUrl.hash ? newUrl.hash.slice(1) : "home";
+        eventHandlers.dispatchPageAction(newPageName);
+      };
+      eventHandlers.handleReirectDispatchOnLoad();
     },
     handleReirectDispatchOnLoad: async () => {
+      // Handle hash change
       const url = new URL(window.location.href);
-      const pageName = url.hash ? url.hash.slice(1) : "home";
+      let pageName = url.hash ? url.hash.slice(1) : "home";
       url.pathname = getPagePath(pageName);
       url.hash = pageName;
       history.replaceState({}, document.title, `${url.hash}`);
-
-      setTimeout(async () => {
-        await eventHandlers.dispatchPageAction(pageName);
-      },1200);
+      await eventHandlers.dispatchPageAction(pageName);
     },
+
     handleLoginButtonClick: () => {
       loadPage("login", actions.showLogin(), actions.setLoginContent).then(
         () => {
@@ -397,7 +377,6 @@ document.addEventListener("DOMContentLoaded", () => {
     onboardSuccess: () => {
       isLoadPageRunning = true;
       loadLong();
-
       setTimeout(() => {
         loadPage(
           "onboardingSteps",
@@ -409,7 +388,7 @@ document.addEventListener("DOMContentLoaded", () => {
           isLoadPageRunning = false;
           elements.splash.style.display = "none";
         });
-      }, 700);
+      }, 300);
     },
     updateNewsfeedUI: () => {
       const LogOutButton = document.querySelector(".logout-button");
@@ -575,6 +554,7 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Password should be between 3 and 9 digits.");
         return false;
       }
+
       if (loginNumber !== "123456789" || password !== "123456") {
         alert("Please check your login number and password.");
         return false;
@@ -585,6 +565,7 @@ document.addEventListener("DOMContentLoaded", () => {
       };
     },
   };
+  eventHandlers.init();
 
   //attatch event listiners
   window.addEventListener("load", function () {
@@ -625,37 +606,66 @@ document.addEventListener("DOMContentLoaded", () => {
     // If the flag is set, display the splash screen and remove the flag
     if (!Loadsplash) return;
     Loadsplash.style.display = "flex";
-    isLoadPageRunning = true;
     const hideSplashTime = Date.now();
-    const remainingTime = Math.max(0, hideSplashTime + Date.now());
+    const remainingTime = Math.max(0, hideSplashTime - Date.now());
     setTimeout(() => {
       isLoadPageRunning = false;
-      Loadsplash.style.display = "none";
-    }, remainingTime);
+      loadLong();
+      elements.splash.style.display = "none";
+    }, remainingTime + 400);
   }
   function displayLongSplash() {
     if (!elements.splash) return;
-    elements.splash.style.display = "flex";
+    Loadsplash.style.display = "flex";
     let logo = document.querySelector(".v-logo");
     let rotationSpeed = 5;
 
     logo.style.animation = `rotate ${rotationSpeed}s linear infinite`;
-    const hideSplashTime = Date.now() + 50000;
-    const remainingTime = Math.max(0, hideSplashTime + Date.now());
+    const hideSplashTime = Date.now();
+    const remainingTime = Math.max(0, hideSplashTime - Date.now());
     setTimeout(() => {
-      isLoadPageRunning = false;
-    }, remainingTime);
+      elements.splash.style.display = "none";
+    }, remainingTime + 10000);
   }
 
   function showAlert(message) {
-    document.getElementById("alertMessage").innerText = message;
-    document.getElementById("customAlert").style.display = "block";
+    return new Promise((resolve) => {
+      document.getElementById("alertMessage").innerText = message;
+      document.getElementById("customAlert").style.display = "block";
+
+      if (elements.navbarWrapperElement) {
+        elements.navbarWrapperElement.style.display = "none";
+      }
+      if (elements.verasSurfaceElement) {
+        elements.verasSurfaceElement.style.display = "none";
+      }
+
+      // Add event listener to RESOLVE the promise when the user clicks the button
+      closeAlertButton.addEventListener(
+        "click",
+        function closeAlertAndResolve() {
+          closeAlert();
+
+          // Remove this event listener so it doesn't pile up unwanted multiple listeners
+          closeAlertButton.removeEventListener("click", closeAlertAndResolve);
+          resolve();
+        }
+      );
+    });
   }
   function closeAlert() {
-    customAlert.style.display = "none";
+    document.getElementById("customAlert").style.display = "none";
 
-    window.location.hash = "home";
-    window.location.reload();
+    if (elements.navbarWrapperElement) {
+      elements.navbarWrapperElement.style.display = "block";
+    }
+    if (elements.verasSurfaceElement) {
+      elements.verasSurfaceElement.style.display = "block";
+    }
+
+    isLoadPageRunning = false;
+    loadLong();
+    elements.splash.style.display = "none";
   }
   closeAlertButton.onclick = closeAlert;
 
@@ -672,13 +682,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
   async function loadPage(pageName, actionToShow, actionToSetContent) {
-    store.dispatch(actionToShow);
-
     try {
       const response = await fetch(getPagePath(pageName));
       const html = await response.text();
 
       store.dispatch(actionToSetContent(html));
+
       let pageSpace = document.querySelector(`.${pageName}-Space`);
       let homeScroll = document.querySelector(".Veras-surface");
 
@@ -705,10 +714,14 @@ document.addEventListener("DOMContentLoaded", () => {
       await new Promise((resolve) => setTimeout(resolve, 40));
       pageSpace.classList.add("active");
       elements.surfaceView.style.opacity = 1;
+
+      // Only dispatch the action to show the page after its content is fully loaded and displayed
+      store.dispatch(actionToShow);
     } catch (error) {
       console.error(error);
     }
   }
+
   function stepMainAdjust() {
     const stepMains = document.querySelectorAll(".step-main");
     if (stepMains.length > 0) {
@@ -736,6 +749,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   function handleLoginFormSubmission(loginSpace) {
     if (loginSpace.dataset.formEventAttached !== "true") {
+      elements.splash.style.display = "none";
       loginSpace.dataset.formEventAttached = "true";
 
       const loginForm = document.querySelector(".form");
@@ -795,10 +809,9 @@ document.addEventListener("DOMContentLoaded", () => {
               // Check for redirect url
               const redirectUrl = response.headers.get("Location");
 
-              if (redirectUrl && redirectUrl.includes("#newsfeed")) {
+              if (redirectUrl && redirectUrl.includes("#")) {
                 setTimeout(() => {
-                  eventHandlers.handleNewsfeedButtonClick();
-                  isLoadPageRunning = false;
+                  eventHandlers.dispatchPageAction(pageName);
                 }, 200);
                 return;
               } else {
@@ -817,6 +830,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function handleOnboardingFormSubmission(onboardingSpace) {
     if (onboardingSpace.dataset.formEventAttached !== "true") {
+      elements.splash.style.display = "none";
       onboardingSpace.dataset.formEventAttached = "true";
 
       const onboardingForm = document.querySelector(".form");
@@ -956,7 +970,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
-
 
 //TN TASKS
 
