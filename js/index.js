@@ -810,7 +810,7 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .catch(async (error) => {
               await showAlert("API error: " + error.message)
-                .then(() => {
+                .then(() => { // to be deleted after you connect the back end 
                   eventHandlers.handleNewsfeedButtonClick();
                 });
             });
