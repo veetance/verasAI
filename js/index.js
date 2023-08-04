@@ -133,11 +133,11 @@ document.addEventListener("DOMContentLoaded", () => {
 /// main index.js section
 document.addEventListener("DOMContentLoaded", () => {
   let Loadsplash = document.querySelector(".v-splash");
-
   isLoadPageRunning = false;
   loadLong();
 
-  const createAction = (url, type, payload) => {
+
+ const createAction = (url, type, payload) => {
     const urlObj = new URL(url, window.location.href);
     const state = { page: urlObj.hash.slice(1) };
     history.pushState(state, "", urlObj.toString());
@@ -190,84 +190,59 @@ document.addEventListener("DOMContentLoaded", () => {
     insightsButton: document.querySelector(".lnk-ico .insights-btn"),
     createButton: document.querySelector(".lnk-ico .create-btn"),
     upNav: document.querySelector(".navbar-wrapper"),
+    navbarWrapperElement: document.querySelector(".navbar-wrapper"),
+    verasSurfaceElement: document.querySelector(".Veras-surface"),
     splash: document.querySelector(".v-splash"),
     refreshButtons: document.querySelectorAll(
       ".nav-logo, .nav-title, .VLOGO-wrapper"
     ),
   };
   const eventHandlers = {
+    pageActions: {
+      login: () => eventHandlers.handleLoginButtonClick(),
+      home: () => {
+        store.dispatch(actions.setHomeContent,actions.showHome());
+      },
+      newsfeed: () => eventHandlers.handleNewsfeedButtonClick(),
+      insights: () => store.dispatch(actions.showInsights()),
+      create: () => store.dispatch(actions.showCreate()),
+      onboarding: () => eventHandlers.handleToOnboardFormClick(),
+      onboardingSteps: () => eventHandlers.onboardSuccess(),
+    },
     dispatchPageAction: async (pageName) => {
-      switch (pageName) {
-        case "login":
-          await eventHandlers.handleLoginButtonClick();
-          break;
-        case "home":
-          await store.dispatch(actions.showHome());
-          break;
-        case "newsfeed":
-          await eventHandlers.handleNewsfeedButtonClick();
-          break;
-        case "insights":
-          await store.dispatch(actions.showInsights());
-          break;
-        case "create":
-          await store.dispatch(actions.showCreate());
-          break;
-        case "onboarding":
-          await eventHandlers.handleToOnboardFormClick();
-          break;
-        case "onboardingSteps":
-          await store.dispatch(actions.showOnboardingSteps());
-          await eventHandlers.onboardSuccess();
-          break;
-        default:
-    
-          const navbarWrapperElement =
-            document.querySelector(".navbar-wrapper");
-          const verasSurfaceElement = document.querySelector(".Veras-surface");
+      if (pageName in eventHandlers.pageActions) {
+        await eventHandlers.pageActions[pageName]();
+        isLoadPageRunning = false;
+        loadLong();
+      } else {
+        await new Promise((resolve) => setTimeout(resolve, 800));
 
-          if (navbarWrapperElement) {
-            navbarWrapperElement.remove();
-          }
-          if (verasSurfaceElement) {
-            verasSurfaceElement.remove();
-          }
+        await showAlert(`Unknown page | Click ok to go to [Home]: ${pageName}`);
+        isLoadPageRunning = true;
+        loadLong();
 
-          // Show a popup alert
-          console.warn(`Unknown page | REDIRECTING TO HOME: ${pageName}`);
-          showAlert(`Unknown page | Click ok to go to [Home]: ${pageName}`);
-          isLoadPageRunning = false;
-          break;
+        window.location.href = "#home";
+        if (window.location.href.includes("#home")) {
+          eventHandlers.pageActions(pageName);
+        }
       }
-
-      setTimeout(() => {
-        if (!isLoadPageRunning) {
-          isLoadPageRunning = true;
-          loadLong();
-        } else if (isLoadPageRunning) {
-          isLoadPageRunning = false;
-          elements.splash.style.display = "none";
-        }
-      }, 260);
-
-      window.addEventListener("popstate", function (event) {
-        const state = event.state;
-        if (state) {
-          window.location.reload();
-        }
-      });
-
+    },
+    init: () => {
+      window.onhashchange = function () {
+        const newUrl = new URL(window.location.href);
+        let newPageName = newUrl.hash ? newUrl.hash.slice(1) : "home";
+        eventHandlers.dispatchPageAction(newPageName);
+      };
+      eventHandlers.handleReirectDispatchOnLoad();
     },
     handleReirectDispatchOnLoad: async () => {
+      // Handle hash change
       const url = new URL(window.location.href);
-      const pageName = url.hash ? url.hash.slice(1) : "home";
+      let pageName = url.hash ? url.hash.slice(1) : "home";
       url.pathname = getPagePath(pageName);
       url.hash = pageName;
       history.replaceState({}, document.title, `${url.hash}`);
-
-      setTimeout(async () => {
-        await eventHandlers.dispatchPageAction(pageName);
-      },1200);
+      await eventHandlers.dispatchPageAction(pageName);
     },
     handleLoginButtonClick: () => {
       loadPage("login", actions.showLogin(), actions.setLoginContent).then(
@@ -304,16 +279,19 @@ document.addEventListener("DOMContentLoaded", () => {
       isLoadPageRunning = true;
       loadLong();
 
-      updateNewsfeedNAV(true);
+     
       loadPage(
         "newsfeed",
         actions.showNewsfeed(),
-        actions.setNewsfeedContent
-      ).then(() => {
+        actions.setNewsfeedContent).then(() => {
+
+        updateNewsfeedNAV(true);
         eventHandlers.updateNewsfeedUI();
+
         isLoadPageRunning = false;
         elements.splash.style.display = "none";
-      }, 800);
+        
+      }, 900);
     },
     handleInsightsButtonClick: () => {
       store.dispatch(actions.hideCreate());
@@ -397,7 +375,6 @@ document.addEventListener("DOMContentLoaded", () => {
     onboardSuccess: () => {
       isLoadPageRunning = true;
       loadLong();
-
       setTimeout(() => {
         loadPage(
           "onboardingSteps",
@@ -409,7 +386,7 @@ document.addEventListener("DOMContentLoaded", () => {
           isLoadPageRunning = false;
           elements.splash.style.display = "none";
         });
-      }, 700);
+      }, 300);
     },
     updateNewsfeedUI: () => {
       const LogOutButton = document.querySelector(".logout-button");
@@ -424,6 +401,8 @@ document.addEventListener("DOMContentLoaded", () => {
       newsfeedButton.addEventListener("click", function () {
         window.location.reload();
       });
+
+
 
       const navLink = document.querySelector("#hamBurg");
       const settingsModal = document.querySelector(".settings-modal");
@@ -446,6 +425,8 @@ document.addEventListener("DOMContentLoaded", () => {
           }, 0);
         }
       });
+
+
 
       // get references to the elements
       const newsfeedLeft = document.querySelector(".Newsfeed-Left");
@@ -567,24 +548,26 @@ document.addEventListener("DOMContentLoaded", () => {
       };
     },
     validateLoginForm: (loginNumber, password) => {
-      if (!/^\d{3,9}$/.test(loginNumber)) {
-        alert("Login Number should be between 3 and 9 digits.");
+      // Check if both fields are filled
+      if (!loginNumber || !password) {
+        alert("Both fields must be filled.");
         return false;
       }
-      if (!/^\d{3,9}$/.test(password)) {
-        alert("Password should be between 3 and 9 digits.");
+
+      // Check if both fields have more than 3 characters
+      if (loginNumber.length < 3 || password.length < 3) {
+        alert("Both fields must have more than 3 characters.");
         return false;
       }
-      if (loginNumber !== "123456789" || password !== "123456") {
-        alert("Please check your login number and password.");
-        return false;
-      }
+
+      // Return the login data
       return {
-        loginNumber,
+        username: loginNumber,
         password,
       };
     },
   };
+  eventHandlers.init();
 
   //attatch event listiners
   window.addEventListener("load", function () {
@@ -625,37 +608,69 @@ document.addEventListener("DOMContentLoaded", () => {
     // If the flag is set, display the splash screen and remove the flag
     if (!Loadsplash) return;
     Loadsplash.style.display = "flex";
-    isLoadPageRunning = true;
     const hideSplashTime = Date.now();
-    const remainingTime = Math.max(0, hideSplashTime + Date.now());
+    const remainingTime = Math.max(0, hideSplashTime - Date.now());
     setTimeout(() => {
       isLoadPageRunning = false;
-      Loadsplash.style.display = "none";
-    }, remainingTime);
+      loadLong();
+      elements.splash.style.display = "none";
+    }, remainingTime + 500);
   }
   function displayLongSplash() {
     if (!elements.splash) return;
-    elements.splash.style.display = "flex";
+    Loadsplash.style.display = "flex";
     let logo = document.querySelector(".v-logo");
     let rotationSpeed = 5;
 
     logo.style.animation = `rotate ${rotationSpeed}s linear infinite`;
-    const hideSplashTime = Date.now() + 50000;
-    const remainingTime = Math.max(0, hideSplashTime + Date.now());
+    const hideSplashTime = Date.now();
+    const remainingTime = Math.max(0, hideSplashTime - Date.now());
     setTimeout(() => {
-      isLoadPageRunning = false;
-    }, remainingTime);
+      elements.splash.style.display = "none";
+    }, remainingTime + 10000);
   }
 
   function showAlert(message) {
-    document.getElementById("alertMessage").innerText = message;
-    document.getElementById("customAlert").style.display = "block";
+    
+    return new Promise((resolve) => {
+
+      document.getElementById("alertMessage").innerText = message;
+      document.getElementById("customAlert").style.display = "block";
+
+      if (elements.navbarWrapperElement) {
+        elements.navbarWrapperElement.style.display = "none";
+      }
+      if (elements.verasSurfaceElement) {
+        elements.verasSurfaceElement.style.display = "none";
+      }
+
+      // Add event listener to RESOLVE the promise when the user clicks the button
+      closeAlertButton.addEventListener(
+        "click",
+        function closeAlertAndResolve() {
+          closeAlert();
+
+          // Remove this event listener so it doesn't pile up unwanted multiple listeners
+          closeAlertButton.removeEventListener("click", closeAlertAndResolve);
+          resolve();
+        }
+      );
+
+    });
   }
   function closeAlert() {
-    customAlert.style.display = "none";
+    document.getElementById("customAlert").style.display = "none";
 
-    window.location.hash = "home";
-    window.location.reload();
+    if (elements.navbarWrapperElement) {
+      elements.navbarWrapperElement.style.display = "block";
+    }
+    if (elements.verasSurfaceElement) {
+      elements.verasSurfaceElement.style.display = "block";
+    }
+
+    isLoadPageRunning = false;
+    loadLong();
+    elements.splash.style.display = "none";
   }
   closeAlertButton.onclick = closeAlert;
 
@@ -672,13 +687,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
   async function loadPage(pageName, actionToShow, actionToSetContent) {
-    store.dispatch(actionToShow);
-
     try {
       const response = await fetch(getPagePath(pageName));
       const html = await response.text();
 
       store.dispatch(actionToSetContent(html));
+
       let pageSpace = document.querySelector(`.${pageName}-Space`);
       let homeScroll = document.querySelector(".Veras-surface");
 
@@ -705,10 +719,14 @@ document.addEventListener("DOMContentLoaded", () => {
       await new Promise((resolve) => setTimeout(resolve, 40));
       pageSpace.classList.add("active");
       elements.surfaceView.style.opacity = 1;
+
+      // Only dispatch the action to show the page after its content is fully loaded and displayed
+      store.dispatch(actionToShow);
     } catch (error) {
       console.error(error);
     }
   }
+
   function stepMainAdjust() {
     const stepMains = document.querySelectorAll(".step-main");
     if (stepMains.length > 0) {
@@ -734,51 +752,47 @@ document.addEventListener("DOMContentLoaded", () => {
       upNavNewsfeed.style.display = "flex";
     }
   }
-  function handleLoginFormSubmission(loginSpace) {
-    if (loginSpace.dataset.formEventAttached !== "true") {
-      loginSpace.dataset.formEventAttached = "true";
 
+  function handleLoginFormSubmission(loginSpace) {
+    // 1. Check if form event is already attached
+    if (loginSpace.dataset.formEventAttached !== "true") {
+
+      // 3. Mark form event as attached
+      loginSpace.dataset.formEventAttached = "true";
+  
+      // 4. Get form elements
       const loginForm = document.querySelector(".form");
       const loginNumberInput = document.getElementById("login-number");
       const passwordInput = document.getElementById("password");
-
+  
+      // 5. Check if form exists
       if (loginForm) {
-        loginForm.onsubmit = (event) => {
+        // 6. Attach form submission event
+        loginForm.onsubmit = async (event) => {
+          // 7. Prevent form submission
           event.preventDefault();
-
-          // Get form values
+  
+          // 8. Get form values
           const loginNumber = loginNumberInput.value;
           const password = passwordInput.value;
-
-          // Validate form
+  
+          // 9. Validate form values
           const formData = eventHandlers.validateLoginForm(
             loginNumber,
             password
           );
-
+  
+          // 10. Check if form validation passed
           if (!formData) {
             return;
           }
-
-          // If the loginNumber and password match the predefined ones, simulate the successful login process
-          if (loginNumber === "123456789" && password === "123456") {
-            isLoadPageRunning = true;
-            loadLong();
-
-            alert("Data not connected. Proceeding to news feed...");
-            setTimeout(() => {
-              eventHandlers.handleNewsfeedButtonClick();
-              isLoadPageRunning = false;
-            }, 1000);
-            return;
-          }
-
-          // Construct user data object
+  
+          // 11. Construct user data object
           const userLoginData = {
-            loginNumber: formData.loginNumber,
+            username: formData.loginNumber,
             password: formData.password,
           };
-
+  
           // Make API request
           fetch("http://study.veras.ca/login.phps", {
             method: "POST",
@@ -791,32 +805,25 @@ document.addEventListener("DOMContentLoaded", () => {
               if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
               }
-
-              // Check for redirect url
-              const redirectUrl = response.headers.get("Location");
-
-              if (redirectUrl && redirectUrl.includes("#newsfeed")) {
-                setTimeout(() => {
-                  eventHandlers.handleNewsfeedButtonClick();
-                  isLoadPageRunning = false;
-                }, 200);
-                return;
-              } else {
-                throw new Error(
-                  "Unexpected server response. No redirect URL found."
-                );
-              }
+              // No longer checking for a redirect URL in the headers. 
+              // Assuming the backend will handle the redirect.s. 
             })
-            .catch((error) => {
-              alert("An error occurred during login: " + error.message);
+            .catch(async (error) => {
+              await showAlert("API error: " + error.message)
+                .then(() => {
+                  eventHandlers.handleNewsfeedButtonClick();
+                });
             });
         };
       }
     }
   }
-
+  
+  
+  
   function handleOnboardingFormSubmission(onboardingSpace) {
     if (onboardingSpace.dataset.formEventAttached !== "true") {
+      elements.splash.style.display = "none";
       onboardingSpace.dataset.formEventAttached = "true";
 
       const onboardingForm = document.querySelector(".form");
@@ -956,7 +963,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
-
 
 //TN TASKS
 
