@@ -133,8 +133,11 @@ document.addEventListener("DOMContentLoaded", () => {
 /// main index.js section
 document.addEventListener("DOMContentLoaded", () => {
   let Loadsplash = document.querySelector(".v-splash");
+  isLoadPageRunning = false;
+  loadLong();
 
-  const createAction = (url, type, payload) => {
+
+ const createAction = (url, type, payload) => {
     const urlObj = new URL(url, window.location.href);
     const state = { page: urlObj.hash.slice(1) };
     history.pushState(state, "", urlObj.toString());
@@ -198,11 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
     pageActions: {
       login: () => eventHandlers.handleLoginButtonClick(),
       home: () => {
-        store.dispatch(actions.setHomeContent);
-        store.dispatch(actions.showHome);
-        window.onhashchange = function () {
-          window.location.reload(true);
-        };
+        store.dispatch(actions.setHomeContent,actions.showHome());
       },
       newsfeed: () => eventHandlers.handleNewsfeedButtonClick(),
       insights: () => store.dispatch(actions.showInsights()),
@@ -212,11 +211,9 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     dispatchPageAction: async (pageName) => {
       if (pageName in eventHandlers.pageActions) {
-       
         await eventHandlers.pageActions[pageName]();
         isLoadPageRunning = false;
         loadLong();
-
       } else {
         await new Promise((resolve) => setTimeout(resolve, 800));
 
@@ -229,7 +226,6 @@ document.addEventListener("DOMContentLoaded", () => {
           eventHandlers.pageActions(pageName);
         }
       }
-
     },
     init: () => {
       window.onhashchange = function () {
@@ -248,7 +244,6 @@ document.addEventListener("DOMContentLoaded", () => {
       history.replaceState({}, document.title, `${url.hash}`);
       await eventHandlers.dispatchPageAction(pageName);
     },
-
     handleLoginButtonClick: () => {
       loadPage("login", actions.showLogin(), actions.setLoginContent).then(
         () => {
@@ -284,16 +279,19 @@ document.addEventListener("DOMContentLoaded", () => {
       isLoadPageRunning = true;
       loadLong();
 
-      updateNewsfeedNAV(true);
+     
       loadPage(
         "newsfeed",
         actions.showNewsfeed(),
-        actions.setNewsfeedContent
-      ).then(() => {
+        actions.setNewsfeedContent).then(() => {
+
+        updateNewsfeedNAV(true);
         eventHandlers.updateNewsfeedUI();
+
         isLoadPageRunning = false;
         elements.splash.style.display = "none";
-      }, 800);
+        
+      }, 900);
     },
     handleInsightsButtonClick: () => {
       store.dispatch(actions.hideCreate());
@@ -404,6 +402,8 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.reload();
       });
 
+
+
       const navLink = document.querySelector("#hamBurg");
       const settingsModal = document.querySelector(".settings-modal");
 
@@ -425,6 +425,8 @@ document.addEventListener("DOMContentLoaded", () => {
           }, 0);
         }
       });
+
+
 
       // get references to the elements
       const newsfeedLeft = document.querySelector(".Newsfeed-Left");
@@ -546,21 +548,21 @@ document.addEventListener("DOMContentLoaded", () => {
       };
     },
     validateLoginForm: (loginNumber, password) => {
-      if (!/^\d{3,9}$/.test(loginNumber)) {
-        alert("Login Number should be between 3 and 9 digits.");
-        return false;
-      }
-      if (!/^\d{3,9}$/.test(password)) {
-        alert("Password should be between 3 and 9 digits.");
+      // Check if both fields are filled
+      if (!loginNumber || !password) {
+        alert("Both fields must be filled.");
         return false;
       }
 
-      if (loginNumber !== "123456789" || password !== "123456") {
-        alert("Please check your login number and password.");
+      // Check if both fields have more than 3 characters
+      if (loginNumber.length < 3 || password.length < 3) {
+        alert("Both fields must have more than 3 characters.");
         return false;
       }
+
+      // Return the login data
       return {
-        loginNumber,
+        username: loginNumber,
         password,
       };
     },
@@ -612,7 +614,7 @@ document.addEventListener("DOMContentLoaded", () => {
       isLoadPageRunning = false;
       loadLong();
       elements.splash.style.display = "none";
-    }, remainingTime + 400);
+    }, remainingTime + 500);
   }
   function displayLongSplash() {
     if (!elements.splash) return;
@@ -629,7 +631,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function showAlert(message) {
+    
     return new Promise((resolve) => {
+
       document.getElementById("alertMessage").innerText = message;
       document.getElementById("customAlert").style.display = "block";
 
@@ -651,6 +655,7 @@ document.addEventListener("DOMContentLoaded", () => {
           resolve();
         }
       );
+
     });
   }
   function closeAlert() {
@@ -747,52 +752,47 @@ document.addEventListener("DOMContentLoaded", () => {
       upNavNewsfeed.style.display = "flex";
     }
   }
-  function handleLoginFormSubmission(loginSpace) {
-    if (loginSpace.dataset.formEventAttached !== "true") {
-      elements.splash.style.display = "none";
-      loginSpace.dataset.formEventAttached = "true";
 
+  function handleLoginFormSubmission(loginSpace) {
+    // 1. Check if form event is already attached
+    if (loginSpace.dataset.formEventAttached !== "true") {
+
+      // 3. Mark form event as attached
+      loginSpace.dataset.formEventAttached = "true";
+  
+      // 4. Get form elements
       const loginForm = document.querySelector(".form");
       const loginNumberInput = document.getElementById("login-number");
       const passwordInput = document.getElementById("password");
-
+  
+      // 5. Check if form exists
       if (loginForm) {
-        loginForm.onsubmit = (event) => {
+        // 6. Attach form submission event
+        loginForm.onsubmit = async (event) => {
+          // 7. Prevent form submission
           event.preventDefault();
-
-          // Get form values
+  
+          // 8. Get form values
           const loginNumber = loginNumberInput.value;
           const password = passwordInput.value;
-
-          // Validate form
+  
+          // 9. Validate form values
           const formData = eventHandlers.validateLoginForm(
             loginNumber,
             password
           );
-
+  
+          // 10. Check if form validation passed
           if (!formData) {
             return;
           }
-
-          // If the loginNumber and password match the predefined ones, simulate the successful login process
-          if (loginNumber === "123456789" && password === "123456") {
-            isLoadPageRunning = true;
-            loadLong();
-
-            alert("Data not connected. Proceeding to news feed...");
-            setTimeout(() => {
-              eventHandlers.handleNewsfeedButtonClick();
-              isLoadPageRunning = false;
-            }, 1000);
-            return;
-          }
-
-          // Construct user data object
+  
+          // 11. Construct user data object
           const userLoginData = {
-            loginNumber: formData.loginNumber,
+            username: formData.loginNumber,
             password: formData.password,
           };
-
+  
           // Make API request
           fetch("http://study.veras.ca/login.phps", {
             method: "POST",
@@ -805,29 +805,22 @@ document.addEventListener("DOMContentLoaded", () => {
               if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
               }
-
-              // Check for redirect url
-              const redirectUrl = response.headers.get("Location");
-
-              if (redirectUrl && redirectUrl.includes("#")) {
-                setTimeout(() => {
-                  eventHandlers.dispatchPageAction(pageName);
-                }, 200);
-                return;
-              } else {
-                throw new Error(
-                  "Unexpected server response. No redirect URL found."
-                );
-              }
+              // No longer checking for a redirect URL in the headers. 
+              // Assuming the backend will handle the redirect.s. 
             })
-            .catch((error) => {
-              alert("An error occurred during login: " + error.message);
+            .catch(async (error) => {
+              await showAlert("API error: " + error.message)
+                .then(() => {
+                  eventHandlers.handleNewsfeedButtonClick();
+                });
             });
         };
       }
     }
   }
-
+  
+  
+  
   function handleOnboardingFormSubmission(onboardingSpace) {
     if (onboardingSpace.dataset.formEventAttached !== "true") {
       elements.splash.style.display = "none";
