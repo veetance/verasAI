@@ -555,7 +555,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // Check if both fields have more than 3 characters
-      if (loginNumber.length < 3 || password.length < 3) {
+      if (loginNumber.length < 1 || password.length < 1) {
         alert("Both fields must have more than 3 characters.");
         return false;
       }
@@ -752,7 +752,6 @@ document.addEventListener("DOMContentLoaded", () => {
       upNavNewsfeed.style.display = "flex";
     }
   }
-
   function handleLoginFormSubmission(loginSpace) {
     // 1. Check if form event is already attached
     if (loginSpace.dataset.formEventAttached !== "true") {
@@ -794,7 +793,7 @@ document.addEventListener("DOMContentLoaded", () => {
           };
   
           // Make API request
-          fetch("http://study.veras.ca/login.phps", {
+          fetch("https://study.veras.ca/login.phps", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -808,19 +807,16 @@ document.addEventListener("DOMContentLoaded", () => {
               // No longer checking for a redirect URL in the headers. 
               // Assuming the backend will handle the redirect.s. 
             })
-            .catch(async (error) => {
-              await showAlert("API error: " + error.message)
-                .then(() => { // to be deleted after you connect the back end 
-                  eventHandlers.handleNewsfeedButtonClick();
-                });
-            });
+            // .catch(async (error) => {
+            //   await showAlert("API error: " + error.message)
+            //     .then(() => { // to be deleted after you connect the back end 
+            //       eventHandlers.handleNewsfeedButtonClick();
+            //     });
+            // });
         };
       }
     }
   }
-  
-  
-  
   function handleOnboardingFormSubmission(onboardingSpace) {
     if (onboardingSpace.dataset.formEventAttached !== "true") {
       elements.splash.style.display = "none";
@@ -962,6 +958,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   });
+  
 });
 
 //TN TASKS
