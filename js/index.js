@@ -132,14 +132,22 @@ document.addEventListener("DOMContentLoaded", () => {
 /// main index.js section
 document.addEventListener("DOMContentLoaded", () => {
   let Loadsplash = document.querySelector(".v-splash");
-  isLoadPageRunning = false;
-  loadLong();
 
   const createAction = (url, type, payload) => {
     const urlObj = new URL(url, window.location.href);
     const state = { page: urlObj.search.slice(1) }; // Change from hash to search
     history.pushState(state, "", urlObj.toString());
-
+  
+    // Check if url is 'home'
+    if (state.page === "?home") {
+      isLoadPageRunning = false;
+    } else {
+      isLoadPageRunning = true;
+    }
+  
+    // Call loadLong()
+    loadLong();
+  
     return { type, payload };
   };
 
@@ -202,15 +210,23 @@ document.addEventListener("DOMContentLoaded", () => {
         store.dispatch(actions.setHomeContent, actions.showHome());
       },
       newsfeed: () => {
-        isLoadPageRunning = true;
+        isLoadPageRunning = true; // Make sure to set it true here
         loadLong();
+
+        setTimeout(() => {
+
         loadPage(
           "newsfeed",
           actions.showNewsfeed(),
           actions.setNewsfeedContent
         ).then(() => {
-          eventHandlers.handleNewsfeedButtonClick();
+          updateNewsfeedNAV(true);
+          eventHandlers.updateNewsfeedUI();
+          console.log("load err", isLoadPageRunning );
         });
+
+        }, 300);
+
       },
       insights: () => store.dispatch(actions.showInsights()),
       create: () => store.dispatch(actions.showCreate()),
@@ -281,14 +297,6 @@ document.addEventListener("DOMContentLoaded", () => {
           handleOnboardingFormSubmission(onboardingSpace);
         });
       }, 20);
-    },
-    handleNewsfeedButtonClick: () => {
-      // run if windows uel is ?newsfeed
-      if (window.location.search === "?newsfeed") {
-        store.dispatch(actions.showNewsfeed());
-        updateNewsfeedNAV(true);
-        eventHandlers.updateNewsfeedUI();
-      }
     },
     handleInsightsButtonClick: () => {
       store.dispatch(actions.hideCreate());
@@ -704,7 +712,7 @@ document.addEventListener("DOMContentLoaded", () => {
       elements.footer.style.display = "none";
       elements.surfaceView.innerHTML = "";
       elements.surfaceView.appendChild(pageSpace);
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, 40));
       pageSpace.classList.add("active");
       elements.surfaceView.style.opacity = 1;
 
@@ -714,7 +722,6 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error(error);
     }
   }
-
   function stepMainAdjust() {
     const stepMains = document.querySelectorAll(".step-main");
     if (stepMains.length > 0) {
@@ -807,7 +814,7 @@ document.addEventListener("DOMContentLoaded", () => {
               ).then(() => {
                 // This block will run if there was an error with the fetch request.
                 // Here we're just redirecting to the newsfeed.
-                window.location.href = "?newsfeed";
+                eventHandlers.pageActions.newsfeed();
               });
             });
         };
@@ -956,12 +963,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-//TN TASKS
+//upcoming  TASKS
 
-// added custum alert -done
-// fix login form to correctly handle where new users and existing users go | existing users enter fields and go to home.phps, if fields nor eecognized alert with message about the error , new users click register btn go to onboarding.phps 10/10
-
-//to start tomorrow
-
-// fix what message is shown when user is creating a new account
 // go over all written post requests and make sure the timings are correct and that the correct data is being sent
+// go over and refactor the splash screen logic then fix all the delays and timing flicker issues
