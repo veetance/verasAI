@@ -129,7 +129,6 @@ document.addEventListener("DOMContentLoaded", () => {
 ///
 ///
 ///
-///
 /// main index.js section
 document.addEventListener("DOMContentLoaded", () => {
   let Loadsplash = document.querySelector(".v-splash");
@@ -276,10 +275,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 20);
     },
     handleNewsfeedButtonClick: () => {
-      isLoadPageRunning = true;
+      isLoadPageRunning = false;
       loadLong();
-
-     
+      
       loadPage(
         "newsfeed",
         actions.showNewsfeed(),
@@ -287,9 +285,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         updateNewsfeedNAV(true);
         eventHandlers.updateNewsfeedUI();
-
-        isLoadPageRunning = false;
-        elements.splash.style.display = "none";
         
       }, 900);
     },
@@ -807,12 +802,16 @@ document.addEventListener("DOMContentLoaded", () => {
               // No longer checking for a redirect URL in the headers. 
               // Assuming the backend will handle the redirect.s. 
             })
-            // .catch(async (error) => {
-            //   await showAlert("API error: " + error.message)
-            //     .then(() => { // to be deleted after you connect the back end 
-            //       eventHandlers.handleNewsfeedButtonClick();
-            //     });
-            // });
+            .catch(async (error) => {
+              
+              await showAlert("API error: " + error.message)
+                .then(() => { // to be deleted after you connect the back end 
+                isLoadPageRunning = true;
+                loadLong();
+                elements.splash.style.display = "flex";
+                  eventHandlers.handleNewsfeedButtonClick();
+                });
+            });
         };
       }
     }
