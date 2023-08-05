@@ -129,54 +129,52 @@ document.addEventListener("DOMContentLoaded", () => {
 ///
 ///
 ///
-///
 /// main index.js section
 document.addEventListener("DOMContentLoaded", () => {
   let Loadsplash = document.querySelector(".v-splash");
   isLoadPageRunning = false;
   loadLong();
 
-
- const createAction = (url, type, payload) => {
+  const createAction = (url, type, payload) => {
     const urlObj = new URL(url, window.location.href);
-    const state = { page: urlObj.hash.slice(1) };
+    const state = { page: urlObj.search.slice(1) }; // Change from hash to search
     history.pushState(state, "", urlObj.toString());
 
     return { type, payload };
   };
 
   const actions = {
-    setCurrentPage: (page) => createAction(`#${page}`, SET_CURRENT_PAGE, page),
-    showHome: () => createAction("#home", SHOW_HOME, "home"),
+    setCurrentPage: (page) => createAction(`?${page}`, SET_CURRENT_PAGE, page),
+    showHome: () => createAction("?home", SHOW_HOME, "home"),
     setHomeContent: (html) => ({ type: SET_HOME_CONTENT, payload: html }),
-    showLogin: () => createAction("#login", SHOW_LOGIN, "login"),
-    logout: () => createAction("#logout", LOGOUT, "logout"),
+    showLogin: () => createAction("?login", SHOW_LOGIN, "login"),
+    logout: () => createAction("?logout", LOGOUT, "logout"),
     setLoginContent: (html) => ({ type: SET_LOGIN_CONTENT, payload: html }),
-    showNewsfeed: () => createAction("#newsfeed", SHOW_NEWSFEED, "newsfeed"),
+    showNewsfeed: () => createAction("?newsfeed", SHOW_NEWSFEED, "newsfeed"),
     setNewsfeedContent: (html) => ({
       type: SET_NEWSFEED_CONTENT,
       payload: html,
     }),
-    showInsights: () => createAction("#insights", SHOW_INSIGHTS, "insights"),
+    showInsights: () => createAction("?insights", SHOW_INSIGHTS, "insights"),
     setInsightsContent: (html) => ({
       type: SET_INSIGHTS_CONTENT,
       payload: html,
     }),
-    showCreate: () => createAction("#create", SHOW_CREATE, "create"),
+    showCreate: () => createAction("?create", SHOW_CREATE, "create"),
     setCreateContent: (html) => ({ type: SET_CREATE_CONTENT, payload: html }),
     setOnboardingContent: (html) => ({
       type: SET_ONBOARDING_CONTENT,
       payload: html,
     }),
     showOnboarding: () =>
-      createAction("#onboarding", SHOW_ONBOARDING, "onboarding"),
+      createAction("?onboarding", SHOW_ONBOARDING, "onboarding"),
     setOnboardingStepsContent: (html) => ({
       type: SET_ONBOARDING_STEPS_CONTENT,
       payload: html,
     }),
     showOnboardingSteps: () =>
       createAction(
-        "#onboardingSteps",
+        "?onboardingSteps",
         SHOW_ONBOARDING_STEPS,
         "onboardingSteps"
       ),
@@ -201,9 +199,19 @@ document.addEventListener("DOMContentLoaded", () => {
     pageActions: {
       login: () => eventHandlers.handleLoginButtonClick(),
       home: () => {
-        store.dispatch(actions.setHomeContent,actions.showHome());
+        store.dispatch(actions.setHomeContent, actions.showHome());
       },
-      newsfeed: () => eventHandlers.handleNewsfeedButtonClick(),
+      newsfeed: () => {
+        isLoadPageRunning = true;
+        loadLong();
+        loadPage(
+          "newsfeed",
+          actions.showNewsfeed(),
+          actions.setNewsfeedContent
+        ).then(() => {
+          eventHandlers.handleNewsfeedButtonClick();
+        });
+      },
       insights: () => store.dispatch(actions.showInsights()),
       create: () => store.dispatch(actions.showCreate()),
       onboarding: () => eventHandlers.handleToOnboardFormClick(),
@@ -217,31 +225,30 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         await new Promise((resolve) => setTimeout(resolve, 800));
 
-        await showAlert(`Unknown page | Click ok to go to [Home]: ${pageName}`);
-        isLoadPageRunning = true;
-        loadLong();
-
-        window.location.href = "#home";
-        if (window.location.href.includes("#home")) {
+        await showAlert(
+          `Unknown page | Click ok to go to [Home]: ${pageName}`
+        ).then(() => {
+          window.location.href = "?home";
           eventHandlers.pageActions(pageName);
-        }
+        });
       }
     },
     init: () => {
-      window.onhashchange = function () {
+      window.onpopstate = function () {
         const newUrl = new URL(window.location.href);
-        let newPageName = newUrl.hash ? newUrl.hash.slice(1) : "home";
+        let newPageName = newUrl.search ? newUrl.search.slice(1) : "home"; // Change from hash to search
         eventHandlers.dispatchPageAction(newPageName);
+        window.location.reload();
       };
       eventHandlers.handleReirectDispatchOnLoad();
     },
     handleReirectDispatchOnLoad: async () => {
-      // Handle hash change
+      // Handle search change
       const url = new URL(window.location.href);
-      let pageName = url.hash ? url.hash.slice(1) : "home";
+      let pageName = url.search ? url.search.slice(1) : "home"; // Change from hash to search
       url.pathname = getPagePath(pageName);
-      url.hash = pageName;
-      history.replaceState({}, document.title, `${url.hash}`);
+      url.search = pageName; // Change from hash to search
+      history.replaceState({}, document.title, `${url.search}`);
       await eventHandlers.dispatchPageAction(pageName);
     },
     handleLoginButtonClick: () => {
@@ -276,22 +283,12 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 20);
     },
     handleNewsfeedButtonClick: () => {
-      isLoadPageRunning = true;
-      loadLong();
-
-     
-      loadPage(
-        "newsfeed",
-        actions.showNewsfeed(),
-        actions.setNewsfeedContent).then(() => {
-
+      // run if windows uel is ?newsfeed
+      if (window.location.search === "?newsfeed") {
+        store.dispatch(actions.showNewsfeed());
         updateNewsfeedNAV(true);
         eventHandlers.updateNewsfeedUI();
-
-        isLoadPageRunning = false;
-        elements.splash.style.display = "none";
-        
-      }, 900);
+      }
     },
     handleInsightsButtonClick: () => {
       store.dispatch(actions.hideCreate());
@@ -359,13 +356,11 @@ document.addEventListener("DOMContentLoaded", () => {
               button.addEventListener("click", function () {
                 isLoadPageRunning = true;
                 loadLong();
-
-                setTimeout(() => {
-                  alert(
-                    "Prototype: Data is not connected. Proceeding to news feed..."
-                  );
-                  eventHandlers.handleNewsfeedButtonClick();
-                }, 800);
+                alert(
+                  "Prototype: Data is not connected. Proceeding to news feed..."
+                );
+                // windows loation is ?newsfeed and reload location
+                window.location = "?newsfeed";
               });
             });
           }
@@ -402,8 +397,6 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.reload();
       });
 
-
-
       const navLink = document.querySelector("#hamBurg");
       const settingsModal = document.querySelector(".settings-modal");
 
@@ -425,8 +418,6 @@ document.addEventListener("DOMContentLoaded", () => {
           }, 0);
         }
       });
-
-
 
       // get references to the elements
       const newsfeedLeft = document.querySelector(".Newsfeed-Left");
@@ -555,7 +546,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // Check if both fields have more than 3 characters
-      if (loginNumber.length < 3 || password.length < 3) {
+      if (loginNumber.length < 1 || password.length < 1) {
         alert("Both fields must have more than 3 characters.");
         return false;
       }
@@ -614,7 +605,7 @@ document.addEventListener("DOMContentLoaded", () => {
       isLoadPageRunning = false;
       loadLong();
       elements.splash.style.display = "none";
-    }, remainingTime + 500);
+    }, remainingTime + 400);
   }
   function displayLongSplash() {
     if (!elements.splash) return;
@@ -631,9 +622,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function showAlert(message) {
-    
     return new Promise((resolve) => {
-
       document.getElementById("alertMessage").innerText = message;
       document.getElementById("customAlert").style.display = "block";
 
@@ -655,7 +644,6 @@ document.addEventListener("DOMContentLoaded", () => {
           resolve();
         }
       );
-
     });
   }
   function closeAlert() {
@@ -716,7 +704,7 @@ document.addEventListener("DOMContentLoaded", () => {
       elements.footer.style.display = "none";
       elements.surfaceView.innerHTML = "";
       elements.surfaceView.appendChild(pageSpace);
-      await new Promise((resolve) => setTimeout(resolve, 40));
+      await new Promise((resolve) => setTimeout(resolve, 100));
       pageSpace.classList.add("active");
       elements.surfaceView.style.opacity = 1;
 
@@ -752,78 +740,82 @@ document.addEventListener("DOMContentLoaded", () => {
       upNavNewsfeed.style.display = "flex";
     }
   }
-
   function handleLoginFormSubmission(loginSpace) {
     // 1. Check if form event is already attached
     if (loginSpace.dataset.formEventAttached !== "true") {
-
       // 3. Mark form event as attached
       loginSpace.dataset.formEventAttached = "true";
-  
+
       // 4. Get form elements
       const loginForm = document.querySelector(".form");
       const loginNumberInput = document.getElementById("login-number");
       const passwordInput = document.getElementById("password");
-  
+
       // 5. Check if form exists
       if (loginForm) {
         // 6. Attach form submission event
         loginForm.onsubmit = async (event) => {
           // 7. Prevent form submission
           event.preventDefault();
-  
+
           // 8. Get form values
           const loginNumber = loginNumberInput.value;
           const password = passwordInput.value;
-  
+
           // 9. Validate form values
           const formData = eventHandlers.validateLoginForm(
             loginNumber,
             password
           );
-  
+
           // 10. Check if form validation passed
           if (!formData) {
             return;
           }
-  
+
           // 11. Construct user data object
           const userLoginData = {
             username: formData.loginNumber,
             password: formData.password,
           };
-  
+
           // Make API request
-          fetch("http://study.veras.ca/login.phps", {
+          fetch("https://study.veras.ca/login.phps", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(userLoginData),
+            redirect: "manual", // prevent automatic redirects
           })
             .then((response) => {
-              if (!response.ok) {
+              if (response.redirected) {
+                // The server sent a redirect response.
+                // You can get the URL of the redirect with response.url.
+                window.location.href = response.url;
+                window.location.reload();
+                // No longer checking for a redirect URL in the headers.
+                // Assuming the backend will handle the redirect.
+              } else if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
               }
-              // No longer checking for a redirect URL in the headers. 
-              // Assuming the backend will handle the redirect.s. 
+              return response.json();
             })
-            .catch(async (error) => {
-              await showAlert("API error: " + error.message)
-                .then(() => { // to be deleted after you connect the back end 
-                  eventHandlers.handleNewsfeedButtonClick();
-                });
+            .catch((error) => {
+              showAlert(
+                "Prototype call | Proceeding to newsfeed: " + error.message
+              ).then(() => {
+                // This block will run if there was an error with the fetch request.
+                // Here we're just redirecting to the newsfeed.
+                window.location.href = "?newsfeed";
+              });
             });
         };
       }
     }
   }
-  
-  
-  
   function handleOnboardingFormSubmission(onboardingSpace) {
     if (onboardingSpace.dataset.formEventAttached !== "true") {
-      elements.splash.style.display = "none";
       onboardingSpace.dataset.formEventAttached = "true";
 
       const onboardingForm = document.querySelector(".form");
