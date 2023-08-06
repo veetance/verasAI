@@ -202,7 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => { 
         Loadsplash.style.display = "none";
         console.log("home|loadLong",isLoadPageRunning ); 
-         }, 100);
+         }, 400);
          
       },
       newsfeed: () => {
@@ -719,7 +719,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       pageSpace.innerHTML = html;
       document.title = pageName.charAt(0).toUpperCase() + pageName.slice(1);
-      elements.surfaceView.style.opacity = 0;
       pageSpace.style.height = "100dvh";
       pageSpace.style.width = "100%";
 
@@ -728,7 +727,6 @@ document.addEventListener("DOMContentLoaded", () => {
       elements.surfaceView.appendChild(pageSpace);
       await new Promise((resolve) => setTimeout(resolve, 50));
       pageSpace.classList.add("active");
-      elements.surfaceView.style.opacity = 1;
 
       // Only dispatch the action to show the page after its content is fully loaded and displayed
       store.dispatch(actionToShow);
