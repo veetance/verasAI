@@ -137,17 +137,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const urlObj = new URL(url, window.location.href);
     const state = { page: urlObj.search.slice(1) }; // Change from hash to search
     history.pushState(state, "", urlObj.toString());
-  
-    // Check if url is 'home'
+
+    // initialize splash screen  Check if url is 'home'
     if (state.page === "?home") {
       isLoadPageRunning = false;
     } else {
       isLoadPageRunning = true;
     }
-  
+
     // Call loadLong()
     loadLong();
-  
+
     return { type, payload };
   };
 
@@ -210,23 +210,18 @@ document.addEventListener("DOMContentLoaded", () => {
         store.dispatch(actions.setHomeContent, actions.showHome());
       },
       newsfeed: () => {
-        isLoadPageRunning = true; // Make sure to set it true here
-        loadLong();
 
         setTimeout(() => {
-
-        loadPage(
-          "newsfeed",
-          actions.showNewsfeed(),
-          actions.setNewsfeedContent
-        ).then(() => {
-          updateNewsfeedNAV(true);
-          eventHandlers.updateNewsfeedUI();
-          console.log("load err", isLoadPageRunning );
-        });
-
-        }, 300);
-
+          loadPage(
+            "newsfeed",
+            actions.showNewsfeed(),
+            actions.setNewsfeedContent
+          ).then(() => {
+            updateNewsfeedNAV(true);
+            eventHandlers.updateNewsfeedUI();
+            elements.splash.style.display = "none";
+          });
+        }, 403);
       },
       insights: () => store.dispatch(actions.showInsights()),
       create: () => store.dispatch(actions.showCreate()),
@@ -241,11 +236,13 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         await new Promise((resolve) => setTimeout(resolve, 800));
 
+        // CHANGE  TAB TIOTLE TO UNKNOWN PAGE
+        document.title = "Unknown page | Click ok to go to [Home]";
+
         await showAlert(
           `Unknown page | Click ok to go to [Home]: ${pageName}`
         ).then(() => {
           window.location.href = "?home";
-          eventHandlers.pageActions(pageName);
         });
       }
     },
@@ -270,6 +267,10 @@ document.addEventListener("DOMContentLoaded", () => {
     handleLoginButtonClick: () => {
       loadPage("login", actions.showLogin(), actions.setLoginContent).then(
         () => {
+
+          isLoadPageRunning = false;
+          loadLong();
+
           // Call submission handler
           let loginSpace = document.querySelector(".login-Space");
           handleLoginFormSubmission(loginSpace);
@@ -287,16 +288,18 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     },
     handleToOnboardFormClick: () => {
-      setTimeout(() => {
-        loadPage(
-          "onboarding",
-          actions.showOnboarding(),
-          actions.setOnboardingContent
-        ).then(() => {
-          let onboardingSpace = document.querySelector(".onboarding-Space");
-          handleOnboardingFormSubmission(onboardingSpace);
-        });
-      }, 20);
+
+      isLoadPageRunning = false;
+      loadLong();
+
+      loadPage(
+        "onboarding",
+        actions.showOnboarding(),
+        actions.setOnboardingContent
+      ).then(() => {
+        let onboardingSpace = document.querySelector(".onboarding-Space");
+        handleOnboardingFormSubmission(onboardingSpace);
+      });
     },
     handleInsightsButtonClick: () => {
       store.dispatch(actions.hideCreate());
@@ -364,15 +367,37 @@ document.addEventListener("DOMContentLoaded", () => {
               button.addEventListener("click", function () {
                 isLoadPageRunning = true;
                 loadLong();
-                alert(
-                  "Prototype: Data is not connected. Proceeding to news feed..."
-                );
-                // windows loation is ?newsfeed and reload location
-                window.location = "?newsfeed";
+                alert("Prototype: Data is not connected. Proceeding to news feed...");
+        
+                // Use window.registerData here to post to home.phps
+                fetch("https://study.veras.ca/home.phps", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(window.registerData),
+                })
+                  .then((response) => {
+                    if (!response.ok) {
+                      throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                  })
+                  .catch((error) => {
+                    showAlert(
+                      "Prototype call | Proceeding to newsfeed: " + error.message
+                    ).then(() => {
+                      // This block will run if there was an error with the fetch request.
+                      // Here we're just redirecting to the newsfeed.
+                      eventHandlers.pageActions.newsfeed();
+                    });
+                  });
+
               });
             });
           }
         }
+        
       }
     },
     onboardSuccess: () => {
@@ -610,9 +635,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const hideSplashTime = Date.now();
     const remainingTime = Math.max(0, hideSplashTime - Date.now());
     setTimeout(() => {
-      isLoadPageRunning = false;
-      loadLong();
-      elements.splash.style.display = "none";
+      Loadsplash.style.display = "none";
     }, remainingTime + 400);
   }
   function displayLongSplash() {
@@ -663,10 +686,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (elements.verasSurfaceElement) {
       elements.verasSurfaceElement.style.display = "block";
     }
-
-    isLoadPageRunning = false;
-    loadLong();
-    elements.splash.style.display = "none";
   }
   closeAlertButton.onclick = closeAlert;
 
@@ -712,7 +731,7 @@ document.addEventListener("DOMContentLoaded", () => {
       elements.footer.style.display = "none";
       elements.surfaceView.innerHTML = "";
       elements.surfaceView.appendChild(pageSpace);
-      await new Promise((resolve) => setTimeout(resolve, 40));
+      await new Promise((resolve) => setTimeout(resolve, 150));
       pageSpace.classList.add("active");
       elements.surfaceView.style.opacity = 1;
 
@@ -753,17 +772,33 @@ document.addEventListener("DOMContentLoaded", () => {
       // 3. Mark form event as attached
       loginSpace.dataset.formEventAttached = "true";
 
+      if (loginSpace.dataset.formEventAttached == "true") {
+        isLoadPageRunning = false;
+        Loadsplash.style.display = "none";
+        console.log("load err", isLoadPageRunning);
+      };
+
+     
+      
+      
       // 4. Get form elements
       const loginForm = document.querySelector(".form");
       const loginNumberInput = document.getElementById("login-number");
       const passwordInput = document.getElementById("password");
 
+      
+
       // 5. Check if form exists
       if (loginForm) {
+       
         // 6. Attach form submission event
         loginForm.onsubmit = async (event) => {
           // 7. Prevent form submission
+          
           event.preventDefault();
+
+          isLoadPageRunning = true;
+          loadLong();
 
           // 8. Get form values
           const loginNumber = loginNumberInput.value;
@@ -793,22 +828,17 @@ document.addEventListener("DOMContentLoaded", () => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(userLoginData),
-            redirect: "manual", // prevent automatic redirects
           })
             .then((response) => {
-              if (response.redirected) {
-                // The server sent a redirect response.
-                // You can get the URL of the redirect with response.url.
-                window.location.href = response.url;
-                window.location.reload();
-                // No longer checking for a redirect URL in the headers.
-                // Assuming the backend will handle the redirect.
-              } else if (!response.ok) {
+              if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
               }
+              
               return response.json();
+              
             })
             .catch((error) => {
+
               showAlert(
                 "Prototype call | Proceeding to newsfeed: " + error.message
               ).then(() => {
@@ -821,9 +851,12 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   }
+
   function handleOnboardingFormSubmission(onboardingSpace) {
     if (onboardingSpace.dataset.formEventAttached !== "true") {
       onboardingSpace.dataset.formEventAttached = "true";
+
+      elements.splash.style.display = "none";
 
       const onboardingForm = document.querySelector(".form");
       const loginNumberInput = document.getElementById("login-number");
@@ -861,47 +894,15 @@ document.addEventListener("DOMContentLoaded", () => {
           }
 
           // Construct user data object
-          const onboardUserData = {
+          const registerData = {
             loginNumber: formData.loginNumber,
             password: formData.password,
             confirmPassword: formData.confirmPassword,
             nickname: formData.nickname,
           };
 
-          // Make API request
-          fetch("http://study.veras.ca/home.phps", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(onboardUserData),
-          })
-            .then((response) => {
-              if (!response.ok) {
-                alert("Network Error: Failed to reach server.");
-                return;
-              }
-
-              // Check for redirect url
-              const redirectUrl = response.headers.get("Location");
-
-              if (redirectUrl && redirectUrl.includes("#onboardingSteps")) {
-                eventHandlers.handleReirectDispatchOnLoad();
-                return;
-              }
-              return response.text();
-            })
-            .catch((error) => {
-              alert("Unknown error occurred. Please try again later." + error);
-
-              isLoadPageRunning = true;
-              loadLong();
-
-              setTimeout(() => {
-                eventHandlers.onboardSuccess();
-                isLoadPageRunning = false;
-              }, 1800);
-            });
+          window.registerData = registerData; // Make registerData globally accessible
+          eventHandlers.onboardSuccess(); // Call onboardSuccess function
         };
       }
     }
