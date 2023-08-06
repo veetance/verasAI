@@ -130,15 +130,14 @@ document.addEventListener("DOMContentLoaded", () => {
 ///
 ///
 /// main index.js section
- document.addEventListener("DOMContentLoaded", () => {
- let Loadsplash = document.querySelector(".v-splash");
+document.addEventListener("DOMContentLoaded", () => {
+  let Loadsplash = document.querySelector(".v-splash");
 
   const createAction = (url, type, payload) => {
     const urlObj = new URL(url, window.location.href);
     const state = { page: urlObj.search.slice(1) }; // Change from hash to search
     history.pushState(state, "", urlObj.toString());
     return { type, payload };
-    
   };
 
   const actions = {
@@ -197,16 +196,13 @@ document.addEventListener("DOMContentLoaded", () => {
     pageActions: {
       login: () => eventHandlers.handleLoginButtonClick(),
       home: () => {
-
         isLoadPageRunning = false;
-        setTimeout(() => { 
-        Loadsplash.style.display = "none";
-        console.log("home|loadLong",isLoadPageRunning ); 
-         }, 400);
-         
+        setTimeout(() => {
+          Loadsplash.style.display = "none";
+          console.log("home|loadLong", isLoadPageRunning);
+        }, 400);
       },
       newsfeed: () => {
-
         isLoadPageRunning = true;
         loadLong();
 
@@ -216,15 +212,14 @@ document.addEventListener("DOMContentLoaded", () => {
             actions.showNewsfeed(),
             actions.setNewsfeedContent
           ).then(() => {
-            updateNewsfeedNAV(true);
             eventHandlers.updateNewsfeedUI();
+            updateNewsfeedNAV(true);
+
             isLoadPageRunning = false;
             loadLong();
             elements.splash.style.display = "none";
-
           });
         }, 200);
-
       },
       insights: () => store.dispatch(actions.showInsights()),
       create: () => store.dispatch(actions.showCreate()),
@@ -268,7 +263,6 @@ document.addEventListener("DOMContentLoaded", () => {
     handleLoginButtonClick: () => {
       loadPage("login", actions.showLogin(), actions.setLoginContent).then(
         () => {
-
           // Call submission handler
           let loginSpace = document.querySelector(".login-Space");
           handleLoginFormSubmission(loginSpace);
@@ -286,7 +280,6 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     },
     handleToOnboardFormClick: () => {
-
       loadPage(
         "onboarding",
         actions.showOnboarding(),
@@ -362,8 +355,10 @@ document.addEventListener("DOMContentLoaded", () => {
               button.addEventListener("click", function () {
                 isLoadPageRunning = true;
                 loadLong();
-                alert("Prototype: Data is not connected. Proceeding to news feed...");
-        
+                alert(
+                  "Prototype: Data is not connected. Proceeding to news feed..."
+                );
+
                 // Use window.registerData here to post to home.phps
                 fetch("https://study.veras.ca/home.phps", {
                   method: "POST",
@@ -380,19 +375,18 @@ document.addEventListener("DOMContentLoaded", () => {
                   })
                   .catch((error) => {
                     showAlert(
-                      "Prototype call | Proceeding to newsfeed: " + error.message
+                      "Prototype call | Proceeding to newsfeed: " +
+                        error.message
                     ).then(() => {
                       // This block will run if there was an error with the fetch request.
                       // Here we're just redirecting to the newsfeed.
                       eventHandlers.pageActions.newsfeed();
                     });
                   });
-
               });
             });
           }
         }
-        
       }
     },
     onboardSuccess: () => {
@@ -412,6 +406,39 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 300);
     },
     updateNewsfeedUI: () => {
+      // Select elements
+      const navLink = document.querySelector("#hamBurg");
+      const settingsModal = document.querySelector(".settings-modal");
+      const modal = document.querySelector(".collapsable-comp");
+
+      // Attach listeners
+      if (navLink && settingsModal) {
+        navLink.addEventListener("click", () => {
+          if (settingsModal.classList.contains("shown")) {
+            settingsModal.classList.remove("shown");
+          } else {
+            modal.style.display = "flex";
+            navLink.classList.add("active");
+
+            setTimeout(() => {
+              settingsModal.classList.add("shown");
+            });
+          }
+        });
+
+        modal.addEventListener("transitionend", (e) => {
+          if (
+            e.target === settingsModal &&
+            !settingsModal.classList.contains("shown")
+          ) {
+            modal.style.display = "none";
+            navLink.classList.remove("active");
+          }
+        });
+      }
+
+      /////////////// logout-logic ////////////////
+
       const LogOutButton = document.querySelector(".logout-button");
       LogOutButton.addEventListener("click", function () {
         alert("You are about to be logged out.");
@@ -420,34 +447,12 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       const newsfeedButton = document.querySelector(".newsfeed-button");
-      const modal = document.querySelector(".collapsable-comp");
       newsfeedButton.addEventListener("click", function () {
         window.location.reload();
       });
 
-      const navLink = document.querySelector("#hamBurg");
-      const settingsModal = document.querySelector(".settings-modal");
+      /////////////// main dashboard section ////////////////
 
-      if (navLink && settingsModal) {
-        navLink.addEventListener("click", function () {
-          modal.style.display = "flex";
-
-          setTimeout(() => {
-            this.classList.toggle("active");
-            settingsModal.classList.toggle("shown");
-          });
-        });
-      }
-      // We listen to the transitionend event which will be fired when the toggle animation finishes
-      settingsModal.addEventListener("transitionend", function () {
-        if (!settingsModal.classList.contains("shown")) {
-          setTimeout(() => {
-            modal.style.display = "none";
-          }, 0);
-        }
-      });
-
-      // get references to the elements
       const newsfeedLeft = document.querySelector(".Newsfeed-Left");
       const quickSurvey = document.querySelector(".Quick-survey");
       const closedeedLeft = document.getElementById("closeNewsfeed");
@@ -459,7 +464,6 @@ document.addEventListener("DOMContentLoaded", () => {
         quickSurvey.style.maxHeight = "60px";
         closedeedLeft.style.padding = "16px 16px 16px 16px";
       }
-
       function handleQuickSurveyClick() {
         quickSurvey.style.maxHeight = "100%";
 
@@ -510,18 +514,18 @@ document.addEventListener("DOMContentLoaded", () => {
       handleScreenChange();
       window.addEventListener("resize", handleScreenChange);
 
-      //////
+      ///////////////
       document
         .getElementById("written-survey-tab")
         .addEventListener("click", function () {
           activateTab("written-survey");
         });
-
       document
         .getElementById("multiple-choice-tab")
         .addEventListener("click", function () {
           activateTab("multiple-choice");
         });
+      //////////////
 
       function activateTab(tabName) {
         // Hide all tab content
@@ -586,6 +590,7 @@ document.addEventListener("DOMContentLoaded", () => {
       };
     },
   };
+  
   eventHandlers.init();
 
   //attatch event listiners
@@ -769,24 +774,19 @@ document.addEventListener("DOMContentLoaded", () => {
         isLoadPageRunning = false;
         Loadsplash.style.display = "none";
         console.log("load err", isLoadPageRunning);
-      };
+      }
 
-     
-      
       // 4. Get form elements
       const loginForm = document.querySelector(".form");
       const loginNumberInput = document.getElementById("login-number");
       const passwordInput = document.getElementById("password");
 
-      
-
       // 5. Check if form exists
       if (loginForm) {
-       
         // 6. Attach form submission event
         loginForm.onsubmit = async (event) => {
           // 7. Prevent form submission
-          
+
           event.preventDefault();
 
           isLoadPageRunning = true;
@@ -825,12 +825,10 @@ document.addEventListener("DOMContentLoaded", () => {
               if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
               }
-              
+
               return response.json();
-              
             })
             .catch((error) => {
-
               showAlert(
                 "Prototype call | Proceeding to newsfeed: " + error.message
               ).then(() => {
@@ -852,8 +850,7 @@ document.addEventListener("DOMContentLoaded", () => {
         isLoadPageRunning = false;
         Loadsplash.style.display = "none";
         console.log("load err", isLoadPageRunning);
-      };
-
+      }
 
       const onboardingForm = document.querySelector(".form");
       const loginNumberInput = document.getElementById("login-number");
