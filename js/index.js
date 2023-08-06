@@ -130,25 +130,15 @@ document.addEventListener("DOMContentLoaded", () => {
 ///
 ///
 /// main index.js section
-document.addEventListener("DOMContentLoaded", () => {
-  let Loadsplash = document.querySelector(".v-splash");
+ document.addEventListener("DOMContentLoaded", () => {
+ let Loadsplash = document.querySelector(".v-splash");
 
   const createAction = (url, type, payload) => {
     const urlObj = new URL(url, window.location.href);
     const state = { page: urlObj.search.slice(1) }; // Change from hash to search
     history.pushState(state, "", urlObj.toString());
-
-    // initialize splash screen  Check if url is 'home'
-    if (state.page === "?home") {
-      isLoadPageRunning = false;
-    } else {
-      isLoadPageRunning = true;
-    }
-
-    // Call loadLong()
-    loadLong();
-
     return { type, payload };
+    
   };
 
   const actions = {
@@ -207,9 +197,18 @@ document.addEventListener("DOMContentLoaded", () => {
     pageActions: {
       login: () => eventHandlers.handleLoginButtonClick(),
       home: () => {
-        store.dispatch(actions.setHomeContent, actions.showHome());
+
+        isLoadPageRunning = false;
+        setTimeout(() => { 
+        Loadsplash.style.display = "none";
+        console.log("home|loadLong",isLoadPageRunning ); 
+         }, 100);
+         
       },
       newsfeed: () => {
+
+        isLoadPageRunning = true;
+        loadLong();
 
         setTimeout(() => {
           loadPage(
@@ -219,9 +218,13 @@ document.addEventListener("DOMContentLoaded", () => {
           ).then(() => {
             updateNewsfeedNAV(true);
             eventHandlers.updateNewsfeedUI();
+            isLoadPageRunning = false;
+            loadLong();
             elements.splash.style.display = "none";
+
           });
-        }, 403);
+        }, 200);
+
       },
       insights: () => store.dispatch(actions.showInsights()),
       create: () => store.dispatch(actions.showCreate()),
@@ -231,8 +234,6 @@ document.addEventListener("DOMContentLoaded", () => {
     dispatchPageAction: async (pageName) => {
       if (pageName in eventHandlers.pageActions) {
         await eventHandlers.pageActions[pageName]();
-        isLoadPageRunning = false;
-        loadLong();
       } else {
         await new Promise((resolve) => setTimeout(resolve, 800));
 
@@ -268,9 +269,6 @@ document.addEventListener("DOMContentLoaded", () => {
       loadPage("login", actions.showLogin(), actions.setLoginContent).then(
         () => {
 
-          isLoadPageRunning = false;
-          loadLong();
-
           // Call submission handler
           let loginSpace = document.querySelector(".login-Space");
           handleLoginFormSubmission(loginSpace);
@@ -288,9 +286,6 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     },
     handleToOnboardFormClick: () => {
-
-      isLoadPageRunning = false;
-      loadLong();
 
       loadPage(
         "onboarding",
@@ -731,7 +726,7 @@ document.addEventListener("DOMContentLoaded", () => {
       elements.footer.style.display = "none";
       elements.surfaceView.innerHTML = "";
       elements.surfaceView.appendChild(pageSpace);
-      await new Promise((resolve) => setTimeout(resolve, 150));
+      await new Promise((resolve) => setTimeout(resolve, 50));
       pageSpace.classList.add("active");
       elements.surfaceView.style.opacity = 1;
 
@@ -772,14 +767,13 @@ document.addEventListener("DOMContentLoaded", () => {
       // 3. Mark form event as attached
       loginSpace.dataset.formEventAttached = "true";
 
-      if (loginSpace.dataset.formEventAttached == "true") {
+      if (loginSpace.dataset.formEventAttached === "true") {
         isLoadPageRunning = false;
         Loadsplash.style.display = "none";
         console.log("load err", isLoadPageRunning);
       };
 
      
-      
       
       // 4. Get form elements
       const loginForm = document.querySelector(".form");
@@ -856,7 +850,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (onboardingSpace.dataset.formEventAttached !== "true") {
       onboardingSpace.dataset.formEventAttached = "true";
 
-      elements.splash.style.display = "none";
+      if (onboardingSpace.dataset.formEventAttached === "true") {
+        isLoadPageRunning = false;
+        Loadsplash.style.display = "none";
+        console.log("load err", isLoadPageRunning);
+      };
+
 
       const onboardingForm = document.querySelector(".form");
       const loginNumberInput = document.getElementById("login-number");
