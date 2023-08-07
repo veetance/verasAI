@@ -247,7 +247,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const newUrl = new URL(window.location.href);
         let newPageName = newUrl.search ? newUrl.search.slice(1) : "home"; // Change from hash to search
         eventHandlers.dispatchPageAction(newPageName);
-        window.location.reload();
+        window.location.url = newUrl.toString();
       };
       eventHandlers.handleReirectDispatchOnLoad();
     },
@@ -390,8 +390,10 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     },
     onboardSuccess: () => {
+
       isLoadPageRunning = true;
       loadLong();
+   
       setTimeout(() => {
         loadPage(
           "onboardingSteps",
@@ -400,10 +402,9 @@ document.addEventListener("DOMContentLoaded", () => {
         ).then(() => {
           eventHandlers.addStepButtonListeners();
           eventHandlers.updateStep();
-          isLoadPageRunning = false;
           elements.splash.style.display = "none";
         });
-      }, 300);
+      }, 900);
     },
     updateNewsfeedUI: () => {
       // Select elements
@@ -590,7 +591,7 @@ document.addEventListener("DOMContentLoaded", () => {
       };
     },
   };
-  
+
   eventHandlers.init();
 
   //attatch event listiners
@@ -648,8 +649,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const hideSplashTime = Date.now();
     const remainingTime = Math.max(0, hideSplashTime - Date.now());
     setTimeout(() => {
-      elements.splash.style.display = "none";
-    }, remainingTime + 10000);
+  
+    }, remainingTime);
   }
 
   function showAlert(message) {
@@ -688,6 +689,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
   closeAlertButton.onclick = closeAlert;
+
+  const TIMEOUT = 1300; // 5 seconds
+  function fetchWithTimeout(url, options) {
+    return Promise.race([
+      fetch(url, options),
+      new Promise((_, reject) =>
+        setTimeout(() => reject(new Error("Request timed out")), TIMEOUT)
+      ),
+    ]);
+  }
 
   function getPagePath(pageName) {
     const isHome = pageName === "home";
@@ -765,82 +776,72 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
   function handleLoginFormSubmission(loginSpace) {
-    // 1. Check if form event is already attached
     if (loginSpace.dataset.formEventAttached !== "true") {
-      // 3. Mark form event as attached
-      loginSpace.dataset.formEventAttached = "true";
+        loginSpace.dataset.formEventAttached = "true";
 
-      if (loginSpace.dataset.formEventAttached === "true") {
-        isLoadPageRunning = false;
-        Loadsplash.style.display = "none";
-        console.log("load err", isLoadPageRunning);
-      }
+        if (loginSpace.dataset.formEventAttached === "true") {
+            isLoadPageRunning = false;
+            Loadsplash.style.display = "none";
+            console.log("load err", isLoadPageRunning);
+        }
 
-      // 4. Get form elements
-      const loginForm = document.querySelector(".form");
-      const loginNumberInput = document.getElementById("login-number");
-      const passwordInput = document.getElementById("password");
+        const loginForm = document.querySelector(".form");
+        const loginNumberInput = document.getElementById("login-number");
+        const passwordInput = document.getElementById("password");
 
-      // 5. Check if form exists
-      if (loginForm) {
-        // 6. Attach form submission event
-        loginForm.onsubmit = async (event) => {
-          // 7. Prevent form submission
+        if (loginForm) {
+            loginForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
 
-          event.preventDefault();
+                isLoadPageRunning = true;
+                loadLong();
 
-          isLoadPageRunning = true;
-          loadLong();
+                const loginNumber = loginNumberInput.value;
+                const password = passwordInput.value;
 
-          // 8. Get form values
-          const loginNumber = loginNumberInput.value;
-          const password = passwordInput.value;
+                // Check if form values are collected
+                if (!loginNumber || !password) {
+                    showAlert("Something went wrong.");
+                    window.location = "?home";
+                    return;
+                }
 
-          // 9. Validate form values
-          const formData = eventHandlers.validateLoginForm(
-            loginNumber,
-            password
-          );
+                const formData = eventHandlers.validateLoginForm(loginNumber, password);
 
-          // 10. Check if form validation passed
-          if (!formData) {
-            return;
-          }
+                if (!formData) {
+                    return;
+                }
 
-          // 11. Construct user data object
-          const userLoginData = {
-            username: formData.loginNumber,
-            password: formData.password,
-          };
+                const userLoginData = {
+                    username: formData.loginNumber,
+                    password: formData.password,
+                };
 
-          // Make API request
-          fetch("https://study.veras.ca/login.phps", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(userLoginData),
-          })
-            .then((response) => {
-              if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-              }
-
-              return response.json();
-            })
-            .catch((error) => {
-              showAlert(
-                "Prototype call | Proceeding to newsfeed: " + error.message
-              ).then(() => {
-                // This block will run if there was an error with the fetch request.
-                // Here we're just redirecting to the newsfeed.
-                eventHandlers.pageActions.newsfeed();
-              });
+                fetchWithTimeout("https://study.veras.ca/login.phps", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(userLoginData),
+                })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .catch((error) => {
+                    showAlert("Prototype call | Proceeding to newsfeed: " + error.message)
+                    .then(() => {
+                        eventHandlers.pageActions.newsfeed();
+                    });
+                });
             });
-        };
-      }
+        }
     }
-  }
+}
+
+
 
   function handleOnboardingFormSubmission(onboardingSpace) {
     if (onboardingSpace.dataset.formEventAttached !== "true") {
@@ -960,5 +961,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
 //upcoming  TASKS
 
-// go over all written post requests and make sure the timings are correct and that the correct data is being sent
-// go over and refactor the splash screen logic then fix all the delays and timing flicker issues
+// refactor newsfeed dashboard quick survey and newsfeed plane reveal and hide logic , the nav buttons will controll each component
