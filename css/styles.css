@@ -421,7 +421,7 @@ h5 {
   overflow       : hidden;
 }
 
-.v-form-header {
+.Newsfeed-Right .v-form-header {
   display         : flex;
   align-items     : center;
   justify-content : space-between;
@@ -434,9 +434,8 @@ h5 {
   border-bottom   : solid 1px #3caa8b41;
   z-index: 999;
 }
-
-.v-form-header .material-symbols-outlined {
-  color           : #288369;
+.Newsfeed-Right .v-form-header .material-symbols-outlined {
+  color: var(--f7-2ndry-theme-color-DRKshade) !important;
   font-size       : clamp(1rem, 1.5rem, 5rem) !important;
   font-weight     : 700 !important;
   margin          : 0px;
@@ -444,6 +443,10 @@ h5 {
   /* border       : solid 2px #372c6b17; */
   padding         : 6px;
   border-radius   : 6px;
+}
+
+.Newsfeed-Right .v-form-header h1 {
+  color: var(--f7-2ndry-theme-color-DRKshade) !important;
 }
 
 .v-form-header p {
@@ -2614,6 +2617,7 @@ h5 {
   --f7-2ndry-theme-color-muted: rgb(106 189 165);
   --f7-2ndry-theme-color-rgb  : 154, 255, 226;
   --f7-2ndry-theme-color-shade: #3caa8b;
+  --f7-2ndry-theme-color-DRKshade: #288369;
   --f7-2ndry-theme-color-tint : #2a6655;
 
   --v-white-plane         : #f9f7ff;

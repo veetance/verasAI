@@ -72,7 +72,7 @@
   height: auto;
 }
 
-.feed-scrollHead .v-form-header h1 {
+.feed-scroll .v-form-header h1 {
   display    : flex;
   font-size: clamp(1.3rem, 2vw, 1.5rem);
   line-height: clamp(1.6rem, 2.6vw, 2.1rem);
@@ -279,7 +279,7 @@ padding: 0px;
   justify-content: flex-start;
   color: #2A6655;
   font-weight: 600 !important;
-  font-size: clamp(.6rem, 2vw, .8rem) !important;
+  font-size: clamp(.6rem, 3.4vw, .8rem) !important;
   line-height: fit-content !important;
   white-space: nowrap;
 }
@@ -865,8 +865,8 @@ padding: 0px;
   } 
 
   .Newsfeed-Right .v-form-header {
-    height: auto ;
-    padding: 16px;
+    height: auto;
+    padding: 17px;
   }
 
   .feed-scrollHead .v-form-header {
