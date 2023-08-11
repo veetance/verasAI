@@ -360,7 +360,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
                 // Use window.registerData here to post to home.phps
-                fetch("https://study.veras.ca/home.phps", {
+                fetch("https://study.veras.ca/register.phps", {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",
@@ -775,7 +775,7 @@ document.addEventListener("DOMContentLoaded", () => {
       target.appendChild(elem);
     });
   }
-  
+
 
   function getPagePath(pageName) {
     const isHome = pageName === "home";
