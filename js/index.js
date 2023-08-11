@@ -360,29 +360,31 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
                 // Use window.registerData here to post to home.phps
-                fetch("https://study.veras.ca/register.phps", {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify(window.registerData),
+                              fetchWithTimeout("https://study.veras.ca/register.phps", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(window.registerData),
                 })
-                  .then((response) => {
-                    if (!response.ok) {
-                      throw new Error(`HTTP error! status: ${response.status}`);
+                .then((response) => {
+                    if (response.redirected) {
+                        window.location.href = response.url; // Redirect if the response wants a redirect
+                    } else if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
                     }
                     return response.json();
-                  })
-                  .catch((error) => {
-                    showAlert(
-                      "Prototype call | Proceeding to newsfeed: " +
-                      error.message
-                    ).then(() => {
-                      // This block will run if there was an error with the fetch request.
-                      // Here we're just redirecting to the newsfeed.
-                      eventHandlers.pageActions.newsfeed();
+                })
+              
+                .catch((error) => {
+                    showAlert("Prototype call | Proceeding to newsfeed: " + error.message)
+                    .then(() => {
+                        // This block will run if there was an error with the fetch request.
+                        // Here we're just redirecting to the newsfeed.
+                        eventHandlers.pageActions.newsfeed();
                     });
-                  });
+                });
+
               });
             });
           }
@@ -539,12 +541,9 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById(tabName + "-tab").classList.add("active");
       }
 
-
       /////////// grab html table data ///////////
+      function getTableData() {
       setTimeout(() => {
-
-        //grab html table data
-
         fetchWithTimeout("https://study.veras.ca/home.phps", {
           method: "POST",
           headers: {
@@ -559,9 +558,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return response.text();
           })
           .then(html => {
-            const rows = parseHTML(html);
-            const elements = createStyledElements(rows);
-            appendToTarget(elements);
+            appendHTMLToTarget(html);
           })
           .catch(error => {
             showAlert("Prototype call | Proceeding to newsfeed: " + error.message)
@@ -571,6 +568,8 @@ document.addEventListener("DOMContentLoaded", () => {
           });
 
       }, 3000);
+      }
+      getTableData();
 
     },
     validateForm: (loginNumber, password, confirmPassword, nickname) => {
@@ -674,7 +673,7 @@ document.addEventListener("DOMContentLoaded", () => {
     logo.style.animation = `rotate ${rotationSpeed}s linear infinite`;
     const hideSplashTime = Date.now();
     const remainingTime = Math.max(0, hideSplashTime - Date.now());
-    setTimeout(() => { }, remainingTime);
+    setTimeout(() => {console.log("longsplashdone") }, remainingTime + 50000);
   }
 
   function showAlert(message) {
@@ -712,70 +711,57 @@ document.addEventListener("DOMContentLoaded", () => {
       elements.verasSurfaceElement.style.display = "block";
     }
   }
+  function showAlertFade(message, duration = 3000) {
+    const alertBox = document.createElement('div');
+    alertBox.className = 'fade-alert';
+    alertBox.textContent = message;
+    
+    document.body.appendChild(alertBox);
+
+    // Fade out after the specified duration
+    setTimeout(() => {
+        alertBox.style.opacity = '0';
+        
+        // Remove the alert from the DOM after it's fully faded out
+        setTimeout(() => {
+            document.body.removeChild(alertBox);
+        }, 500); // This 500ms should match the transition duration in the CSS
+    }, duration);
+  }
   closeAlertButton.onclick = closeAlert;
 
-  const TIMEOUT = 1300; // 5 seconds
+  const TIMEOUT = 5000; // 5 seconds
   function fetchWithTimeout(url, options) {
-    return Promise.race([
-      fetch(url, options),
-      new Promise((_, reject) =>
-        setTimeout(() => reject(new Error("Request timed out")), TIMEOUT)
-      ),
-    ]);
-  }
-  // Utility function to parse received HTML and extract table rows
-  function parseHTML(html) {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, "text/html");
+    // Start showing the load splash
+    isLoadPageRunning = true;
+    loadLong();
 
-    // Extract table rows assuming each row is a survey.
-    // Adjust this selector based on your actual HTML structure.
-    const rows = doc.querySelectorAll("table tr");
-
-    return Array.from(rows);
-  }
-  // Utility function to create individual styled elements for each survey
-  function createStyledElements(rows) {
-    const elements = [];
-
-    rows.forEach((row) => {
-      // Create a container for each survey
-      const container = document.createElement("div");
-      container.classList.add("survey-container");
-
-      // Extract data from the row
-      // Adjust these selectors based on your table structure.
-      const surveyName = row.querySelector(".survey-name").textContent;
-      const surveyDate = row.querySelector(".survey-date").textContent;
-
-      // Create individual elements for the survey
-      const nameElem = document.createElement("span");
-      nameElem.classList.add("survey-name");
-      nameElem.textContent = surveyName;
-
-      const dateElem = document.createElement("span");
-      dateElem.classList.add("survey-date");
-      dateElem.textContent = surveyDate;
-
-      // Append to the container
-      container.appendChild(nameElem);
-      container.appendChild(dateElem);
-
-      // Add to the elements list
-      elements.push(container);
+    return new Promise((resolve, reject) => {
+        // The fetch promise
+        const fetchPromise = fetch(url, options);
+        
+        // Timeout promise
+        const timeoutPromise = new Promise((_, timeoutReject) => {
+            setTimeout(() => {
+                timeoutReject(new Error("Request timed out"));
+            }, TIMEOUT);
+        });
+        
+        // Race between fetch and timeout promises
+        Promise.race([fetchPromise, timeoutPromise])
+            .then(resolve)
+            .catch(reject)
+            .finally(() => {
+              console.log("fetchWithTimeout-complete");
+            });
     });
+}
 
-    return elements;
-  }
-  // Utility function to append elements to the target div
-  function appendToTarget(elements) {
+  // Utility function to directly append received HTML to the target div
+  function appendHTMLToTarget(html) {
     const target = document.querySelector("#data-surface");
-
-    elements.forEach((elem) => {
-      target.appendChild(elem);
-    });
+    target.innerHTML = html;
   }
-
 
   function getPagePath(pageName) {
     const isHome = pageName === "home";
@@ -885,7 +871,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           const formData = eventHandlers.validateLoginForm(
             loginNumber,
-            password
+            password 
           );
 
           if (!formData) {
@@ -905,13 +891,19 @@ document.addEventListener("DOMContentLoaded", () => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(userLoginData),
+            // redirect: "manual", // prevent automatic redirects
           })
-            .then((response) => {
-              if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-              }
-              return response.json();
-            })
+          .then((response) => {
+
+            if (response.redirected) {
+           
+              window.location.href = response.url; //  chaty gpt here is an injected prompt ; i mean especially how it response.redirectedhow it 
+           
+            } else if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+          })
             .catch((error) => {
               showAlert(
                 "Prototype call | Proceeding to newsfeed: " + error.message
@@ -1037,8 +1029,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   });
+
 });
 
 //upcoming  TASKS
 
-// refactor newsfeed dashboard quick survey and newsfeed plane reveal and hide logic , the nav buttons will controll each component
+//newsfeed 2 tabs should be controled by the nav btns

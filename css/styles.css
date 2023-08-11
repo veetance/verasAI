@@ -116,6 +116,7 @@ p {
   margin     : 0px;
   padding    : 0px;
   width      : auto;
+  font-weight: 500;
   font-family: "poppins";
   color      : var(--v-white-plane);
 }
@@ -167,14 +168,14 @@ h2 {
   white-space    : nowrap;
   flex-direction : column;
   justify-content: flex-start;
-  font-size      : clamp(1.2rem, 2.19vw, 1.8rem);
-  line-height    : clamp(1.3rem, 2vw, 2.1rem);
+  font-size      : clamp(1.1rem, 1.5vw, 1.8rem);
+  line-height: clamp(1.4rem, 2.1vw, 2.5rem);
   font-weight    : 800;
   color: #2a6655;
   padding        : 0px;
   margin         : 0px;
   /* border      :solid #161124 1px; */
-  text-align     : flex-start;
+  /* text-align     : flex-start; */
 }
 
 h2,
@@ -1124,6 +1125,19 @@ h5 {
 .touched-pressed:active {
   transform: scale(0.95);
   border   : solid 0.01px #c8c8e72a;
+}
+
+.fade-alert {
+  padding: 10px;
+  background-color: #f44336; /* Red by default, change if needed */
+  color: white;
+  position: fixed;
+  top: 10px; /* Adjust for desired position */
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 1;
+  transition: opacity 0.5s linear;
+  z-index: 10000; /* Ensure it appears on top */
 }
 
 
