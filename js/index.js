@@ -897,7 +897,6 @@ document.addEventListener("DOMContentLoaded", () => {
             password: formData.password,
           };
 
-          
             window.userLoginData = userLoginData; // Make registerData globally accessible
 
           fetchWithTimeout("https://study.veras.ca/login.phps", {
