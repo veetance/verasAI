@@ -55,7 +55,7 @@
 
 .steps-ul {
   height      : 100%;
-  padding-left: 31px;
+  padding-left: 30px;
   margin-right: 0px;
   overflow    : hidden;
   overflow-y  : auto;
@@ -91,7 +91,7 @@
 }
 
 .steps-ul ul li p {
-  font-size  : clamp(1rem, 2vw, 1rem);
+  font-size  : clamp(.9rem, 1.7vw, 1rem);
   line-height: clamp(1.5rem, 2vw, 1rem);
   font-family: mulish !important;
 }
@@ -158,7 +158,8 @@
 }
 
 .rules p {
-  margin-top: 6px;
+  margin-top: 8px;
+  padding-right: 10%;
 }
 
 .rules .step-quote-wrapper {
@@ -392,6 +393,11 @@
   border     : 2px solid rgba(52, 167, 134, 0);
   font-weight: 600 !important;
 }
+
+
+
+/* actions */
+
 
 @media (min-width: 580px) and (max-width: 1055px) {
   .rules .step-info-main {

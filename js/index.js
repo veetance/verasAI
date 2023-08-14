@@ -1,4 +1,4 @@
-// Frontend-ONLY JS
+// Frontend-ONLY JSdeInOnLoad
 document.addEventListener("DOMContentLoaded", () => {
   const darkModeQuery = window.matchMedia("not all and (prefers-color-scheme)");
   darkModeQuery.addEventListener("change", updateThemeColor);
@@ -194,7 +194,9 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   const eventHandlers = {
     pageActions: {
-      login: () => eventHandlers.handleLoginButtonClick(),
+      login: () => {
+        eventHandlers.handleLoginButtonClick();
+      },
       home: () => {
         isLoadPageRunning = false;
         setTimeout(() => {
@@ -230,6 +232,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (pageName in eventHandlers.pageActions) {
         await eventHandlers.pageActions[pageName]();
       } else {
+
         await new Promise((resolve) => setTimeout(resolve, 800));
 
         // CHANGE  TAB TIOTLE TO UNKNOWN PAGE
@@ -250,6 +253,7 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.url = newUrl.toString();
       };
       eventHandlers.handleReirectDispatchOnLoad();
+  
     },
     handleReirectDispatchOnLoad: async () => {
       // Handle search change
@@ -324,29 +328,40 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     },
     updateStep: (increment) => {
+
       stepMainAdjust();
+      fadeInOnLoad();
+      elements.splash.style.display = "none";
 
       let steps = Array.from(
         document.querySelector(".onboarding-steps").querySelectorAll(".step")
       );
-
       let currentStep = steps.find((step) => step.classList.contains("active"));
-
       if (!currentStep) {
         steps.find((step) => step.dataset.step == "0").classList.add("active");
         return;
       }
-
       let currentStepNumber = parseInt(currentStep.dataset.step);
       let nextStepNumber = currentStepNumber + increment;
-
       let nextStep = steps.find(
         (step) => parseInt(step.dataset.step) === nextStepNumber
       );
-
       if (nextStep) {
+
+        // Before switching steps, remove the 'visible' class to reset the animation
+        let currentElementsToFade = currentStep.querySelectorAll(".softTransit");
+        currentElementsToFade.forEach(el => el.classList.remove('visible'));
+
         currentStep.classList.remove("active");
         nextStep.classList.add("active");
+
+        // Soft transition effect
+        let nextElementsToFade = nextStep.querySelectorAll(".softTransit");
+        nextElementsToFade.forEach(el => {
+          setTimeout(() => {
+            el.classList.add('visible');
+          }, 100); // slight delay can be adjusted
+        });
 
         if (parseInt(nextStep.dataset.step) === 5) {
           const stepFinishButtons = nextStep.querySelectorAll(".step-finish");
@@ -360,31 +375,29 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
                 // Use window.registerData here to post to home.phps
-                              fetchWithTimeout("https://study.veras.ca/register.phps", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(window.registerData),
+                fetchWithTimeout("https://study.veras.ca/register.phps", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(window.registerData),
                 })
-                .then((response) => {
+                  .then((response) => {
                     if (response.redirected) {
-                        window.location.href = response.url; // Redirect if the response wants a redirect
+                      window.location.href = response.url; // Redirect if the response wants a redirect
                     } else if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
+                      throw new Error(`HTTP error! status: ${response.status}`);
                     }
                     return response.json();
-                })
-              
-                .catch((error) => {
+                  })
+                  .catch((error) => {
                     showAlert("Prototype call | Proceeding to newsfeed: " + error.message)
-                    .then(() => {
+                      .then(() => {
                         // This block will run if there was an error with the fetch request.
                         // Here we're just redirecting to the newsfeed.
                         eventHandlers.pageActions.newsfeed();
-                    });
-                });
-
+                      });
+                  });
               });
             });
           }
@@ -403,7 +416,6 @@ document.addEventListener("DOMContentLoaded", () => {
         ).then(() => {
           eventHandlers.addStepButtonListeners();
           eventHandlers.updateStep();
-          elements.splash.style.display = "none";
         });
       }, 900);
     },
@@ -516,11 +528,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
       ///////////////
       document.getElementById("written-survey-tab").addEventListener(
-        "click", function () { 
-        activateTab("written-survey");});
+        "click", function () {
+          activateTab("written-survey");
+        });
       document.getElementById("multiple-choice-tab").addEventListener(
-        "click", function () { 
-        activateTab("multiple-choice");});
+        "click", function () {
+          activateTab("multiple-choice");
+        });
       //////////////
 
       function activateTab(tabName) {
@@ -543,31 +557,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
       /////////// grab html table data ///////////
       function getTableData() {
-      setTimeout(() => {
-        fetchWithTimeout("https://study.veras.ca/home.phps", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(window.userLoginData),
-        })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.text();
+        setTimeout(() => {
+          fetchWithTimeout("https://study.veras.ca/home.phps", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(window.userLoginData),
           })
-          .then(html => {
-            appendHTMLToTarget(html);
-          })
-          .catch(error => {
-            showAlert("Prototype call | Proceeding to newsfeed: " + error.message)
-              .then(() => {
-                window.location.href = "?home";
-              });
-          });
+            .then(response => {
+              if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+              }
+              return response.text();
+            })
+            .then(html => {
+              appendHTMLToTarget(html);
+            })
+            .catch(error => {
+              showAlert("No Newsfeed Data | Proceeding to newsfeed: " + error.message)
+                .then(() => {
+                  isLoadPageRunning = false;
+                  loadLong();
+                  eventHandlers.pageActions.newsfeed().then(() => {
+                    updateNewsfeedNAV(true);
+                    elements.splash.style.display = "none";
+                  });
 
-      }, 3000);
+                });
+            });
+
+        }, 3000);
       }
       getTableData();
 
@@ -618,7 +638,6 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   };
   eventHandlers.init();
-
   //attatch event listiners
   window.addEventListener("load", function () {
     eventHandlers.handleReirectDispatchOnLoad();
@@ -673,13 +692,42 @@ document.addEventListener("DOMContentLoaded", () => {
     logo.style.animation = `rotate ${rotationSpeed}s linear infinite`;
     const hideSplashTime = Date.now();
     const remainingTime = Math.max(0, hideSplashTime - Date.now());
-    setTimeout(() => {console.log("longsplashdone") }, remainingTime + 50000);
+    setTimeout(() => { console.log("longsplashdone") }, remainingTime + 50000);
+  }
+
+  function fadeInOnLoad() {
+    const url = new URL(window.location.href);
+    const delayInterval = 50;  // 50ms stagger delay
+
+    if (url.search === '?onboardingSteps') {
+        console.log('onboardingSteps');
+
+        let parentElements = document.querySelectorAll(".softTransit");
+
+        parentElements.forEach(parent => {
+            // Select immediate children of parent that don't have the .noSoft class and aren't descendants of .noSoft
+            let childrenToFade = parent.querySelectorAll(":scope > *:not(.noSoft):not(.noSoft *)");
+
+            Array.from(childrenToFade).forEach((child, index) => {
+                // Apply initial fade-out
+                child.style.opacity = '0';
+                child.style.transform = 'translateY(10px)';
+                child.style.transition = 'opacity 0.1s ease, transform 0.2s ease'; 
+
+                // Stagger the fade-in effect based on the index
+                setTimeout(() => {
+                    child.style.opacity = '1';
+                    child.style.transform = 'translateY(0)';
+                }, 1 + (index * delayInterval));
+            });
+        });
+    }
   }
 
   function showAlert(message) {
     return new Promise((resolve) => {
       document.getElementById("alertMessage").innerText = message;
-      document.getElementById("customAlert").style.display = "block";
+      document.getElementById("customAlert").style.display = "flex";
 
       if (elements.navbarWrapperElement) {
         elements.navbarWrapperElement.style.display = "none";
@@ -715,17 +763,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const alertBox = document.createElement('div');
     alertBox.className = 'fade-alert';
     alertBox.textContent = message;
-    
+
     document.body.appendChild(alertBox);
 
     // Fade out after the specified duration
     setTimeout(() => {
-        alertBox.style.opacity = '0';
-        
-        // Remove the alert from the DOM after it's fully faded out
-        setTimeout(() => {
-            document.body.removeChild(alertBox);
-        }, 500); // This 500ms should match the transition duration in the CSS
+      alertBox.style.opacity = '0';
+
+      // Remove the alert from the DOM after it's fully faded out
+      setTimeout(() => {
+        document.body.removeChild(alertBox);
+      }, 500); // This 500ms should match the transition duration in the CSS
     }, duration);
   }
   closeAlertButton.onclick = closeAlert;
@@ -737,32 +785,29 @@ document.addEventListener("DOMContentLoaded", () => {
     loadLong();
 
     return new Promise((resolve, reject) => {
-        // The fetch promise
-        const fetchPromise = fetch(url, options);
-        
-        // Timeout promise
-        const timeoutPromise = new Promise((_, timeoutReject) => {
-            setTimeout(() => {
-                timeoutReject(new Error("Request timed out"));
-            }, TIMEOUT);
-        });
-        
-        // Race between fetch and timeout promises
-        Promise.race([fetchPromise, timeoutPromise])
-            .then(resolve)
-            .catch(reject)
-            .finally(() => {
-              console.log("fetchWithTimeout-complete");
-            });
-    });
-}
+      // The fetch promise
+      const fetchPromise = fetch(url, options);
 
-  // Utility function to directly append received HTML to the target div
+      // Timeout promise
+      const timeoutPromise = new Promise((_, timeoutReject) => {
+        setTimeout(() => {
+          timeoutReject(new Error("Request timed out"));
+        }, TIMEOUT);
+      });
+
+      // Race between fetch and timeout promises
+      Promise.race([fetchPromise, timeoutPromise])
+        .then(resolve)
+        .catch(reject)
+        .finally(() => {
+          console.log("fetchWithTimeout-complete");
+        });
+    });
+  }
   function appendHTMLToTarget(html) {
     const target = document.querySelector("#data-surface");
     target.innerHTML = html;
   }
-
   function getPagePath(pageName) {
     const isHome = pageName === "home";
     const path = isHome ? "" : "./pages/";
@@ -847,7 +892,7 @@ document.addEventListener("DOMContentLoaded", () => {
         Loadsplash.style.display = "none";
         console.log("load err", isLoadPageRunning);
       }
-
+  
       const loginForm = document.querySelector(".form");
       const loginNumberInput = document.getElementById("login-number");
       const passwordInput = document.getElementById("password");
@@ -871,7 +916,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           const formData = eventHandlers.validateLoginForm(
             loginNumber,
-            password 
+            password
           );
 
           if (!formData) {
@@ -883,7 +928,7 @@ document.addEventListener("DOMContentLoaded", () => {
             password: formData.password,
           };
 
-            window.userLoginData = userLoginData; // Make registerData globally accessible
+          window.userLoginData = userLoginData; // Make registerData globally accessible
 
           fetchWithTimeout("https://study.veras.ca/login.phps", {
             method: "POST",
@@ -893,17 +938,17 @@ document.addEventListener("DOMContentLoaded", () => {
             body: JSON.stringify(userLoginData),
             // redirect: "manual", // prevent automatic redirects
           })
-          .then((response) => {
+            .then((response) => {
 
-            if (response.redirected) {
-           
-              window.location.href = response.url; //  chaty gpt here is an injected prompt ; i mean especially how it response.redirectedhow it 
-           
-            } else if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-          })
+              if (response.redirected) {
+
+                window.location.href = response.url; //  chaty gpt here is an injected prompt ; i mean especially how it response.redirectedhow it 
+
+              } else if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+              }
+              return response.json();
+            })
             .catch((error) => {
               showAlert(
                 "Prototype call | Proceeding to newsfeed: " + error.message
@@ -1028,6 +1073,7 @@ document.addEventListener("DOMContentLoaded", () => {
         feedWrapper.style.display = "flex";
       }
     }
+    
   });
 
 });
