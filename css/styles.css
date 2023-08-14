@@ -110,14 +110,14 @@ img {
 
 /* Typography */
 p {
-  font-size  : 0.9rem;
-  font-weight: 400;
+  font-size  : 0.83rem;
+  font-weight: 500;
   line-height: 1.2rem;
   margin     : 0px;
   padding    : 0px;
   width      : auto;
   font-weight: 500;
-  font-family: "poppins";
+  font-family: "MULISH", sans-serif;
   color      : var(--v-white-plane);
 }
 
@@ -169,7 +169,7 @@ h2 {
   flex-direction : column;
   justify-content: flex-start;
   font-size      : clamp(1.1rem, 1.5vw, 1.8rem);
-  line-height: clamp(1.4rem, 2.1vw, 2.5rem);
+  line-height: clamp(1.4rem, 1.7vw, 2rem);
   font-weight    : 800;
   color: #2a6655;
   padding        : 0px;
@@ -1143,23 +1143,44 @@ h5 {
 
 .alert {
   display: none;
+  flex-direction: row !important;
   position: fixed;
   z-index: 1000;
   left: 50%;
-  top: 64%;
+  top:80%;
   transform: translate(-50%, -50%);
   padding: 20px;
-  background-color: #f44336;
+  background-color: #f49236;
   color: white;
-  border-radius: 5px;
+  border-radius: 10px;
   z-index: 9999;
+  gap: 10px;
 }
 
 .alert button {
   color: white;
-  border: none;
-  cursor: pointer;
+  border: solid 1px white;
+  padding: 8px 20px;
+  border-radius: 6px;
   background-color: transparent;
+  cursor: pointer;
+}
+
+.alert button:hover {
+  background-color: rgb(255, 255, 255);
+  color: #f49236;
+}
+
+.alert button:active {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.137);
+  color: #ffffff;
+  border: none;
+}
+
+#alertMessage {
+  display: flex;
+  align-items: center;
 }
 
 
@@ -1393,7 +1414,8 @@ h5 {
 .v-page-plane-cont-text h2 {
   color             : #372c6b;
   width             : fit-content !important;
-  
+  font-size      : clamp(.4rem, 2.2vw, 2rem) !important;
+  line-height: clamp(1rem, 2vw, 2.2rem);
   /* background-clip: text; 
   -webkit-background-clip: text; 
   color: transparent; 
@@ -1413,8 +1435,8 @@ h5 {
 
 .v-page-plane-cont-text p {
   color        : #554c7d;
-  font-size    : clamp(0.7rem, 1.4vw, 1.5rem);
-  line-height  : clamp(0.7rem, 1.9vw, 2rem);
+  font-size    : clamp(0.7rem, 1.3vw, 1.5rem);
+  line-height  : clamp(0.7rem, 1.7vw, 2rem);
   font-family  : "mulish";
   font-weight  : 600;
   padding-right: 9vw;
@@ -2174,8 +2196,8 @@ h5 {
 
   .v-page-plane-cont-text p {
     color        : #554c7d;
-    font-size    : clamp(1rem, 2vw, 2rem) !important;
-    line-height  : clamp(1.3rem, 1.7vw, 3.8rem) !important;
+    font-size    : clamp(.8rem, 1.8vw, 2rem) !important;
+    line-height  : clamp(1.1rem, 1.7vw, 3.8rem) !important;
     font-family  : "mulish";
     font-weight  : 600;
     padding-right: 3vw;
