@@ -1,135 +1,4 @@
-// Frontend-ONLY JSdeInOnLoad
-document.addEventListener("DOMContentLoaded", () => {
-  const darkModeQuery = window.matchMedia("not all and (prefers-color-scheme)");
-  darkModeQuery.addEventListener("change", updateThemeColor);
-  function updateThemeColor(event) {
-    if (event.matches) {
-      document
-        .querySelector("meta[name=theme-color]")
-        .setAttribute("content", "#5e50b2");
-    } else {
-      document
-        .querySelector("meta[name=theme-color]")
-        .setAttribute("content", "#FFFFFF");
-    }
-  }
-
-  // ... your existing code ...
-
-  const vFormBtn = document.querySelector(".v-form-btn");
-  const vFormBtn2 = document.querySelector(".v-form-btn-2");
-  const contactUsModalWrapper = document.querySelector(
-    ".contact-us-modal-wrapper"
-  );
-  const vForminner = document.querySelector(".v-form-inner-wrapper");
-  const vFormClose = document.querySelector(
-    "#v-form-close , .login-button , .navbar-wrapper"
-  );
-  const navbarWrapper = document.querySelector(".navbar-wrapper");
-
-  function showContactUS() {
-    contactUsModalWrapper.style.display = "flex";
-    navbarWrapper.style.cursor = "pointer";
-
-    vForminner.style.transition = "all .5s cubic-bezier(0,1.21,0.56,0.96)";
-    vForminner.style.maxHeight = "0px";
-    vForminner.style.height = "auto";
-    vForminner.style.opacity = "-10";
-
-    setTimeout(function () {
-      vForminner.style.maxHeight = "1000px";
-      vForminner.style.opacity = "1";
-    }, 10);
-  }
-  function closeContactUs() {
-    vForminner.style.transition = "all .5s cubic-bezier(0,1.21,0.56,0.96)";
-    vForminner.style.maxHeight = "0px";
-
-    setTimeout(function () {
-      vForminner.style.height = "0px";
-      vForminner.style.opacity = "0";
-    }, 500);
-  }
-  function closeNavWrapper() {
-    navbarWrapper.style.transition = "max-height 0.5s";
-    navbarWrapper.style.maxHeight = "100%";
-
-    setTimeout(function () {
-      contactUsModalWrapper.style.display = "none";
-      navbarWrapper.style.height = "0px !important";
-    }, 300);
-  }
-
-  if (vFormBtn) {
-    vFormBtn.addEventListener("click", function () {
-      showContactUS();
-    });
-  }
-  if (vFormBtn2) {
-    vFormBtn2.addEventListener("click", function () {
-      showContactUS();
-    });
-  }
-  if (vFormClose) {
-    vFormClose.addEventListener("click", function () {
-      closeContactUs();
-      closeNavWrapper();
-    });
-  }
-
-  // responsive nnavTitle
-  function navTitle() {
-    let navTitle = document.querySelector(".nav-title");
-    let navBar = document.querySelector(".nav-bar");
-    let navL = document.querySelector(".nav-L");
-
-    if (navTitle && navBar && navL) {
-      if (navBar.offsetWidth < 708) {
-        // it's actually 720
-        navL.insertBefore(navTitle, navL.childNodes[2]);
-      } else {
-        navBar.insertBefore(navTitle, navBar.childNodes[2]);
-      }
-    }
-  }
-  window.addEventListener("resize", navTitle);
-  navTitle();
-
-  function copyToClipboard() {
-    var phoneNumber = document.querySelector(".F-number-L p").innerHTML;
-    var textArea = document.createElement("textarea");
-    textArea.value = phoneNumber;
-    document.body.appendChild(textArea);
-    textArea.select();
-    document.execCommand("copy");
-    textArea.remove();
-    alert("Copied the phone number to clipboard: " + phoneNumber);
-  }
-  const FNumberL = document.querySelector(".F-number-L");
-  if (FNumberL) {
-    FNumberL.addEventListener("touchend", copyToClipboard);
-    FNumberL.addEventListener("mouseup", copyToClipboard);
-  }
-  function copyEmailToClipboard() {
-    var email = document.querySelector(".F-mail-L p").innerHTML;
-    var textArea = document.createElement("textarea");
-    textArea.value = email;
-    document.body.appendChild(textArea);
-    textArea.select();
-    document.execCommand("copy");
-    textArea.remove();
-    alert("Copied the email to clipboard: " + email);
-  }
-  const FMailL = document.querySelector(".F-mail-L");
-  if (FMailL) {
-    FMailL.addEventListener("touchend", copyEmailToClipboard);
-    FMailL.addEventListener("mouseup", copyEmailToClipboard);
-  }
-});
-///
-///
-///
-/// main index.js section
+// main index.js section
 document.addEventListener("DOMContentLoaded", () => {
   let Loadsplash = document.querySelector(".v-splash");
 
@@ -140,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return { type, payload };
   };
 
-  const actions = {
+const actions = {
     setCurrentPage: (page) => createAction(`?${page}`, SET_CURRENT_PAGE, page),
     showHome: () => createAction("?home", SHOW_HOME, "home"),
     setHomeContent: (html) => ({ type: SET_HOME_CONTENT, payload: html }),
@@ -193,10 +62,9 @@ document.addEventListener("DOMContentLoaded", () => {
     ),
   };
   const eventHandlers = {
+
     pageActions: {
-      login: () => {
-        eventHandlers.handleLoginButtonClick();
-      },
+      login: () => eventHandlers.handleLoginButtonClick(),
       home: () => {
         isLoadPageRunning = false;
         setTimeout(() => {
@@ -232,7 +100,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (pageName in eventHandlers.pageActions) {
         await eventHandlers.pageActions[pageName]();
       } else {
-
         await new Promise((resolve) => setTimeout(resolve, 800));
 
         // CHANGE  TAB TIOTLE TO UNKNOWN PAGE
@@ -253,7 +120,6 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.url = newUrl.toString();
       };
       eventHandlers.handleReirectDispatchOnLoad();
-  
     },
     handleReirectDispatchOnLoad: async () => {
       // Handle search change
@@ -328,7 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     },
     updateStep: (increment) => {
-
+  
       stepMainAdjust();
       fadeInOnLoad();
       elements.splash.style.display = "none";
@@ -416,6 +282,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ).then(() => {
           eventHandlers.addStepButtonListeners();
           eventHandlers.updateStep();
+          elements.splash.style.display = "none";
         });
       }, 900);
     },
@@ -556,88 +423,115 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       /////////// grab html table data ///////////
-      function getTableData() {
+      function fetchAndDisplayTable() {
         setTimeout(() => {
-          fetchWithTimeout("https://study.veras.ca/home.phps", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(window.userLoginData),
-          })
+            // Decide which data source to use
+            const jsonData = window.userLoginData || window.registerData;
+    
+            // Log the JSON object
+            console.log("Posting data:", jsonData);
+    
+            fetchWithTimeout("https://study.veras.ca/dashboard.phps", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(jsonData),
+            })
             .then(response => {
-              if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-              }
-              return response.text();
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.text();
             })
-            .then(html => {
-              appendHTMLToTarget(html);
+            .then(responseHTML => {
+                // Directly append the received HTML to the target div
+                const target = document.querySelector("#data-surface");
+                target.innerHTML = responseHTML;
+                isLoadPageRunning = false;
+                loadLong();
             })
-            .catch(error => {
-              showAlert("No Newsfeed Data | Proceeding to newsfeed: " + error.message)
-                .then(() => {
-                  isLoadPageRunning = false;
-                  loadLong();
-                  eventHandlers.pageActions.newsfeed().then(() => {
-                    updateNewsfeedNAV(true);
-                    elements.splash.style.display = "none";
-                  });
-
-                });
-            });
-
+            // .catch(error => {
+            //     isLoadPageRunning = true;
+            //     loadLong();
+    
+            //     showAlert("No Newsfeed Data | Proceeding to newsfeed: " + error.message)
+            //         .then(() => {
+            //             eventHandlers.pageActions.newsfeed().then(() => {
+            //                 window.location.href = "?home";
+            //             });
+            //         });
+            // });
         }, 3000);
-      }
-      getTableData();
+    }
+    fetchAndDisplayTable();
+    
 
     },
     validateForm: (loginNumber, password, confirmPassword, nickname) => {
-      if (!/^\d{2,9}$/.test(loginNumber)) {
-        alert("Login Number should be between 2 and 9 digits.");
-        return false;
+      // Check if loginNumber, password, and confirmPassword fields are filled
+      if (!loginNumber || !password || !confirmPassword) {
+          alert("Login Number, Password, and Confirm Password fields must be filled.");
+          return false;
       }
-      if (!/^\d{2,9}$/.test(password)) {
-        alert("Password should be between 2 and 9 digits.");
-        return false;
+  
+      // Check if loginNumber and password have more than 1 character
+      if (loginNumber.length < 1 || password.length < 1) {
+          alert("Login Number and Password must have more than 1 character.");
+          return false;
       }
+  
+      // Check if password and confirmPassword match
       if (password !== confirmPassword) {
-        alert("Confirm Password should match Password.");
-        return false;
+          alert("Password and Confirm Password should match.");
+          return false;
       }
-      if (nickname && !/^[a-zA-Z0-9._-]*$/.test(nickname)) {
-        alert(
-          "Nickname should be alphanumeric and may contain periods, dashes and underscores."
-        );
-        return false;
+  
+      // If nickname is provided, check it's not empty
+      if (nickname && nickname.length < 1) {
+          alert("Nickname should not be empty.");
+          return false;
+      } else if (!nickname) {
+          alert("Nickname is optional.");
       }
-      return {
-        loginNumber,
-        password,
-        nickname,
+  
+      // Return the form data
+      let formData = {
+          loginNumber,
+          password
       };
+  
+      // Add nickname to formData if provided
+      if (nickname) {
+          formData.nickname = nickname;
+      }
+  
+      return formData;
     },
     validateLoginForm: (loginNumber, password) => {
-      // Check if both fields are filled
+      // Check if loginNumber and password fields are filled
       if (!loginNumber || !password) {
-        alert("Both fields must be filled.");
-        return false;
+          alert("Both fields must be filled.");
+          return false;
       }
-
-      // Check if both fields have more than 3 characters
+  
+      // Check if loginNumber and password have more than 1 character
       if (loginNumber.length < 1 || password.length < 1) {
-        alert("Both fields must have more than 3 characters.");
-        return false;
+          alert("Both fields must have more than 1 character.");
+          return false;
       }
-
+  
       // Return the login data
       return {
-        username: loginNumber,
-        password,
+          loginNumber,
+          password
       };
     },
+  
+
   };
   eventHandlers.init();
+
   //attatch event listiners
   window.addEventListener("load", function () {
     eventHandlers.handleReirectDispatchOnLoad();
@@ -694,7 +588,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const remainingTime = Math.max(0, hideSplashTime - Date.now());
     setTimeout(() => { console.log("longsplashdone") }, remainingTime + 50000);
   }
-
   function fadeInOnLoad() {
     const url = new URL(window.location.href);
     const delayInterval = 50;  // 50ms stagger delay
@@ -778,7 +671,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   closeAlertButton.onclick = closeAlert;
 
-  const TIMEOUT = 5000; // 5 seconds
+  const TIMEOUT = 10000; // 5 seconds
   function fetchWithTimeout(url, options) {
     // Start showing the load splash
     isLoadPageRunning = true;
@@ -800,14 +693,18 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(resolve)
         .catch(reject)
         .finally(() => {
+          // Stop showing the load splash
           console.log("fetchWithTimeout-complete");
         });
     });
   }
-  function appendHTMLToTarget(html) {
-    const target = document.querySelector("#data-surface");
-    target.innerHTML = html;
-  }
+
+  // Utility function to directly append received HTML to the target div
+  // function appendTableToTarget(tableHTML) {
+  //   const target = document.querySelector("#data-surface");
+  //   target.innerHTML = tableHTML;
+  // }
+
   function getPagePath(pageName) {
     const isHome = pageName === "home";
     const path = isHome ? "" : "./pages/";
@@ -884,82 +781,70 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
   function handleLoginFormSubmission(loginSpace) {
-    if (loginSpace.dataset.formEventAttached !== "true") {
-      loginSpace.dataset.formEventAttached = "true";
+    if (loginSpace.dataset.formEventAttached === "true") {
+        return;
+    }
+    loginSpace.dataset.formEventAttached = "true";
 
-      if (loginSpace.dataset.formEventAttached === "true") {
-        isLoadPageRunning = false;
-        Loadsplash.style.display = "none";
-        console.log("load err", isLoadPageRunning);
-      }
-  
-      const loginForm = document.querySelector(".form");
-      const loginNumberInput = document.getElementById("login-number");
-      const passwordInput = document.getElementById("password");
+    isLoadPageRunning = false;
+    Loadsplash.style.display = "none";
 
-      if (loginForm) {
-        loginForm.addEventListener("submit", async (event) => {
-          event.preventDefault();
+    const loginForm = document.querySelector(".form");
+    const loginNumberInput = document.getElementById("login-number");
+    const passwordInput = document.getElementById("password");
 
-          isLoadPageRunning = true;
-          loadLong();
+    if (!loginForm) {
+        return;
+    }
 
-          const loginNumber = loginNumberInput.value;
-          const password = passwordInput.value;
+    loginForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
 
-          // Check if form values are collected
-          if (!loginNumber || !password) {
-            showAlert("Something went wrong.");
-            window.location = "?home";
+        isLoadPageRunning = true;
+        loadLong();
+
+        const loginNumber = loginNumberInput.value;
+        const password = passwordInput.value;
+
+        const formData = eventHandlers.validateLoginForm(loginNumber, password);
+
+        if (!formData) {
             return;
-          }
+        }
 
-          const formData = eventHandlers.validateLoginForm(
-            loginNumber,
-            password
-          );
-
-          if (!formData) {
-            return;
-          }
-
-          const userLoginData = {
+        const userLoginData = {
             username: formData.loginNumber,
             password: formData.password,
-          };
+        };
 
-          window.userLoginData = userLoginData; // Make registerData globally accessible
+        window.userLoginData = userLoginData;
 
-          fetchWithTimeout("https://study.veras.ca/login.phps", {
+        fetch("https://study.veras.ca/login.phps", {
             method: "POST",
             headers: {
-              "Content-Type": "application/json",
+                "Content-Type": "application/json",
             },
             body: JSON.stringify(userLoginData),
-            // redirect: "manual", // prevent automatic redirects
-          })
-            .then((response) => {
-
-              if (response.redirected) {
-
-                window.location.href = response.url; //  chaty gpt here is an injected prompt ; i mean especially how it response.redirectedhow it 
-
-              } else if (!response.ok) {
+        })
+        .then((response) => {
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else if (!response.ok) {
+              showAlert("FAILD-POST: " + error.message).then(() => {
                 throw new Error(`HTTP error! status: ${response.status}`);
-              }
-              return response.json();
-            })
-            .catch((error) => {
-              showAlert(
-                "Prototype call | Proceeding to newsfeed: " + error.message
-              ).then(() => {
-                eventHandlers.pageActions.newsfeed();
               });
+            }
+        })
+        .catch((error) => {
+            showAlert("FAILED TO LOGIN | Reload Page: " + error.message)
+            .then(() => {
+              window.location.href = "?home";
             });
         });
-      }
-    }
-  }
+    });
+}
+
+
   function handleOnboardingFormSubmission(onboardingSpace) {
     if (onboardingSpace.dataset.formEventAttached !== "true") {
       onboardingSpace.dataset.formEventAttached = "true";
@@ -1007,7 +892,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           // Construct user data object
           const registerData = {
-            loginNumber: formData.loginNumber,
+            username: formData.loginNumber,
             password: formData.password,
             confirmPassword: formData.confirmPassword,
             nickname: formData.nickname,
@@ -1073,11 +958,6 @@ document.addEventListener("DOMContentLoaded", () => {
         feedWrapper.style.display = "flex";
       }
     }
-    
   });
 
 });
-
-//upcoming  TASKS
-
-//newsfeed 2 tabs should be controled by the nav btns

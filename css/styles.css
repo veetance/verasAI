@@ -171,7 +171,7 @@ h2 {
   font-size      : clamp(1.1rem, 1.5vw, 1.8rem);
   line-height: clamp(1.4rem, 1.7vw, 2rem);
   font-weight    : 800;
-  color: #2a6655;
+  color: var(--f7-2ndry-theme-color-DRKshade) !important;
   padding        : 0px;
   margin         : 0px;
   /* border      :solid #161124 1px; */
@@ -1143,7 +1143,7 @@ h5 {
 
 .alert {
   display: none;
-  flex-direction: row !important;
+  flex-direction: column;
   position: fixed;
   z-index: 1000;
   left: 50%;
@@ -1159,6 +1159,7 @@ h5 {
 
 .alert button {
   color: white;
+  width: 100%;
   border: solid 1px white;
   padding: 8px 20px;
   border-radius: 6px;
@@ -2653,7 +2654,7 @@ h5 {
   --f7-2ndry-theme-color-muted: rgb(106 189 165);
   --f7-2ndry-theme-color-rgb  : 154, 255, 226;
   --f7-2ndry-theme-color-shade: #3caa8b;
-  --f7-2ndry-theme-color-DRKshade: #288369;
+  --f7-2ndry-theme-color-DRKshade: #317763;
   --f7-2ndry-theme-color-tint : #2a6655;
 
   --v-white-plane         : #f9f7ff;
