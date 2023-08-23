@@ -9,11 +9,15 @@ document.addEventListener("DOMContentLoaded", () => {
     return { type, payload };
   };
 
-const actions = {
+  const actions = {
     setCurrentPage: (page) => createAction(`?${page}`, SET_CURRENT_PAGE, page),
     showHome: () => createAction("?home", SHOW_HOME, "home"),
     setHomeContent: (html) => ({ type: SET_HOME_CONTENT, payload: html }),
     showLogin: () => createAction("?login", SHOW_LOGIN, "login"),
+
+    showLogins: () => createAction("?logins", SHOW_LOGINS, "logins"),
+    setLoginsContent: (html) => ({ type: SET_LOGINS_CONTENT, payload: html }),
+
     logout: () => createAction("?logout", LOGOUT, "logout"),
     setLoginContent: (html) => ({ type: SET_LOGIN_CONTENT, payload: html }),
     showNewsfeed: () => createAction("?newsfeed", SHOW_NEWSFEED, "newsfeed"),
@@ -65,6 +69,19 @@ const actions = {
 
     pageActions: {
       login: () => eventHandlers.handleLoginButtonClick(),
+      logins: () => {
+        isLoadPageRunning = true;
+        loadLong();
+
+        setTimeout(() => {
+          loadPage("logins", actions.showLogins(), actions.setLoginsContent).then(() => {
+            let loginsSpace = document.querySelector(".logins-Space");
+            handleLoginsFormSubmission(loginsSpace);
+            // You can add additional UI updates or logic specific to the 'logins' page here if needed.
+            elements.splash.style.display = "none";
+          });
+        }, 200);
+      },
       home: () => {
         isLoadPageRunning = false;
         setTimeout(() => {
@@ -133,14 +150,20 @@ const actions = {
     handleLoginButtonClick: () => {
       loadPage("login", actions.showLogin(), actions.setLoginContent).then(
         () => {
-          // Call submission handler
+          // Call login handler///
           let loginSpace = document.querySelector(".login-Space");
           handleLoginFormSubmission(loginSpace);
 
+          ///// logic to register /////
           const toOnboardingForm = document.getElementById("registr");
           toOnboardingForm.addEventListener("click", () => {
-            eventHandlers.handleToOnboardFormClick();
+
+            // Set loading
+            window.location.href = "?logins";
+            eventHandlers.pageActions.logins();
+
           });
+
 
           let waitListButton = document.querySelector("#waitList");
           waitListButton.addEventListener("click", () => {
@@ -194,7 +217,7 @@ const actions = {
         });
     },
     updateStep: (increment) => {
-  
+
       stepMainAdjust();
       fadeInOnLoad();
       elements.splash.style.display = "none";
@@ -232,6 +255,7 @@ const actions = {
         if (parseInt(nextStep.dataset.step) === 5) {
           const stepFinishButtons = nextStep.querySelectorAll(".step-finish");
           if (stepFinishButtons) {
+            console.log("REGISTERDATA", window.registerData);
             stepFinishButtons.forEach(function (button) {
               button.addEventListener("click", function () {
                 isLoadPageRunning = true;
@@ -241,7 +265,7 @@ const actions = {
                 );
 
                 // Use window.registerData here to post to home.phps
-                fetchWithTimeout("https://study.veras.ca/register.phps", {
+                fetch("https://study.veras.ca/register.phps", {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",
@@ -249,7 +273,7 @@ const actions = {
                   body: JSON.stringify(window.registerData),
                 })
                   .then((response) => {
-                    if (response.redirected) {
+                    if (response.ok) {
                       window.location.href = response.url; // Redirect if the response wants a redirect
                     } else if (!response.ok) {
                       throw new Error(`HTTP error! status: ${response.status}`);
@@ -320,13 +344,25 @@ const actions = {
         });
       }
 
-      /////////////// logout-logic ////////////////
+      //////////////// logout-logic ////////////////
       const LogOutButton = document.querySelector(".logout-button");
+
       LogOutButton.addEventListener("click", function () {
-        alert("You are about to be logged out.");
-        store.dispatch(actions.showHome());
-        window.location.reload();
+        showAlertFade("You are about to be logged out.");
+
+        fetch("https://study.veras.ca/logout.phps", {
+          method: "POST"
+        })
+          .then(response => {
+            // Redirect to the URL specified by the backend
+            showAlertFade("You have been logged out.");
+            window.location.href = response.url;
+          })
+          .catch(error => {
+            console.error("Error during logout:", error);
+          });
       });
+
 
       const newsfeedButton = document.querySelector(".newsfeed-button");
       newsfeedButton.addEventListener("click", function () {
@@ -422,112 +458,126 @@ const actions = {
         document.getElementById(tabName + "-tab").classList.add("active");
       }
 
-      /////////// grab html table data ///////////
+      /////////////// grab Data ////////////////
       function fetchAndDisplayTable() {
+
         setTimeout(() => {
-            // Decide which data source to use
-            const jsonData = window.userLoginData || window.registerData;
-    
-            // Log the JSON object
-            console.log("Posting data:", jsonData);
-    
-            fetchWithTimeout("https://study.veras.ca/dashboard.phps", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(jsonData),
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.text();
-            })
-            .then(responseHTML => {
-                // Directly append the received HTML to the target div
-                const target = document.querySelector("#data-surface");
-                target.innerHTML = responseHTML;
-                isLoadPageRunning = false;
+          const userLoginData = window.userLoginData || window.registerData;
+
+          fetch("https://study.veras.ca/homepage.phps", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userLoginData),
+            redirect: 'manual' // prevent automatic redirection
+          })
+
+            .then((response) => {
+  
+              if (!response.ok) {
+                isLoadPageRunning = true;
                 loadLong();
+                // Show the alert with the status and the 'Location' header value
+                showAlert("Error fetching table: " + response.url + " | Redirecting to | " + "?login").then(() => {
+                  window.location.href = response.url;
+                  return;
+                });
+              }
+              return response.text();
             })
-            // .catch(error => {
-            //     isLoadPageRunning = true;
-            //     loadLong();
-    
-            //     showAlert("No Newsfeed Data | Proceeding to newsfeed: " + error.message)
-            //         .then(() => {
-            //             eventHandlers.pageActions.newsfeed().then(() => {
-            //                 window.location.href = "?home";
-            //             });
-            //         });
-            // });
-        }, 3000);
-    }
-    fetchAndDisplayTable();
-    
+
+            .then((responseText) => {
+              isLoadPageRunning = true;
+              loadLong();
+              appendTableToTarget(responseText);
+
+              $('td > label').each(function () {
+                if ($(this).text().trim() === "closed") {
+                  $(this).parent().addClass('label-parent');
+                }
+              });
+              
+            })
+
+            .catch((error) => {
+              console.error("Error fetching table:", error);
+              showAlert("Error fetching table: " + error.message).then(() => {
+                window.location.reload();
+              });
+            });
+
+        }, 200);
+      }
+      fetchAndDisplayTable();
+
+  
+
+
+
+
 
     },
     validateForm: (loginNumber, password, confirmPassword, nickname) => {
       // Check if loginNumber, password, and confirmPassword fields are filled
       if (!loginNumber || !password || !confirmPassword) {
-          alert("Login Number, Password, and Confirm Password fields must be filled.");
-          return false;
+        alert("Login Number, Password, and Confirm Password fields must be filled.");
+        return false;
       }
-  
+
       // Check if loginNumber and password have more than 1 character
       if (loginNumber.length < 1 || password.length < 1) {
-          alert("Login Number and Password must have more than 1 character.");
-          return false;
+        alert("Login Number and Password must have more than 1 character.");
+        return false;
       }
-  
+
       // Check if password and confirmPassword match
       if (password !== confirmPassword) {
-          alert("Password and Confirm Password should match.");
-          return false;
+        alert("Password and Confirm Password should match.");
+        return false;
       }
-  
+
       // If nickname is provided, check it's not empty
       if (nickname && nickname.length < 1) {
-          alert("Nickname should not be empty.");
-          return false;
+        alert("Nickname should not be empty.");
+        return false;
       } else if (!nickname) {
-          alert("Nickname is optional.");
+        alert("Nickname is optional.");
       }
-  
+
       // Return the form data
       let formData = {
-          loginNumber,
-          password
+        loginNumber,
+        password
       };
-  
+
       // Add nickname to formData if provided
       if (nickname) {
-          formData.nickname = nickname;
+        formData.nickname = nickname;
       }
-  
+
       return formData;
     },
     validateLoginForm: (loginNumber, password) => {
       // Check if loginNumber and password fields are filled
       if (!loginNumber || !password) {
-          alert("Both fields must be filled.");
-          return false;
+        alert("Both fields must be filled.");
+        return false;
       }
-  
+
       // Check if loginNumber and password have more than 1 character
       if (loginNumber.length < 1 || password.length < 1) {
-          alert("Both fields must have more than 1 character.");
-          return false;
+        alert("Both fields must have more than 1 character.");
+        return false;
       }
-  
+
       // Return the login data
       return {
-          loginNumber,
-          password
+        loginNumber,
+        password
       };
     },
-  
+
 
   };
   eventHandlers.init();
@@ -593,30 +643,29 @@ const actions = {
     const delayInterval = 50;  // 50ms stagger delay
 
     if (url.search === '?onboardingSteps') {
-        console.log('onboardingSteps');
+      console.log('onboardingSteps');
 
-        let parentElements = document.querySelectorAll(".softTransit");
+      let parentElements = document.querySelectorAll(".softTransit");
 
-        parentElements.forEach(parent => {
-            // Select immediate children of parent that don't have the .noSoft class and aren't descendants of .noSoft
-            let childrenToFade = parent.querySelectorAll(":scope > *:not(.noSoft):not(.noSoft *)");
+      parentElements.forEach(parent => {
+        // Select immediate children of parent that don't have the .noSoft class and aren't descendants of .noSoft
+        let childrenToFade = parent.querySelectorAll(":scope > *:not(.noSoft):not(.noSoft *)");
 
-            Array.from(childrenToFade).forEach((child, index) => {
-                // Apply initial fade-out
-                child.style.opacity = '0';
-                child.style.transform = 'translateY(10px)';
-                child.style.transition = 'opacity 0.1s ease, transform 0.2s ease'; 
+        Array.from(childrenToFade).forEach((child, index) => {
+          // Apply initial fade-out
+          child.style.opacity = '0';
+          child.style.transform = 'translateY(10px)';
+          child.style.transition = 'opacity 0.1s ease, transform 0.2s ease';
 
-                // Stagger the fade-in effect based on the index
-                setTimeout(() => {
-                    child.style.opacity = '1';
-                    child.style.transform = 'translateY(0)';
-                }, 1 + (index * delayInterval));
-            });
+          // Stagger the fade-in effect based on the index
+          setTimeout(() => {
+            child.style.opacity = '1';
+            child.style.transform = 'translateY(0)';
+          }, 1 + (index * delayInterval));
         });
+      });
     }
   }
-
   function showAlert(message) {
     return new Promise((resolve) => {
       document.getElementById("alertMessage").innerText = message;
@@ -652,7 +701,7 @@ const actions = {
       elements.verasSurfaceElement.style.display = "block";
     }
   }
-  function showAlertFade(message, duration = 3000) {
+  function showAlertFade(message, duration = 1000) {
     const alertBox = document.createElement('div');
     alertBox.className = 'fade-alert';
     alertBox.textContent = message;
@@ -671,39 +720,15 @@ const actions = {
   }
   closeAlertButton.onclick = closeAlert;
 
-  const TIMEOUT = 10000; // 5 seconds
-  function fetchWithTimeout(url, options) {
-    // Start showing the load splash
-    isLoadPageRunning = true;
-    loadLong();
-
-    return new Promise((resolve, reject) => {
-      // The fetch promise
-      const fetchPromise = fetch(url, options);
-
-      // Timeout promise
-      const timeoutPromise = new Promise((_, timeoutReject) => {
-        setTimeout(() => {
-          timeoutReject(new Error("Request timed out"));
-        }, TIMEOUT);
-      });
-
-      // Race between fetch and timeout promises
-      Promise.race([fetchPromise, timeoutPromise])
-        .then(resolve)
-        .catch(reject)
-        .finally(() => {
-          // Stop showing the load splash
-          console.log("fetchWithTimeout-complete");
-        });
-    });
-  }
 
   // Utility function to directly append received HTML to the target div
-  // function appendTableToTarget(tableHTML) {
-  //   const target = document.querySelector("#data-surface");
-  //   target.innerHTML = tableHTML;
-  // }
+  function appendTableToTarget(responseText) {
+    const target = document.querySelector("#data-surface");
+    target.innerHTML = responseText;
+
+    elements.splash.style.display = "none";
+
+  }
 
   function getPagePath(pageName) {
     const isHome = pageName === "home";
@@ -780,9 +805,10 @@ const actions = {
       upNavNewsfeed.style.display = "flex";
     }
   }
+
   function handleLoginFormSubmission(loginSpace) {
     if (loginSpace.dataset.formEventAttached === "true") {
-        return;
+      return;
     }
     loginSpace.dataset.formEventAttached = "true";
 
@@ -794,57 +820,139 @@ const actions = {
     const passwordInput = document.getElementById("password");
 
     if (!loginForm) {
-        return;
+      return;
     }
 
     loginForm.addEventListener("submit", async (event) => {
-        event.preventDefault();
+      event.preventDefault();
 
-        isLoadPageRunning = true;
-        loadLong();
+      isLoadPageRunning = true;
+      loadLong();
 
-        const loginNumber = loginNumberInput.value;
-        const password = passwordInput.value;
+      const loginNumber = loginNumberInput.value;
+      const password = passwordInput.value;
 
-        const formData = eventHandlers.validateLoginForm(loginNumber, password);
+      const formData = eventHandlers.validateLoginForm(loginNumber, password);
 
-        if (!formData) {
-            return;
-        }
+      if (!formData) {
+        return;
+      }
 
-        const userLoginData = {
-            username: formData.loginNumber,
-            password: formData.password,
-        };
+      const userLoginData = {
+        username: formData.loginNumber,
+        password: formData.password,
+      };
 
-        window.userLoginData = userLoginData;
+      window.userLoginData = userLoginData;
 
-        fetch("https://study.veras.ca/login.phps", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(userLoginData),
-        })
+
+      fetch("https://study.veras.ca/login.phps", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userLoginData),
+      })
         .then((response) => {
-            if (response.redirected) {
+          if (response.ok) {
+            console.log("Response URL:", response.url);
+            console.log("Logindata:", userLoginData);
+
+            showAlert("SUCCESS: Redirecting to newsfeed...").
+              then(() => {
                 window.location.href = response.url;
-            } else if (!response.ok) {
-              showAlert("FAILD-POST: " + error.message).then(() => {
-                throw new Error(`HTTP error! status: ${response.status}`);
+
               });
-            }
+
+          } else {
+            showAlert("FAILED-POST: HTTP error! status: " + response.status)
+              .then(() => {
+                window.location.reload();
+              });
+          }
         })
         .catch((error) => {
-            showAlert("FAILED TO LOGIN | Reload Page: " + error.message)
+          showAlert("FAILED TO LOGIN: " + error.message)
             .then(() => {
-              window.location.href = "?home";
+              console.log(error);
+              window.location.reload();
             });
         });
+
     });
-}
+  }
+  function handleLoginsFormSubmission(loginsSpace) {
+    if (loginsSpace.dataset.formEventAttached === "true") {
+      return;
+    }
+    loginsSpace.dataset.formEventAttached = "true";
 
+    isLoadPageRunning = false;
+    Loadsplash.style.display = "none";
 
+    const loginsForm = document.querySelector(".form");
+    const loginNumberInput = document.getElementById("login-number");
+    const passwordInput = document.getElementById("password");
+    // Add any other inputs you have for the logins form here
+
+    if (!loginsForm) {
+      return;
+    }
+
+    loginsForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      isLoadPageRunning = true;
+      loadLong();
+
+      const loginNumber = loginNumberInput.value;
+      const password = passwordInput.value;
+      // Retrieve values from any other inputs you've added
+
+      const formData = eventHandlers.validateLoginForm(loginNumber, password); // Adjust if you have a different validation function for logins
+
+      if (!formData) {
+        return;
+      }
+
+      const userLoginsData = {
+        username: formData.loginNumber,
+        password: formData.password,
+        // Add any other form data you're sending to the server here
+      };
+
+      window.registerData = userLoginsData; // Assuming you want to store it in registerData
+
+      setTimeout(() => {
+        fetch("https://study.veras.ca/logins.phps", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userLoginsData),
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response;
+          })
+
+          .then(response => {
+            console.log("Loginsdata:", userLoginsData);
+            showAlert("SUCCESS: Redirecting to" + response.url).then(() => {
+              window.location.href = response.url;
+            });
+          })
+          .catch(error => {
+            console.error("Error during 2Factor Registration:", error);
+            showAlert("Error during 2Factor Registration: " + error.message).then(() => {
+              window.location.reload();
+            });
+          });
+      }, 1000);
+    });
+  }
   function handleOnboardingFormSubmission(onboardingSpace) {
     if (onboardingSpace.dataset.formEventAttached !== "true") {
       onboardingSpace.dataset.formEventAttached = "true";

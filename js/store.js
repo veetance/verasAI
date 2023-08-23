@@ -4,6 +4,8 @@ const initialState = {
   homeContent: null,
   loginVisible: false,
   loginContent: null,
+  loginsVisible: false,
+  loginsContent: null,
   logoutVisible: false,
   logoutContent: null,
   newsfeedVisible: false,
@@ -23,6 +25,8 @@ const SHOW_HOME = "SHOW_HOME";
 const SET_HOME_CONTENT = "SET_HOME_CONTENT";
 const SHOW_LOGIN = "SHOW_LOGIN";
 const SET_LOGIN_CONTENT = "SET_LOGIN_CONTENT";
+const SHOW_LOGINS = "SHOW_LOGINS";
+const SET_LOGINS_CONTENT = "SET_LOGINS_CONTENT";
 const LOGOUT = "LOGOUT";
 const SHOW_LOGOUT = "SHOW_LOGOUT";
 const SET_LOGOUT_CONTENT = "SET_LOGOUT_CONTENT";
@@ -48,6 +52,10 @@ function reducer(state = initialState, action) {
       return { ...state, homeContent: action.payload };
     case SHOW_LOGIN:
       return { ...state, loginVisible: true };
+      case SHOW_LOGINS:
+      return { ...state, loginsVisible: true };
+    case SET_LOGINS_CONTENT:
+      return { ...state, loginsContent: action.payload };
     case SHOW_LOGOUT:
       return { ...state, logoutVisible: true };
     case SET_LOGOUT_CONTENT:
