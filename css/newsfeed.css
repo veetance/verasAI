@@ -35,8 +35,9 @@
   display        : flex;
   flex-direction : column;
   justify-content: space-between;
-  background-image: linear-gradient(90deg, #f6f3ffcb 10%, #fefdff 100%);
-  /* background-color: var(--v-header-light-lanender-80); */
+  /* background-image: linear-gradient(90deg, #f6f3ffcb 10%, #fefdff 100%); */
+  background-image: linear-gradient(200deg, #fefdfff1 100%, #fefdfff1 100%);
+
 }
 
 .newsfeed-Zone {
@@ -68,7 +69,7 @@
 .feed-scrollHead .v-form-header {
   border-radius: 0px !important;
   padding        : 23px;
-  background-color: #fdfdfdf5;
+  background-color: #faf8ff;
   border-bottom: 1px solid var(--v-lavender-plane);
   height: auto;
   width: 100%;
@@ -105,11 +106,12 @@
 }
 
 .page-name h2 {
-  font-size     : clamp(1em, 1.9vw, 1.2rem);
-  line-height   : clamp(1.2em, 1.9vw, 1.2rem);
+  font-size     : clamp(1em, 1.3vw, 1.2rem) !important;
+  line-height   :100%;
+  white-space: nowrap;
   flex-direction: row;
   font-weight: 700 !important;
-  color: var(--f7-theme-color-muted);
+  color: var(--f7-theme-color-muted) !important;
 }
 
 .page-name h2 i {
@@ -136,7 +138,7 @@
 
 .top-Left span {
   display       : flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   height        : fit-content;
   width         : auto;
   align-items   : flex-start;
@@ -156,6 +158,8 @@
   align-items   : center;
   gap           :7px;
   margin        : 0px !important;
+  padding: 6px !important;
+  padding-left: 8px !important;
 }
 
 .Uuser,
@@ -166,9 +170,11 @@
 }
 
 .page-name .material-symbols-outlined {
-  font-size: 26px !important;
+  font-size: 20px !important;
   color      : var(--f7-theme-color);
-  padding: 0px;
+  padding: 3px;
+  background-color: #f0edffb4 !important;
+  border-radius: 50% !important;
 }
 
 .Uuser {
@@ -194,7 +200,6 @@
   width           : 100%;
   height          : 100%;
   border          : solid 1px var(--v-lavender-plane);
-  background-color: #fefdff;
   border-radius   : 10px;
   overflow        : hidden;
 }
@@ -358,7 +363,9 @@ tbody {
   width: 100%;
   height: auto;
   overflow: hidden;
-  gap: 8px;
+  gap: 10px;
+  padding:0px 10px ;
+  padding-top: 10px;
 }
 
 #data-surface {
@@ -374,49 +381,63 @@ tbody {
 td {
   display: flex;
   flex-direction: column;
-  padding:20px;
+  padding:20px !important;
+  width: 100% !important;
 
   border-radius: 0px;
   justify-content: center;
+
+  gap: 10px;
 }
 
 .label-parent {
   display: flex;
-  background-color: rgb(255, 238, 224); /* Example style */
-  width: 20%;
+  background-color: rgba(255, 238, 224, 0); 
+  width: auto !important;
   /* Add any other styles you want */
   align-items: center;
   margin: 2px;
   border-radius: 4px;
+  padding: 20px !important;
+  justify-content: flex-start;
+}
+
+.label-parent label {
+  display: flex;
+  background-color: rgba(255, 238, 224, 0.562); 
+  padding: 8px 20px !important;
+  border-radius: 5px;
+  color: rgb(226, 106, 8); ;
 }
 
 
 /* Label Styles */
 label {
   display: flex;
-  font-size: 14px;
-}
-
-label b {
-  font-weight: 500; /* Semi-Bold Font Weight */
-  color: #1976D2; /* Inspired by Veras's Color Scheme */
+  font-weight: 700;
 }
 
 
 tr{
 
-  display: flex;
-  flex-direction: row;
-  cursor: pointer;
-  border: solid 1px var(--v-lavender-plane);
-  border-left: 0px;
-  border-right: 0px;
+display: flex;
 
+flex-direction: row;
+
+cursor: pointer;
+
+border: solid 1px var(--v-lavender-plane);
+
+/* border-left: 0px;
+  border-right: 0px; */
+
+background-color: #ffffff;
+border-radius: 10px;
 }
 
 table p {
   margin: 0;
-  font-size: 12px;
+  font-size: 16px;
   color: #000000; /* Black Text Color */
 }
 
@@ -916,10 +937,6 @@ table p {
   }
 
   /* newsfeed */
-  .newsfeed-Space{
-    background-image: linear-gradient(200deg, #f6f3ff 0%, #fefdff 100%);
-  }
-  
   .feed-wrapper{
     display: flex;
     flex-direction: column;
