@@ -88,6 +88,7 @@ img {
   display: flex !important;
   width  : 4px;
   height : 100%;
+  cursor: pointer !important;
 }
 
 ::-webkit-scrollbar-track {
@@ -1432,8 +1433,10 @@ h5 {
 .v-page-plane-cont-text h2 {
   color             : #372c6b;
   width             : fit-content !important;
-  font-size      : clamp(.4rem, 2.2vw, 2rem) !important;
-  line-height: clamp(1rem, 2vw, 2.2rem);
+
+  font-size      : clamp(.9rem, 2.8vw, 2rem) !important;
+  line-height: clamp(1rem, 3vw, 2.4rem) !important;
+
   /* background-clip: text; 
   -webkit-background-clip: text; 
   color: transparent; 

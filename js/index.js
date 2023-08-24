@@ -511,6 +511,13 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       fetchAndDisplayTable();
 
+      
+      // $('td > label').each(function () {
+      //   if ($(this).text().trim() === "closed") {
+      //     $(this).parent().addClass('label-parent');
+      //   }
+      // });
+
   
 
 
