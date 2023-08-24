@@ -69,10 +69,11 @@
 .feed-scrollHead .v-form-header {
   border-radius: 0px !important;
   padding        : 23px;
-  background-color: #faf8ff;
   border-bottom: 1px solid var(--v-lavender-plane);
   height: auto;
   width: 100%;
+  background-color: #a496ff1a;
+  box-shadow: rgb(255, 255, 255) 0px 20px 070px 0px;
 }
 
 .feed-scroll .v-form-header h1 {
@@ -201,6 +202,8 @@
   height          : 100%;
   border          : solid 1px var(--v-lavender-plane);
   border-radius   : 10px;
+  /* background-color: #faf8ff; */
+  background-image: linear-gradient(180deg, #faf8ff 0%, #fefdfff1 100%);
   overflow        : hidden;
 }
 
@@ -352,21 +355,27 @@ padding: 0px;
 
 /* Table Styles */
 table {
+  display: flex !important;
   width: 100%;
+  height: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
+  align-items: center;
+  justify-content: center;
 }
 
 tbody {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: auto;
-  overflow: hidden;
+  height:100%;
   gap: 10px;
-  padding:0px 10px ;
-  padding-top: 10px;
+  padding:10px ;
+
+  overflow: hidden;
+  overflow-y:scroll ;
 }
+
 
 #data-surface {
   display: flex;
@@ -383,10 +392,8 @@ td {
   flex-direction: column;
   padding:20px !important;
   width: 100% !important;
-
   border-radius: 0px;
-  justify-content: center;
-
+  justify-content: flex-start;
   gap: 10px;
 }
 
@@ -407,38 +414,50 @@ td {
   background-color: rgba(255, 238, 224, 0.562); 
   padding: 8px 20px !important;
   border-radius: 5px;
-  color: rgb(226, 106, 8); ;
+  color: rgb(226, 106, 8); 
+  font-size: 16px !important;
+
 }
 
 
 /* Label Styles */
 label {
   display: flex;
-  font-weight: 700;
+  font-weight: 800;
+  font-size: 18px;
+  color:var(--f7-theme-color-shade);
+
 }
 
 
 tr{
 
 display: flex;
-
 flex-direction: row;
-
 cursor: pointer;
 
+height: clamp(100%, 100%, 100%);
+
 border: solid 1px var(--v-lavender-plane);
-
-/* border-left: 0px;
-  border-right: 0px; */
-
-background-color: #ffffff;
+background-color: #ffffff3a;
 border-radius: 10px;
+
+padding-bottom: 20px;
+
+
+}
+
+tr:hover{
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(165, 148, 243, 0.26) 0px 3px 001px 0px;
 }
 
 table p {
   margin: 0;
-  font-size: 16px;
-  color: #000000; /* Black Text Color */
+  font-size: 14px;
+  color:var(--f7-theme-color-muted);
+  font-weight: 700;
+  opacity: .6;
 }
 
 
