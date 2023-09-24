@@ -28,11 +28,13 @@
       <div class="feed-wrapper ">
 
         <article class="Newsfeed-Right Quick-survey">
+
           <div class="create-header">
             <div id="closeSurvey" class="v-form-header ">
 
-              <h1>Quick survey</h1>
-              <i id="v-form-close" class="material-symbols-outlined">circles_ext</i>
+              <h1>Create a New Survey</h1>
+              <!-- <i id="v-form-close" class="material-symbols-outlined">circles_ext</i> -->
+              <!-- <i id="v-form-close" class="material-symbols-outlined">note_stack_add</i> -->
             </div>
             <!-- 2 tabs toggle nav component -->
             <div class="tabs">
@@ -45,24 +47,23 @@
             </div>
 
           </div>
-        
-
           <div class="tab-content" id="initial-content">
 
             <img src="./img/arrow.svg" alt="" class="guide-arrow">
             <h2>Select a survey mode</h2>
-            <P>tap written response or select <br>multiple Choice</P>
+            <P>tap Written Survey <br>or select Multiple Choice</P>
 
           </div>
+
 
           <div class="tab-content" id="written-survey-content">
             <!-- Written survey content goes here -->
             <form id="written-survey-form" class="survey-form">
-              <label for="survey-title">Title:</label>
-              <input type="text" id="survey-title" name="survey-title" placeholder="Enter your survey title" required>
+              <label for="survey-title">Title</label>
+              <input type="text" id="survey-title"  class="create-input" name="survey-title" placeholder="Enter your survey title" required>
               
-              <label for="survey-description">Description:</label>
-              <textarea id="survey-description" name="survey-description" placeholder="Enter a description for your survey" required></textarea>
+              <label for="survey-description">Description</label>
+              <textarea id="survey-description" class="create-input" name="survey-description" placeholder="Enter a description for your survey" required></textarea>
           
               <!-- Character limit selection -->
               <label for="char-limit">Character Limit:</label>
@@ -76,24 +77,46 @@
               <button type="submit" id="submit-written-survey">Submit Survey</button>
             </form>
           </div>
+
           <div class="tab-content" id="multiple-choice-content">
             <!-- Multiple choice content goes here --> 
             <div class="survey-form">
-              <label for="survey-title-mc">Survey Title:</label>
-              <input type="text" id="survey-title-mc" name="survey-title-mc" placeholder="Enter your survey title" class="survey-input" required>
-              
-              <label for="survey-description-mc">Survey Description:</label>
-              <textarea id="survey-description-mc" name="survey-description-mc" placeholder="Enter a description for your survey" class="survey-input" rows="4" required></textarea>
-              
-              <div class="options" id="options">
-                <div class="option">
-                  <input type="text" class="option-input" placeholder="Option 1" required>
-                  <button class="add-option" id="add-option" onclick="addOption(this)">+</button>
+
+              <div class="surv-top">
+
+                <section class="Titl inpt">
+                  <label for="survey-title-mc">Title</label>
+                  <input type="text" id="survey-title-mc" name="survey-title-mc" placeholder="Enter your survey title" class="survey-input create-input" required>  
+                </section>
+           
+                <section class="descript inpt">
+                <label for="survey-description-mc">Description</label>
+                <textarea id="survey-description-mc" name="survey-description-mc" placeholder="Enter a description for your survey" class="survey-input" rows="4" required></textarea>
+                </section>
+                
+                
+                <div class="options inpt" id="options">
+                  <label for="survey-title-mc" class="opt-title">Add or Remove Options</label>
+                  <div class="option">
+                    <input type="text" class="option-input" placeholder="Option 1" required>
+                    <button class="add-option" id="add-option" onclick="addOption(this)">+</button>
+                  </div>
                 </div>
+
               </div>
-              
-              <button id="submit-multiple-choice" class="submit-survey">Submit Survey</button>
+
+              <div class="surv-dwn"> 
+
+              <button type="submit" id="submit-multiple-choice" class="v-button-filled submit-survey">
+                <p>Create Survey</p>
+                <i class="material-symbols-outlined">Stylus</i>
+              </button>
+
+              </div>
+
+             
             </div>
+
           </div>
 
         </article>
@@ -101,7 +124,7 @@
         <article class="Newsfeed-Left Newsfeed">
           <div class="feed-scrollHead">
             <div id="closeNewsfeed" class="v-form-header">
-              <h1>All Surveys</h1>
+              <h1>Newsfeed</h1>
               <!-- <i id="v-form-close" class="material-symbols-outlined">close</i> -->
             </div>
           </div>
@@ -119,6 +142,83 @@
                   <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
                     10px;="" background-color:="" transparent;><label>test_user4</label>
                     <p>Survey 05292023</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>Post 05292023</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>06012023 test</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>06242023</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>Post 05292023</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>06012023 test</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>06242023</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user2</label>
+                    <p>test title2</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>Survey 05292023</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>Post 05292023</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>06012023 test</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>06242023</p>
                   </td>
                   <td><label>closed</label></td>
                 </tr>
