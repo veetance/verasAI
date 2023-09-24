@@ -363,235 +363,6 @@ document.addEventListener("DOMContentLoaded", () => {
           });
       });
 
-      
-      // Written Survey form submission
-      function handleWittenSurveyFormSubmission(input) {
-
-        const submitButton = document.getElementById("submit-written-survey");
-        const titleInput = document.getElementById("survey-title");
-        const descriptionInput = document.getElementById("survey-description");
-        const charLimitSelect = document.getElementById("char-limit"); // Added
-    
-        submitButton.addEventListener("click", async (event) => {
-          event.preventDefault();
-    
-          const title = titleInput.value;
-          const description = descriptionInput.value;
-          const charLimit = parseInt(charLimitSelect.value); // Added
-
-    
-          if (!title || !description) {
-            showAlert("Please fill in all fields.");
-            return;
-          }
-
-          // Check if the description exceeds the character limit
-          if (description.length > charLimit) {
-            showAlert(`Description exceeds the character limit of ${charLimit} characters.`);
-            return;
-          }
-
-          // Function to update character count based on selected limit
-          function updateCharacterCount() {
-            const charLimitSelect = document.getElementById("char-limit");
-            const descriptionInput = document.getElementById("survey-description");
-            const charLimit = parseInt(charLimitSelect.value);
-
-            descriptionInput.addEventListener("input", () => {
-              const currentText = descriptionInput.value;
-              if (currentText.length > charLimit) {
-                descriptionInput.value = currentText.substring(0, charLimit);
-              }
-            });
-          }
-
-        // Call the function when the document is ready
-        document.addEventListener("DOMContentLoaded", () => {
-          updateCharacterCount();
-        });
-    
-          // Display survey content on console
-          console.log("Survey Title:", title);
-          console.log("Survey Description:", description);
-  
-          const W_surveyData = {
-            topic_title: title,
-            description: description,
-            options: "",
-            type: "text",
-          };
-  
-          console.log("Logindata:", W_surveyData);
-  
-          fetch("https://study.veras.ca/surveynew.phps", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(W_surveyData),
-        })
-          .then((response) => {
-            if (response.ok) {
-              console.log("Response URL:", response.url);
-              console.log("Logindata:", response);
-                      // Call showAlert with navigation to home
-              showAlert("SUCCESS: Redirecting to newsfeed...").
-                then(() => {
-                  window.location.href = response.url;
-  
-                });
-  
-            } else {
-              showAlert("FAILED-POST: HTTP error! status: " + response.status)
-                .then(() => {
-                  window.location.reload();
-                });
-            }
-          })
-          .catch((error) => {
-            showAlert("FAILED TO POST SURVEY: " + error.message)
-              .then(() => {
-                console.log(error);
-                window.location.href = response.url;
-                //window.location.reload();
-              });
-          });  
-  
-        });
-
-
- 
-      }
-      handleWittenSurveyFormSubmission(true);
-
-      // Multiple Choice Survey form submission
-      function handleMultipleChoiceSurveyFormSubmission(input) {
-        const submitButton = document.getElementById("submit-multiple-choice");
-        const titleInput = document.getElementById("survey-title-mc");
-        const descriptionInput = document.getElementById("survey-description-mc");
-        const addOptionButton = document.getElementById("add-option");
-        const optionsDiv = document.getElementById("options");
-      
-        let optionCount = 1; // Initialize option count
-      
-        submitButton.addEventListener("click", async (event) => {
-          event.preventDefault();
-      
-          const title = titleInput.value;
-          const description = descriptionInput.value;
-      
-/*           // Collect option inputs
-          const optionInputs = document.querySelectorAll('.option-input');
-          const options = Array.from(optionInputs).map(input => input.value);
-
-          // Modify the options to be an array of strings
-          //const optionsArray = options.filter(option => option.trim() !== '');
-          // Collect option inputs
-
-          // Modify the options to be a single string with commas
-          const optionsString = options.filter(option => option.trim() !== '').join(', '); */
-          const optionInputs = document.querySelectorAll('.option-input');
-          const options = Array.from(optionInputs).map(input => input.value);
-
-          // Remove empty options
-          const filteredOptions = options.filter(option => option.trim() !== '');
-
-          // Convert the options into an object with numbered keys
-          const optionsObject = {};
-          filteredOptions.forEach((option, index) => {
-            optionsObject[index + 1] = option;
-          });
-
-          // Perform validation
-          if (!title || !description || options.length < 2) {
-            alert('Please fill in all fields and provide at least two options');
-            return;
-          }
-      
-          const MC_surveyData = {
-            topic_title: title,
-            description: description,
-            options: optionsObject,
-            type: "multiple",
-          };
-          console.log("W_surveyData:", MC_surveyData);
-
-          fetch("https://study.veras.ca/surveynew.phps", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(MC_surveyData),
-      })
-        .then((response) => {
-          if (response.ok) {
-            console.log("Response URL:", response.url);
-            console.log("Logindata:", MC_surveyData);
-                    // Call showAlert with navigation to home
-            showAlert("SUCCESS: Redirecting to newsfeed...").
-              then(() => {
-                window.location.href = response.url;
-
-              });
-
-          } else {
-            showAlert("FAILED-POST: HTTP error! status: " + response.status)
-              .then(() => {
-                window.location.reload();
-              });
-          }
-        })
-        .catch((error) => {
-          showAlert("FAILED TO POST SURVEY: " + error.message)
-            .then(() => {
-              console.log(error);
-              window.location.href = response.url;
-              //window.location.reload();
-            });
-        }); 
-
-      
-
-      
-          // Perform further processing or API call here
-          // ...
-      
-          alert('Multiple Choice Survey submitted successfully!');
-        });
-      
-        addOptionButton.addEventListener("click", () => {
-          const newOptionInput = document.createElement('div');
-          newOptionInput.classList.add('option');
-      
-          const newOptionTextInput = document.createElement('input');
-          newOptionTextInput.classList.add('option-input');
-          newOptionTextInput.type = 'text';
-          newOptionTextInput.placeholder = 'Option ' + (optionCount + 1);
-          newOptionTextInput.required = true;
-      
-          const removeOptionButton = document.createElement('button');
-          removeOptionButton.classList.add('remove-option');
-          removeOptionButton.innerText = '-';
-          removeOptionButton.onclick = () => {
-            // Remove the corresponding option when the button is clicked
-            optionsDiv.removeChild(newOptionInput);
-            optionCount--;
-          };
-      
-          newOptionInput.appendChild(newOptionTextInput);
-          newOptionInput.appendChild(removeOptionButton);
-      
-          optionsDiv.appendChild(newOptionInput);
-      
-          optionCount++;
-        });
-      }
-      
-      // Call the function when the logins page is loaded
-      handleMultipleChoiceSurveyFormSubmission(true);
-      
-
-
 
       const newsfeedButton = document.querySelector(".newsfeed-button");
       newsfeedButton.addEventListener("click", function () {
@@ -683,83 +454,57 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // Show the selected tab content and add the active class to the selected tab
-        document.getElementById(tabName + "-content").style.display = "flex";
+        document.getElementById(tabName + "-content").style.display = "block";
         document.getElementById(tabName + "-tab").classList.add("active");
-     
       }
 
-      const tabs = document.querySelectorAll(".tab");
-      tabs.forEach((tab) => {
-        tab.addEventListener("click", function () {
-          // Remove the .focus class from all tabs
-          tabs.forEach((tab) => {
-            tab.classList.remove("focus");
-          });
-      
-          // Add the .focus class to the clicked tab
-          this.classList.add("focus");
-        });
-      });
+     /////////////// grab Data ////////////////
+function fetchAndDisplayTable() {
+  isLoadPageRunning = true;
+  loadLong();
 
-      /////////////// grab Data ////////////////
-      function fetchAndDisplayTable() {
+  setTimeout(() => {
+      const userLoginData = window.userLoginData || window.registerData;
 
-        setTimeout(() => {
-          const userLoginData = window.userLoginData || window.registerData;
-
-          fetch("https://study.veras.ca/homepage.phps", {
-            method: "POST",
-            headers: {
+      fetch("https://study.veras.ca/homepage.phps", {
+          method: "POST",
+          headers: {
               "Content-Type": "application/json",
-            },
-            body: JSON.stringify(userLoginData),
-            redirect: 'manual' // prevent automatic redirection
-          })
+          },
+          body: JSON.stringify(userLoginData),
+          redirect: 'manual' // prevent automatic redirection
+      })
 
-            .then((response) => {
-  
-              if (!response.ok) {
-                isLoadPageRunning = true;
-                loadLong();
-                // Show the alert with the status and the 'Location' header value
-                showAlert("Error fetching table: " + response.url + " | Redirecting to | " + "?login").then(() => {
-                  window.location.href = response.url;
-                  return;
-                });
-              }
-              return response.text();
-            })
+      .then((response) => {
+          if (!response.ok) {
+              // If the response is not okay, redirect using the response URL
+              window.location.href = response.url;
+              return; // Stop further processing since we're redirecting
+          }
+          return response.text();
+      })
 
-            .then((responseText) => {
-              isLoadPageRunning = true;
-              loadLong();
-              appendTableToTarget(responseText);
+      .then((responseText) => {
+          appendTableToTarget(responseText);
+          isLoadPageRunning = false;
+          loadLong();
+          elements.splash.style.display = "none";
+      })
 
-              $('td > label').each(function () {
-                if ($(this).text().trim() === "closed") {
-                  $(this).parent().addClass('label-parent');
-                }
-              });
-              
-            })
-
-            .catch((error) => {
-              console.error("Error fetching table:", error);
-              showAlert("Error fetching table: " + error.message).then(() => {
-                window.location.reload();
-              });
-            });
-
-        }, 200);
-      }
-      // fetchAndDisplayTable();
-
-      
-      $('td > label').each(function () {
-        if ($(this).text().trim() === "closed") {
-          $(this).parent().addClass('label-parent');
-        }
+      .catch((error) => {
+          console.error("Error fetching table:", error);
+          showAlert("Error fetching table: " + error.message).then(() => {
+              window.location.reload();
+          });
       });
+
+  }, 200);
+}
+
+fetchAndDisplayTable();
+
+
+
 
     },
     validateForm: (loginNumber, password, confirmPassword, nickname) => {
@@ -969,9 +714,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function appendTableToTarget(responseText) {
     const target = document.querySelector("#data-surface");
     target.innerHTML = responseText;
-
-    elements.splash.style.display = "none";
-
   }
 
   function getPagePath(pageName) {

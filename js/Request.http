@@ -1,0 +1,7 @@
+POST http://study.veras.ca/homepage.phps
+Content-Type: application/json
+
+{
+  "username": "test_user4",
+  "password": "test"
+}

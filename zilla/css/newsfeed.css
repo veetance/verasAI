@@ -35,8 +35,9 @@
   display        : flex;
   flex-direction : column;
   justify-content: space-between;
-  /* background-image: linear-gradient(90deg, #faf8ff 5%, #f0edff 110%); */
-  background-color: #ffffff79;
+  /* background-image: linear-gradient(90deg, #f6f3ffcb 10%, #fefdff 100%); */
+  background-image: linear-gradient(200deg, #fefdfff1 100%, #fefdfff1 100%);
+
 }
 
 .newsfeed-Zone {
@@ -51,7 +52,7 @@
   display              : grid;
   height               : 100%;
   width                : 100%;
-  grid-template-columns: 1.15fr 2fr;
+  grid-template-columns: 2fr 1fr;
   padding              : 0px !important;
   padding-top: 12px !important;
   gap             : 12px;
@@ -71,7 +72,7 @@
   border-bottom: 1px solid var(--v-lavender-plane);
   height: auto;
   width: 100%;
-  background-color: #faf8ff;
+  background-color: #a496ff1a;
   box-shadow: rgb(255, 255, 255) 0px 20px 070px 0px;
 }
 
@@ -99,10 +100,9 @@
   width           : 100%;
   height          : auto;
   border          : solid 1px var(--v-lavender-plane);
-  background-color: #faf8ff;
+  background-color: #fefdff;
   border-radius   : 10px;
   padding         : 16px;
-  padding-left: 20px;
   align-items     : center;
 }
 
@@ -173,7 +173,7 @@
 .page-name .material-symbols-outlined {
   font-size: 20px !important;
   color      : var(--f7-theme-color);
-  padding:4px;
+  padding: 3px;
   background-color: #f0edffb4 !important;
   border-radius: 50% !important;
 }
@@ -202,9 +202,8 @@
   height          : 100%;
   border          : solid 1px var(--v-lavender-plane);
   border-radius   : 10px;
-  /* background-color: #faf8ff7a; */
   /* background-color: #faf8ff; */
-  /* background-image: linear-gradient(180deg, #faf8ff 0%, #fefdfff1 100%); */
+  background-image: linear-gradient(180deg, #faf8ff 0%, #fefdfff1 100%);
   overflow        : hidden;
 }
 
@@ -214,7 +213,7 @@
   width           : 100%;
   height          : 100%;
   border          : solid 1px var(--v-lavender-plane);
-  background-color: #faf8ff00;
+  background-color: #fefdff;
   border-radius   : 10px;
   overflow        : hidden;
 }
@@ -236,7 +235,7 @@ padding: 0px;
 #hamburgSpan {
   display        : flex;
   width          : 100%!important;
-  justify-content: flex-start;
+  justify-content: flex-end;
 }
 
 .material-symbols-outlined {
@@ -250,15 +249,14 @@ padding: 0px;
   padding: 10px;
   gap: 10px;
   border-bottom: solid 1PX  #ebe8ff;
-  background-color: #f4fafc96;
 }
 
 .tab {
   display: flex;
   background-color: #ddd;
-  background-color: #ffffff41;
-  border: solid .5px #2a66551e;
-  border-radius: 6px;
+  background-color: #ffffffe1;
+  border: solid 1PX  #2a66556c;
+  border-radius: 4px;
   padding: 10px 10px;
   cursor: pointer;
   width: 100%;
@@ -268,43 +266,6 @@ padding: 0px;
   gap: 0px;
   justify-content:flex-start;
 }
-
-.tab:focus .material-symbols-outlined {
-  color: #ffffff !important;
-  padding: 0px;
-}
-
-
-.tab:hover {
-  border: solid 1px #2a6655;
-  background-color: #ffffff;
-  transition: all 0.5s cubic-bezier(0, 1.02, 0, 1.02);
-}
-
-.tab:active {
-  background-color: var(--f7-2ndry-theme-color-DRKshade);
-  transition: all 0.5s cubic-bezier(0, 1.02, 0, 1.02);
-}
-
-.tab.focus {
-  background-color: var(--f7-2ndry-theme-color-DRKshade);
-  transition: all 0.5s cubic-bezier(0, 1.02, 0, 1.02);
-  color: #ffffff;
-}
-
-.tab:focus {
-  background-color: var(--f7-2ndry-theme-color-DRKshade);
-  transition: all 0.1s cubic-bezier(0, 1.02, 0, 0.57);
-}
-
-.tab.focus p, .tab:focus p {
-  color: #ffffff;
-}
-.tab:focus .material-symbols-outlined, .tab.focus .material-symbols-outlined {
-  color: #ffffff !important;
-  padding: 0px;
-}
-
 
 #initial-content{
   display: flex;
@@ -328,16 +289,41 @@ padding: 0px;
   justify-content: flex-start;
   color: #2A6655;
   font-weight: 600 !important;
-  font-size: clamp(.85rem, 3.4vw, .8rem) !important;
+  font-size: clamp(.6rem, 3.4vw, .8rem) !important;
   line-height: fit-content !important;
   white-space: nowrap;
 }
 
 .tab .material-symbols-outlined {
-  font-size: 30px !important;
+  font-size: 24px !important;
   color: #2A6655 !important;
   padding: 0px;
-  padding-right: 3px !important;
+  padding-right: 6px !important;
+}
+
+.tab:focus .material-symbols-outlined {
+  color: #ffffff !important;
+  padding: 0px;
+}
+
+
+.tab:hover {
+  background-color: #e7f7f3bc;
+  transition: all 0.5s cubic-bezier(0, 1.02, 0, 1.02);
+}
+
+.tab:active {
+  background-color: #2A6655;
+  transition: all 0.5s cubic-bezier(0, 1.02, 0, 1.02);
+}
+
+.tab:focus {
+  background-color: #2A6655;
+  transition: all 0.5s cubic-bezier(0, 1.02, 0, 1.02);
+}
+
+.tab:focus p{
+  color: #ffffff;
 }
 
 .tab-content {
@@ -363,8 +349,7 @@ padding: 0px;
   }
 
 #multiple-choice-tab .material-symbols-outlined {
-  font-size: 23px !important;
-  padding-right: 6px !important;
+  font-size: 20px !important;
 }
 
 
@@ -429,8 +414,7 @@ td {
   background-color: rgba(255, 238, 224, 0.562); 
   padding: 8px 20px !important;
   border-radius: 5px;
-  color: #e26a08; 
-  border: solid .5px #e26a081a;
+  color: rgb(226, 106, 8); 
   font-size: 16px !important;
 
 }
@@ -661,7 +645,7 @@ table p {
   border          : solid 1px #ebe7ffef;
   transition      : transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
   transform       : translate(0, 0);
-  background-color: #ffffff;
+  background-color: #fefdff;
 }
 
 .SWAP-sidebar .bottom .nav-lnk:active {
@@ -683,10 +667,9 @@ table p {
   display       : flex;
   width         : 100%;
   height: 199%;
-  flex-direction: column-reverse;
+  flex-direction: column;
   grid-gap      : 10px;
   align-items   : center;
-  justify-content: flex-end;
 }
 
 .nav-lnk span {
@@ -1020,9 +1003,10 @@ table p {
 
 /* Additional styling for the written survey */
 #written-survey-content {
+  background-color: #f6f3ff;
   padding: 20px;
-  border-radius: 0px;
-  margin-top: 0px;
+  border-radius: 10px;
+  margin-top: 20px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -1072,24 +1056,14 @@ table p {
 #multiple-choice-content {
   background-color: #f6f3ff;
   padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .survey-form {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-} 
-
-.survey-title , .survey-description {
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                     
-
-
-
+  margin-top: 20px;
 }
-
 
 .survey-input {
   width: 100%;

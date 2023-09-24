@@ -683,23 +683,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // Show the selected tab content and add the active class to the selected tab
-        document.getElementById(tabName + "-content").style.display = "flex";
+        document.getElementById(tabName + "-content").style.display = "block";
         document.getElementById(tabName + "-tab").classList.add("active");
-     
       }
-
-      const tabs = document.querySelectorAll(".tab");
-      tabs.forEach((tab) => {
-        tab.addEventListener("click", function () {
-          // Remove the .focus class from all tabs
-          tabs.forEach((tab) => {
-            tab.classList.remove("focus");
-          });
-      
-          // Add the .focus class to the clicked tab
-          this.classList.add("focus");
-        });
-      });
 
       /////////////// grab Data ////////////////
       function fetchAndDisplayTable() {
@@ -752,14 +738,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }, 200);
       }
-      // fetchAndDisplayTable();
+      fetchAndDisplayTable();
 
       
-      $('td > label').each(function () {
-        if ($(this).text().trim() === "closed") {
-          $(this).parent().addClass('label-parent');
-        }
-      });
+      // $('td > label').each(function () {
+      //   if ($(this).text().trim() === "closed") {
+      //     $(this).parent().addClass('label-parent');
+      //   }
+      // });
+
+  
+
+
+
+
 
     },
     validateForm: (loginNumber, password, confirmPassword, nickname) => {

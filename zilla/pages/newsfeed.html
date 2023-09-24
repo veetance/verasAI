@@ -26,78 +26,6 @@
 
     <main class="feed-scroll">
       <div class="feed-wrapper ">
-
-        <article class="Newsfeed-Right Quick-survey">
-          <div class="create-header">
-            <div id="closeSurvey" class="v-form-header ">
-
-              <h1>Quick survey</h1>
-              <i id="v-form-close" class="material-symbols-outlined">circles_ext</i>
-            </div>
-            <!-- 2 tabs toggle nav component -->
-            <div class="tabs">
-              <button class="tab" id="written-survey-tab"> <i class="material-symbols-outlined"> edit_note </i>
-                <p>Written Survey</p>
-              </button>
-              <button class="tab" id="multiple-choice-tab"><i class="material-symbols-outlined"> format_list_bulleted</i>
-                <p>Multiple Choice</p>
-              </button>
-            </div>
-
-          </div>
-        
-
-          <div class="tab-content" id="initial-content">
-
-            <img src="./img/arrow.svg" alt="" class="guide-arrow">
-            <h2>Select a survey mode</h2>
-            <P>tap written response or select <br>multiple Choice</P>
-
-          </div>
-
-          <div class="tab-content" id="written-survey-content">
-            <!-- Written survey content goes here -->
-            <form id="written-survey-form" class="survey-form">
-              <label for="survey-title">Title:</label>
-              <input type="text" id="survey-title" name="survey-title" placeholder="Enter your survey title" required>
-              
-              <label for="survey-description">Description:</label>
-              <textarea id="survey-description" name="survey-description" placeholder="Enter a description for your survey" required></textarea>
-          
-              <!-- Character limit selection -->
-              <label for="char-limit">Character Limit:</label>
-              <select id="char-limit" name="char-limit">
-                <option value="100">100 characters</option>
-                <option value="300">300 characters</option>
-                <option value="500">500 characters</option>
-                <option value="1000">1000 characters</option>
-              </select>
-              
-              <button type="submit" id="submit-written-survey">Submit Survey</button>
-            </form>
-          </div>
-          <div class="tab-content" id="multiple-choice-content">
-            <!-- Multiple choice content goes here --> 
-            <div class="survey-form">
-              <label for="survey-title-mc">Survey Title:</label>
-              <input type="text" id="survey-title-mc" name="survey-title-mc" placeholder="Enter your survey title" class="survey-input" required>
-              
-              <label for="survey-description-mc">Survey Description:</label>
-              <textarea id="survey-description-mc" name="survey-description-mc" placeholder="Enter a description for your survey" class="survey-input" rows="4" required></textarea>
-              
-              <div class="options" id="options">
-                <div class="option">
-                  <input type="text" class="option-input" placeholder="Option 1" required>
-                  <button class="add-option" id="add-option" onclick="addOption(this)">+</button>
-                </div>
-              </div>
-              
-              <button id="submit-multiple-choice" class="submit-survey">Submit Survey</button>
-            </div>
-          </div>
-
-        </article>
-
         <article class="Newsfeed-Left Newsfeed">
           <div class="feed-scrollHead">
             <div id="closeNewsfeed" class="v-form-header">
@@ -106,7 +34,7 @@
             </div>
           </div>
           <section id="data-surface">
-          <table style="width: 100%;">
+            <!-- <table style="width: 100%;">
               <tbody>
                 <tr>
                   <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
@@ -144,12 +72,78 @@
                   <td><label>closed</label></td>
                 </tr>
               </tbody>
-            </table>
-
+            </table> -->
           </section>
 
         </article>
+        <article class="Newsfeed-Right Quick-survey">
+          <div id="closeSurvey" class="v-form-header ">
 
+            <h1>Create a quick survey</h1>
+            <i id="v-form-close" class="material-symbols-outlined">circles_ext</i>
+          </div>
+
+          <!-- 2 tabs toggle nav component -->
+          <div class="tabs">
+            <button class="tab" id="written-survey-tab"> <i class="material-symbols-outlined"> edit_note </i>
+              <p>Written Survey</p>
+            </button>
+            <button class="tab" id="multiple-choice-tab"><i class="material-symbols-outlined"> format_list_bulleted</i>
+              <p>Multiple Choice</p>
+            </button>
+          </div>
+          <div class="tab-content" id="initial-content">
+
+            <img src="./img/arrow.svg" alt="" class="guide-arrow">
+            <h2>Select a survey mode</h2>
+            <P>tap written response or select <br>multiple Choice</P>
+
+          </div>
+          <div class="tab-content" id="written-survey-content">
+            <!-- Written survey content goes here -->
+            <h2>Create a Written Survey</h2>
+            <form id="written-survey-form">
+              <label for="survey-title">Survey Title:</label>
+              <input type="text" id="survey-title" name="survey-title" placeholder="Enter your survey title" required>
+              
+              <label for="survey-description">Survey Description:</label>
+              <textarea id="survey-description" name="survey-description" placeholder="Enter a description for your survey" required></textarea>
+          
+              <!-- Character limit selection -->
+              <label for="char-limit">Character Limit:</label>
+              <select id="char-limit" name="char-limit">
+                <option value="100">100 characters</option>
+                <option value="300">300 characters</option>
+                <option value="500">500 characters</option>
+                <option value="1000">1000 characters</option>
+              </select>
+              
+              <button type="submit" id="submit-written-survey">Submit Survey</button>
+            </form>
+          </div>
+          
+          <div class="tab-content" id="multiple-choice-content">
+            <!-- Multiple choice content goes here -->
+            <h2>Create a Multiple Choice Survey</h2>  
+            <div class="survey-form">
+              <label for="survey-title-mc">Survey Title:</label>
+              <input type="text" id="survey-title-mc" name="survey-title-mc" placeholder="Enter your survey title" class="survey-input" required>
+              
+              <label for="survey-description-mc">Survey Description:</label>
+              <textarea id="survey-description-mc" name="survey-description-mc" placeholder="Enter a description for your survey" class="survey-input" rows="4" required></textarea>
+              
+              <div class="options" id="options">
+                <div class="option">
+                  <input type="text" class="option-input" placeholder="Option 1" required>
+                  <button class="add-option" id="add-option" onclick="addOption(this)">+</button>
+                </div>
+              </div>
+              
+              <button id="submit-multiple-choice" class="submit-survey">Submit Survey</button>
+            </div>
+          </div>
+
+        </article>
       </div>
     </main>
 
