@@ -96,11 +96,22 @@
                 
                 
                 <div class="options inpt" id="options">
-                  <label for="survey-title-mc" class="opt-title">Add or Remove Options</label>
+
+                  <label for="survey-title-mc" class="opt-title">Options</label>
+
+                  <div class="add-remove">
+                  <button class="add-option " id="add-option" onclick="addOption(this)"><p>Add</p><span>+</span></button>
+                  <button class="remove-option"><p>Remove</p><span>-</span></button>
+                  </div>
+
+                  <section class="opt-space">
+                    
                   <div class="option">
                     <input type="text" class="option-input" placeholder="Option 1" required>
-                    <button class="add-option" id="add-option" onclick="addOption(this)">+</button>
                   </div>
+
+                  </section>
+                  
                 </div>
 
               </div>

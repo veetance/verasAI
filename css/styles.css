@@ -6,7 +6,7 @@ body,
 html {
   margin          : 0px !important;
   padding         : 0px !important;
-  background-color: var(--v-white-plane);
+  /* background-color: var(--v-white-plane); */
   font-family     : "Mulish", sans-serif;
   scroll-behavior : smooth;
 }
@@ -442,7 +442,8 @@ h5 {
   display         : flex;
   align-items     : center;
   justify-content : space-between;
-  background-color: var(--v-header-light-mint-80);
+  /* background-color: var(--v-header-light-mint-80); */
+  background-color: #f4fafc96;
   width           : 100%;
   height          : auto;
   padding         : 20px;

@@ -73,7 +73,7 @@
   height: auto;
   width: 100%;
   background-color: #faf8ff;
-  box-shadow: rgb(255, 255, 255) 0px 20px 070px 0px;
+  box-shadow: rgba(255, 255, 255, 0.5) 0px 20px 070px 0px;
 }
 
 .feed-scroll .v-form-header h1 {
@@ -317,7 +317,7 @@ padding: 0px;
   transition: all 0.5s cubic-bezier(0, 1.02, 0, 1.02);
   border: solid 1px #317763bb;
   border-top: solid 3px #317763;
-  background-color: #fafffe71;
+  background-color: #fafffe85;
 }
 
 .tab.focus p, .tab:focus p {
@@ -460,7 +460,8 @@ td {
   border-radius: 5px;
   color: #e26a08; 
   border: solid .5px #e26a081a;
-  font-size: 13px !important;
+  font-size: 13.5px !important;
+  font-weight: 700;
 
 }
 
@@ -496,7 +497,7 @@ tr:hover{
 
 table p {
   margin: 0;
-  font-size: 14px;
+  font-size: 13px;
   color:var(--f7-theme-color-muted);
   font-weight: 700;
   opacity: .6;
@@ -568,7 +569,7 @@ table p {
   bottom         : 0;
   left           : 0;
   width          : auto;
-  height         : calc(100% - 107px);
+  height         : calc(100% - 99px);
   /* height         : auto; */
   /* border      : solid 2px red; */
   align-items    : flex-end;
@@ -1003,7 +1004,7 @@ table p {
   /* newsfeed */
   .feed-wrapper{
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     width: 100%;
     height: 100%;
     gap: 12px;
@@ -1110,7 +1111,7 @@ table p {
 
 /* Additional styling for the multiple choice survey */
 #multiple-choice-content {
-  background-color: #f6f3ff;
+  background-color: #f6f3ff00;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -1119,6 +1120,7 @@ table p {
   flex-direction: column;
   height: 100%;
   width: 100%;
+  gap: 10px;
 } 
 
 .surv-top {
@@ -1131,20 +1133,70 @@ table p {
 
   .survey-form label {
     opacity: 0.8;
-    font-size: 13px !important;
+    font-size: 14px !important;
     display         : flex;
     padding         : 4px;
     padding-left    : 10px;
     padding-top     : 4px;
     padding-bottom  : 3px;
-    border: 1px solid #ebe8ff ;
-    background-color: #ebe8ff7e !important;
+    border: 1px solid #ebe8ff;
+    background-color: #ebe8ffab !important;
     border-radius   : 8px 8px 0px 0px;
   }
 
+  .opt-space{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    
+    
+    overflow-x: hidden;
+    overflow-y: scroll;
+    overflow: overlay;
+
+    background-color: #faf8ff;
+    border: 1px solid #ebe8ff;
+    border-top: 0px;
+    border-radius: 0px 0px 6px 6px;
+  }
+
+  .add-remove{
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    margin-bottom: 0px;
+
+    background-color: #faf8ff;
+    border: 1px solid #ebe8ff;
+    border-radius: 0px;
+    padding: 10px;
+
+  }
+
+.add-remove p {
+color: #5e50b2;
+font-weight: 700;
+font-size: 16px;
+font-weight: 700;
+padding: 0px 8px;
+}
+
+
+.add-remove span {
+  font-size: 23px;
+  padding: 0px 10px;
+}
+
   .opt-title{
-    border-radius: 8px !important;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
+    padding-bottom: 4px !important;
+  }
+
+  .descript , .Titl{
+    display: flex !important;
+    flex-direction: column;
+    height: auto !important;
   }
 
   .survey-form .inpt::before {
@@ -1182,8 +1234,10 @@ table p {
 
 .option {
   display: flex;
-  align-items: center;
-  margin-bottom: 10px;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  height: fit-content !important;
 }
 
 .options{
@@ -1191,7 +1245,6 @@ table p {
   height: 100%;
   width: auto;
   /* border: solid 1px; */
-  overflow: scroll !important;
   flex-direction: column;
 }
 
@@ -1207,15 +1260,14 @@ table p {
 .remove-option {
   display: flex;
   height: 100%;
-  aspect-ratio: 1/1;
+  width: 100%;
   padding: 5px !important;
-  border: none;
+  border: solid 1px #a7a0d1;
+  border-radius: 6px;
   background-color: transparent;
-  font-size: 20px;
-  font-weight: 800;
   cursor: pointer;
   transition: color 0.3s ease;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
 
