@@ -35,8 +35,9 @@
   display        : flex;
   flex-direction : column;
   justify-content: space-between;
-  background-image: linear-gradient(90deg, #faf8ff 5%, #ffffff79 10%);
+  /* background-image: linear-gradient(90deg, #faf8ff 5%, #ffffff79 10%); */
   /* background-color: #ffffff5d; */
+  background-color:   #ffffff7e;
 }
 
 .newsfeed-Zone {
@@ -56,6 +57,8 @@
   padding              : 0px !important;
   padding-top: 12px !important;
   gap             : 20px;
+  justify-content: end;
+  justify-items: end;
 }
 
 .feed-scrollHead {
@@ -67,6 +70,7 @@
 }
 
 .feed-scrollHead .v-form-header {
+  display: flex;
   border-radius: 0px !important;
   padding        : 23px;
   border-bottom: 1px solid var(--v-lavender-plane);
@@ -74,6 +78,8 @@
   width: 100%;
   background-color: #faf8ff;
   box-shadow: rgba(255, 255, 255, 0.5) 0px 20px 070px 0px;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .feed-scroll .v-form-header h1 {
@@ -82,7 +88,7 @@
   line-height: clamp(1.6rem, 2.6vw, 2.1rem);
   white-space: nowrap;
   width      : auto;
-  color: var(--f7-theme-color-muted);
+  color: #5f567d;
 }
 
 .feed-scroll {
@@ -210,6 +216,8 @@
   /* background-color: #faf8ff; */
   /* background-image: linear-gradient(180deg, #faf8ff 0%, #fefdfff1 100%); */
   overflow        : hidden;
+
+  
 }
 
 .Newsfeed-Right {
@@ -239,13 +247,14 @@ box-shadow:  0px 0px 0px 1px #6ff0cb3a;
 }
 
 .Newsfeed-Right .v-form-header .material-symbols-outlined {
-padding: 0px;
+padding: 4px;
 }
 
 #hamburgSpan {
   display        : flex;
   width          : 100%!important;
   justify-content: flex-start;
+  height: fit-content;
 }
 
 .material-symbols-outlined {
@@ -258,7 +267,7 @@ padding: 0px;
   width: 100%;
   padding: 10px;
   gap: 10px;
-  border-bottom: solid 1PX  #ebe8ff;
+  border-bottom: solid 1PX  #ebe8ff82;
   background-color: #f4fafc96;
 }
 
@@ -316,7 +325,7 @@ padding: 0px;
 .tab.focus {
   transition: all 0.5s cubic-bezier(0, 1.02, 0, 1.02);
   border: solid 1px #317763bb;
-  border-top: solid 3px #317763;
+  border-bottom: solid 3px #317763;
   background-color: #fafffe85;
 }
 
@@ -411,11 +420,16 @@ table {
 
 tbody {
   display: grid;
-  grid-template-columns: auto;
+  grid-template-columns: repeat(2, minmax(200px, 1fr)); /* Use auto-fit to create as many columns as possible with a minimum width of 200px */
+  grid-auto-rows: auto; /* Set the height of each row to 50px */
+  grid-gap: 15px; /* Add a gap between grid items */
+  width: 100%;
+  height: auto;
+  grid-auto-flow: dense; /* Specify that grid items should be placed in dense packing order */
   width: 100%;
   height:100%;
   gap: 10px;
-  padding:10px ;
+  padding:10px;
 }
 
 
@@ -486,6 +500,8 @@ height: clamp(100%, 100%, 100%);
 border: solid 1px var(--v-lavender-plane);
 background-color: #ffffff3a;
 border-radius: 10px;
+
+padding-bottom: clamp(0%,3vw,100px);
 
 
 }
@@ -587,14 +603,15 @@ table p {
   background-color: #fefdff;
   border          : solid 1px #ffffff86;
   height          : 100%;
-  width           : 150px;
+  width           : 224px;
   box-shadow      : rgba(165, 148, 243, 0.349) 0px -1px 0px 0px;
   border-radius   : 10px;
   overflow        : hidden;
   position        : relative;
   left            : -200px;
   opacity         : 0;
-  transition: all .1s cubic-bezier(0,.89,.23,.99);
+  transition: all .3s cubic-bezier(0,.89,.23,.99);
+  transition: opacity .10s cubic-bezier(0,.89,.23,.99);
 }
 
 .settings-modal.shown {
@@ -688,28 +705,29 @@ table p {
   border          : solid 1px #ebe7ffef;
   transition      : transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
   transform       : translate(0, 0);
-  background-color: #ffffff;
+  background-color: #ffffff !important;
 }
 
 .SWAP-sidebar .bottom .nav-lnk:active {
-  background         : #f7f7ff;
+  background         : #f7f7ffa2 !important;
   background-position: center -100% !important;
   /* move the midpoint down by 30% */
   border             : solid 1px #ebe7ffcb;
 }
 
-.SWAP-sidebar .bottom .nav-lnk.active {
-  border          : solid 1px var(--f7-theme-color-light-40);
+#nFeed-lnk.active, #Create-lnk.active {
+  border          : solid 0px #ebe7ffef !important;
+  border         : solid 1px #6253a365 !important;
   border-bottom   : solid 1px var(--f7-theme-color-light-40);
   transition      : transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
   transform       : translate(0, 0);
-  background-color: #fefdff;
+  background-color: #f2efff;
 }
 
 .nav-links span {
   display       : flex;
   width         : 100%;
-  height: 199%;
+  height: 100%;
   flex-direction: column-reverse;
   grid-gap      : 10px;
   align-items   : center;
@@ -728,10 +746,10 @@ table p {
 }
 
 .SWAP-sidebar .bottom .lnk-ico .material-icons {
-  font-size: 34px;
+  font-size: 36px;
   display: flex;
   opacity: 0.8;
-  color: #5b50a8;
+  color: #5e4eaf;
   justify-content: center;
   width: auto;
 }
@@ -739,6 +757,7 @@ table p {
 .SWAP-sidebar .bottom .nav-lnk:hover .material-icons {
   opacity: 0.7;
   color  : #5e50b2;
+  margin-bottom: 4px;
 
   background             : linear-gradient(to bottom, #60dbb8, #44397e);
   -webkit-background-clip: text;
@@ -768,7 +787,7 @@ table p {
   align-items: center;
   margin: 0px;
   border-radius: 0px;
-  background-color: #faf8ff;
+  background-color: #edeaff;
   /* box-shadow             : 0px 1px 6px rgba(47, 29, 130, 0.15); */
   border-right: solid 1px var(--v-lavender-plane);
   -webkit-backdrop-filter: blur(25px);
@@ -782,7 +801,7 @@ table p {
   width          : auto !important;
   height         : auto !important;
   padding        : 16px;
-  border-bottom  : solid 1px var(--v-lavender-plane);
+  border-bottom: solid 1px #5f50b228;
   justify-content: center;
   align-items    : center;
 }
@@ -940,12 +959,17 @@ table p {
     overflow-x: scroll;
   }
 
+  .SWAP-sidebar .bottom .nav-lnk:hover .material-icons {
+    margin-bottom: 2px;
+    font-size: 30px;
+  }
+
   .top {
     width        : auto !important;
     height       : auto !important;
     padding      : 10px;
     border-bottom: solid 0px var(--v-lavender-plane);
-    border-right : solid 1px var(--v-lavender-plane);
+    border-right: solid 1px #5f50b228;
   }
 
   .SWAP-navbar-wrapper {
@@ -993,12 +1017,13 @@ table p {
 
   #linkSpan {
     display   : flex;
-    flex-direction: row-reverse;
+    flex-direction: reverse;
     width     : 100% !important;
     height: auto;
     overflow  : hidden !important;
     overflow-x: SCROLL !important;
-    justify-content: flex-end;
+    justify-content: flex-start;
+    gap: 20px;
   }
 
   /* newsfeed */
@@ -1034,7 +1059,7 @@ table p {
   } 
 
   .newsfeed-Space {
-    background-image: linear-gradient(180deg, #faf8ff 5%, #ffffff79 30%);
+    /* background-image: linear-gradient(180deg, #faf8ff 5%, #ffffff79 30%); */
   }
 
   .Newsfeed-Right .v-form-header {
@@ -1140,39 +1165,65 @@ table p {
     padding-top     : 4px;
     padding-bottom  : 3px;
     border: 1px solid #ebe8ff;
-    background-color: #ebe8ffab !important;
+    background-color: #9f8eff1c !important;
     border-radius   : 8px 8px 0px 0px;
+    /* color: #ffffff; */
   }
 
-  .opt-space{
-    display: flex;
+  #opt-space{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Use auto-fit to create as many columns as possible with a minimum width of 200px */
+    grid-auto-rows: 40px; /* Set the height of each row to 50px */
+    grid-gap: 10px; /* Add a gap between grid items */
+    width: 100%;
+    height: auto;
+    grid-auto-flow: dense; /* Specify that grid items should be placed in dense packing order */
     width: 100%;
     height: 100%;
     padding: 10px;
-    
-    
-    overflow-x: hidden;
-    overflow-y: scroll;
-    overflow: overlay;
-
-    background-color: #faf8ff;
     border: 1px solid #ebe8ff;
     border-top: 0px;
-    border-radius: 0px 0px 6px 6px;
+    border-radius: 0px 0px clamp(10px, 0.725vw, 12px) clamp(10px, 0.725vw, 12px) ;
   }
+
+  .opt-scroll{
+    display: flex;
+    height: 100%;
+    overflow: overlay!important;
+    overflow: hidden;
+    overflow-y: scroll;
+  }
+
+
 
   .add-remove{
     display: flex;
     width: 100%;
     gap: 10px;
     margin-bottom: 0px;
-
-    background-color: #faf8ff;
+    background-color: #f6f5ff;
     border: 1px solid #ebe8ff;
     border-radius: 0px;
     padding: 10px;
-
+    justify-content: center;
   }
+
+  .add-remove .add-option, .remove-option{
+   border-radius: 6px;
+   display: flex;
+   justify-content: space-between;
+  }
+
+  #opt-space .remove-option{
+    display: flex;
+    height: 100%;
+    width: 40px;
+    border-radius: 0px 6px 6px 0px;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+  }
+
 
 .add-remove p {
 color: #5e50b2;
@@ -1219,6 +1270,9 @@ padding: 0px 8px;
   border: 1px solid #ebe8ff ;
   border-radius: 0px 0px 6px 6px;
   font-size: 16px;
+
+  overflow: overlay;
+  overflow-y: visible !important;
 }
 
 
@@ -1228,16 +1282,30 @@ padding: 0px 8px;
   border: 1px solid #ebe8ff;
   border-radius: 0px 0px 6px 6px;
   font-size: 16px;
-  background-color: #faf8ff;
+  /* background-color: #f6f5ff; */
   font-family: 'mulish',sans-serif;
 }
 
 .option {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto;
   align-items: flex-start;
   justify-content: center;
   width: 100%;
-  height: fit-content !important;
+  height: fit-content;
+  background-color: #ffffffa4;
+
+}
+
+.inpt input,textarea,#opt-space{
+
+background-color: #f6f5ff;
+}
+
+.inpt input:hover,textarea:hover {
+
+  background-color: #faf8ff;
+  
 }
 
 .options{
@@ -1246,24 +1314,25 @@ padding: 0px 8px;
   width: auto;
   /* border: solid 1px; */
   flex-direction: column;
+  overflow: hidden !important;
 }
 
 .option-input {
   width: 100%;
+  height: 100%;
   padding: 10px;
   border: 1px solid  #ebe8ff;
-  border-radius: 5px;
-  font-size: 16px;
+  border-radius: 6px 0px 0px 6px;
+  font-size: 14px;
 }
+
 
 .add-option,
 .remove-option {
   display: flex;
-  height: 100%;
   width: 100%;
   padding: 5px !important;
-  border: solid 1px #a7a0d1;
-  border-radius: 6px;
+  border: 1px solid  #ebe8ff;
   background-color: transparent;
   cursor: pointer;
   transition: color 0.3s ease;
@@ -1274,6 +1343,7 @@ padding: 0px 8px;
 .add-option:hover,
 .remove-option:hover {
   color: #7e6cdf;
+  border: solid 1px #a7a0d1;
 }
 
 .submit-survey {
@@ -1297,3 +1367,9 @@ min-width: 100% !important;
 }
 
 /* Add any additional styles here */
+
+@media  (max-width: 500px) {
+  tbody{
+      grid-template-columns: 1fr !important;
+  }
+}

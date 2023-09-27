@@ -452,7 +452,7 @@ h5 {
   border-bottom   : solid 1px #3caa8b41;
   z-index: 999;
 }
-.Newsfeed-Right .v-form-header .material-symbols-outlined {
+.Newsfeed-Right .v-form-header .material-symbols-outlined{
   color: var(--f7-2ndry-theme-color-DRKshade) !important;
   font-size       : clamp(1rem, 1.5rem, 5rem) !important;
   font-weight     : 500 !important;
@@ -461,6 +461,27 @@ h5 {
   /* border       : solid 2px #372c6b17; */
   padding         : 6px;
   border-radius   : 6px;
+}
+
+.Newsfeed-Left .v-form-header .material-symbols-outlined{
+
+display: flex;
+
+color: #5f567d !important;
+
+font-size       : clamp(1rem, 1.5rem, 5rem) !important;
+
+font-weight     : 500 !important;
+
+margin          : 0px;
+
+background-color: #372c6b00;
+
+/* border       : solid 2px #372c6b17; */
+
+/* padding-right         : 10px; */
+
+border-radius   : 6px;
 }
 
 .Newsfeed-Right .v-form-header h1 {
