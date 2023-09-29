@@ -317,6 +317,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const navLink = document.querySelector("#hamBurg");
       const settingsModal = document.querySelector(".settings-modal");
       const modal = document.querySelector(".collapsable-comp");
+
       // Attach listeners
       if (navLink && settingsModal) {
         navLink.addEventListener("click", () => {
@@ -345,6 +346,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       //////////////// logout-logic ////////////////
       const LogOutButton = document.querySelector(".logout-button");
+
       LogOutButton.addEventListener("click", function () {
         showAlertFade("You are about to be logged out.");
 
@@ -361,13 +363,7 @@ document.addEventListener("DOMContentLoaded", () => {
           });
       });
 
-      const newsfeedButton = document.querySelector(".newsfeed-button");
-      newsfeedButton.addEventListener("click", function () {
-        window.location.reload();
-      });
-
-
-
+      
       // Written Survey form submission
       function handleWittenSurveyFormSubmission(input) {
 
@@ -375,15 +371,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const titleInput = document.getElementById("survey-title");
         const descriptionInput = document.getElementById("survey-description");
         const charLimitSelect = document.getElementById("char-limit"); // Added
-
+    
         submitButton.addEventListener("click", async (event) => {
           event.preventDefault();
-
+    
           const title = titleInput.value;
           const description = descriptionInput.value;
           const charLimit = parseInt(charLimitSelect.value); // Added
 
-
+    
           if (!title || !description) {
             showAlert("Please fill in all fields.");
             return;
@@ -409,139 +405,91 @@ document.addEventListener("DOMContentLoaded", () => {
             });
           }
 
-          // Call the function when the document is ready
-          document.addEventListener("DOMContentLoaded", () => {
-            updateCharacterCount();
-          });
-
+        // Call the function when the document is ready
+        document.addEventListener("DOMContentLoaded", () => {
+          updateCharacterCount();
+        });
+    
           // Display survey content on console
           console.log("Survey Title:", title);
           console.log("Survey Description:", description);
-
+  
           const W_surveyData = {
             topic_title: title,
             description: description,
             options: "",
             type: "text",
           };
-
+  
           console.log("Logindata:", W_surveyData);
-
+  
           fetch("https://study.veras.ca/surveynew.phps", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(W_surveyData),
-          })
-            .then((response) => {
-              if (response.ok) {
-                console.log("Response URL:", response.url);
-                console.log("Logindata:", response);
-                // Call showAlert with navigation to home
-                showAlert("SUCCESS: Redirecting to newsfeed...").
-                  then(() => {
-                    window.location.href = response.url;
-
-                  });
-
-              } else {
-                showAlert("FAILED-POST: HTTP error! status: " + response.status)
-                  .then(() => {
-                    window.location.reload();
-                  });
-              }
-            })
-            .catch((error) => {
-              showAlert("FAILED TO POST SURVEY: " + error.message)
-                .then(() => {
-                  console.log(error);
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(W_surveyData),
+        })
+          .then((response) => {
+            if (response.ok) {
+              console.log("Response URL:", response.url);
+              console.log("Logindata:", response);
+                      // Call showAlert with navigation to home
+              showAlert("SUCCESS: Redirecting to newsfeed...").
+                then(() => {
                   window.location.href = response.url;
-                  //window.location.reload();
+  
                 });
-            });
-
+  
+            } else {
+              showAlert("FAILED-POST: HTTP error! status: " + response.status)
+                .then(() => {
+                  window.location.reload();
+                });
+            }
+          })
+          .catch((error) => {
+            showAlert("FAILED TO POST SURVEY: " + error.message)
+              .then(() => {
+                console.log(error);
+                window.location.href = response.url;
+                //window.location.reload();
+              });
+          });  
+  
         });
 
 
-
+ 
       }
       handleWittenSurveyFormSubmission(true);
-      // Multiple Choice Survey form submission
 
+      // Multiple Choice Survey form submission
       function handleMultipleChoiceSurveyFormSubmission(input) {
         const submitButton = document.getElementById("submit-multiple-choice");
         const titleInput = document.getElementById("survey-title-mc");
         const descriptionInput = document.getElementById("survey-description-mc");
         const addOptionButton = document.getElementById("add-option");
-
-        const optionsDiv = document.getElementById("opt-space");
-        const addRemove = document.querySelector(".add-remove");
-        const globalRemoveButton = document.querySelector('.globalRemove');
-        
-        // Function to update the display state of optionsDiv
-        function updateOptionsDisplay() {
-            if (optionCount > 0) {
-                optionsDiv.style.display = "grid";
-                optionsDiv.style.height = "100% !important";
-                addRemove.style.borderRadius = "0px 0px 0px 0px";
-            } else {
-                optionsDiv.style.display = "none";
-                addRemove.style.borderRadius = "0px 0px 10px 10px";
-            }
-        }
-
-        
-        globalRemoveButton.addEventListener("click", () => {
-            if (optionsDiv.lastChild) {
-                optionsDiv.removeChild(optionsDiv.lastChild);
-                optionCount--;
-            }
-            updateOptionsDisplay();
-        });
-        
-        let optionCount = 0; // Initialize option count
-        
-        addOptionButton.addEventListener("click", () => {
-            const newOptionInput = document.createElement('div');
-            newOptionInput.classList.add('option');
-        
-            const newOptionTextInput = document.createElement('input');
-            newOptionTextInput.classList.add('option-input');
-            newOptionTextInput.type = 'text';
-            newOptionTextInput.placeholder = 'Option ' + (optionCount + 1);
-            newOptionTextInput.required = true;
-        
-            const removeOptionButton = document.createElement('button');
-            removeOptionButton.classList.add('remove-option');
-            removeOptionButton.innerText = '-';
-            removeOptionButton.onclick = () => {
-                // Remove the corresponding option when the button is clicked
-                optionsDiv.removeChild(newOptionInput);
-                optionCount--;
-                updateOptionsDisplay();
-            };
-        
-            newOptionInput.appendChild(newOptionTextInput);
-            newOptionInput.appendChild(removeOptionButton);
-        
-            optionsDiv.appendChild(newOptionInput);
-            optionCount++;
-        
-            updateOptionsDisplay();
-        });
-
-         // Initial state check
-         updateOptionsDisplay();
-        
+        const optionsDiv = document.getElementById("options");
+      
+        let optionCount = 1; // Initialize option count
+      
         submitButton.addEventListener("click", async (event) => {
           event.preventDefault();
-
+      
           const title = titleInput.value;
           const description = descriptionInput.value;
+      
+/*           // Collect option inputs
+          const optionInputs = document.querySelectorAll('.option-input');
+          const options = Array.from(optionInputs).map(input => input.value);
+
+          // Modify the options to be an array of strings
+          //const optionsArray = options.filter(option => option.trim() !== '');
+          // Collect option inputs
 
           // Modify the options to be a single string with commas
-          const optionsString = options.filter(option => option.trim() !== '').join(', ');
+          const optionsString = options.filter(option => option.trim() !== '').join(', '); */
           const optionInputs = document.querySelectorAll('.option-input');
           const options = Array.from(optionInputs).map(input => input.value);
 
@@ -559,7 +507,7 @@ document.addEventListener("DOMContentLoaded", () => {
             alert('Please fill in all fields and provide at least two options');
             return;
           }
-
+      
           const MC_surveyData = {
             topic_title: title,
             description: description,
@@ -569,254 +517,148 @@ document.addEventListener("DOMContentLoaded", () => {
           console.log("W_surveyData:", MC_surveyData);
 
           fetch("https://study.veras.ca/surveynew.phps", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(MC_surveyData),
-          })
-            .then((response) => {
-              if (response.ok) {
-                console.log("Response URL:", response.url);
-                console.log("Logindata:", MC_surveyData);
-                // Call showAlert with navigation to home
-                showAlert("SUCCESS: Redirecting to newsfeed...").
-                  then(() => {
-                    window.location.href = response.url;
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(MC_surveyData),
+      })
+        .then((response) => {
+          if (response.ok) {
+            console.log("Response URL:", response.url);
+            console.log("Logindata:", MC_surveyData);
+                    // Call showAlert with navigation to home
+            showAlert("SUCCESS: Redirecting to newsfeed...").
+              then(() => {
+                window.location.href = response.url;
 
-                  });
+              });
 
-              } else {
-                showAlert("FAILED-POST: HTTP error! status: " + response.status)
-                  .then(() => {
-                    window.location.reload();
-                  });
-              }
-            })
-            .catch((error) => {
-              showAlert("FAILED TO POST SURVEY: " + error.message)
-                .then(() => {
-                  console.log(error);
-                  window.location.href = response.url;
-                  //window.location.reload();
-                });
+          } else {
+            showAlert("FAILED-POST: HTTP error! status: " + response.status)
+              .then(() => {
+                window.location.reload();
+              });
+          }
+        })
+        .catch((error) => {
+          showAlert("FAILED TO POST SURVEY: " + error.message)
+            .then(() => {
+              console.log(error);
+              window.location.href = response.url;
+              //window.location.reload();
             });
+        }); 
 
+      
+
+      
           // Perform further processing or API call here
           // ...
-
+      
           alert('Multiple Choice Survey submitted successfully!');
         });
-
-     
+      
+        addOptionButton.addEventListener("click", () => {
+          const newOptionInput = document.createElement('div');
+          newOptionInput.classList.add('option');
+      
+          const newOptionTextInput = document.createElement('input');
+          newOptionTextInput.classList.add('option-input');
+          newOptionTextInput.type = 'text';
+          newOptionTextInput.placeholder = 'Option ' + (optionCount + 1);
+          newOptionTextInput.required = true;
+      
+          const removeOptionButton = document.createElement('button');
+          removeOptionButton.classList.add('remove-option');
+          removeOptionButton.innerText = '-';
+          removeOptionButton.onclick = () => {
+            // Remove the corresponding option when the button is clicked
+            optionsDiv.removeChild(newOptionInput);
+            optionCount--;
+          };
+      
+          newOptionInput.appendChild(newOptionTextInput);
+          newOptionInput.appendChild(removeOptionButton);
+      
+          optionsDiv.appendChild(newOptionInput);
+      
+          optionCount++;
+        });
       }
+      
       // Call the function when the logins page is loaded
       handleMultipleChoiceSurveyFormSubmission(true);
+      
 
 
 
+      const newsfeedButton = document.querySelector(".newsfeed-button");
+      newsfeedButton.addEventListener("click", function () {
+        window.location.reload();
+      });
 
       /////////////// main dashboard section ////////////////
-
       const newsfeedLeft = document.querySelector(".Newsfeed-Left");
       const quickSurvey = document.querySelector(".Quick-survey");
-      const feedBTN = document.getElementById("nFeed-lnk");
-      const createBTN = document.getElementById("Create-lnk");
-      const feedWRAP = document.querySelector(".feed-wrapper");
-      const dataGrid = document.querySelector("tbody");
+      const closedLeft = document.getElementById("closeNewsfeed");
+      const feedscrollHEAD = document.querySelector(".feed-scrollHead");
 
+      // functions to handle the click events
+      function handleNewsfeedLeftClick() {
+        newsfeedLeft.style.maxHeight = "100%";
+        quickSurvey.style.maxHeight = "60px";
+        closedLeft.style.padding = "16px 16px 16px 16px";
+      }
+      function handleQuickSurveyClick() {
+        quickSurvey.style.maxHeight = "100%";
+        newsfeedLeft.style.maxHeight = "34px";
 
-      let activeTab = "newsfeed"; // can be "newsfeed" or "quickSurvey"
-      function initialize() {
-        if (window.innerWidth > 1060) { // Desktop
-          newsfeedLeft.style.transition = "All .4s cubic-bezier(0,1.02,0,.93)";
-          quickSurvey.style.transition = "All .4s cubic-bezier(0,1.02,0,.93)";
+        newsfeedLeft.style.border =
+          "solid 0px var(--v-white-plane-clear) !important";
+        newsfeedLeft.style.borderBottom =
+          "solid 0px var(--v-white-plane-clear) !important";
 
-          if (activeTab === "quickSurvey") {
-            feedWRAP.style.gridTemplateColumns = "1.3fr 2fr";
-            dataGrid.style.gridTemplateColumns = "repeat(2, minmax(200px, 1fr))";
+        feedscrollHEAD.style.border =
+          " 0px solid var(--v-lavender-plane); !important";
+        feedscrollHEAD.style.borderBottom =
+          " 0px solid var(--v-lavender-plane); !important";
 
-            openVtabs(newsfeedLeft);
-            quickSurvey.style.display = "flex";
-            newsfeedLeft.style.display = "flex";
-            feedBTN.classList.remove('active');
-            createBTN.classList.add('active');
-          } else {
-            dataGrid.style.gridTemplateColumns = "repeat(3, minmax(200px, 1fr))";
-            feedWRAP.style.gridTemplateColumns = "1fr";
-            quickSurvey.style.display = "none";
-            newsfeedLeft.style.display = "flex";
-            feedBTN.classList.add('active');
-            createBTN.classList.remove('active');
-          }
-        } else { // Mobile/Tablet
-          newsfeedLeft.style.transition = "All .3s cubic-bezier(0,1.02,0,.93)";
-          quickSurvey.style.transition = "All .3s cubic-bezier(0,1.02,0,.93)";
-
-          if (activeTab === "quickSurvey") {
-            closeVtabs(newsfeedLeft);
-            openVtabs(quickSurvey);
-            feedBTN.classList.remove('active');
-            createBTN.classList.add('active');
-          } else {
-            dataGrid.style.gridTemplateColumns = "repeat(2, minmax(200px, 1fr))";
-            newsfeedLeft.style.display = "flex";
-            newsfeedLeft.style.maxHeight = "100%";
-            newsfeedLeft.style.opacity = "1";
-
-            quickSurvey.style.display = "none";
-            quickSurvey.style.maxHeight = "0%";
-            quickSurvey.style.opacity = "0";
-
-            feedBTN.classList.add('active');
-            createBTN.classList.remove('active');
-          }
-        }
-
-        if (quickSurvey.style.opacity === "1" && newsfeedLeft.style.opacity === "1") {
-          quickSurvey.style.transition = "none";
-          quickSurvey.style.height = "100%";
-        }
+        closedLeft.style.padding = "4px 0px 4px 16px";
       }
 
-
-      function handleFeedBTNClick() {
-        handleGchange(newsfeedLeft, "newsfeed");
-        
-        if (window.innerWidth > 1060) {
-          feedWRAP.style.gridTemplateColumns = "1fr";
-          handleGchange(newsfeedLeft);
-          dataGrid.style.gridTemplateColumns = "repeat(3, minmax(200px, 1fr))";
-       
-          quickSurvey.style.display = "none";
-          openVtabs(newsfeedLeft);
-          feedBTN.classList.add('active');
-          closeVtabs(quickSurvey);
-          createBTN.classList.remove('active');
-        } else {
-          dataGrid.style.gridTemplateColumns = "repeat(2, minmax(200px, 1fr))";
-          openVtabs(newsfeedLeft);
-          feedBTN.classList.add('active');
-          closeVtabs(quickSurvey);
-          createBTN.classList.remove('active');
-        }
-        activeTab = "newsfeed";
-
-      }
-      function handleCreateBTNClick() {
-        handleGchange(newsfeedLeft, "quickSurvey");
-     
-        if (window.innerWidth > 1060) {
-          feedWRAP.style.gridTemplateColumns = "1.3fr 2fr";
-     
-
-          dataGrid.style.gridTemplateColumns = "repeat(2, minmax(200px, 1fr))";
-          quickSurvey.style.display = "flex";
-
-          openVtabs(newsfeedLeft);
-          feedBTN.classList.remove('active');
-          openVtabs(quickSurvey);
-          createBTN.classList.add('active');
-        } else {
-          closeVtabs(newsfeedLeft);
-          feedBTN.classList.remove('active');
-          openVtabs(quickSurvey);
-          createBTN.classList.add('active');
-        }
-        activeTab = "quickSurvey";
-      }
-
-      ///// next task, fix mobile view height expand animationn when switching tabs, right now a glitch allows it to work only once, and that needs to be fixed ///////
-
-
+      // function to handle the change in media query
       function handleScreenChange() {
+        if (window.innerWidth >= 200 && window.innerWidth <= 1060) {
+          // tablet mode
+          newsfeedLeft.style.transition =
+            "max-height .5s cubic-bezier(0.4, 0, 0.2, 1)";
+          quickSurvey.style.transition =
+            "max-height .5s cubic-bezier(0.4, 0, 0.2, 1)";
 
-        keepOpen(newsfeedLeft);
-        keepOpen(quickSurvey);
-
-        initialize(); // Re-initialize on screen size change
-
-        newsfeedLeft.style.transition = "All .3s cubic-bezier(0,1.02,0,.93)";
-        quickSurvey.style.transition = "All .3s cubic-bezier(0,1.02,0,.93)";
-
-      }
-      function handleGchange(element, section) {
-        // If the clicked tab is already active, reload the page
-        if (activeTab === section) {
-            window.location.reload();
-            return; // Exit the function early
-        }
-        
-        // Continue with the width transition logic only if not on mobile or if the clicked tab isn't active
-        if (window.innerWidth > 1060) {
-            let currentWidth;
-            if (section === "quickSurvey") {
-                currentWidth = "120%";
-            } else if (section === "newsfeed") {
-                currentWidth = "84%";
-            }
-        
-            element.style.transition = "none";
-            element.style.width = currentWidth;
-        
-            element.offsetHeight;
-        
-            element.style.transition = "width .4s cubic-bezier(0,1.02,0,.93)";
-            setTimeout(() => {
-                element.style.width = "100%";
-            }, 10);
-        }
-      }
-    
-    
-      // Functions for smooth height transitions, from old logic
-      function openVtabs(element) {
-        element.style.display = "flex";
-        element.style.opacity = "1";
-        // Check if the height is already 100% and opacity is 1
-        if (element.style.maxHeight !== "100%" && element.style.opacity !== "1") {
-          element.style.maxHeight = "0px";  // Set to 0% to ensure transition starts from here
-          setTimeout(() => {
-            element.style.maxHeight = "100%";
-          }, 50);  // A short delay to ensure the transition starts from 0%
+          // add event listeners to the elements
+          newsfeedLeft.addEventListener("click", handleNewsfeedLeftClick);
+          quickSurvey.addEventListener("click", handleQuickSurveyClick);
         } else {
-          element.style.maxHeight = "100%";
+          // desktop mode
+          newsfeedLeft.style.transition =
+            "width .5s cubic-bezier(0.4, 0, 0.2, 1)";
+          quickSurvey.style.transition =
+            "width .5s cubic-bezier(0.4, 0, 0.2, 1)";
+
+          // set the heights to 100%
+          newsfeedLeft.style.maxHeight = "100%";
+          quickSurvey.style.maxHeight = "100%";
+
+          // remove event listeners from the elements
+          newsfeedLeft.removeEventListener("click", handleNewsfeedLeftClick);
+          quickSurvey.removeEventListener("click", handleQuickSurveyClick);
         }
       }
-      function closeVtabs(element) {
-        // Check if the height is already 0% and opacity is 0
-        if (element.style.maxHeight !== "0px" && element.style.opacity !== "0") {
-          element.style.maxHeight = "0px";
-          element.style.opacity = "0";
-          setTimeout(() => {
-            if (element.style.opacity === "0") {
-              element.style.display = "none";
-            }
-          }, 50); // Allow time for the opacity transition to complete
-        } else {
-          element.style.display = "none";
-        }
-      }
-      function keepOpen(element) {
-        element.style.transition = "none"; // Temporarily remove any transition
-        element.style.maxHeight = "100%";
-        element.style.opacity = "1";
-
-        setTimeout(() => {
-          element.style.transition = "maxHeight .3s cubic-bezier(0,1.02,0,.93), opacity .3s cubic-bezier(0,1.02,0,.93)"; // Reapply the transition effect
-        }, 50); // Allow time for the height to be set to auto
-
-      }
-
-
-      initialize();
-      feedBTN.addEventListener("click", handleFeedBTNClick);
-      createBTN.addEventListener("click", handleCreateBTNClick);
+      handleScreenChange();
       window.addEventListener("resize", handleScreenChange);
 
-
-
-      ///////////////switch tabs/////////////////
+      ///////////////
       document.getElementById("written-survey-tab").addEventListener(
         "click", function () {
           activateTab("written-survey");
@@ -827,8 +669,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       //////////////
 
-
-      // add focus to tab lnks //
       function activateTab(tabName) {
         // Hide all tab content
         var tabContents = document.getElementsByClassName("tab-content");
@@ -843,23 +683,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // Show the selected tab content and add the active class to the selected tab
-        document.getElementById(tabName + "-content").style.display = "flex";
+        document.getElementById(tabName + "-content").style.display = "block";
         document.getElementById(tabName + "-tab").classList.add("active");
-
       }
-      const tabs = document.querySelectorAll(".tab");
-      tabs.forEach((tab) => {
-        tab.addEventListener("click", function () {
-          // Remove the .focus class from all tabs
-          tabs.forEach((tab) => {
-            tab.classList.remove("focus");
-          });
-
-          // Add the .focus class to the clicked tab
-          this.classList.add("focus");
-        });
-      });
-
 
       /////////////// grab Data ////////////////
       function fetchAndDisplayTable() {
@@ -877,7 +703,7 @@ document.addEventListener("DOMContentLoaded", () => {
           })
 
             .then((response) => {
-
+  
               if (!response.ok) {
                 isLoadPageRunning = true;
                 loadLong();
@@ -900,7 +726,7 @@ document.addEventListener("DOMContentLoaded", () => {
                   $(this).parent().addClass('label-parent');
                 }
               });
-
+              
             })
 
             .catch((error) => {
@@ -912,14 +738,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }, 200);
       }
-      // fetchAndDisplayTable();
+      fetchAndDisplayTable();
+
+      
+      // $('td > label').each(function () {
+      //   if ($(this).text().trim() === "closed") {
+      //     $(this).parent().addClass('label-parent');
+      //   }
+      // });
+
+  
 
 
-      $('td > label').each(function () {
-        if ($(this).text().trim() === "closed") {
-          $(this).parent().addClass('label-parent');
-        }
-      });
+
+
 
     },
     validateForm: (loginNumber, password, confirmPassword, nickname) => {
@@ -1428,6 +1260,47 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     } else if (state.onboardingVisible) {
     } else if (state.insightsVisible || state.createVisible) {
+      let insightsNavLink = document
+        .querySelector(".insights-btn")
+        .closest(".nav-lnk");
+      let createNavLink = document
+        .querySelector(".create-btn")
+        .closest(".nav-lnk");
+      let insightsSpace = elements.surfaceView.querySelector(".insights-Space");
+      let createSpace = elements.surfaceView.querySelector(".create-Space");
+      let feedWrapper = elements.surfaceView.querySelector(".feed-wrapper");
+
+      if (state.insightsVisible) {
+        insightsNavLink.classList.add("btn-active");
+        createNavLink.classList.remove("btn-active");
+        if (!insightsSpace) {
+          loadPage(
+            "insights",
+            actions.showInsights,
+            actions.setInsightsContent
+          );
+        } else {
+          insightsSpace.style.display = "block";
+          if (createSpace) {
+            createSpace.style.display = "none";
+          }
+        }
+        feedWrapper.style.display = "none";
+      } else if (state.createVisible) {
+        createNavLink.classList.add("btn-active");
+        insightsNavLink.classList.remove("btn-active");
+        if (!createSpace) {
+          loadPage("create", actions.showCreate, actions.setCreateContent);
+        } else {
+          createSpace.style.display = "block";
+          if (insightsSpace) {
+            insightsSpace.style.display = "none";
+          }
+        }
+        feedWrapper.style.display = "none";
+      } else {
+        feedWrapper.style.display = "flex";
+      }
     }
   });
 

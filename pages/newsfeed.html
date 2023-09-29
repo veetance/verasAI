@@ -26,15 +26,212 @@
 
     <main class="feed-scroll">
       <div class="feed-wrapper ">
+
+        <article class="Newsfeed-Right Quick-survey">
+
+          <div class="create-header">
+            <div id="closeSurvey" class="v-form-header ">
+
+              <h1>Create a new Survey</h1>
+              <!-- <i id="v-form-close" class="material-symbols-outlined">circles_ext</i> -->
+              <i id="v-form-close" class="material-symbols-outlined">note_stack_add</i>
+              <!-- <i id="v-form-close" class="material-symbols-outlined">close</i> -->
+            </div>
+            <!-- 2 tabs toggle nav component -->
+            <div class="tabs">
+              <button class="tab" id="written-survey-tab"> <i class="material-symbols-outlined"> edit_note </i>
+                <p>Written Survey</p>
+              </button>
+              <button class="tab" id="multiple-choice-tab"><i class="material-symbols-outlined">
+                  format_list_bulleted</i>
+                <p>Multiple Choice</p>
+              </button>
+            </div>
+
+          </div>
+          <div class="tab-content" id="initial-content">
+
+            <img src="./img/arrow.svg" alt="" class="guide-arrow">
+            <h2>Select a survey mode</h2>
+            <P>tap Written Survey <br>or select Multiple Choice</P>
+
+          </div>
+
+
+          <div class="tab-content" id="written-survey-content">
+            <!-- Written survey content goes here -->
+            <form id="written-survey-form" class="survey-form">
+
+              <section class="opt-scroll">
+                <div class="surv-top">
+
+                  <section class="Titl inpt">
+                    <label for="survey-title-mc">Title</label>
+                    <input type="text" id="survey-title-mc" name="survey-title-mc" placeholder="Enter your survey title"
+                      class="survey-input create-input" required>
+                  </section>
+  
+                  <section class="descript inpt ">
+                    <label for="survey-description-mc">Description</label>
+                    <textarea id="survey-description-mc" name="survey-description-mc"
+                      placeholder="Enter a description for your survey" class="survey-input" rows="4" required></textarea>
+                  </section>
+  
+  
+                  <!-- Character limit selection -->
+  
+                  <div class="char-lmt-wrap inpt">
+  
+                    <label for="char-limit">Character Limit:</label>
+                    <section id="char-limit-section">
+                    
+                      <span>
+                        <div class="radioo">
+                    
+                          <input type="radio" name="char-limit" value="100" checked>
+                    
+                        </div>
+                        <p>100</p>
+                    
+                    
+                      </span>
+                    
+                      <span>
+                    
+                        <div class="radioo">
+                    
+                          <input type="radio" name="char-limit" value="300">                
+                    
+                        </div>
+                        <p>300</p>
+                    
+                      </span>
+                    
+                      <span>
+                    
+                        <div class="radioo">
+                    
+                          <input type="radio" name="char-limit" value="500">                  
+                    
+                        </div>
+                        <p>500</p>
+                    
+                    
+                      </span>
+                    
+                      <span>
+                        <div class="radioo">
+                    
+                          <input type="radio" name="char-limit" value="1000">                  
+                    
+                        </div>
+                        <p>1000</p>
+                    
+                    
+                      </span>
+                    
+                    </section>
+  
+                  </div>
+  
+  
+  
+                </div>
+              </section>  
+        
+
+              <div class="surv-dwn">
+
+                <button type="submit" id="submit-written-survey" class="v-button-filled submit-survey">
+                  <p>Create Survey</p>
+                  <i class="material-symbols-outlined">Stylus</i>
+                </button>
+
+              </div>
+
+            </form>
+
+          </div>
+
+          <div class="tab-content" id="multiple-choice-content">
+            <!-- Multiple choice content goes here -->
+            <div class="survey-form">
+
+           
+
+              <section class="opt-scroll">
+
+                <div class="surv-top">
+
+                  <section class="Titl inpt">
+                    <label for="survey-title-mc">Title</label>
+                    <input type="text" id="survey-title-mc" name="survey-title-mc" placeholder="Enter your survey title"
+                      class="survey-input create-input" required>
+                  </section>
+  
+                  <section class="descript inpt">
+                    <label for="survey-description-mc">Description</label>
+                    <textarea id="survey-description-mc" name="survey-description-mc"
+                      placeholder="Enter a description for your survey" class="survey-input" rows="4" required></textarea>
+                  </section>
+  
+  
+                  <div class="options inpt" id="options">
+  
+                    <label for="survey-title-mc" class="opt-title">Options</label>
+  
+                    <div class="add-remove">
+  
+                      <button class="add-option " id="add-option" onclick="addOption(this)">
+                        <p>Add</p><i class="material-symbols-outlined"> add</i>
+                      </button>
+                      <button class="remove-option globalRemove">
+                        <p>Remove</p><i class="material-symbols-outlined"> remove </i>
+                      </button>
+  
+                    </div>
+  
+           
+  
+  
+                      <section id="opt-space">
+                      </section>
+  
+              
+  
+  
+                  </div>
+  
+                </div>
+
+              </section>
+
+              <div class="surv-dwn">
+
+                <button type="submit" id="submit-multiple-choice" class="v-button-filled submit-survey">
+                  <p>Create Survey</p>
+                  <i class="material-symbols-outlined">Stylus</i>
+                </button>
+
+              </div>
+
+
+            </div>
+
+          </div>
+
+        </article>
+
         <article class="Newsfeed-Left Newsfeed">
           <div class="feed-scrollHead">
             <div id="closeNewsfeed" class="v-form-header">
-              <h1>All Surveys</h1>
+              <h1>Newsfeed</h1>
+              <i id="v-form-close" class="material-symbols-outlined">newsmode</i>
               <!-- <i id="v-form-close" class="material-symbols-outlined">close</i> -->
             </div>
           </div>
           <section id="data-surface">
-            <!-- <table style="width: 100%;">
+            <table style="width: 100%;">
               <tbody>
                 <tr>
                   <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
@@ -71,42 +268,190 @@
                   </td>
                   <td><label>closed</label></td>
                 </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>Post 05292023</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>06012023 test</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>06242023</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user2</label>
+                    <p>test title2</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>Survey 05292023</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>Post 05292023</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>06012023 test</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>06242023</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>Post 05292023</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>06012023 test</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>06242023</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>06242023</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>06242023</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>06242023</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>06242023</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>06242023</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>06242023</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>06242023</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>06242023</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>06242023</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>06242023</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>06242023</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>06242023</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>06242023</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
+                    10px;="" background-color:="" transparent;><label>test_user4</label>
+                    <p>06242023</p>
+                  </td>
+                  <td><label>closed</label></td>
+                </tr>
+
+
               </tbody>
-            </table> -->
+            </table>
+
           </section>
 
         </article>
-        <article class="Newsfeed-Right Quick-survey">
-          <div id="closeSurvey" class="v-form-header ">
 
-            <h1>Create a quick survey</h1>
-            <i id="v-form-close" class="material-symbols-outlined">circles_ext</i>
-          </div>
-
-          <!-- 2 tabs toggle nav component -->
-          <div class="tabs">
-            <button class="tab" id="written-survey-tab"> <i class="material-symbols-outlined"> edit_note </i>
-              <p>Written Survey</p>
-            </button>
-            <button class="tab" id="multiple-choice-tab"><i class="material-symbols-outlined"> format_list_bulleted</i>
-              <p>Multiple Choice</p>
-            </button>
-          </div>
-          <div class="tab-content" id="initial-content">
-
-            <img src="./img/arrow.svg" alt="" class="guide-arrow">
-            <h2>Select a survey mode</h2>
-            <P>tap written response or select <br>multiple Choice</P>
-
-          </div>
-          <div class="tab-content" id="written-survey-content">
-            <!-- Written survey content goes here -->
-          </div>
-          <div class="tab-content" id="multiple-choice-content">
-            <!-- Multiple choice content goes here -->
-          </div>
-
-        </article>
       </div>
     </main>
 
@@ -128,16 +473,16 @@
                         <a href="#" class="home"><i class="material-icons">home</i><span id="home-text">Home</span></a>
                      </div> -->
 
-              <div class="nav-lnk">
+              <div class="nav-lnk" id="nFeed-lnk">
                 <div class="lnk-ico">
                   <div class="insights-btn">
                     <i class="material-icons">analytics</i>
-                    <span id="insights-text">Insights</span>
+                    <span id="insights-text">Feed</span>
                   </div>
                 </div>
               </div>
 
-              <div class="nav-lnk">
+              <div class="nav-lnk" id="Create-lnk">
                 <div class="lnk-ico">
                   <div class="create-btn">
                     <i class="material-icons">add_circle</i><span id="create-text">Create</span>
