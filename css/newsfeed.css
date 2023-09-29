@@ -391,9 +391,11 @@ padding: 4px;
   display: none;
   width: 100%;
   height: 100%;
-  padding: 10px;
+  padding: 0px;
   border-top: 0px solid #ff0000;
   gap: 12px;
+
+  overflow: hidden;
 }
 
 .tab-content h2{
@@ -469,14 +471,13 @@ td {
 
 .label-parent label {
   display: flex;
-  background-color: rgba(255, 238, 224, 0.562); 
+  background-color: rgba(255, 238, 224, 0.562);
   padding: 6px 12px !important;
   border-radius: 5px;
-  color: #e26a08; 
-  border: solid .5px #e26a081a;
+  color: #da792b;
+  border: solid .5px #ffd7b69d;
   font-size: 13.5px !important;
   font-weight: 700;
-
 }
 
 
@@ -492,18 +493,20 @@ label {
 tr{
 
 display: flex;
+
 flex-direction: row;
+
 cursor: pointer;
 
 height: clamp(100%, 100%, 100%);
 
-border: solid 1px var(--v-lavender-plane);
-background-color: #ffffff3a;
+border: solid 1px #e0dbff;
+
+background-color: #ffffff1f;
+
 border-radius: 10px;
 
 padding-bottom: clamp(0%,3vw,100px);
-
-
 }
 
 tr:hover{
@@ -749,7 +752,7 @@ table p {
   font-size: 36px;
   display: flex;
   opacity: 0.8;
-  color: #5e4eaf;
+  color: #5b4ea7;
   justify-content: center;
   width: auto;
 }
@@ -1112,15 +1115,11 @@ table p {
 }
 
 #submit-written-survey {
-  background-color: #a496ff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  display: block; /* Ensures the submit button is on a new line */
+  display:flex; /* Ensures the submit button is on a new line */
   width: 100%; /* Takes full width of the container */
 }
 
@@ -1145,15 +1144,24 @@ table p {
   flex-direction: column;
   height: 100%;
   width: 100%;
-  gap: 10px;
+  overflow: hidden !important;
 } 
 
 .surv-top {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  overflow: hidden;
+
+  height: auto;
+  width: 100%;
   gap: 10px;
+  padding: 10px;
+  }
+
+  .surv-dwn{
+    display: flex;
+    height: fit-content;
+    padding: 10px;
+    background-color: #edeaff;
   }
 
   .survey-form label {
@@ -1172,26 +1180,89 @@ table p {
 
   #opt-space{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Use auto-fit to create as many columns as possible with a minimum width of 200px */
+    grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); /* Use auto-fit to create as many columns as possible with a minimum width of 200px */
     grid-auto-rows: 40px; /* Set the height of each row to 50px */
     grid-gap: 10px; /* Add a gap between grid items */
-    width: 100%;
-    height: auto;
     grid-auto-flow: dense; /* Specify that grid items should be placed in dense packing order */
     width: 100%;
     height: 100%;
     padding: 10px;
     border: 1px solid #ebe8ff;
     border-top: 0px;
-    border-radius: 0px 0px clamp(10px, 0.725vw, 12px) clamp(10px, 0.725vw, 12px) ;
+    border-radius: 0px 0px 10px 10px;
+    background-color: #2a665500 !important;
+    margin-bottom: 10px;
+    overflow: hidden;
   }
+
+  #char-limit-section{
+    display: flex;
+    justify-content: space-evenly;
+
+    background-color: #f6f5ff;
+    border: 1px solid #ebe8ff;
+    border-radius: 0px 0px 6px 6px;
+    height: auto;
+    max-height: 54px !important;
+
+    gap: 5px;
+    padding: 5px;
+  }
+
+  .char-lmt-wrap{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
+
+  #char-limit-section span{
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 0px;
+    width: 100%;
+    border: 1px solid #ebe8ff;
+    border-radius: 3px;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .radioo{
+    display: flex;
+    height: 100%;
+    width: auto;
+    aspect-ratio: 1/1;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #char-limit-section input{
+    display: flex;
+    margin: 0px !important;
+    height: 24px;
+    aspect-ratio: 1/1;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  #char-limit-section span p{
+    display: flex;
+    color: #5c537b !important;
+    font-family: 'mulish',sans-serif;
+    font-weight: 600 !important;
+    width: 100%;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+    border-right: solid 1px #ebe8ff;
+  }
+
+
 
   .opt-scroll{
     display: flex;
     height: 100%;
-    overflow: overlay!important;
-    overflow: hidden;
-    overflow-y: scroll;
+    overflow: overlay;
   }
 
 
@@ -1263,8 +1334,8 @@ padding: 0px 8px;
   width: 100%;
   max-width: 100%;
   min-width: 100%;
-  min-height: 40px;
-  max-height: 120px;
+  min-height: 42px;
+  max-height: 80px;
 
   padding: 10px;
   border: 1px solid #ebe8ff ;
@@ -1299,7 +1370,7 @@ padding: 0px 8px;
 
 .inpt input,textarea,#opt-space{
 
-background-color: #f6f5ff;
+background-color: #faf8ffd5;
 }
 
 .inpt input:hover,textarea:hover {
@@ -1310,11 +1381,11 @@ background-color: #f6f5ff;
 
 .options{
   display: flex;
-  height: 100%;
-  width: auto;
+  height: auto;
+  width: 100%;
   /* border: solid 1px; */
   flex-direction: column;
-  overflow: hidden !important;
+
 }
 
 .option-input {
@@ -1332,7 +1403,7 @@ background-color: #f6f5ff;
   display: flex;
   width: 100%;
   padding: 5px !important;
-  border: 1px solid  #ebe8ff;
+  border: 2px solid  #ebe8ff;
   background-color: transparent;
   cursor: pointer;
   transition: color 0.3s ease;
@@ -1343,12 +1414,14 @@ background-color: #f6f5ff;
 .add-option:hover,
 .remove-option:hover {
   color: #7e6cdf;
-  border: solid 1px #a7a0d1;
+  border: solid 2px #a8a0d1c2;
+  background-color: #faf8ffd5;
 }
 
 .submit-survey {
 width: 100% !important;
 min-width: 100% !important;
+border-radius: 10px !important;
 
   cursor: pointer;
 }

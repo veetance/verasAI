@@ -8,7 +8,7 @@ html {
   padding         : 0px !important;
   /* background-color: var(--v-white-plane); */
   font-family     : "Mulish", sans-serif;
-  scroll-behavior : smooth;
+  scroll-behavior : smooth !important;
 }
 
 html {
@@ -712,7 +712,7 @@ border-radius   : 6px;
   max-width       : calc(100% / 2);
   min-width       : fit-content;
   width           : 200px;
-  height          : auto;
+  height          : fit-content;
   background-color: #5e50b2;
   border-radius   : clamp(10px, 0.725vw, 12px);
   border          : solid 1px var(--f7-theme-color);

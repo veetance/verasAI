@@ -317,7 +317,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const navLink = document.querySelector("#hamBurg");
       const settingsModal = document.querySelector(".settings-modal");
       const modal = document.querySelector(".collapsable-comp");
-
       // Attach listeners
       if (navLink && settingsModal) {
         navLink.addEventListener("click", () => {
@@ -346,7 +345,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       //////////////// logout-logic ////////////////
       const LogOutButton = document.querySelector(".logout-button");
-
       LogOutButton.addEventListener("click", function () {
         showAlertFade("You are about to be logged out.");
 
@@ -362,6 +360,12 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error("Error during logout:", error);
           });
       });
+
+      const newsfeedButton = document.querySelector(".newsfeed-button");
+      newsfeedButton.addEventListener("click", function () {
+        window.location.reload();
+      });
+
 
 
       // Written Survey form submission
@@ -463,17 +467,73 @@ document.addEventListener("DOMContentLoaded", () => {
 
       }
       handleWittenSurveyFormSubmission(true);
-
       // Multiple Choice Survey form submission
+
       function handleMultipleChoiceSurveyFormSubmission(input) {
         const submitButton = document.getElementById("submit-multiple-choice");
         const titleInput = document.getElementById("survey-title-mc");
         const descriptionInput = document.getElementById("survey-description-mc");
         const addOptionButton = document.getElementById("add-option");
+
         const optionsDiv = document.getElementById("opt-space");
+        const addRemove = document.querySelector(".add-remove");
+        const globalRemoveButton = document.querySelector('.globalRemove');
+        
+        // Function to update the display state of optionsDiv
+        function updateOptionsDisplay() {
+            if (optionCount > 0) {
+                optionsDiv.style.display = "grid";
+                optionsDiv.style.height = "100% !important";
+                addRemove.style.borderRadius = "0px 0px 0px 0px";
+            } else {
+                optionsDiv.style.display = "none";
+                addRemove.style.borderRadius = "0px 0px 10px 10px";
+            }
+        }
 
+        
+        globalRemoveButton.addEventListener("click", () => {
+            if (optionsDiv.lastChild) {
+                optionsDiv.removeChild(optionsDiv.lastChild);
+                optionCount--;
+            }
+            updateOptionsDisplay();
+        });
+        
         let optionCount = 0; // Initialize option count
+        
+        addOptionButton.addEventListener("click", () => {
+            const newOptionInput = document.createElement('div');
+            newOptionInput.classList.add('option');
+        
+            const newOptionTextInput = document.createElement('input');
+            newOptionTextInput.classList.add('option-input');
+            newOptionTextInput.type = 'text';
+            newOptionTextInput.placeholder = 'Option ' + (optionCount + 1);
+            newOptionTextInput.required = true;
+        
+            const removeOptionButton = document.createElement('button');
+            removeOptionButton.classList.add('remove-option');
+            removeOptionButton.innerText = '-';
+            removeOptionButton.onclick = () => {
+                // Remove the corresponding option when the button is clicked
+                optionsDiv.removeChild(newOptionInput);
+                optionCount--;
+                updateOptionsDisplay();
+            };
+        
+            newOptionInput.appendChild(newOptionTextInput);
+            newOptionInput.appendChild(removeOptionButton);
+        
+            optionsDiv.appendChild(newOptionInput);
+            optionCount++;
+        
+            updateOptionsDisplay();
+        });
 
+         // Initial state check
+         updateOptionsDisplay();
+        
         submitButton.addEventListener("click", async (event) => {
           event.preventDefault();
 
@@ -542,217 +602,221 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             });
 
-
-
-
           // Perform further processing or API call here
           // ...
 
           alert('Multiple Choice Survey submitted successfully!');
         });
 
-        addOptionButton.addEventListener("click", () => {
-          const newOptionInput = document.createElement('div');
-          newOptionInput.classList.add('option');
-
-          const newOptionTextInput = document.createElement('input');
-          newOptionTextInput.classList.add('option-input');
-          newOptionTextInput.type = 'text';
-          newOptionTextInput.placeholder = 'Option ' + (optionCount + 1);
-          newOptionTextInput.required = true;
-
-          const removeOptionButton = document.createElement('button');
-          removeOptionButton.classList.add('remove-option');
-          removeOptionButton.innerText = '-';
-          removeOptionButton.onclick = () => {
-            // Remove the corresponding option when the button is clicked
-            optionsDiv.removeChild(newOptionInput);
-            optionCount--;
-          };
-
-          newOptionInput.appendChild(newOptionTextInput);
-          newOptionInput.appendChild(removeOptionButton);
-
-          optionsDiv.appendChild(newOptionInput);
-
-          optionCount++;
-        });
+     
       }
-
       // Call the function when the logins page is loaded
       handleMultipleChoiceSurveyFormSubmission(true);
 
 
 
 
-      const newsfeedButton = document.querySelector(".newsfeed-button");
-      newsfeedButton.addEventListener("click", function () {
-        window.location.reload();
-      });
-
-
-
       /////////////// main dashboard section ////////////////
 
       const newsfeedLeft = document.querySelector(".Newsfeed-Left");
-const quickSurvey = document.querySelector(".Quick-survey");
-const feedBTN = document.getElementById("nFeed-lnk");
-const createBTN = document.getElementById("Create-lnk");
-const feedWRAP = document.querySelector(".feed-wrapper");
-const dataGrid = document.querySelector("tbody");
+      const quickSurvey = document.querySelector(".Quick-survey");
+      const feedBTN = document.getElementById("nFeed-lnk");
+      const createBTN = document.getElementById("Create-lnk");
+      const feedWRAP = document.querySelector(".feed-wrapper");
+      const dataGrid = document.querySelector("tbody");
 
 
+      let activeTab = "newsfeed"; // can be "newsfeed" or "quickSurvey"
+      function initialize() {
+        if (window.innerWidth > 1060) { // Desktop
+          newsfeedLeft.style.transition = "All .4s cubic-bezier(0,1.02,0,.93)";
+          quickSurvey.style.transition = "All .4s cubic-bezier(0,1.02,0,.93)";
+
+          if (activeTab === "quickSurvey") {
+            feedWRAP.style.gridTemplateColumns = "1.3fr 2fr";
+            dataGrid.style.gridTemplateColumns = "repeat(2, minmax(200px, 1fr))";
+
+            openVtabs(newsfeedLeft);
+            quickSurvey.style.display = "flex";
+            newsfeedLeft.style.display = "flex";
+            feedBTN.classList.remove('active');
+            createBTN.classList.add('active');
+          } else {
+            dataGrid.style.gridTemplateColumns = "repeat(3, minmax(200px, 1fr))";
+            feedWRAP.style.gridTemplateColumns = "1fr";
+            quickSurvey.style.display = "none";
+            newsfeedLeft.style.display = "flex";
+            feedBTN.classList.add('active');
+            createBTN.classList.remove('active');
+          }
+        } else { // Mobile/Tablet
+          newsfeedLeft.style.transition = "All .3s cubic-bezier(0,1.02,0,.93)";
+          quickSurvey.style.transition = "All .3s cubic-bezier(0,1.02,0,.93)";
+
+          if (activeTab === "quickSurvey") {
+            closeVtabs(newsfeedLeft);
+            openVtabs(quickSurvey);
+            feedBTN.classList.remove('active');
+            createBTN.classList.add('active');
+          } else {
+            dataGrid.style.gridTemplateColumns = "repeat(2, minmax(200px, 1fr))";
+            newsfeedLeft.style.display = "flex";
+            newsfeedLeft.style.maxHeight = "100%";
+            newsfeedLeft.style.opacity = "1";
+
+            quickSurvey.style.display = "none";
+            quickSurvey.style.maxHeight = "0%";
+            quickSurvey.style.opacity = "0";
+
+            feedBTN.classList.add('active');
+            createBTN.classList.remove('active');
+          }
+        }
+
+        if (quickSurvey.style.opacity === "1" && newsfeedLeft.style.opacity === "1") {
+          quickSurvey.style.transition = "none";
+          quickSurvey.style.height = "100%";
+        }
+      }
 
 
-function initialize() {
-  if (window.innerWidth > 1060) { // Desktop
-      newsfeedLeft.style.transition = "All .4s cubic-bezier(0,1.02,0,.93)";
-      quickSurvey.style.transition = "All .4s cubic-bezier(0,1.02,0,.93)";
+      function handleFeedBTNClick() {
+        handleGchange(newsfeedLeft, "newsfeed");
+        
+        if (window.innerWidth > 1060) {
+          feedWRAP.style.gridTemplateColumns = "1fr";
+          handleGchange(newsfeedLeft);
+          dataGrid.style.gridTemplateColumns = "repeat(3, minmax(200px, 1fr))";
+       
+          quickSurvey.style.display = "none";
+          openVtabs(newsfeedLeft);
+          feedBTN.classList.add('active');
+          closeVtabs(quickSurvey);
+          createBTN.classList.remove('active');
+        } else {
+          dataGrid.style.gridTemplateColumns = "repeat(2, minmax(200px, 1fr))";
+          openVtabs(newsfeedLeft);
+          feedBTN.classList.add('active');
+          closeVtabs(quickSurvey);
+          createBTN.classList.remove('active');
+        }
+        activeTab = "newsfeed";
 
-
-      if (quickSurvey.style.opacity === "1") { // If quickSurvey was active
+      }
+      function handleCreateBTNClick() {
+        handleGchange(newsfeedLeft, "quickSurvey");
+     
+        if (window.innerWidth > 1060) {
           feedWRAP.style.gridTemplateColumns = "1.3fr 2fr";
-          dataGrid.style.gridTemplateColumns = "repeat(2, minmax(200px, 1fr))"; 
+     
+
+          dataGrid.style.gridTemplateColumns = "repeat(2, minmax(200px, 1fr))";
+          quickSurvey.style.display = "flex";
 
           openVtabs(newsfeedLeft);
-          quickSurvey.style.display = "flex";
-          newsfeedLeft.style.display = "flex";
           feedBTN.classList.remove('active');
-          createBTN.classList.add('active');
-      } else {
-          dataGrid.style.gridTemplateColumns = "repeat(3, minmax(200px, 1fr))"; 
-          feedWRAP.style.gridTemplateColumns = "1fr";
-          quickSurvey.style.display = "none";
-          newsfeedLeft.style.display = "flex";
-          feedBTN.classList.add('active');
-          createBTN.classList.remove('active');
-      }
-  } else { // Mobile/Tablet
-      newsfeedLeft.style.transition = "All .3s cubic-bezier(0,1.02,0,.93)";
-      quickSurvey.style.transition = "All .3s cubic-bezier(0,1.02,0,.93)";
-
-      if (quickSurvey.style.opacity === "1") { // If quickSurvey was active in desktop
-          closeVtabs(newsfeedLeft);
           openVtabs(quickSurvey);
-          feedBTN.classList.remove('active');
           createBTN.classList.add('active');
-      } else {
-          dataGrid.style.gridTemplateColumns = "repeat(2, minmax(200px, 1fr))";
-          newsfeedLeft.style.display = "flex";
-          newsfeedLeft.style.maxHeight = "100%";
-          newsfeedLeft.style.opacity = "1";
-
-          quickSurvey.style.display = "none";
-          quickSurvey.style.maxHeight = "0%";
-          quickSurvey.style.opacity = "0";
-
-          feedBTN.classList.add('active');
-          createBTN.classList.remove('active');
-      }
-  }
-}
-
-function handleGchange(element, section) {
-  // Step 1: Get the current width based on the section
-  let currentWidth = section === "quickSurvey" ? "120%" : "84%";
-
-  // Step 2: Temporarily disable transitions
-  element.style.transition = "none";
-
-  // Step 3: Set the width to its current width
-  element.style.width = currentWidth;
-
-  // Force a reflow, this ensures the next changes are recognized as transitions
-  element.offsetHeight;
-
-  // Step 4: Re-enable the transition for the width property
-  element.style.transition = "width .4s cubic-bezier(0,1.02,0,.93)";
-
-  // Step 5: After a delay, set the width back to "auto" (or "100%" if that's more appropriate)
-  setTimeout(() => {
-      element.style.width = "100%"; 
-  }, 10);
-}
-
-
-
-
-function handleFeedBTNClick() {
-    if (window.innerWidth > 1060) { // Desktop
-        feedWRAP.style.gridTemplateColumns = "1fr";
-        handleGchange(newsfeedLeft); // Add this line
-        dataGrid.style.gridTemplateColumns = "repeat(3, minmax(200px, 1fr))"; 
-        quickSurvey.style.display = "none";
-
-        openVtabs(newsfeedLeft);  // Use openVtabs function from old logic
-        feedBTN.classList.add('active');
-        closeVtabs(quickSurvey);  // Use closeVtabs function from old logic
-        createBTN.classList.remove('active');
-
-    } else { // Mobile/Tablet
-      dataGrid.style.gridTemplateColumns = "repeat(2, minmax(200px, 1fr))"; 
-        openVtabs(newsfeedLeft);  // Use openVtabs function from old logic
-        feedBTN.classList.add('active');
-        closeVtabs(quickSurvey);  // Use closeVtabs function from old logic
-        createBTN.classList.remove('active');
-    }
-}
-
-function handleCreateBTNClick() {
-    if (window.innerWidth > 1060) { // Desktop
-        feedWRAP.style.gridTemplateColumns = "1.3fr 2fr";
-        handleGchange(newsfeedLeft, "quickSurvey");
-       
-        dataGrid.style.gridTemplateColumns = "repeat(2, minmax(200px, 1fr))"; 
-        quickSurvey.style.display = "flex";
-
-        
-        openVtabs(newsfeedLeft);  // Use closeVtabs function from old logic
-        feedBTN.classList.remove('active');
-        openVtabs(quickSurvey);    // Use openVtabs function from old logic
-        createBTN.classList.add('active');
-
-    } else { // Mobile/Tablet
-        closeVtabs(newsfeedLeft);  // Use closeVtabs function from old logic
-        feedBTN.classList.remove('active');
-        openVtabs(quickSurvey);    // Use openVtabs function from old logic
-        createBTN.classList.add('active');
-    }
-}
-
-function handleScreenChange() {
-    initialize(); // Re-initialize on screen size change
-    newsfeedLeft.style.transition = "All .3s cubic-bezier(0,1.02,0,.93)";
-    quickSurvey.style.transition = "All .3s cubic-bezier(0,1.02,0,.93)";
-}
-
-// Functions for smooth height transitions, from old logic
-function openVtabs(element) {
-    element.style.display = "flex";
-    element.style.opacity = "1";
-    element.style.maxHeight = "0px";  // Set to 0% to ensure transition starts from here
-    setTimeout(() => {
-        element.style.maxHeight = "100%";
-    }, 0);  // A short delay to ensure the transition starts from 0%
-}
-
-function closeVtabs(element) {
-    element.style.maxHeight = "0px";
-    element.style.opacity = "0";
-    setTimeout(() => {
-        if (element.style.opacity === "0") {
-            element.style.display = "none";
+        } else {
+          closeVtabs(newsfeedLeft);
+          feedBTN.classList.remove('active');
+          openVtabs(quickSurvey);
+          createBTN.classList.add('active');
         }
-    }, 0); // Allow time for the opacity transition to complete
-}
+        activeTab = "quickSurvey";
+      }
 
-initialize();
-feedBTN.addEventListener("click", handleFeedBTNClick);
-createBTN.addEventListener("click", handleCreateBTNClick);
-window.addEventListener("resize", handleScreenChange);
+      ///// next task, fix mobile view height expand animationn when switching tabs, right now a glitch allows it to work only once, and that needs to be fixed ///////
 
 
-      ///////////////
+      function handleScreenChange() {
+
+        keepOpen(newsfeedLeft);
+        keepOpen(quickSurvey);
+
+        initialize(); // Re-initialize on screen size change
+
+        newsfeedLeft.style.transition = "All .3s cubic-bezier(0,1.02,0,.93)";
+        quickSurvey.style.transition = "All .3s cubic-bezier(0,1.02,0,.93)";
+
+      }
+      function handleGchange(element, section) {
+        // If the clicked tab is already active, reload the page
+        if (activeTab === section) {
+            window.location.reload();
+            return; // Exit the function early
+        }
+        
+        // Continue with the width transition logic only if not on mobile or if the clicked tab isn't active
+        if (window.innerWidth > 1060) {
+            let currentWidth;
+            if (section === "quickSurvey") {
+                currentWidth = "120%";
+            } else if (section === "newsfeed") {
+                currentWidth = "84%";
+            }
+        
+            element.style.transition = "none";
+            element.style.width = currentWidth;
+        
+            element.offsetHeight;
+        
+            element.style.transition = "width .4s cubic-bezier(0,1.02,0,.93)";
+            setTimeout(() => {
+                element.style.width = "100%";
+            }, 10);
+        }
+      }
+    
+    
+      // Functions for smooth height transitions, from old logic
+      function openVtabs(element) {
+        element.style.display = "flex";
+        element.style.opacity = "1";
+        // Check if the height is already 100% and opacity is 1
+        if (element.style.maxHeight !== "100%" && element.style.opacity !== "1") {
+          element.style.maxHeight = "0px";  // Set to 0% to ensure transition starts from here
+          setTimeout(() => {
+            element.style.maxHeight = "100%";
+          }, 50);  // A short delay to ensure the transition starts from 0%
+        } else {
+          element.style.maxHeight = "100%";
+        }
+      }
+      function closeVtabs(element) {
+        // Check if the height is already 0% and opacity is 0
+        if (element.style.maxHeight !== "0px" && element.style.opacity !== "0") {
+          element.style.maxHeight = "0px";
+          element.style.opacity = "0";
+          setTimeout(() => {
+            if (element.style.opacity === "0") {
+              element.style.display = "none";
+            }
+          }, 50); // Allow time for the opacity transition to complete
+        } else {
+          element.style.display = "none";
+        }
+      }
+      function keepOpen(element) {
+        element.style.transition = "none"; // Temporarily remove any transition
+        element.style.maxHeight = "100%";
+        element.style.opacity = "1";
+
+        setTimeout(() => {
+          element.style.transition = "maxHeight .3s cubic-bezier(0,1.02,0,.93), opacity .3s cubic-bezier(0,1.02,0,.93)"; // Reapply the transition effect
+        }, 50); // Allow time for the height to be set to auto
+
+      }
+
+
+      initialize();
+      feedBTN.addEventListener("click", handleFeedBTNClick);
+      createBTN.addEventListener("click", handleCreateBTNClick);
+      window.addEventListener("resize", handleScreenChange);
+
+
+
+      ///////////////switch tabs/////////////////
       document.getElementById("written-survey-tab").addEventListener(
         "click", function () {
           activateTab("written-survey");
@@ -763,6 +827,8 @@ window.addEventListener("resize", handleScreenChange);
         });
       //////////////
 
+
+      // add focus to tab lnks //
       function activateTab(tabName) {
         // Hide all tab content
         var tabContents = document.getElementsByClassName("tab-content");
@@ -781,7 +847,6 @@ window.addEventListener("resize", handleScreenChange);
         document.getElementById(tabName + "-tab").classList.add("active");
 
       }
-
       const tabs = document.querySelectorAll(".tab");
       tabs.forEach((tab) => {
         tab.addEventListener("click", function () {
@@ -794,6 +859,7 @@ window.addEventListener("resize", handleScreenChange);
           this.classList.add("focus");
         });
       });
+
 
       /////////////// grab Data ////////////////
       function fetchAndDisplayTable() {
