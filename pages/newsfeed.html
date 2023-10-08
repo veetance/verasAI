@@ -32,9 +32,9 @@
           <div class="create-header">
             <div id="closeSurvey" class="v-form-header ">
 
-              <h1>Create a new Survey</h1>
+              <h1>New Survey</h1>
               <!-- <i id="v-form-close" class="material-symbols-outlined">circles_ext</i> -->
-              <i id="v-form-close" class="material-symbols-outlined">note_stack_add</i>
+              <i id="v-form-close" class="material-symbols-outlined">add_circle</i>
               <!-- <i id="v-form-close" class="material-symbols-outlined">close</i> -->
             </div>
             <!-- 2 tabs toggle nav component -->
@@ -70,80 +70,81 @@
                     <input type="text" id="survey-title-mc" name="survey-title-mc" placeholder="Enter your survey title"
                       class="survey-input create-input" required>
                   </section>
-  
+
                   <section class="descript inpt ">
                     <label for="survey-description-mc">Description</label>
                     <textarea id="survey-description-mc" name="survey-description-mc"
-                      placeholder="Enter a description for your survey" class="survey-input" rows="4" required></textarea>
+                      placeholder="Enter a description for your survey" class="survey-input" rows="4"
+                      required></textarea>
                   </section>
-  
-  
+
+
                   <!-- Character limit selection -->
-  
+
                   <div class="char-lmt-wrap inpt">
-  
+
                     <label for="char-limit">Character Limit:</label>
                     <section id="char-limit-section">
-                    
+
                       <span>
                         <div class="radioo">
-                    
+
                           <input type="radio" name="char-limit" value="100" checked>
-                    
+
                         </div>
                         <p>100</p>
-                    
-                    
+
+
                       </span>
-                    
+
                       <span>
-                    
+
                         <div class="radioo">
-                    
-                          <input type="radio" name="char-limit" value="300">                
-                    
+
+                          <input type="radio" name="char-limit" value="300">
+
                         </div>
                         <p>300</p>
-                    
+
                       </span>
-                    
+
                       <span>
-                    
+
                         <div class="radioo">
-                    
-                          <input type="radio" name="char-limit" value="500">                  
-                    
+
+                          <input type="radio" name="char-limit" value="500">
+
                         </div>
                         <p>500</p>
-                    
-                    
+
+
                       </span>
-                    
+
                       <span>
                         <div class="radioo">
-                    
-                          <input type="radio" name="char-limit" value="1000">                  
-                    
+
+                          <input type="radio" name="char-limit" value="1000">
+
                         </div>
                         <p>1000</p>
-                    
-                    
+
+
                       </span>
-                    
+
                     </section>
-  
+
                   </div>
-  
-  
-  
+
+
+
                 </div>
-              </section>  
-        
+              </section>
+
 
               <div class="surv-dwn">
 
                 <button type="submit" id="submit-written-survey" class="v-button-filled submit-survey">
-                  <p>Create Survey</p>
+                  <p>Create</p>
                   <i class="material-symbols-outlined">Stylus</i>
                 </button>
 
@@ -152,12 +153,11 @@
             </form>
 
           </div>
-
           <div class="tab-content" id="multiple-choice-content">
             <!-- Multiple choice content goes here -->
             <div class="survey-form">
 
-           
+
 
               <section class="opt-scroll">
 
@@ -168,40 +168,41 @@
                     <input type="text" id="survey-title-mc" name="survey-title-mc" placeholder="Enter your survey title"
                       class="survey-input create-input" required>
                   </section>
-  
+
                   <section class="descript inpt">
                     <label for="survey-description-mc">Description</label>
                     <textarea id="survey-description-mc" name="survey-description-mc"
-                      placeholder="Enter a description for your survey" class="survey-input" rows="4" required></textarea>
+                      placeholder="Enter a description for your survey" class="survey-input" rows="4"
+                      required></textarea>
                   </section>
-  
-  
+
+
                   <div class="options inpt" id="options">
-  
+
                     <label for="survey-title-mc" class="opt-title">Options</label>
-  
+
                     <div class="add-remove">
-  
+
                       <button class="add-option " id="add-option" onclick="addOption(this)">
                         <p>Add</p><i class="material-symbols-outlined"> add</i>
                       </button>
                       <button class="remove-option globalRemove">
                         <p>Remove</p><i class="material-symbols-outlined"> remove </i>
                       </button>
-  
+
                     </div>
-  
-           
-  
-  
-                      <section id="opt-space">
-                      </section>
-  
-              
-  
-  
+
+
+
+
+                    <section id="opt-space">
+                    </section>
+
+
+
+
                   </div>
-  
+
                 </div>
 
               </section>
@@ -209,7 +210,7 @@
               <div class="surv-dwn">
 
                 <button type="submit" id="submit-multiple-choice" class="v-button-filled submit-survey">
-                  <p>Create Survey</p>
+                  <p>Create</p>
                   <i class="material-symbols-outlined">Stylus</i>
                 </button>
 
@@ -226,222 +227,62 @@
           <div class="feed-scrollHead">
             <div id="closeNewsfeed" class="v-form-header">
               <h1>Newsfeed</h1>
-              <i id="v-form-close" class="material-symbols-outlined">newsmode</i>
+              <i id="v-form-close" class="material-symbols-outlined">analytics</i>
               <!-- <i id="v-form-close" class="material-symbols-outlined">close</i> -->
             </div>
           </div>
           <section id="data-surface">
-            <table style="width: 100%;">
+
+            <table>
               <tbody>
-                <tr>
-                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
-                    10px;="" background-color:="" transparent;><label>test_user2</label>
-                    <p>test title2</p>
+
+                 <!-- State: Active -->
+                 <tr>
+                  <td>
+                    <div class="feed-head label-parent v-active ">
+                      <label class="state-active">Respond</label>
+                      <i class="material-symbols-outlined">edit</i>
+                    </div>
                   </td>
-                  <td><label>closed</label></td>
+                  <td id="feed-pg">
+                    <div class="feed-paragraph">
+                      <p>Isn't it psycopatic to garnish pizza with pinapples!?</p>
+                      <span><p>Test-user-01</p> <i class="material-symbols-outlined"> people </i></span>
+                    </div>
+                  </td>
                 </tr>
+
+                <!-- State: Closed -->
                 <tr>
-                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
-                    10px;="" background-color:="" transparent;><label>test_user4</label>
-                    <p>Survey 05292023</p>
+                  <td>
+                    <div class="feed-head label-parent">
+                      <label class="state-closed">closed</label>
+                      <i class="material-symbols-outlined">alarm_off</i>
+                    </div>
                   </td>
-                  <td><label>closed</label></td>
+                  <td id="feed-pg">
+                    <div class="feed-paragraph">
+                      <p>Is Teflon actually a bloody carcinogen?</p>
+                      <span><p>Test-user-00</p></span>
+                      
+                    </div>
+                  </td>
                 </tr>
+
+                <!-- State: Published -->
                 <tr>
-                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
-                    10px;="" background-color:="" transparent;><label>test_user4</label>
-                    <p>Post 05292023</p>
+                  <td>
+                    <div class="feed-head label-parent v-published">
+                      <label class="state-published">Published</label>
+                      <i class="material-symbols-outlined">done_all</i>
+                    </div>
                   </td>
-                  <td><label>closed</label></td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
-                    10px;="" background-color:="" transparent;><label>test_user4</label>
-                    <p>06012023 test</p>
+                  <td id="feed-pg">
+                    <div class="feed-paragraph">
+                      <p>The Moon Landing was Definately CGI</p>
+                      <span><p>Test-user-02</p></span>
+                    </div>
                   </td>
-                  <td><label>closed</label></td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
-                    10px;="" background-color:="" transparent;><label>test_user4</label>
-                    <p>06242023</p>
-                  </td>
-                  <td><label>closed</label></td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
-                    10px;="" background-color:="" transparent;><label>test_user4</label>
-                    <p>Post 05292023</p>
-                  </td>
-                  <td><label>closed</label></td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
-                    10px;="" background-color:="" transparent;><label>test_user4</label>
-                    <p>06012023 test</p>
-                  </td>
-                  <td><label>closed</label></td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
-                    10px;="" background-color:="" transparent;><label>test_user4</label>
-                    <p>06242023</p>
-                  </td>
-                  <td><label>closed</label></td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
-                    10px;="" background-color:="" transparent;><label>test_user2</label>
-                    <p>test title2</p>
-                  </td>
-                  <td><label>closed</label></td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
-                    10px;="" background-color:="" transparent;><label>test_user4</label>
-                    <p>Survey 05292023</p>
-                  </td>
-                  <td><label>closed</label></td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
-                    10px;="" background-color:="" transparent;><label>test_user4</label>
-                    <p>Post 05292023</p>
-                  </td>
-                  <td><label>closed</label></td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
-                    10px;="" background-color:="" transparent;><label>test_user4</label>
-                    <p>06012023 test</p>
-                  </td>
-                  <td><label>closed</label></td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
-                    10px;="" background-color:="" transparent;><label>test_user4</label>
-                    <p>06242023</p>
-                  </td>
-                  <td><label>closed</label></td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
-                    10px;="" background-color:="" transparent;><label>test_user4</label>
-                    <p>Post 05292023</p>
-                  </td>
-                  <td><label>closed</label></td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
-                    10px;="" background-color:="" transparent;><label>test_user4</label>
-                    <p>06012023 test</p>
-                  </td>
-                  <td><label>closed</label></td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
-                    10px;="" background-color:="" transparent;><label>test_user4</label>
-                    <p>06242023</p>
-                  </td>
-                  <td><label>closed</label></td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
-                    10px;="" background-color:="" transparent;><label>test_user4</label>
-                    <p>06242023</p>
-                  </td>
-                  <td><label>closed</label></td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
-                    10px;="" background-color:="" transparent;><label>test_user4</label>
-                    <p>06242023</p>
-                  </td>
-                  <td><label>closed</label></td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
-                    10px;="" background-color:="" transparent;><label>test_user4</label>
-                    <p>06242023</p>
-                  </td>
-                  <td><label>closed</label></td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
-                    10px;="" background-color:="" transparent;><label>test_user4</label>
-                    <p>06242023</p>
-                  </td>
-                  <td><label>closed</label></td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
-                    10px;="" background-color:="" transparent;><label>test_user4</label>
-                    <p>06242023</p>
-                  </td>
-                  <td><label>closed</label></td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
-                    10px;="" background-color:="" transparent;><label>test_user4</label>
-                    <p>06242023</p>
-                  </td>
-                  <td><label>closed</label></td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
-                    10px;="" background-color:="" transparent;><label>test_user4</label>
-                    <p>06242023</p>
-                  </td>
-                  <td><label>closed</label></td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
-                    10px;="" background-color:="" transparent;><label>test_user4</label>
-                    <p>06242023</p>
-                  </td>
-                  <td><label>closed</label></td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
-                    10px;="" background-color:="" transparent;><label>test_user4</label>
-                    <p>06242023</p>
-                  </td>
-                  <td><label>closed</label></td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
-                    10px;="" background-color:="" transparent;><label>test_user4</label>
-                    <p>06242023</p>
-                  </td>
-                  <td><label>closed</label></td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
-                    10px;="" background-color:="" transparent;><label>test_user4</label>
-                    <p>06242023</p>
-                  </td>
-                  <td><label>closed</label></td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
-                    10px;="" background-color:="" transparent;><label>test_user4</label>
-                    <p>06242023</p>
-                  </td>
-                  <td><label>closed</label></td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
-                    10px;="" background-color:="" transparent;><label>test_user4</label>
-                    <p>06242023</p>
-                  </td>
-                  <td><label>closed</label></td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 1%; width: 80%;" border:="" 1px="" solid="" black;="" border-radius:=""
-                    10px;="" background-color:="" transparent;><label>test_user4</label>
-                    <p>06242023</p>
-                  </td>
-                  <td><label>closed</label></td>
                 </tr>
 
 

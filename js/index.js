@@ -682,6 +682,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       function handleFeedBTNClick() {
         handleGchange(newsfeedLeft, "newsfeed");
+        if (reloadIfActive("newsfeed")) return;
         
         if (window.innerWidth > 1060) {
           feedWRAP.style.gridTemplateColumns = "1fr";
@@ -705,6 +706,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       function handleCreateBTNClick() {
         handleGchange(newsfeedLeft, "quickSurvey");
+        if (reloadIfActive("quickSurvey")) return;
      
         if (window.innerWidth > 1060) {
           feedWRAP.style.gridTemplateColumns = "1.3fr 2fr";
@@ -726,7 +728,7 @@ document.addEventListener("DOMContentLoaded", () => {
         activeTab = "quickSurvey";
       }
 
-      ///// next task, fix mobile view height expand animationn when switching tabs, right now a glitch allows it to work only once, and that needs to be fixed ///////
+      ///// next task, fix mobile view height expand animationn when switching tabs, right now a glitch allows it to work only once, and that needs to be fixed its caused by the logic that reloads thhe page whebn active tab is clicked again///////
 
 
       function handleScreenChange() {
@@ -742,10 +744,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       function handleGchange(element, section) {
         // If the clicked tab is already active, reload the page
-        if (activeTab === section) {
-            window.location.reload();
-            return; // Exit the function early
-        }
+     
         
         // Continue with the width transition logic only if not on mobile or if the clicked tab isn't active
         if (window.innerWidth > 1060) {
@@ -767,7 +766,14 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 10);
         }
       }
-    
+      function reloadIfActive(clickedTab) {
+    if (activeTab === clickedTab) {
+        window.location.reload();
+        return true; // Indicate that a reload occurred
+    }
+    return false; // Indicate that no reload occurred
+      }
+
     
       // Functions for smooth height transitions, from old logic
       function openVtabs(element) {
@@ -798,12 +804,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
       function keepOpen(element) {
+        
         element.style.transition = "none"; // Temporarily remove any transition
         element.style.maxHeight = "100%";
         element.style.opacity = "1";
 
         setTimeout(() => {
-          element.style.transition = "maxHeight .3s cubic-bezier(0,1.02,0,.93), opacity .3s cubic-bezier(0,1.02,0,.93)"; // Reapply the transition effect
+          newsfeedLeft.style.transition = "All 4s cubic-bezier(0,1.02,0,.93)";
+          quickSurvey.style.transition = "All 4s cubic-bezier(0,1.02,0,.93)";
         }, 50); // Allow time for the height to be set to auto
 
       }
@@ -915,11 +923,18 @@ document.addEventListener("DOMContentLoaded", () => {
       // fetchAndDisplayTable();
 
 
-      $('td > label').each(function () {
-        if ($(this).text().trim() === "closed") {
-          $(this).parent().addClass('label-parent');
-        }
-      });
+    //   $('td .feed-head > label').each(function () {
+    //     if ($(this).text().trim() === "closed") {
+    //         $(this).closest('.feed-head').addClass('label-parent');
+    //     }
+    // });
+    
+
+      
+
+  
+
+ 
 
     },
     validateForm: (loginNumber, password, confirmPassword, nickname) => {
@@ -1020,7 +1035,6 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     }
   });
-
   function displayLoadSplash() {
     // If the flag is set, display the splash screen and remove the flag
     if (!Loadsplash) return;
