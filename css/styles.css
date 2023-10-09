@@ -1302,7 +1302,7 @@ border-radius   : 6px;
   border          : solid 2px #a7e7d5;
   border-radius   : 50px;
   width           : 6px;
-  height          : clamp(50px, 6.4vw, 150px);
+  height          : clamp(50px, 14vw, 108px);
   margin-right    : 48px;
 }
 
