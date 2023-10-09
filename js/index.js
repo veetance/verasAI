@@ -937,7 +937,8 @@ function handleRowClick(event) {
   const table = dataSurface.querySelector('table');
 
   const feedHead = document.querySelector('.feed-head');
-  const feedpgrph = document.querySelector('.feed-paragraph p');
+  const feedpgrphP = document.querySelector('.feed-paragraph p');
+  const feedpgrph = document.querySelector('.feed-paragraph');
 
 
   // Only store initial dimensions if they haven't been stored yet
@@ -951,6 +952,25 @@ function handleRowClick(event) {
       clickedRow.dataset.initialHeight = initialHeight;
   }
 
+    // Determine the grid position
+    const gridPosition = clickedRow.dataset.gridPosition;
+
+    // Set transform origin based on grid position
+    switch(gridPosition) {
+      case '1':
+        clickedRow.style.transformOrigin = "top left";
+        break;
+      case '2':
+        clickedRow.style.transformOrigin = "top right";
+        break;
+      case '3':
+        clickedRow.style.transformOrigin = "bottom left";
+        break;
+      case '4':
+        clickedRow.style.transformOrigin = "bottom right";
+        break;
+    }
+
   if (clickedRow.classList.contains('expanded-row')) {
       // Set transition for smooth collapsing
       clickedRow.style.transition = "width .4s cubic-bezier(0,1.02,0,1.02), height .4 cubic-bezier(0,1.02,0,1.02)";
@@ -963,6 +983,7 @@ function handleRowClick(event) {
       setTimeout(() => {
           clickedRow.classList.remove('expanded-row');
           dataSurface.classList.remove('expanding');
+          clickedRow.classList.add('recently-closed');
 
           // Reset the width to 100% after collapse animation completes
           setTimeout(() => {
@@ -971,6 +992,11 @@ function handleRowClick(event) {
           }, 0);
       }, 50); // Same duration as the transition
   } else {
+
+     // Remove the recently-closed class from all rows
+     table.querySelectorAll('tr').forEach(row => row.classList.remove('recently-closed'));
+
+
       const existingExpanded = table.querySelector('.expanded-row');
       if (existingExpanded) {
           existingExpanded.classList.remove('expanded-row');
