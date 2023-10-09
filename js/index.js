@@ -928,13 +928,104 @@ document.addEventListener("DOMContentLoaded", () => {
     //         $(this).closest('.feed-head').addClass('label-parent');
     //     }
     // });
-    
 
+// ... Existing JavaScript code ...
+
+function handleRowClick(event) {
+  const clickedRow = event.currentTarget;
+  const dataSurface = document.querySelector('#data-surface');
+  const table = dataSurface.querySelector('table');
+
+  const feedHead = document.querySelector('.feed-head');
+  const feedpgrphP = document.querySelector('.feed-paragraph p');
+  const feedpgrph = document.querySelector('.feed-paragraph');
+
+
+  // Only store initial dimensions if they haven't been stored yet
+  let initialWidth = clickedRow.dataset.initialWidth;
+  let initialHeight = clickedRow.dataset.initialHeight;
+
+  if (!initialWidth || !initialHeight) {
+      initialWidth = getComputedStyle(clickedRow).width;
+      initialHeight = getComputedStyle(clickedRow).height;
+      clickedRow.dataset.initialWidth = initialWidth;
+      clickedRow.dataset.initialHeight = initialHeight;
+  }
+
+    // Determine the grid position
+    const gridPosition = clickedRow.dataset.gridPosition;
+
+    // Set transform origin based on grid position
+    switch(gridPosition) {
+      case '1':
+        clickedRow.style.transformOrigin = "top left";
+        break;
+      case '2':
+        clickedRow.style.transformOrigin = "top right";
+        break;
+      case '3':
+        clickedRow.style.transformOrigin = "bottom left";
+        break;
+      case '4':
+        clickedRow.style.transformOrigin = "bottom right";
+        break;
+    }
+
+  if (clickedRow.classList.contains('expanded-row')) {
+      // Set transition for smooth collapsing
+      clickedRow.style.transition = "width .4s cubic-bezier(0,1.02,0,1.02), height .4 cubic-bezier(0,1.02,0,1.02)";
       
+      // Animate back to initial dimensions
+      clickedRow.style.width = initialWidth;
+      clickedRow.style.height = initialHeight;
 
-  
+      // After the animation is complete, remove the expanded-row class
+      setTimeout(() => {
+          clickedRow.classList.remove('expanded-row');
+          dataSurface.classList.remove('expanding');
+          clickedRow.classList.add('recently-closed');
 
- 
+          // Reset the width to 100% after collapse animation completes
+          setTimeout(() => {
+              clickedRow.style.width = "100%";
+              clickedRow.style.height = "100%";
+          }, 0);
+      }, 50); // Same duration as the transition
+  } else {
+
+     // Remove the recently-closed class from all rows
+     table.querySelectorAll('tr').forEach(row => row.classList.remove('recently-closed'));
+
+
+      const existingExpanded = table.querySelector('.expanded-row');
+      if (existingExpanded) {
+          existingExpanded.classList.remove('expanded-row');
+      }
+
+      // Set dimensions without a transition
+      clickedRow.style.width = initialWidth;
+      clickedRow.style.height = initialHeight;
+
+      // Force a reflow
+      void clickedRow.offsetHeight;
+
+      // Set transition and animate to 100%
+      clickedRow.style.transition = "width .4s cubic-bezier(0,1.02,0,1.02), height .4s cubic-bezier(0,1.02,0,1.02)";
+      setTimeout(() => {
+          clickedRow.style.width = "100%";
+          clickedRow.style.height = "100%";
+          clickedRow.classList.add('expanded-row');
+          dataSurface.classList.add('expanding');
+      }, 10);
+  }
+}
+
+const rows = document.querySelectorAll('#data-surface tbody tr');
+rows.forEach(row => {
+  row.removeEventListener('click', handleRowClick);
+  row.addEventListener('click', handleRowClick);
+});
+
 
     },
     validateForm: (loginNumber, password, confirmPassword, nickname) => {

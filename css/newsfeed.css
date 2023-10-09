@@ -425,10 +425,10 @@
 table {
   display        : flex !important;
   width          : 100%;
-  height         : auto;
+  height         : 100%;
   border-collapse: collapse;
   margin-bottom  : 0px;
-  align-items    : center;
+  align-items: flex-start;
   justify-content: center;
 }
 
@@ -445,9 +445,10 @@ tbody {
   grid-auto-flow       : dense;
   /* Specify that grid items should be placed in dense packing order */
   width                : 100%;
-  height               : 100%;
+  height               : auto;
   gap                  : 10px;
   padding              : 10px;
+  transition: grid-template-rows 0s;
 }
 
 
@@ -499,17 +500,43 @@ td {
 .feed-paragraph {
   display: flex;
   width  : 100%;
-  height : 100%;
+  height : auto;
   padding: 16px;
   align-items: flex-start;
   flex-direction: column-reverse;
-  gap:8px;
+  gap: 10px;
   justify-content: flex-end;
+  padding-bottom: 40px;
+  background-color: #ffffff4b;
 }
+
+.feed-paragraph span .material-symbols-outlined {
+  padding: 0px !important;
+  color: #918bb1 !important;
+
+}
+
+.ractions{
+
+display: flex;
+
+gap: 6px;
+
+justify-content: flex-end;
+}
+
+.ractions p{
+
+padding: 0px !important;
+
+color: #938eb8 !important;
+opacity: 1 !important;
+}
+
 
 #feed-pg{
   display: flex;
-  height: 100% !important;
+  height: 100%;
 }
 
 .label-parent {
@@ -617,13 +644,15 @@ label {
 tr {
 
 display         : flex;
+
 flex-direction: column-reverse !important;
 
 flex-direction  : column;
 
 cursor          : pointer;
 
-height          : clamp(100%, 100%, 100%);
+height          : 100%;
+width: 100%;
 
 border          : solid 1px #e0dbff;
 
@@ -634,15 +663,18 @@ border-radius   : 10px;
 /* padding-bottom  : clamp(0%, 3vw, 100px); */
 
 overflow        : hidden;
+
+justify-content: flex-end;
 }
 
 tr span {
   display: flex;
 }
 
-tr:hover {
+
+tr:hover, tr.recently-closed {
   background-color: rgb(255, 255, 255);
-  box-shadow      : rgba(165, 148, 243, 0.26) 0px -2px 001px 0px;
+  box-shadow: rgba(165, 148, 243, 0.26) 0px 2px 001px 0px;
 }
 
 .feed-paragraph p {
@@ -657,7 +689,7 @@ tr:hover {
 
 }
 
-.feed-paragraph span p {
+.feed-paragraph span label {
 
   border-radius: 5px;
   font-size: 13.5px !important;
@@ -671,13 +703,29 @@ tr:hover {
 .feed-paragraph span {
   display: flex;
   width: 100% !important;
-  justify-content: flex-start;
+  justify-content: space-between;
   flex-direction: row;
 }
 
 
 
+/* ACTION BUTTONS */
 
+#data-surface.expanding > table > tbody {
+  grid-template-rows: 1fr;
+  height: 100%; /* set height to 100% when expanding */
+}
+
+/* Ensure the expanded row takes up both columns of the grid */
+.expanded-row {
+  grid-column: span 3;
+  /* Add transition for grid-column */
+}
+
+/* Hide all rows of the table when one row is expanded */
+#data-surface.expanding > table > tbody > tr:not(.expanded-row) {
+  display: none;
+}
 
 
 @keyframes fade-in {
@@ -1331,7 +1379,7 @@ tr:hover {
   padding         : 4px;
   padding-left    : 10px;
   padding-top     : 4px;
-  padding-bottom  : 3px;
+  padding-bottom  : 4px;
   border          : 1px solid #ebe8ff;
   background-color: #f1f0fd !important;
   border-radius   : 8px 8px 0px 0px;
@@ -1360,17 +1408,17 @@ tr:hover {
 }
 
 #char-limit-section {
-  display        : flex;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(100px, 1fr));
+  /* Use auto-fit to create as many columns as possible with a minimum width of 200px */
+  grid-auto-rows       : auto;
   justify-content: space-evenly;
-
   background-color: #f6f5ff;
-  border          : 1px solid #ebe8ff;
-  border-radius   : 0px 0px 6px 6px;
-  height          : auto;
-  max-height      : 54px !important;
-
-  gap    : 5px;
-  padding: 5px;
+  border: 1px solid #ebe8ff;
+  border-radius: 0px 0px 10px 10px;
+  height: auto;
+  gap: 10px;
+  padding: 10px;
 }
 
 .char-lmt-wrap {
@@ -1385,7 +1433,7 @@ tr:hover {
   padding        : 0px;
   width          : 100%;
   border         : 1px solid #ebe8ff;
-  border-radius  : 3px;
+  border-radius  : 5px;
   justify-content: space-between;
   align-items    : center;
 }
@@ -1402,7 +1450,7 @@ tr:hover {
 #char-limit-section input {
   display        : flex;
   margin         : 0px !important;
-  height         : 24px;
+  height         : 20px;
   aspect-ratio   : 1/1;
   justify-content: center;
   align-items    : center;
@@ -1556,7 +1604,7 @@ textarea:hover {
   width         : 100%;
   /* border     : solid 1px; */
   flex-direction: column;
-
+  justify-content: flex-start;
 }
 
 .option-input {
