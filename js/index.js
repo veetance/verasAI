@@ -1046,7 +1046,7 @@ document.addEventListener("DOMContentLoaded", () => {
           void clickedRow.offsetHeight;
   
           // Set transition and animate to 100%
-          clickedRow.style.transition = "width .2s cubic-bezier(0,1.02,.06,.96), height .4s cubic-bezier(0,1.02,0,1.02)";
+          clickedRow.style.transition = "width .05s cubic-bezier(0,1.02,.06,.96), height .4s cubic-bezier(0,1.02,0,1.02)";
           setTimeout(() => {
               clickedRow.style.width = "100%";
               clickedRow.style.height = "100%";
@@ -1363,7 +1363,6 @@ document.addEventListener("DOMContentLoaded", () => {
       upNavNewsfeed.style.display = "flex";
     }
   }
-
   function handleLoginFormSubmission(loginSpace) {
     if (loginSpace.dataset.formEventAttached === "true") {
       return;
