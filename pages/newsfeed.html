@@ -237,22 +237,48 @@
               <tbody>
 
                 <!-- State: Active -->
-                <tr>
+                <tr id="v-open">
+                  
                   <td>
                     <div class="feed-head label-parent v-active ">
                       <label class="state-active">Respond</label>
                       <i class="material-symbols-outlined">edit</i>
                     </div>
                   </td>
+                  <td id="response-space">
+                    <div class="response-top">
+
+                      <section class="survey-discrip">
+                        <label for="survey-description-mc">About Survey</label>
+                       <h6>This written response survey is intended to end the wars between pinapple on pizza lovers and haters, please be kind. </h6>
+                      </section>
+           
+    
+
+                      <section class="descript inpt ">
+                        <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
+                        <textarea id="survey-description-mc" name="survey-description-mc" placeholder="Enter Your Response" class="survey-input" rows="4" required=""></textarea>
+                      </section>
+
+                    </div>
+
+                  
+                    <button type="submit" id="submit-written-survey" class="v-button-filled submit-survey">
+                      <p>Submit</p>
+                      <i class="material-symbols-outlined">send</i>
+                    </button>
+
+                  </td>
                   <td id="feed-pg">
                     <div class="feed-paragraph">
-                      <p>Isn't it psycopatic to garnish pizza with pinapples!?</p>
+                      <p>Isn't it psycopathic to garnish pizza with pinapples!?</p>
                       <span><label>Test-user-01</label>
-                        <div class="ractions"> <label>900</label> <i class="material-symbols-outlined"> people </i>
+                        <div class="ractions"> <label>Written Response</label> <i class="material-symbols-outlined">  edit_note  </i>
                         </div>
                       </span>
                     </div>
                   </td>
+
                 </tr>
 
                 <!-- State: Closed -->
