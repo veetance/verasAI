@@ -478,62 +478,62 @@ document.addEventListener("DOMContentLoaded", () => {
         const optionsDiv = document.getElementById("opt-space");
         const addRemove = document.querySelector(".add-remove");
         const globalRemoveButton = document.querySelector('.globalRemove');
-        
+
         // Function to update the display state of optionsDiv
         function updateOptionsDisplay() {
-            if (optionCount > 0) {
-                optionsDiv.style.display = "grid";
-                optionsDiv.style.height = "100% !important";
-                addRemove.style.borderRadius = "0px 0px 0px 0px";
-            } else {
-                optionsDiv.style.display = "none";
-                addRemove.style.borderRadius = "0px 0px 10px 10px";
-            }
+          if (optionCount > 0) {
+            optionsDiv.style.display = "grid";
+            optionsDiv.style.height = "100% !important";
+            addRemove.style.borderRadius = "0px 0px 0px 0px";
+          } else {
+            optionsDiv.style.display = "none";
+            addRemove.style.borderRadius = "0px 0px 10px 10px";
+          }
         }
 
-        
+
         globalRemoveButton.addEventListener("click", () => {
-            if (optionsDiv.lastChild) {
-                optionsDiv.removeChild(optionsDiv.lastChild);
-                optionCount--;
-            }
-            updateOptionsDisplay();
-        });
-        
-        let optionCount = 0; // Initialize option count
-        
-        addOptionButton.addEventListener("click", () => {
-            const newOptionInput = document.createElement('div');
-            newOptionInput.classList.add('option');
-        
-            const newOptionTextInput = document.createElement('input');
-            newOptionTextInput.classList.add('option-input');
-            newOptionTextInput.type = 'text';
-            newOptionTextInput.placeholder = 'Option ' + (optionCount + 1);
-            newOptionTextInput.required = true;
-        
-            const removeOptionButton = document.createElement('button');
-            removeOptionButton.classList.add('remove-option');
-            removeOptionButton.innerText = '-';
-            removeOptionButton.onclick = () => {
-                // Remove the corresponding option when the button is clicked
-                optionsDiv.removeChild(newOptionInput);
-                optionCount--;
-                updateOptionsDisplay();
-            };
-        
-            newOptionInput.appendChild(newOptionTextInput);
-            newOptionInput.appendChild(removeOptionButton);
-        
-            optionsDiv.appendChild(newOptionInput);
-            optionCount++;
-        
-            updateOptionsDisplay();
+          if (optionsDiv.lastChild) {
+            optionsDiv.removeChild(optionsDiv.lastChild);
+            optionCount--;
+          }
+          updateOptionsDisplay();
         });
 
-         // Initial state check
-         updateOptionsDisplay();
-        
+        let optionCount = 0; // Initialize option count
+
+        addOptionButton.addEventListener("click", () => {
+          const newOptionInput = document.createElement('div');
+          newOptionInput.classList.add('option');
+
+          const newOptionTextInput = document.createElement('input');
+          newOptionTextInput.classList.add('option-input');
+          newOptionTextInput.type = 'text';
+          newOptionTextInput.placeholder = 'Option ' + (optionCount + 1);
+          newOptionTextInput.required = true;
+
+          const removeOptionButton = document.createElement('button');
+          removeOptionButton.classList.add('remove-option');
+          removeOptionButton.innerText = '-';
+          removeOptionButton.onclick = () => {
+            // Remove the corresponding option when the button is clicked
+            optionsDiv.removeChild(newOptionInput);
+            optionCount--;
+            updateOptionsDisplay();
+          };
+
+          newOptionInput.appendChild(newOptionTextInput);
+          newOptionInput.appendChild(removeOptionButton);
+
+          optionsDiv.appendChild(newOptionInput);
+          optionCount++;
+
+          updateOptionsDisplay();
+        });
+
+        // Initial state check
+        updateOptionsDisplay();
+
         submitButton.addEventListener("click", async (event) => {
           event.preventDefault();
 
@@ -608,7 +608,7 @@ document.addEventListener("DOMContentLoaded", () => {
           alert('Multiple Choice Survey submitted successfully!');
         });
 
-     
+
       }
       // Call the function when the logins page is loaded
       handleMultipleChoiceSurveyFormSubmission(true);
@@ -683,12 +683,12 @@ document.addEventListener("DOMContentLoaded", () => {
       function handleFeedBTNClick() {
         handleGchange(newsfeedLeft, "newsfeed");
         if (reloadIfActive("newsfeed")) return;
-        
+
         if (window.innerWidth > 1060) {
           feedWRAP.style.gridTemplateColumns = "1fr";
           handleGchange(newsfeedLeft);
           dataGrid.style.gridTemplateColumns = "repeat(3, minmax(200px, 1fr))";
-       
+
           quickSurvey.style.display = "none";
           openVtabs(newsfeedLeft);
           feedBTN.classList.add('active');
@@ -707,10 +707,10 @@ document.addEventListener("DOMContentLoaded", () => {
       function handleCreateBTNClick() {
         handleGchange(newsfeedLeft, "quickSurvey");
         if (reloadIfActive("quickSurvey")) return;
-     
+
         if (window.innerWidth > 1060) {
           feedWRAP.style.gridTemplateColumns = "1.3fr 2fr";
-     
+
 
           dataGrid.style.gridTemplateColumns = "repeat(2, minmax(200px, 1fr))";
           quickSurvey.style.display = "flex";
@@ -744,37 +744,37 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       function handleGchange(element, section) {
         // If the clicked tab is already active, reload the page
-     
-        
+
+
         // Continue with the width transition logic only if not on mobile or if the clicked tab isn't active
         if (window.innerWidth > 1060) {
-            let currentWidth;
-            if (section === "quickSurvey") {
-                currentWidth = "120%";
-            } else if (section === "newsfeed") {
-                currentWidth = "84%";
-            }
-        
-            element.style.transition = "none";
-            element.style.width = currentWidth;
-        
-            element.offsetHeight;
-        
-            element.style.transition = "width .4s cubic-bezier(0,1.02,0,.93)";
-            setTimeout(() => {
-                element.style.width = "100%";
-            }, 10);
+          let currentWidth;
+          if (section === "quickSurvey") {
+            currentWidth = "120%";
+          } else if (section === "newsfeed") {
+            currentWidth = "84%";
+          }
+
+          element.style.transition = "none";
+          element.style.width = currentWidth;
+
+          element.offsetHeight;
+
+          element.style.transition = "width .4s cubic-bezier(0,1.02,0,.93)";
+          setTimeout(() => {
+            element.style.width = "100%";
+          }, 10);
         }
       }
       function reloadIfActive(clickedTab) {
-    if (activeTab === clickedTab) {
-        window.location.reload();
-        return true; // Indicate that a reload occurred
-    }
-    return false; // Indicate that no reload occurred
+        if (activeTab === clickedTab) {
+          window.location.reload();
+          return true; // Indicate that a reload occurred
+        }
+        return false; // Indicate that no reload occurred
       }
 
-    
+
       // Functions for smooth height transitions, from old logic
       function openVtabs(element) {
         element.style.display = "flex";
@@ -804,7 +804,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
       function keepOpen(element) {
-        
+
         element.style.transition = "none"; // Temporarily remove any transition
         element.style.maxHeight = "100%";
         element.style.opacity = "1";
@@ -923,109 +923,158 @@ document.addEventListener("DOMContentLoaded", () => {
       // fetchAndDisplayTable();
 
 
-    //   $('td .feed-head > label').each(function () {
-    //     if ($(this).text().trim() === "closed") {
-    //         $(this).closest('.feed-head').addClass('label-parent');
-    //     }
-    // });
+      //   $('td .feed-head > label').each(function () {
+      //     if ($(this).text().trim() === "closed") {
+      //         $(this).closest('.feed-head').addClass('label-parent');
+      //     }
+      // });
 
-// ... Existing JavaScript code ...
+      // ... Existing JavaScript code ...
 
-function handleRowClick(event) {
-  const clickedRow = event.currentTarget;
-  const dataSurface = document.querySelector('#data-surface');
-  const table = dataSurface.querySelector('table');
+          // ... Existing JavaScript code ...
 
-  const feedHead = document.querySelector('.feed-head');
-  const feedpgrphP = document.querySelector('.feed-paragraph p');
-  const feedpgrph = document.querySelector('.feed-paragraph');
+    function handleRowClick(event) {
+      const clickedRow = event.currentTarget;
+      const dataSurface = document.querySelector('#data-surface');
+      const table = dataSurface.querySelector('table');
+  
+      const feedHead = document.querySelector('.feed-head');
+      const feedpgrphP = document.querySelector('.feed-paragraph p');
+      const feedpgrph = document.querySelector('#feed-pg');
+      const feedparaG = document.querySelector('.feed-paragraph');
+      const responseSpace = document.querySelector('#response-space');
 
+      const navBarr = document.querySelector('.N-Header');
 
-  // Only store initial dimensions if they haven't been stored yet
-  let initialWidth = clickedRow.dataset.initialWidth;
-  let initialHeight = clickedRow.dataset.initialHeight;
+  
+      // Only store initial dimensions if they haven't been stored yet
+      let initialWidth = clickedRow.dataset.initialWidth;
+      let initialHeight = clickedRow.dataset.initialHeight;
+  
+      if (!initialWidth || !initialHeight) {
+          initialWidth = getComputedStyle(clickedRow).width;
+          initialHeight = getComputedStyle(clickedRow).height;
+          clickedRow.dataset.initialWidth = initialWidth;
+          clickedRow.dataset.initialHeight = initialHeight;
+      }
+  
+      // Determine the grid position
+      const gridPosition = clickedRow.dataset.gridPosition;
+  
+      // Set transform origin based on grid position
+      switch (gridPosition) {
+          case '1':
+              clickedRow.style.transformOrigin = "top left";
+              break;
+          case '2':
+              clickedRow.style.transformOrigin = "top right";
+              break;
+          case '3':
+              clickedRow.style.transformOrigin = "bottom left";
+              break;
+          case '4':
+              clickedRow.style.transformOrigin = "bottom right";
+              break;
+      }
+  
+      if (clickedRow.classList.contains('expanded-row')) {
+          // Logic when the row is collapsed
+  
+          feedHead.style.display = "flex";  // Show feedHead
+          feedpgrphP.style.fontSize = "initial";  // Reset font size
+          feedpgrphP.style.lineHeight = "initial";
 
-  if (!initialWidth || !initialHeight) {
-      initialWidth = getComputedStyle(clickedRow).width;
-      initialHeight = getComputedStyle(clickedRow).height;
-      clickedRow.dataset.initialWidth = initialWidth;
-      clickedRow.dataset.initialHeight = initialHeight;
-  }
+          feedpgrph.style.height = "initial";  // Reset height
 
-    // Determine the grid position
-    const gridPosition = clickedRow.dataset.gridPosition;
+          feedparaG.style.padding = "16px";  // Fit to content
+          feedparaG.style.paddingBottom = "40px";  // Fit to content
+       
+          responseSpace.style.display = "none";  // Hide responseSpace
+  
+          // Set transition for smooth collapsing
+          clickedRow.style.transition = "width .2s cubic-bezier(0,1.02,.06,.96), height 1s cubic-bezier(0,1.02,0,1.02)";
+  
+          // Animate back to initial dimensions
+          clickedRow.style.width = initialWidth;
+          clickedRow.style.height = initialHeight;
+  
+          // After the animation is complete, remove the expanded-row class
+          setTimeout(() => {
+              clickedRow.classList.remove('expanded-row');
+              dataSurface.classList.remove('expanding');
+              clickedRow.classList.add('recently-closed');
+  
+              // Reset the width to 100% after collapse animation completes
+              setTimeout(() => {
+                  clickedRow.style.width = "100%";
+                  clickedRow.style.height = "100%";
+              }, 0);
+          }, 100); // Same duration as the transition
 
-    // Set transform origin based on grid position
-    switch(gridPosition) {
-      case '1':
-        clickedRow.style.transformOrigin = "top left";
-        break;
-      case '2':
-        clickedRow.style.transformOrigin = "top right";
-        break;
-      case '3':
-        clickedRow.style.transformOrigin = "bottom left";
-        break;
-      case '4':
-        clickedRow.style.transformOrigin = "bottom right";
-        break;
-    }
+           // Expand the .N-Header element smoothly
+           navBarr.style.maxHeight = "89px !important";
+           navBarr.style.transition = "max-height .4s cubic-bezier(0,1.02,0,1.02)";
+           setTimeout(() => {
+               navBarr.style.display = "flex";
+           }, 10);  // 400ms is the transition duration
+   
+      } else {
+          // Logic when the row is expanded
+  
+          feedHead.style.display = "none";  // Hide feedHead
 
-  if (clickedRow.classList.contains('expanded-row')) {
-      // Set transition for smooth collapsing
-      clickedRow.style.transition = "width .4s cubic-bezier(0,1.02,0,1.02), height .4 cubic-bezier(0,1.02,0,1.02)";
-      
-      // Animate back to initial dimensions
-      clickedRow.style.width = initialWidth;
-      clickedRow.style.height = initialHeight;
-
-      // After the animation is complete, remove the expanded-row class
-      setTimeout(() => {
-          clickedRow.classList.remove('expanded-row');
-          dataSurface.classList.remove('expanding');
-          clickedRow.classList.add('recently-closed');
-
-          // Reset the width to 100% after collapse animation completes
+          feedpgrphP.style.fontSize = "clamp(1.2rem, 2.3vw, 1.4rem)";  // Set font size
+          feedpgrphP.style.lineHeight = "clamp(1.5rem, 2.5vw, 1.8rem)";
+          feedparaG.style.padding = "20px";  // Fit to content
+          
+          feedpgrph.style.height = "fit-content";  // Fit to content
+          responseSpace.style.display = "flex";  // Display responseSpace
+  
+          // Remove the recently-closed class from all rows
+          table.querySelectorAll('tr').forEach(row => row.classList.remove('recently-closed'));
+  
+          const existingExpanded = table.querySelector('.expanded-row');
+          if (existingExpanded) {
+              existingExpanded.classList.remove('expanded-row');
+          }
+  
+          // Set dimensions without a transition
+          clickedRow.style.width = initialWidth;
+          clickedRow.style.height = initialHeight;
+  
+          // Force a reflow
+          void clickedRow.offsetHeight;
+  
+          // Set transition and animate to 100%
+          clickedRow.style.transition = "width .2s cubic-bezier(0,1.02,.06,.96), height .4s cubic-bezier(0,1.02,0,1.02)";
           setTimeout(() => {
               clickedRow.style.width = "100%";
               clickedRow.style.height = "100%";
-          }, 0);
-      }, 50); // Same duration as the transition
-  } else {
+              clickedRow.classList.add('expanded-row');
+              dataSurface.classList.add('expanding');
+          }, 20);
 
-     // Remove the recently-closed class from all rows
-     table.querySelectorAll('tr').forEach(row => row.classList.remove('recently-closed'));
+      
+        // Contract the .N-Header element smoothly
+        navBarr.style.transition = "max-height .4s cubic-bezier(0,1.02,0,1.02)";
+        navBarr.style.maxHeight = "0px !important";
+        setTimeout(() => {
+            navBarr.style.display = "none";
+        }, 10);  // 400ms is the transition duration
 
-
-      const existingExpanded = table.querySelector('.expanded-row');
-      if (existingExpanded) {
-          existingExpanded.classList.remove('expanded-row');
       }
-
-      // Set dimensions without a transition
-      clickedRow.style.width = initialWidth;
-      clickedRow.style.height = initialHeight;
-
-      // Force a reflow
-      void clickedRow.offsetHeight;
-
-      // Set transition and animate to 100%
-      clickedRow.style.transition = "width .4s cubic-bezier(0,1.02,0,1.02), height .4s cubic-bezier(0,1.02,0,1.02)";
-      setTimeout(() => {
-          clickedRow.style.width = "100%";
-          clickedRow.style.height = "100%";
-          clickedRow.classList.add('expanded-row');
-          dataSurface.classList.add('expanding');
-      }, 10);
   }
-}
+  
+  const rows = document.querySelectorAll('#data-surface tbody tr');
+  rows.forEach(row => {
+      row.removeEventListener('click', handleRowClick);
+      row.addEventListener('click', handleRowClick);
+  });
+  
+  
+  
 
-const rows = document.querySelectorAll('#data-surface tbody tr');
-rows.forEach(row => {
-  row.removeEventListener('click', handleRowClick);
-  row.addEventListener('click', handleRowClick);
-});
-
+  
 
     },
     validateForm: (loginNumber, password, confirmPassword, nickname) => {

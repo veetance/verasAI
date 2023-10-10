@@ -230,6 +230,18 @@ h5 {
   margin         : 0px;
 }
 
+h6{
+  width: fit-content;
+    display: flex;
+    justify-content: center;
+    font-weight: 750;
+    opacity: .7;
+    color: var(--f7-theme-color);
+    font-size: 13.5px !important;
+    line-height: 100%;
+    margin: 0px;
+}
+
 /* navigation structure */
 .navbar-wrapper {
   display        : flex;
