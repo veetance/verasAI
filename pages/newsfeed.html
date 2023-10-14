@@ -135,8 +135,6 @@
 
                   </div>
 
-
-
                 </div>
               </section>
 
@@ -224,6 +222,8 @@
         </article>
 
         <article class="Newsfeed-Left Newsfeed">
+
+
           <div class="feed-scrollHead">
             <div id="closeNewsfeed" class="v-form-header">
               <h1>Newsfeed</h1>
@@ -231,7 +231,11 @@
               <!-- <i id="v-form-close" class="material-symbols-outlined">close</i> -->
             </div>
           </div>
+
+          <!-- DATA GRID -->
+
           <section id="data-surface">
+
 
             <table>
               <tbody>
@@ -242,14 +246,16 @@
                   <td>
                     <div class="feed-head label-parent v-active ">
                       <label class="state-active">Respond</label>
-                      <i class="material-symbols-outlined">edit</i>
+                      <i class="material-symbols-outlined">chat</i>
                     </div>
+
                   </td>
+
                   <td id="response-space">
                     <div class="response-top">
 
                       <section class="survey-discrip">
-                        <label for="survey-description-mc">About Survey</label>
+                        <label for="survey-description-mc">About</label>
                        <h6>This written response survey is intended to end the wars between pinapple on pizza lovers and haters, please be kind. </h6>
                       </section>
            
@@ -262,302 +268,168 @@
 
                     </div>
 
-                  
-                    <button type="submit" id="submit-written-survey" class="v-button-filled submit-survey">
-                      <p>Submit</p>
-                      <i class="material-symbols-outlined">send</i>
-                    </button>
+                    <div class="surv-dwn">
 
+                      <button class=" bck-btn nav-button next step-button v-back ">
+                        <i class="material-symbols-outlined">keyboard_backspace</i>
+                        <p>Go back</p>
+                        
+                      </button>
+
+                      <button type="submit" id="submit-written-survey" class="v-button-filled submit-survey">
+                        <p>Submit</p>
+                        <i class="material-symbols-outlined">send</i>
+                      </button>
+                    </div>
+     
                   </td>
-                  <td id="feed-pg">
+                  <td id="feed-pg" class="v-written">
                     <div class="feed-paragraph">
-                      <p>Isn't it psycopathic to garnish pizza with pinapples!?</p>
-                      <span><label>Test-user-01</label>
-                        <div class="ractions"> <label>Written Response</label> <i class="material-symbols-outlined">  edit_note  </i>
+
+                      <span><label>Time left: 20h+</label>
+                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined">  edit_note  </i>
                         </div>
                       </span>
+
+                      <article class="v-title">
+                        <label class="v-user"><h6>Test-user-00</h6></label>
+                        <h1>Isn't it psycopathic to garnish pizza with pinapples!?</h1>
+                      </article>
+
                     </div>
                   </td>
 
                 </tr>
 
                 <!-- State: Closed -->
-                <tr>
-                  <td>
-                    <div class="feed-head label-parent">
-                      <label class="state-closed">closed</label>
-                      <i class="material-symbols-outlined">alarm_off</i>
-                    </div>
-                  </td>
-                  <td id="feed-pg">
-                    <div class="feed-paragraph">
-                      <p>Is Teflon actually a bloody carcinogen?</p>
-                      <span><label>Test-user-00</label>
-                        <div class="ractions"> <label>10k</label> <i class="material-symbols-outlined"> people </i>
-                        </div>
-                      </span>
-
-                    </div>
-                  </td>
-                </tr>
-
-                <!-- State: Published -->
-                <tr>
-                  <td>
-                    <div class="feed-head label-parent v-published">
-                      <label class="state-published">Published</label>
-                      <i class="material-symbols-outlined">done_all</i>
-                    </div>
-                  </td>
-                  <td id="feed-pg">
-                    <div class="feed-paragraph">
-                      <p>The Moon Landing was Definately CGI</p>
-                      <span><label>Test-user-02</label>
-                        <div class="ractions"> <label>50k</label> <i class="material-symbols-outlined"> people </i>
-                        </div>
-                      </span>
-                    </div>
-                  </td>
-                </tr>
-
-                <!-- State: Active -->
-                <tr>
-                  <td>
-                    <div class="feed-head label-parent v-active">
-                      <label class="state-active">Discuss</label>
-                      <i class="material-symbols-outlined">forum</i>
-                    </div>
-                  </td>
-                  <td id="feed-pg">
-                    <div class="feed-paragraph">
-                      <p>Why do cats suddenly believe they're liquid?</p>
-                      <span><label>Test-user-03</label>
-                        <div class="ractions"> <label>700</label> <i class="material-symbols-outlined"> people </i>
-                        </div>
-                      </span>
-                    </div>
-                  </td>
-                </tr>
-
-                <!-- State: Closed -->
-                <tr>
-                  <td>
-                    <div class="feed-head label-parent">
-                      <label class="state-closed">Ended</label>
-                      <i class="material-symbols-outlined">block</i>
-                    </div>
-                  </td>
-                  <td id="feed-pg">
-                    <div class="feed-paragraph">
-                      <p>Aliens visited, and all they did was complain about our Wi-Fi speed!</p>
-                      <span><label>Test-user-04</label>
-                        <div class="ractions"> <label>1.5k</label> <i class="material-symbols-outlined"> people </i>
-                        </div>
-                      </span>
-                    </div>
-                  </td>
-                </tr>
-
-                <!-- State: Published -->
-                <tr>
-                  <td>
-                    <div class="feed-head label-parent v-published">
-                      <label class="state-published">Live</label>
-                      <i class="material-symbols-outlined">public</i>
-                    </div>
-                  </td>
-                  <td id="feed-pg">
-                    <div class="feed-paragraph">
-                      <p>Why do shoelaces untie themselves when we least expect it?</p>
-                      <span><label>Test-user-05</label>
-                        <div class="ractions"> <label>4k</label> <i class="material-symbols-outlined"> people </i></div>
-                      </span>
-                    </div>
-                  </td>
-                </tr>
-
-                <!-- State: Active -->
-                <tr>
-                  <td>
-                    <div class="feed-head label-parent v-active">
-                      <label class="state-active">Debate</label>
-                      <i class="material-symbols-outlined">gavel</i>
-                    </div>
-                  </td>
-                  <td id="feed-pg">
-                    <div class="feed-paragraph">
-                      <p>Do chickens have an existential crisis when they cross the road?</p>
-                      <span><label>Test-user-06</label>
-                        <div class="ractions"> <label>888</label> <i class="material-symbols-outlined"> people </i>
-                        </div>
-                      </span>
-                    </div>
-                  </td>
-                </tr>
-
-                <!-- State: Closed -->
-                <tr>
-                  <td>
-                    <div class="feed-head label-parent">
-                      <label class="state-closed">Finished</label>
-                      <i class="material-symbols-outlined">layers_clear</i>
-                    </div>
-                  </td>
-                  <td id="feed-pg">
-                    <div class="feed-paragraph">
-                      <p>Why do we press harder on the remote when we know the batteries are dead?</p>
-                      <span><label>Test-user-07</label>
-                        <div class="ractions"> <label>2k</label> <i class="material-symbols-outlined"> people </i></div>
-                      </span>
-                    </div>
-                  </td>
-                </tr>
-
-
-                <!-- State: Active -->
-                <tr>
-                  <td>
-                    <div class="feed-head label-parent v-active">
-                      <label class="state-active">Interact</label>
-                      <i class="material-symbols-outlined">person_raised_hand</i>
-                    </div>
-                  </td>
-                  <td id="feed-pg">
-                    <div class="feed-paragraph">
-                      <p>Is the Bermuda Triangle just Earth's delete button?</p>
-                      <span><label>Test-user-12</label>
-                        <div class="ractions"> <label>8.1k</label> <i class="material-symbols-outlined"> people </i>
-                        </div>
-                      </span>
-                    </div>
-                  </td>
-                </tr>
-
-                <!-- State: Closed -->
-                <tr>
+                <tr id="v-closed">
                   <td>
                     <div class="feed-head label-parent">
                       <label class="state-closed">Calculating</label>
                       <i class="material-symbols-outlined">hourglass_top</i>
+                      <!-- alarm_off -->
                     </div>
                   </td>
-                  <td id="feed-pg">
+
+                  <td id="response-space">
+                    <div class="response-top">
+
+                      <section class="survey-discrip">
+                        <label for="survey-description-mc">About</label>
+                       <h6>This written response survey is intended to end the wars between pinapple on pizza lovers and haters, please be kind. </h6>
+                      </section>
+           
+    
+
+                      <section class="descript inpt ">
+                        <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
+                        <textarea id="survey-description-mc" name="survey-description-mc" placeholder="Enter Your Response" class="survey-input" rows="4" required=""></textarea>
+                      </section>
+
+                    </div>
+
+                    <div class="surv-dwn">
+
+                      <button class=" bck-btn nav-button next step-button v-back ">
+                        <i class="material-symbols-outlined">keyboard_backspace</i>
+                        <p>Go back</p>
+                        
+                      </button>
+
+                      <button type="submit" id="submit-written-survey" class="v-button-filled submit-survey">
+                        <p>Submit</p>
+                        <i class="material-symbols-outlined">send</i>
+                      </button>
+                    </div>
+     
+                  </td>
+                  <td id="feed-pg" class="v-opt">
                     <div class="feed-paragraph">
-                      <p>Were unicorns just shy horses?</p>
-                      <span><label>Test-user-13</label>
-                        <div class="ractions"> <label>1.2k</label> <i class="material-symbols-outlined"> people </i>
+
+                      <span><label>Time left: 20h+</label>
+                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined">  format_list_bulleted  </i>
                         </div>
                       </span>
-                    </div>
-                  </td>
-                </tr>
 
-                <!-- State: Active -->
-                <tr>
-                  <td>
-                    <div class="feed-head label-parent v-active">
-                      <label class="state-active">Discuss</label>
-                      <i class="material-symbols-outlined">question_answer</i>
-                    </div>
-                  </td>
-                  <td id="feed-pg">
-                    <div class="feed-paragraph">
-                      <p>Is the five-second rule scientifically accurate?</p>
-                      <span><label>Test-user-14</label>
-                        <div class="ractions"> <label>3.9k</label> <i class="material-symbols-outlined"> people </i>
-                        </div>
-                      </span>
-                    </div>
-                  </td>
-                </tr>
+                      <article class="v-title">
+                        <label class="v-user"><h6>Test-user-00</h6></label>
+                        <h1>Do people who prefer over-ear headphones actually belong to a clandestine club</h1>
+                      </article>
 
-                <!-- State: Published -->
-                <tr>
-                  <td>
-                    <div class="feed-head label-parent v-published">
-                      <label class="state-published">Completed</label>
-                      <i class="material-symbols-outlined">done_all</i>
                     </div>
                   </td>
-                  <td id="feed-pg">
-                    <div class="feed-paragraph">
-                      <p>Do aliens use dark mode or light mode?</p>
-                      <span><label>Test-user-15</label>
-                        <div class="ractions"> <label>7.4k</label> <i class="material-symbols-outlined"> people </i>
-                        </div>
-                      </span>
-                    </div>
-                  </td>
-                </tr>
-
-
-                <!-- State: Respond -->
-                <tr>
-                  <td>
-                    <div class="feed-head label-parent v-active">
-                      <label class="state-active">Respond</label>
-                      <i class="material-symbols-outlined">voice_chat</i>
-                    </div>
-                  </td>
-                  <td id="feed-pg">
-                    <div class="feed-paragraph">
-                      <p>Is there a secret society of left-handed people?</p>
-                      <span><label>Test-user-21</label>
-                        <div class="ractions"> <label>8.7k</label> <i class="material-symbols-outlined"> people </i>
-                        </div>
-                      </span>
-                    </div>
-                  </td>
-                </tr>
-
-                <!-- State: Closed -->
-                <tr>
-                  <td>
-                    <div class="feed-head label-parent">
-                      <label class="state-closed">Closed</label>
-                      <i class="material-symbols-outlined">block</i>
-                    </div>
-                  </td>
-                  <td id="feed-pg">
-                    <div class="feed-paragraph">
-                      <p>Was Bigfoot just an introverted bear?</p>
-                      <span><label>Test-user-22</label>
-                        <div class="ractions"> <label>2.5k</label> <i class="material-symbols-outlined"> people </i>
-                        </div>
-                      </span>
-                    </div>
-                  </td>
+                  
                 </tr>
 
                 <!-- State: Published -->
-                <tr>
+                <tr id="v-published">
+
                   <td>
                     <div class="feed-head label-parent v-published">
                       <label class="state-published">Published</label>
-                      <i class="material-symbols-outlined">public</i>
+                      <i class="material-symbols-outlined">done_all</i>
                     </div>
                   </td>
-                  <td id="feed-pg">
+
+                  <td id="response-space">
+                    <div class="response-top">
+
+                      <section class="survey-discrip">
+                        <label for="survey-description-mc">About</label>
+                       <h6>This written response survey is intended to end the wars between pinapple on pizza lovers and haters, please be kind. </h6>
+                      </section>
+           
+    
+
+                      <section class="descript inpt ">
+                        <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
+                        <textarea id="survey-description-mc" name="survey-description-mc" placeholder="Enter Your Response" class="survey-input" rows="4" required=""></textarea>
+                      </section>
+
+                    </div>
+
+                    <div class="surv-dwn">
+
+                      <button  class=" bck-btn nav-button next step-button v-back ">
+                        <i class="material-symbols-outlined">keyboard_backspace</i>
+                        <p>Go back</p>
+                        
+                      </button>
+
+                      <button type="submit" id="submit-written-survey" class="v-button-filled submit-survey">
+                        <p>Submit</p>
+                        <i class="material-symbols-outlined">send</i>
+                      </button>
+                    </div>
+     
+                  </td>
+                  <td id="feed-pg" class="v-written">
                     <div class="feed-paragraph">
-                      <p>Is Wi-Fi just a modern spell for telepathy?</p>
-                      <span><label>Test-user-23</label>
-                        <div class="ractions"> <label>6.8k</label> <i class="material-symbols-outlined"> people </i>
+
+                      <span><label>Time left: 20h+</label>
+                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined">  edit_note  </i>
                         </div>
                       </span>
+
+                      <article class="v-title">
+                        <label class="v-user"><h6>Test-user-00</h6></label>
+                        <h1>Is using ketchup on boiled eggs a secret society initiation ritual?</h1>
+                      </article>
+
                     </div>
                   </td>
+
+
                 </tr>
 
-
-
-
-
-
-
+           
               </tbody>
             </table>
 
+
+
           </section>
+
 
         </article>
 

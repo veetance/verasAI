@@ -931,150 +931,128 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // ... Existing JavaScript code ...
 
-          // ... Existing JavaScript code ...
+      // ... Existing JavaScript code ...
 
-    function handleRowClick(event) {
-      const clickedRow = event.currentTarget;
-      const dataSurface = document.querySelector('#data-surface');
-      const table = dataSurface.querySelector('table');
-  
-      const feedHead = document.querySelector('.feed-head');
-      const feedpgrphP = document.querySelector('.feed-paragraph p');
-      const feedpgrph = document.querySelector('#feed-pg');
-      const feedparaG = document.querySelector('.feed-paragraph');
-      const responseSpace = document.querySelector('#response-space');
 
-      const navBarr = document.querySelector('.N-Header');
 
-  
-      // Only store initial dimensions if they haven't been stored yet
-      let initialWidth = clickedRow.dataset.initialWidth;
-      let initialHeight = clickedRow.dataset.initialHeight;
-  
-      if (!initialWidth || !initialHeight) {
-          initialWidth = getComputedStyle(clickedRow).width;
-          initialHeight = getComputedStyle(clickedRow).height;
-          clickedRow.dataset.initialWidth = initialWidth;
-          clickedRow.dataset.initialHeight = initialHeight;
-      }
-  
-      // Determine the grid position
-      const gridPosition = clickedRow.dataset.gridPosition;
-  
-      // Set transform origin based on grid position
-      switch (gridPosition) {
-          case '1':
-              clickedRow.style.transformOrigin = "top left";
-              break;
-          case '2':
-              clickedRow.style.transformOrigin = "top right";
-              break;
-          case '3':
-              clickedRow.style.transformOrigin = "bottom left";
-              break;
-          case '4':
-              clickedRow.style.transformOrigin = "bottom right";
-              break;
-      }
-  
-      if (clickedRow.classList.contains('expanded-row')) {
-          // Logic when the row is collapsed
-  
-          feedHead.style.display = "flex";  // Show feedHead
-          feedpgrphP.style.fontSize = "initial";  // Reset font size
-          feedpgrphP.style.lineHeight = "initial";
 
-          feedpgrph.style.height = "initial";  // Reset height
 
-          feedparaG.style.padding = "16px";  // Fit to content
-          feedparaG.style.paddingBottom = "40px";  // Fit to content
-       
-          responseSpace.style.display = "none";  // Hide responseSpace
-  
-          // Set transition for smooth collapsing
-          clickedRow.style.transition = "width .2s cubic-bezier(0,1.02,.06,.96), height 1s cubic-bezier(0,1.02,0,1.02)";
-  
-          // Animate back to initial dimensions
-          clickedRow.style.width = initialWidth;
-          clickedRow.style.height = initialHeight;
-  
-          // After the animation is complete, remove the expanded-row class
-          setTimeout(() => {
-              clickedRow.classList.remove('expanded-row');
-              dataSurface.classList.remove('expanding');
-              clickedRow.classList.add('recently-closed');
-  
-              // Reset the width to 100% after collapse animation completes
-              setTimeout(() => {
-                  clickedRow.style.width = "100%";
-                  clickedRow.style.height = "100%";
-              }, 0);
-          }, 100); // Same duration as the transition
-
-           // Expand the .N-Header element smoothly
-           navBarr.style.maxHeight = "89px !important";
-           navBarr.style.transition = "max-height .4s cubic-bezier(0,1.02,0,1.02)";
-           setTimeout(() => {
-               navBarr.style.display = "flex";
-           }, 10);  // 400ms is the transition duration
-   
-      } else {
-          // Logic when the row is expanded
-  
-          feedHead.style.display = "none";  // Hide feedHead
-
-          feedpgrphP.style.fontSize = "clamp(1.2rem, 2.3vw, 1.4rem)";  // Set font size
-          feedpgrphP.style.lineHeight = "clamp(1.5rem, 2.5vw, 1.8rem)";
-          feedparaG.style.padding = "20px";  // Fit to content
-          
-          feedpgrph.style.height = "fit-content";  // Fit to content
-          responseSpace.style.display = "flex";  // Display responseSpace
-  
-          // Remove the recently-closed class from all rows
-          table.querySelectorAll('tr').forEach(row => row.classList.remove('recently-closed'));
-  
-          const existingExpanded = table.querySelector('.expanded-row');
-          if (existingExpanded) {
-              existingExpanded.classList.remove('expanded-row');
+      function handleRowClick(clickedRow) {
+        const dataSurface = document.querySelector('#data-surface');
+        const table = dataSurface.querySelector('table');
+    
+        const feedHead = clickedRow.querySelector('.feed-head');
+        const feedpgrphP = clickedRow.querySelector('.feed-paragraph h1');
+        const feedpgrph = clickedRow.querySelector('#feed-pg');
+        const feedparaG = clickedRow.querySelector('.feed-paragraph');
+        const responseSpace = clickedRow.querySelector('#response-space');
+        const vTitle = clickedRow.querySelector('.v-title');
+        const navBarr = document.querySelector('.N-Header');
+    
+        let initialWidth = clickedRow.dataset.initialWidth || getComputedStyle(clickedRow).width;
+        let initialHeight = clickedRow.dataset.initialHeight || getComputedStyle(clickedRow).height;
+        clickedRow.dataset.initialWidth = initialWidth;
+        clickedRow.dataset.initialHeight = initialHeight;
+    
+        const gridPosition = clickedRow.dataset.gridPosition;
+        switch (gridPosition) {
+            case '1': clickedRow.style.transformOrigin = "top left"; break;
+            case '2': clickedRow.style.transformOrigin = "top right"; break;
+            case '3': clickedRow.style.transformOrigin = "bottom left"; break;
+            case '4': clickedRow.style.transformOrigin = "bottom right"; break;
+        }
+    
+        if (clickedRow.classList.contains('expanded-row')) {
+            table.querySelector('tbody').style.placeItems = 'center';
+            clickedRow.style.opacity = "1";
+            feedHead.style.display = "flex";
+            feedpgrphP.style.fontSize = "";
+            feedpgrphP.style.lineHeight = "";
+            feedpgrphP.style.width = "";
+            feedpgrphP.style.padding = "";
+            vTitle.style.padding = "";
+            feedpgrph.style.height = "100%";
+            feedparaG.style.padding = "16px";
+            feedparaG.style.paddingBottom = "40px";
+            feedparaG.style.backgroundColor = "";
+            responseSpace.style.display = "none";
+            clickedRow.style.transition = "width .3s cubic-bezier(0,1.02,.06,.96), height 1.5s cubic-bezier(0,1.02,0,1.02), opacity 0.5s cubic-bezier(0,1.02,.06,.96)";
+            clickedRow.style.width = initialWidth;
+            clickedRow.style.height = initialHeight;
+            setTimeout(() => {
+                clickedRow.style.opacity = "0";
+            }, 20);
+            setTimeout(() => {
+                clickedRow.classList.remove('expanded-row');
+                dataSurface.classList.remove('expanding');
+                clickedRow.classList.add('recently-closed');
+                setTimeout(() => {
+                    clickedRow.style.width = "100%";
+                    clickedRow.style.height = "100%";
+                    clickedRow.style.opacity = "1";
+                }, 0);
+            }, 60);
+            navBarr.style.maxHeight = "89px !important";
+            navBarr.style.transition = "max-height .4s cubic-bezier(0,1.02,0,1.02)";
+            setTimeout(() => {
+                navBarr.style.display = "flex";
+            }, 10);
+        } else {
+            table.querySelector('tbody').style.placeItems = 'center';
+            feedHead.style.display = "none";
+            feedpgrphP.style.fontSize = "clamp(1.3rem, 2vw, 2.2rem)";
+            feedpgrphP.style.lineHeight = "130%";
+            feedpgrphP.style.padding = "0px 0px";
+            feedpgrphP.style.paddingBottom = "0px";
+            feedpgrphP.style.width = "clamp(50%, 60%, 100%)";
+            feedparaG.style.paddingBottom = "16px";
+            feedparaG.style.padding = "26px";
+            feedparaG.style.backgroundColor = "hsla(0, 0%, 100%, 1)";
+            vTitle.style.padding = "10px 0px";
+            feedpgrph.style.height = "fit-content";
+            responseSpace.style.display = "flex";
+            table.querySelectorAll('tr').forEach(row => row.classList.remove('recently-closed'));
+            const existingExpanded = table.querySelector('.expanded-row');
+            if (existingExpanded) {
+                existingExpanded.classList.remove('expanded-row');
+            }
+            clickedRow.style.width = initialWidth;
+            clickedRow.style.height = initialHeight;
+            void clickedRow.offsetHeight;
+            clickedRow.style.transition = "width .05s cubic-bezier(0,1.02,.06,.96), height .4s cubic-bezier(0,1.02,0,1.02)";
+            setTimeout(() => {
+                clickedRow.style.width = "100%";
+                clickedRow.style.height = "100%";
+                clickedRow.classList.add('expanded-row');
+                dataSurface.classList.add('expanding');
+            }, 20);
+            navBarr.style.transition = "max-height .4s cubic-bezier(0,1.02,0,1.02)";
+            navBarr.style.maxHeight = "0px !important";
+            setTimeout(() => {
+                navBarr.style.display = "none";
+            }, 10);
+        }
+    }
+    
+    document.querySelectorAll('.v-back').forEach(vBack => {
+      vBack.addEventListener('click', function() {
+          const clickedRow = vBack.closest('tr'); // Find the closest row to the clicked vBack button
+          if (clickedRow && clickedRow.classList.contains('expanded-row')) {
+              handleRowClick(clickedRow);
           }
-  
-          // Set dimensions without a transition
-          clickedRow.style.width = initialWidth;
-          clickedRow.style.height = initialHeight;
-  
-          // Force a reflow
-          void clickedRow.offsetHeight;
-  
-          // Set transition and animate to 100%
-          clickedRow.style.transition = "width .05s cubic-bezier(0,1.02,.06,.96), height .4s cubic-bezier(0,1.02,0,1.02)";
-          setTimeout(() => {
-              clickedRow.style.width = "100%";
-              clickedRow.style.height = "100%";
-              clickedRow.classList.add('expanded-row');
-              dataSurface.classList.add('expanding');
-          }, 20);
-
-      
-        // Contract the .N-Header element smoothly
-        navBarr.style.transition = "max-height .4s cubic-bezier(0,1.02,0,1.02)";
-        navBarr.style.maxHeight = "0px !important";
-        setTimeout(() => {
-            navBarr.style.display = "none";
-        }, 10);  // 400ms is the transition duration
-
-      }
-  }
-  
-  const rows = document.querySelectorAll('#data-surface tbody tr');
-  rows.forEach(row => {
-      row.removeEventListener('click', handleRowClick);
-      row.addEventListener('click', handleRowClick);
+      });
   });
-  
-  
-  
+    
+    document.querySelector('#data-surface tbody').addEventListener('click', function(event) {
+        let clickedRow = event.target.closest('tr');
+        if (clickedRow && !clickedRow.classList.contains('expanded-row')) { // Only handle the click if the row isn't already expanded
+            handleRowClick(clickedRow);
+        }
+    });
+    
 
-  
+
+
 
     },
     validateForm: (loginNumber, password, confirmPassword, nickname) => {

@@ -435,20 +435,17 @@ table {
 tbody {
   display              : grid;
   grid-template-columns: repeat(2, minmax(200px, 1fr));
-  /* Use auto-fit to create as many columns as possible with a minimum width of 200px */
   grid-auto-rows       : auto;
-  /* Set the height of each row to 50px */
   grid-gap             : 15px;
-  /* Add a gap between grid items */
   width                : 100%;
   height               : auto;
   grid-auto-flow       : dense;
-  /* Specify that grid items should be placed in dense packing order */
   width                : 100%;
   height               : auto;
   gap                  : 10px;
   padding              : 10px;
   transition: grid-template-rows 0s;
+  align-content: start;
 }
 
 
@@ -502,31 +499,64 @@ td {
 .feed-paragraph {
   display: flex;
   width  : 100%;
-  height : auto;
+  height : 100% !important;
   padding: 16px;
   align-items: flex-start;
-  flex-direction: column-reverse;
-  gap: 10px;
-  justify-content: flex-end;
+  flex-direction: column;
+  gap: 22px;
+  justify-content: flex-start;
   padding-bottom: 40px;
-  background-color: #ffffff4b;
+  background-color: hsla(0, 0%, 100%, 0.478);
 }
+
 
 #response-space{
   display: none;
   justify-content: space-between;
   flex-direction: column;
-  padding: 10px !important;
+  padding: 0px !important;
   height: 100%;
-  background-color: #f5f4ff;
+  overflow-x:hidden ;
+  overflow-y: scroll !important;
+  overflow:overlay !important;
 }
+
+#response-space .surv-dwn{
+
+  position: sticky;
+  bottom: 0;
+  z-index: 500 !important;
+}
+
+
 
 .survey-discrip{
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  padding: 20px;
   gap: 8px;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
+  background-color: #f6fffc;
+  border-top: solid 1px #4978693d;
+  border-bottom: solid 1px #4978693d;
+  padding-left:28px;
+}
+
+
+
+
+
+.survey-discrip label{
+
+color: #2A6655;
+
+font-size       : 14px !important;
+
+display         : flex;
+
+border-radius   : 8px 8px 0px 0px;
+
+justify-content: space-between;
 }
 
  .descript label{
@@ -546,14 +576,25 @@ td {
 }
 .response-top{
   display: flex;
-  gap: 10px;
+  gap: 0px;
   flex-direction: column;
+  height: 100%;
 }
+
+.response-btm
+
+
 #response-space .tabs{
   padding: 0px !important;
 }
 #response-space .tab{
   height: fit-content !important;
+}
+
+#response-space .descript{
+  display: flex;
+  height: 100% !important;
+  padding: 20px;
 }
 
 .feed-paragraph span .material-symbols-outlined {
@@ -575,7 +616,7 @@ width: 100%;
 flex-direction: row-reverse;
 }
 
-#v-open .ractions .material-symbols-outlined {
+#v-open #v-closed #v-published, .ractions .material-symbols-outlined {
   padding: 0px !important;
   color: #918bb1 !important;
   font-size: 22px !important;
@@ -592,7 +633,7 @@ flex-direction: row-reverse;
 .ractions label{
   display: flex;
   justify-content: flex-start !important;
-  font-size: 12px !important;
+  font-size: 13px !important;
   align-items: center !important;
 }
 
@@ -684,6 +725,7 @@ background-color: rgba(240, 252, 243, 0.2) !important;
 .v-active .material-symbols-outlined {
   color: #3b7d6a !important;
   font-size: 22px !important;
+  transform: scaleX(-1);
 }
 
 .feed-head .material-symbols-outlined {
@@ -716,56 +758,91 @@ label {
 tr {
 
 display         : flex;
-
 flex-direction: column-reverse !important;
-
 flex-direction  : column;
-
 cursor          : pointer;
-
 height          : 100%;
 width: 100%;
-
 border          : solid 1px #e0dbff;
-
-background-color: #ffffff1f;
-
 border-radius   : 10px;
 
+/* cosmetics-will finish later border: double 1px transparent;
+background-origin: border-box;
+background-clip: content-box, border-box;
+background-color: #ffffff1f; */
 /* padding-bottom  : clamp(0%, 3vw, 100px); */
 
 overflow        : hidden;
-
 justify-content: flex-end;
+-webkit-tap-highlight-color: transparent !important;
+
+}
+
+.v-written,.v-opt{
+  display: flex;
+}
+
+.v-opt .material-symbols-outlined{
+  margin-top: 3px !important;
+  font-size: 20px !important;
+}
+
+#data-surface tr.expanded-row:hover {
+  box-shadow: rgba(165, 148, 243, 0) 0px 2px 1px 0px !important;
 }
 
 tr span {
   display: flex;
 }
 
+.v-title{
+  display: flex;
+  flex-direction: column;
+  gap:10px;
+  width: 100%; 
 
-tr:hover, tr.recently-closed {
-  background-color: rgb(255, 255, 255);
+}
+
+.v-user h6{
+  color: var(--f7-2ndry-theme-color-DRKshade) !important;
+  border-radius: 5px;
+  font-size: 13.5px !important;
+  font-weight: 700;
+  opacity: .7 !important;
+  margin: 0px !important; 
+  line-height: 100%!important;
+
+}
+
+
+
+tr:hover {
+  background-color: rgb(245 244 255);
+  box-shadow: rgb(165, 148, 243) 0px 2px 001px 0px !important;
+}
+
+tr.recently-closed{
+  background-color: rgb(245 244 255);
   box-shadow: rgba(165, 148, 243, 0.26) 0px 2px 001px 0px;
 }
 
-.feed-paragraph p {
+.feed-paragraph h1 {
   display    : flex !important;
-  margin     : 0;
-  width: clamp(50%, 70%, 100%);
-
+  margin     : 0px;
+  width: clamp(40%, 90%, 100%);
   font-size  : 16px;
+  line-height: 130%;
   font-weight: 800;
   color      : var(--f7-theme-color-muted);
   opacity    :1;
-
+  justify-content: flex-start;
+  white-space: pre-wrap;
 }
-
 .feed-paragraph span label {
   display: flex;
   border-radius: 5px;
   font-size: 13.5px;
-  font-weight: 700;
+  height: 26px ;
   font-weight: 800;
   opacity: .6;
   width: 100% !important;
@@ -773,15 +850,14 @@ tr:hover, tr.recently-closed {
   align-items: center;
   justify-content: flex-end;
 }
-
 .feed-paragraph span {
   display: flex;
   width: 100% !important;
   justify-content: space-between;
   flex-direction: row-reverse;
+  border-bottom: solid 1px #e0dbff;
+  padding-bottom: 4px;
 }
-
-
 
 /* ACTION BUTTONS */
 
@@ -789,16 +865,20 @@ tr:hover, tr.recently-closed {
   grid-template-rows: 1fr;
   height: 100%; /* set height to 100% when expanding */
 }
-
-/* Ensure the expanded row takes up both columns of the grid */
+/* Ensure the expanded row takes up both columns of the griFvd */
 .expanded-row {
   grid-column: span 3;
+  
   /* Add transition for grid-column */
 }
 
 /* Hide all rows of the table when one row is expanded */
 #data-surface.expanding > table > tbody > tr:not(.expanded-row) {
   display: none;
+}
+
+.expanded-row #response-space {
+gap:0px;
 }
 
 
@@ -1429,6 +1509,11 @@ tr:hover, tr.recently-closed {
   overflow      : hidden !important;
 }
 
+#written-survey-form .surv-top {
+height: fit-content !important;
+
+}
+
 .surv-top {
   display       : flex;
   flex-direction: column;
@@ -1439,11 +1524,14 @@ tr:hover, tr.recently-closed {
   padding: 10px;
 }
 
+
 .surv-dwn {
   display         : flex;
   height          : fit-content;
   padding         : 10px;
   background-color: #edeaff;
+  justify-content: space-between;
+  gap:10px;
 }
 
 .survey-form label {
@@ -1619,7 +1707,7 @@ tr:hover, tr.recently-closed {
   margin-right    : 5px;
 }
 
-.survey-form textarea {
+  .survey-form textarea {
   width     : 100%;
   max-width : 100%;
   min-width : 100%;
@@ -1636,9 +1724,18 @@ tr:hover, tr.recently-closed {
 }
 
 
+
+
+
+
+
+
 .survey-input,
 .create-input {
-  width              : 100%;
+  display: flex;
+  width: 100% !important;
+  height: 100% !important;
+
   padding            : 10px;
   border             : 1px solid #ebe8ff;
   border-radius      : 0px 0px 6px 6px;
@@ -1712,16 +1809,51 @@ textarea:hover {
 }
 
 .submit-survey {
+  max-width: 100% !important;
   width        : 100% !important;
-  min-width    : 100% !important;
   border-radius: 10px !important;
+  height: 100% !important;
 
   cursor: pointer;
+}
+
+.v-back{
+  display: flex;
+  max-width: fit-content !important;
+  width: fit-content !important;
+ padding: 20px !important;
+ justify-content: space-between;
+ align-items: center;
+ border: solid 1px #e0dbfd;
+ gap:10px;
+}
+
+.v-back:hover{
+border: solid 1px #5e50b2 !important;
+}
+
+
+.v-back p{
+  font-weight: 750;
+  color      : var(--f7-theme-color-muted);
+  white-space: nowrap;
+}
+
+.v-back:active p, 
+.v-back:active .material-symbols-outlined {
+    color: #ffffff !important;
+}
+
+.v-back .material-symbols-outlined{
+  font-size: 30px !important;
+  color    : var(--f7-theme-color-muted) !important;
+  line-height: 70% !important;
 }
 
 .submit-survey p {
   color  : white;
   opacity: 1;
+  font-weight: 600 !important;
 }
 
 .submit-survey .material-symbols-outlined {
