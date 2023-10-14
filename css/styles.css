@@ -232,17 +232,18 @@ h5 {
 
 h6{
   width: fit-content;
-    display: flex;
-    justify-content: center;
-    font-weight: 750;
-    opacity: .7;
-    color: var(--f7-theme-color);
-    font-size: 13.5px !important;
-    line-height: 100%;
-    margin: 0px;
+  display: flex;
+  justify-content: center;
+  font-weight: 650;
+  opacity: .7;
+  color: #294941;
+  font-size: 14px;
+  line-height: 130%;
+  margin: 0px;
 }
 
 /* navigation structure */
+
 .navbar-wrapper {
   display        : flex;
   flex-direction : column;
@@ -726,7 +727,7 @@ border-radius   : 6px;
 .v-button-filled p {
   color      : white;
   font-weight: 500;
-  font-size  : clamp(0.9rem, 1vw, 0.8vw) !important;
+  font-size  : clamp(0.9rem, 1vw, 0.8vw) ;
   line-height: 100% !important;
   white-space: nowrap;
 }
@@ -2062,7 +2063,7 @@ border-radius   : 6px;
   }
 
   p {
-    font-size: clamp(0.9rem, 2vw, 1rem);
+    font-size: clamp(0.9rem, 2vw, 1rem) !important;
   }
 
   .F-set ul li p {
