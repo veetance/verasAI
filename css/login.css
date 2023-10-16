@@ -406,6 +406,11 @@
     width      : fit-content;
   }
 
+  .feed-paragraph h1{
+    width: clamp(100%, 60%, 100%) !important;
+
+  }
+
   .form .checkbox-label {
     font-size  : clamp(0.5rem, 3.5vw, 1rem);
     line-height: clamp(1.9rem, 2.5vw, 8rem);
@@ -471,6 +476,11 @@
     line-height: clamp(1.4rem, 8vw, 10rem);
     white-space: pre-wrap !important;
     width      : fit-content;
+  }
+
+  .feed-paragraph h1{
+    width: clamp(100%, 60%, 100%) !important;
+
   }
 
   .form .checkbox-label {
