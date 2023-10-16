@@ -1850,9 +1850,11 @@ border-radius   : 6px;
 }
 
 @media (min-width: 890px) {
+
   #vFstFrame .v-page-CTA {
     padding-top: 170px;
   }
+
 }
 
 /* tablet */

@@ -334,7 +334,7 @@
 .tab.focus {
   transition      : all 0.5s cubic-bezier(0, 1.02, 0, 1.02);
   border          : solid 1px #317763bb;
-  border-bottom   : solid 3px #317763;
+  border-bottom   : solid 3px #317763 !important; 
   background-color: #fafffe85;
 }
 
@@ -778,6 +778,18 @@ justify-content: flex-end;
 
 }
 
+.newsfeed-Zone, textarea input{
+  outline: none !important;
+  border: 1.7px solid #ebe8ff !important;
+
+}
+
+.newsfeed-Zone textarea input, :focus {
+  outline: none !important;
+  border: solid 1.7px #2d9762b9 !important;
+  z-index: 2;
+}
+
 .v-written,.v-opt{
   display: flex;
 }
@@ -798,7 +810,7 @@ tr span {
 .v-title{
   display: flex;
   flex-direction: column;
-  gap:10px;
+  gap:8px;
   width: 100%; 
 
 }
@@ -806,8 +818,8 @@ tr span {
 .v-user h6{
   color: var(--f7-2ndry-theme-color-DRKshade) !important;
   border-radius: 5px;
-  font-size: 13.5px !important;
-  font-weight: 700;
+  font-size: 14.5px !important;
+  font-weight: 800;
   opacity: .7 !important;
   margin: 0px !important; 
   line-height: 100%!important;
@@ -1480,22 +1492,10 @@ gap:0px;
   cursor    : pointer;
   transition: background-color 0.3s ease;
   display   : flex;
-  /* Ensures the submit button is on a new line */
   width     : 100%;
-  /* Takes full width of the container */
+
 }
 
-#submit-written-survey:hover {
-  background-color: #7e6cdf;
-}
-
-
-/* Add any additional styles here */
-
-
-/* Add your existing CSS code here */
-
-/* Additional styling for the multiple choice survey */
 #multiple-choice-content {
   background-color: #f6f3ff00;
   box-shadow      : 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -1530,9 +1530,16 @@ height: fit-content !important;
   height          : fit-content;
   padding         : 10px;
   background-color: #edeaff;
+  background-color: #edeaff5b;
   justify-content: space-between;
   gap:10px;
+  /* flex-direction: row-reverse; */
 }
+
+/* .tab-content .surv-dwn{
+  background-color: #edeaff5b;
+
+} */
 
 .survey-form label {
   opacity         : 0.8;
@@ -1723,6 +1730,23 @@ height: fit-content !important;
   overflow-y: visible !important;
 }
 
+ .response-top #v-form-close{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+  border: solid 1px #5e51b538;
+  background-color: #f6f6ff !important;
+  border-radius: 8px;
+ }
+
+ .response-top #v-form-close:active{
+  background-color: #f6f6ff00 !important;
+  border: solid 1px #5e51b500;
+  opacity: .6;
+ }
+
 
 
 
@@ -1735,8 +1759,7 @@ height: fit-content !important;
   display: flex;
   width: 100% !important;
   height: 100% !important;
-
-  padding            : 10px;
+  padding: 20px;
   border             : 1px solid #ebe8ff;
   border-radius      : 0px 0px 6px 6px;
   font-size          : 16px;
@@ -1813,19 +1836,63 @@ textarea:hover {
   width        : 100% !important;
   border-radius: 10px !important;
   height: 100% !important;
-
   cursor: pointer;
 }
+
+.tab-content .submit-survey{
+  background-color: #f7fffc;
+  border: solid 1.6px #31776325;
+}
+
+.tab-content .submit-survey p{
+  color: #3c7763 !important;
+  font-weight: 700 !important;
+}
+.tab-content .submit-survey .material-symbols-outlined
+{
+  color: #3c7763 !important;
+}
+
+.tab-content .submit-survey:focus{
+
+  border: solid 1.6px #449981 !important;
+
+}
+
+.tab-content .submit-survey:hover{
+  background-color: #ebfcf7;
+  border: solid 1.6px #31776391;
+}
+
+.tab-content .submit-survey:active{
+background-image: linear-gradient(to top, #317763,  #317763);
+border: solid 1.6px #317763;
+
+}
+
+.tab-content .submit-survey:active p, .tab-content .submit-survey:active .material-symbols-outlined{
+
+color: #ebfcf7 !important;
+border: solid 1px #317763 !important;
+  
+}
+
+
 
 .v-back{
   display: flex;
   max-width: fit-content !important;
   width: fit-content !important;
- padding: 20px !important;
- justify-content: space-between;
- align-items: center;
- border: solid 1px #e0dbfd;
- gap:10px;
+  padding: 20px !important;
+  justify-content: space-between;
+  align-items: center;
+  border: solid 1px #e0dbfd;
+  gap:10px;
+  background-color: #ffffff;
+}
+
+.surv-dwn .step-button{
+  padding-right: 20px !important;
 }
 
 .v-back:hover{
@@ -1858,10 +1925,6 @@ border: solid 1px #5e50b2 !important;
 
 .submit-survey .material-symbols-outlined {
   font-size: 24px !important;
-}
-
-.submit-survey:hover {
-  background-color: #7e6cdf;
 }
 
 /* Add any additional styles here */
