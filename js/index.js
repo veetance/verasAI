@@ -372,8 +372,63 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+      /////////////// grab Data ////////////////
+      function fetchAndDisplayTable() {
+        setTimeout(() => {
+          const userLoginData = window.userLoginData || window.registerData;
 
-      // Written Survey form submission
+          fetch("https://study.veras.ca/homepage.phps", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userLoginData),
+            redirect: 'manual' // prevent automatic redirection
+          })
+
+            .then((response) => {
+
+              if (!response.ok) {
+                isLoadPageRunning = true;
+                loadLong();
+                // Show the alert with the status and the 'Location' header value
+                showAlert("Error fetching table: " + response.url + " | Redirecting to | " + "?login").then(() => {
+                  window.location.href = response.url;
+                  return;
+                });
+              }
+              return response.text();
+            })
+
+            .then((responseText) => {
+              isLoadPageRunning = true;
+              loadLong();
+              appendTableToTarget(responseText);
+
+              $('td > label').each(function () {
+                if ($(this).text().trim() === "closed") {
+                  $(this).parent().addClass('label-parent');
+                }
+              });
+
+            })
+
+            .catch((error) => {
+              console.error("Error fetching table:", error);
+              showAlert("Error fetching table: " + error.message).then(() => {
+                window.location.reload();
+              });
+            });
+
+        }, 200);
+      }
+      // fetchAndDisplayTable();
+
+
+      /////////// data manipulation //////////////
+
+
+      ////// Written Survey form submission
       function handleWittenSurveyFormSubmission(input) {
 
         const submitButton = document.getElementById("submit-written-survey");
@@ -472,7 +527,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       }
       handleWittenSurveyFormSubmission(true);
-      // Multiple Choice Survey form submission
+
+
+
+      ////// Multiple Choice Survey form submission
       function handleMultipleChoiceSurveyFormSubmission(input) {
         const submitButton = document.getElementById("submit-multiple-choice");
         const titleInput = document.getElementById("survey-title-mc");
@@ -619,19 +677,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
       /////////////// Surver respond function multiple choice ////////////////
-
-
-
 
       /////////////// Surver respond function written-response ////////////////
 
-
-
-
-
-
+      
+      
+        
+  
       /////////////// main dashboard section ////////////////
 
       const newsfeedLeft = document.querySelector(".Newsfeed-Left");
@@ -844,7 +897,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "click", function () {
           activateTab("multiple-choice");
         });
-   
+
       // add focus to tab lnks //
       function activateTab(tabName) {
         // Hide all tab content
@@ -878,317 +931,271 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
 
-      /////////////// grab Data ////////////////
-      function fetchAndDisplayTable() {
-        setTimeout(() => {
-          const userLoginData = window.userLoginData || window.registerData;
 
-          fetch("https://study.veras.ca/homepage.phps", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(userLoginData),
-            redirect: 'manual' // prevent automatic redirection
-          })
+     
+        ///////////////survey-responding-ui-manipulations////////////////
+        function handleRowClick(clickedRow) {
 
-            .then((response) => {
+          const dataSurface = document.querySelector('#data-surface');
+          const table = dataSurface.querySelector('table');
+          const tBody = table.querySelector('tbody');
 
-              if (!response.ok) {
-                isLoadPageRunning = true;
-                loadLong();
-                // Show the alert with the status and the 'Location' header value
-                showAlert("Error fetching table: " + response.url + " | Redirecting to | " + "?login").then(() => {
-                  window.location.href = response.url;
-                  return;
-                });
-              }
-              return response.text();
-            })
+          const feedHead = clickedRow.querySelector('.feed-head');
+          const feedpgrphP = clickedRow.querySelector('.feed-paragraph h1');
+          const feedpgrph = clickedRow.querySelector('#feed-pg');
+          const responseSpace = clickedRow.querySelector('#response-space');
+          const feedparaG = clickedRow.querySelector('.feed-paragraph');
+          const vTitle = clickedRow.querySelector('.v-title');
+          const navBarr = document.querySelector('.N-Header');
+          // const vtR = clickedRow.querySelector('tbody tr');
 
-            .then((responseText) => {
-              isLoadPageRunning = true;
-              loadLong();
-              appendTableToTarget(responseText);
+          let initialWidth = clickedRow.dataset.initialWidth || getComputedStyle(clickedRow).width;
+          let initialHeight = clickedRow.dataset.initialHeight || getComputedStyle(clickedRow).height;
+          clickedRow.dataset.initialWidth = initialWidth;
+          clickedRow.dataset.initialHeight = initialHeight;
 
-              $('td > label').each(function () {
-                if ($(this).text().trim() === "closed") {
-                  $(this).parent().addClass('label-parent');
-                }
-              });
+          const gridPosition = clickedRow.dataset.gridPosition;
+          switch (gridPosition) {
+            case '1': clickedRow.style.transformOrigin = "top left"; break;
+            case '2': clickedRow.style.transformOrigin = "top right"; break;
+            case '3': clickedRow.style.transformOrigin = "bottom left"; break;
+            case '4': clickedRow.style.transformOrigin = "bottom right"; break;
+          }
 
-            })
+          if (clickedRow.classList.contains('expanded-row')) {
 
-            .catch((error) => {
-              console.error("Error fetching table:", error);
-              showAlert("Error fetching table: " + error.message).then(() => {
-                window.location.reload();
-              });
-            });
+            table.querySelector('tbody').style.placeItems = 'center';
+            clickedRow.style.opacity = "1";
+            feedHead.style.display = "flex";
+            feedpgrphP.style.fontSize = "";
+            feedpgrphP.style.lineHeight = "";
+            feedpgrphP.style.width = "";
+            feedpgrphP.style.padding = "";
+            vTitle.style.padding = "";
+            feedpgrph.style.height = "100%";
+            feedparaG.style.padding = "16px";
+            feedparaG.style.paddingBottom = "40px";
+            feedparaG.style.backgroundColor = "";
+            responseSpace.style.display = "none";
+            tBody.style.padding = "";
+            clickedRow.style.borderRadius = "";
+            clickedRow.style.border = "";
 
-        }, 200);
-      }
-      fetchAndDisplayTable();
+            clickedRow.style.transition = "width .3s cubic-bezier(0,1.02,.06,.96), height 1.5s cubic-bezier(0,1.02,0,1.02), opacity 0.5s cubic-bezier(0,1.02,.06,.96)";
+            clickedRow.style.width = initialWidth;
+            clickedRow.style.height = initialHeight;
+            setTimeout(() => {
+              clickedRow.style.opacity = "0";
+            }, 20);
+            setTimeout(() => {
+              clickedRow.classList.remove('expanded-row');
+              dataSurface.classList.remove('expanding');
+              clickedRow.classList.add('recently-closed');
+              setTimeout(() => {
+                clickedRow.style.width = "100%";
+                clickedRow.style.height = "100%";
+                clickedRow.style.opacity = "1";
+              }, 0);
+            }, 60);
+            navBarr.style.maxHeight = "89px !important";
+            navBarr.style.transition = "max-height .4s cubic-bezier(0,1.02,0,1.02)";
+            setTimeout(() => {
+              navBarr.style.display = "flex";
+            }, 10);
+
+          } else {
+
+            table.querySelector('tbody').style.placeItems = 'center';
+            feedHead.style.display = "none";
+            feedparaG.style.paddingBottom = "16px";
+            feedparaG.style.padding = "26px";
+            feedparaG.style.backgroundColor = "hsla(0, 0%, 100%, 1)";
+            vTitle.style.padding = "10px 0px";
+            feedpgrph.style.height = "fit-content";
+            responseSpace.style.display = "flex";
+
+            tBody.style.padding = "0px";
+            clickedRow.style.borderRadius = "0px";
+            clickedRow.style.border = "solid 0px #e0dbff00";
+
+            setTimeout(() => {
+              feedpgrphP.style.fontSize = "clamp(1.3rem, 2vw, 2.2rem)";
+              feedpgrphP.style.lineHeight = "130%";
+              feedpgrphP.style.padding = "0px 0px";
+              feedpgrphP.style.paddingBottom = "0px";
+              feedpgrphP.style.width = "clamp(50%, 70%, 100%)";
+            }, 50);
 
 
-      ///////////////survey-responding-ui-manipulations////////////////
-      function handleRowClick(clickedRow) {
 
-        const dataSurface = document.querySelector('#data-surface');
-        const table = dataSurface.querySelector('table');
-        const tBody = table.querySelector('tbody');
-
-        const feedHead = clickedRow.querySelector('.feed-head');
-        const feedpgrphP = clickedRow.querySelector('.feed-paragraph h1');
-        const feedpgrph = clickedRow.querySelector('#feed-pg');
-        const responseSpace = clickedRow.querySelector('#response-space');
-        const feedparaG = clickedRow.querySelector('.feed-paragraph');
-        const vTitle = clickedRow.querySelector('.v-title');
-        const navBarr = document.querySelector('.N-Header');
-        // const vtR = clickedRow.querySelector('tbody tr');
-
-        let initialWidth = clickedRow.dataset.initialWidth || getComputedStyle(clickedRow).width;
-        let initialHeight = clickedRow.dataset.initialHeight || getComputedStyle(clickedRow).height;
-        clickedRow.dataset.initialWidth = initialWidth;
-        clickedRow.dataset.initialHeight = initialHeight;
-
-        const gridPosition = clickedRow.dataset.gridPosition;
-        switch (gridPosition) {
-          case '1': clickedRow.style.transformOrigin = "top left"; break;
-          case '2': clickedRow.style.transformOrigin = "top right"; break;
-          case '3': clickedRow.style.transformOrigin = "bottom left"; break;
-          case '4': clickedRow.style.transformOrigin = "bottom right"; break;
-        }
-
-        if (clickedRow.classList.contains('expanded-row')) {
-
-          table.querySelector('tbody').style.placeItems = 'center';
-          clickedRow.style.opacity = "1";
-          feedHead.style.display = "flex";
-          feedpgrphP.style.fontSize = "";
-          feedpgrphP.style.lineHeight = "";
-          feedpgrphP.style.width = "";
-          feedpgrphP.style.padding = "";
-          vTitle.style.padding = "";
-          feedpgrph.style.height = "100%";
-          feedparaG.style.padding = "16px";
-          feedparaG.style.paddingBottom = "40px";
-          feedparaG.style.backgroundColor = "";
-          responseSpace.style.display = "none";
-          tBody.style.padding = "";
-          clickedRow.style.borderRadius = "";
-          clickedRow.style.border = "";
-
-          clickedRow.style.transition = "width .3s cubic-bezier(0,1.02,.06,.96), height 1.5s cubic-bezier(0,1.02,0,1.02), opacity 0.5s cubic-bezier(0,1.02,.06,.96)";
-          clickedRow.style.width = initialWidth;
-          clickedRow.style.height = initialHeight;
-          setTimeout(() => {
-            clickedRow.style.opacity = "0";
-          }, 20);
-          setTimeout(() => {
-            clickedRow.classList.remove('expanded-row');
-            dataSurface.classList.remove('expanding');
-            clickedRow.classList.add('recently-closed');
+            table.querySelectorAll('tr').forEach(row => row.classList.remove('recently-closed'));
+            const existingExpanded = table.querySelector('.expanded-row');
+            if (existingExpanded) {
+              existingExpanded.classList.remove('expanded-row');
+            }
+            clickedRow.style.width = initialWidth;
+            clickedRow.style.height = initialHeight;
+            void clickedRow.offsetHeight;
+            clickedRow.style.transition = "width .05s cubic-bezier(0,1.02,.06,.96), height .4s cubic-bezier(0,1.02,0,1.02)";
             setTimeout(() => {
               clickedRow.style.width = "100%";
               clickedRow.style.height = "100%";
-              clickedRow.style.opacity = "1";
-            }, 0);
-          }, 60);
-          navBarr.style.maxHeight = "89px !important";
-          navBarr.style.transition = "max-height .4s cubic-bezier(0,1.02,0,1.02)";
-          setTimeout(() => {
-            navBarr.style.display = "flex";
-          }, 10);
-
-        } else {
-
-          table.querySelector('tbody').style.placeItems = 'center';
-          feedHead.style.display = "none";
-          feedparaG.style.paddingBottom = "16px";
-          feedparaG.style.padding = "26px";
-          feedparaG.style.backgroundColor = "hsla(0, 0%, 100%, 1)";
-          vTitle.style.padding = "10px 0px";
-          feedpgrph.style.height = "fit-content";
-          responseSpace.style.display = "flex";
-
-          tBody.style.padding = "0px";
-          clickedRow.style.borderRadius = "0px";
-          clickedRow.style.border = "solid 0px #e0dbff00";
-
-          setTimeout(() => { feedpgrphP.style.fontSize = "clamp(1.3rem, 2vw, 2.2rem)";
-          feedpgrphP.style.lineHeight = "130%";
-          feedpgrphP.style.padding = "0px 0px";
-          feedpgrphP.style.paddingBottom = "0px";
-          feedpgrphP.style.width = "clamp(50%, 70%, 100%)";
-        }, 50);
-
-
-
-          table.querySelectorAll('tr').forEach(row => row.classList.remove('recently-closed'));
-          const existingExpanded = table.querySelector('.expanded-row');
-          if (existingExpanded) {
-            existingExpanded.classList.remove('expanded-row');
-          }
-          clickedRow.style.width = initialWidth;
-          clickedRow.style.height = initialHeight;
-          void clickedRow.offsetHeight;
-          clickedRow.style.transition = "width .05s cubic-bezier(0,1.02,.06,.96), height .4s cubic-bezier(0,1.02,0,1.02)";
-          setTimeout(() => {
-            clickedRow.style.width = "100%";
-            clickedRow.style.height = "100%";
-            clickedRow.classList.add('expanded-row');
-            dataSurface.classList.add('expanding');
-          }, 20);
-          navBarr.style.transition = "max-height .4s cubic-bezier(0,1.02,0,1.02)";
-          navBarr.style.maxHeight = "0px !important";
-          setTimeout(() => {
-            navBarr.style.display = "none";
-          }, 10);
-        }
-
-
-        // Define the rsetAugmt function
-        const rsetAugmt = function (feedpgrphP) {
-          if (feedpgrphP) {
-            // RESET the width of '.feed-paragraph h1' when the row collapses
-            feedpgrphP.style.width = 'clamp(40%, 90%, 100%)';  // Reset the width
-          }
-        };
-
-        // Attach rsetAgmt to the clickedRow so it can be accessed externally
-        clickedRow.rsetAugmt = function () {
-          rsetAugmt(feedpgrphP);
-        };
-
-        // OTHER ADJUSTMENTS ////
-
-        if (window.innerWidth >= 890) {
-          // If the viewport is 890 pixels or wider, we adjust the width of '.feed-paragraph h1'.
-          feedpgrphP.style.width = 'clamp(40%, 90%, 45%)';
-        }
-
-        // Add event listener to the textarea
-        document.querySelector('#data-surface').addEventListener('focus', function (event) {
-          let focusedTextArea = event.target.closest('textarea');
-          if (focusedTextArea) {
-            onTextAreaFocus(event);
-          }
-        }, true);
-
-      }
-      function onTextAreaFocus(event) {
-        // Make sure we're getting the textarea from the event that was fired on focus
-        const textArea = event.target;
-
-        const currentRow = textArea.closest('tr'); // The row containing the textarea
-        const survDescrp = currentRow.querySelector(".survey-discrip");
-        const feedparaG = currentRow.querySelector(".feed-paragraph");
-        const discripT = currentRow.querySelector(".descript");
-
-        // Freeze the height of the textarea and hide certain elements
-        const initialHeight = textArea.scrollHeight + "px"; // Capture initial height
-        textArea.style.height = initialHeight; // Freeze height
-        survDescrp.style.display = "none"; // Hide description
-        feedparaG.style.display = "none"; // Hide paragraph
-        textArea.style.transition = "height 3s cubic-bezier(0,1.02,.06,.96)";
-
-        // Delay the animation of the textarea expansion
-        setTimeout(() => {
-        
-          // Prepare for the transition
-          textArea.style.height = "100%"; // Trigger the height change
-          discripT.style.padding = "10px";
-
-        }, 10); // A small delay for the other elements to hide
-
-        // Check if the 'close' element already exists, if not, create it
-        let closeDescrp = currentRow.querySelector(".close-discrip" );
-        if (!closeDescrp) {
-          closeDescrp = document.createElement("div");
-          closeDescrp.classList.add("close-discrip");
-          closeDescrp.style.position = "absolute";
-          closeDescrp.style.zIndex = "2"; // Adjust z-index as needed
-          closeDescrp.style.top = "48px"; // Adjust position as needed
-          closeDescrp.style.right = "20px"; // Adjust position as needed
-
-          const closeIcon = document.createElement("i");
-          closeIcon.id = "v-form-close";
-          closeIcon.classList.add("material-symbols-outlined");
-          closeIcon.textContent = "close_fullscreen"; // Add the 'close' text or icon representation here
-          closeDescrp.appendChild(closeIcon);
-
-          // Append to the textarea container (assuming the textarea is wrapped in a container)
-          const textAreaContainer = textArea.parentNode;
-          textAreaContainer.style.position = "relative"; // Ensure the container has a relative position
-          textAreaContainer.appendChild(closeDescrp);
-
-          // Event listener for 'close' click, using a named function to avoid duplicate listeners
-          const closeFunction = function () {
-            // Reset everything to initial state
-            textArea.style.height = initialHeight; // Reset height
-            survDescrp.style.display = ""; // Show description
-            feedparaG.style.display = ""; // Show paragraph
-            discripT.style.padding = "20px";
-
-            // Remove the 'close' element after a slight delay
+              clickedRow.classList.add('expanded-row');
+              dataSurface.classList.add('expanding');
+            }, 20);
+            navBarr.style.transition = "max-height .4s cubic-bezier(0,1.02,0,1.02)";
+            navBarr.style.maxHeight = "0px !important";
             setTimeout(() => {
-              textAreaContainer.removeChild(closeDescrp); // Remove the 'close' icon
-              // Important: Remove the event listener once it's been used to prevent duplicates
-              closeDescrp.removeEventListener('click', closeFunction);
-            }, 10); // Slight delay for visual adjustment
+              navBarr.style.display = "none";
+            }, 10);
+          }
+
+
+          // Define the rsetAugmt function
+          const rsetAugmt = function (feedpgrphP) {
+            if (feedpgrphP) {
+              // RESET the width of '.feed-paragraph h1' when the row collapses
+              feedpgrphP.style.width = 'clamp(40%, 90%, 100%)';  // Reset the width
+            }
           };
 
-          // Add the event listener for the 'close' click
-          closeDescrp.addEventListener('click', closeFunction);
+          // Attach rsetAgmt to the clickedRow so it can be accessed externally
+          clickedRow.rsetAugmt = function () {
+            rsetAugmt(feedpgrphP);
+          };
 
-          // Attach closeFunction to the textArea so it can be accessed externally
-          textArea.closeTextArea = closeFunction;
+          // OTHER ADJUSTMENTS ////
+
+          if (window.innerWidth >= 890) {
+            // If the viewport is 890 pixels or wider, we adjust the width of '.feed-paragraph h1'.
+            feedpgrphP.style.width = 'clamp(40%, 90%, 45%)';
+          }
+
+          // Add event listener to the textarea
+          document.querySelector('#data-surface').addEventListener('focus', function (event) {
+            let focusedTextArea = event.target.closest('textarea');
+            if (focusedTextArea) {
+              onTextAreaFocus(event);
+            }
+          }, true);
 
         }
-      }
-      document.querySelectorAll('.v-back').forEach(vBack => {
-        vBack.addEventListener('click', function () {
-          const clickedRow = vBack.closest('tr');
-      
-          if (clickedRow && clickedRow.classList.contains('expanded-row')) {
-            // Find the textarea within your row
-            const textArea = clickedRow.querySelector('textarea');
-            // Find the close button within your row
-            const closeButton = clickedRow.querySelector('.close-discrip');
-      
-            // Check if the close button is present
-            if (textArea && closeButton) {
-              const alertElement = document.querySelector('.alert'); 
-              if (alertElement) {
-                alertElement.style.top = '50%'; // Adjust the position
-              }
-      
-              showLert("Are you sure you want to Abort your reply?").then(() => {
-                textArea.closeTextArea(); // If you have a specific function to close the textarea
+        function onTextAreaFocus(event) {
+          // Make sure we're getting the textarea from the event that was fired on focus
+          const textArea = event.target;
+
+          const currentRow = textArea.closest('tr'); // The row containing the textarea
+          const survDescrp = currentRow.querySelector(".survey-discrip");
+          const feedparaG = currentRow.querySelector(".feed-paragraph");
+          const discripT = currentRow.querySelector(".descript");
+
+          // Freeze the height of the textarea and hide certain elements
+          const initialHeight = textArea.scrollHeight + "px"; // Capture initial height
+          textArea.style.height = initialHeight; // Freeze height
+          survDescrp.style.display = "none"; // Hide description
+          feedparaG.style.display = "none"; // Hide paragraph
+          textArea.style.transition = "height 3s cubic-bezier(0,1.02,.06,.96)";
+
+          // Delay the animation of the textarea expansion
+          setTimeout(() => {
+
+            // Prepare for the transition
+            textArea.style.height = "100%"; // Trigger the height change
+            discripT.style.padding = "10px";
+
+          }, 10); // A small delay for the other elements to hide
+
+          // Check if the 'close' element already exists, if not, create it
+          let closeDescrp = currentRow.querySelector(".close-discrip");
+          if (!closeDescrp) {
+            closeDescrp = document.createElement("div");
+            closeDescrp.classList.add("close-discrip");
+            closeDescrp.style.position = "absolute";
+            closeDescrp.style.zIndex = "2"; // Adjust z-index as needed
+            closeDescrp.style.top = "48px"; // Adjust position as needed
+            closeDescrp.style.right = "20px"; // Adjust position as needed
+
+            const closeIcon = document.createElement("i");
+            closeIcon.id = "v-form-close";
+            closeIcon.classList.add("material-symbols-outlined");
+            closeIcon.textContent = "close_fullscreen"; // Add the 'close' text or icon representation here
+            closeDescrp.appendChild(closeIcon);
+
+            // Append to the textarea container (assuming the textarea is wrapped in a container)
+            const textAreaContainer = textArea.parentNode;
+            textAreaContainer.style.position = "relative"; // Ensure the container has a relative position
+            textAreaContainer.appendChild(closeDescrp);
+
+            // Event listener for 'close' click, using a named function to avoid duplicate listeners
+            const closeFunction = function () {
+              // Reset everything to initial state
+              textArea.style.height = initialHeight; // Reset height
+              survDescrp.style.display = ""; // Show description
+              feedparaG.style.display = ""; // Show paragraph
+              discripT.style.padding = "20px";
+
+              // Remove the 'close' element after a slight delay
+              setTimeout(() => {
+                textAreaContainer.removeChild(closeDescrp); // Remove the 'close' icon
+                // Important: Remove the event listener once it's been used to prevent duplicates
+                closeDescrp.removeEventListener('click', closeFunction);
+              }, 10); // Slight delay for visual adjustment
+            };
+
+            // Add the event listener for the 'close' click
+            closeDescrp.addEventListener('click', closeFunction);
+
+            // Attach closeFunction to the textArea so it can be accessed externally
+            textArea.closeTextArea = closeFunction;
+
+          }
+        }
+        document.querySelectorAll('.v-back').forEach(vBack => {
+          vBack.addEventListener('click', function () {
+            const clickedRow = vBack.closest('tr');
+
+            if (clickedRow && clickedRow.classList.contains('expanded-row')) {
+              // Find the textarea within your row
+              const textArea = clickedRow.querySelector('textarea');
+              // Find the close button within your row
+              const closeButton = clickedRow.querySelector('.close-discrip');
+
+              // Check if the close button is present
+              if (textArea && closeButton) {
+                const alertElement = document.querySelector('.alert');
+                if (alertElement) {
+                  alertElement.style.top = '50%'; // Adjust the position
+                }
+
+                showLert("Are you sure you want to Abort your reply?").then(() => {
+                  textArea.closeTextArea(); // If you have a specific function to close the textarea
+                  handleRowClick(clickedRow);
+                  if (clickedRow.rsetAugmt) {
+                    clickedRow.rsetAugmt();
+                  }
+                }).catch(() => {
+                  // Handle if they don't want to abort the reply
+                });
+              } else {
+                // If the close button is not present, we just want to collapse the row without an alert
                 handleRowClick(clickedRow);
                 if (clickedRow.rsetAugmt) {
-                  clickedRow.rsetAugmt(); 
+                  clickedRow.rsetAugmt();
                 }
-              }).catch(() => {
-                // Handle if they don't want to abort the reply
-              });
-            } else {
-              // If the close button is not present, we just want to collapse the row without an alert
-              handleRowClick(clickedRow);
-              if (clickedRow.rsetAugmt) {
-                clickedRow.rsetAugmt();
               }
             }
+          });
+        });
+        document.querySelector('#data-surface tbody').addEventListener('click', function (event) {
+          let clickedRow = event.target.closest('tr');
+          if (clickedRow && !clickedRow.classList.contains('expanded-row')) { // Only handle the click if the row isn't already expanded
+            handleRowClick(clickedRow);
           }
         });
-      });
-      document.querySelector('#data-surface tbody').addEventListener('click', function (event) {
-        let clickedRow = event.target.closest('tr');
-        if (clickedRow && !clickedRow.classList.contains('expanded-row')) { // Only handle the click if the row isn't already expanded
-          handleRowClick(clickedRow);
-        }
-      });
+
+
+
+
 
 
     },
