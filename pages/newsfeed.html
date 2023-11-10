@@ -13,7 +13,7 @@
           </span>
         </div>
         <div class="top-Right">
-          <span class="nav-button login-button">
+          <span class=" login-button">
             <div class="Uuser">
               <h2>User<!--<i>000</i>--> </h2>
             </div>
@@ -72,7 +72,7 @@
                   </section>
 
                   <section class="descript inpt ">
-                    <label for="survey-description-mc">Description</label>
+                    <label for="survey-description-mc">Description (optional)</label>
                     <textarea id="survey-description-mc" name="survey-description-mc"
                       placeholder="Enter a description for your survey" class="survey-input" rows="4"
                       required></textarea>
@@ -168,7 +168,7 @@
                   </section>
 
                   <section class="descript inpt">
-                    <label for="survey-description-mc">Description</label>
+                    <label for="survey-description-mc">Description (optional)</label>
                     <textarea id="survey-description-mc" name="survey-description-mc"
                       placeholder="Enter a description for your survey" class="survey-input" rows="4"
                       required></textarea>
@@ -181,9 +181,10 @@
 
                     <div class="add-remove">
 
-                      <button class="add-option " id="add-option" onclick="addOption(this)">
+                      <button class="add-option " id="add-option">
                         <p>Add</p><i class="material-symbols-outlined"> add</i>
                       </button>
+
                       <button class="remove-option globalRemove">
                         <p>Remove</p><i class="material-symbols-outlined"> remove </i>
                       </button>
@@ -224,7 +225,6 @@
 
         <article class="Newsfeed-Left Newsfeed">
 
-
           <div class="feed-scrollHead">
             <div id="closeNewsfeed" class="v-form-header">
               <h1>Newsfeed</h1>
@@ -234,673 +234,1417 @@
           </div>
 
           <!-- DATA GRID -->
-
           <section id="data-surface">
-            <table>
-              <tbody>
-                <tr id="topic3class">
-                  <td>
-                    <div class="feed-head label-parent v-published">
-                      <label class="state-published">Published</label>
-                      <i class="material-symbols-outlined">done_all</i>
-                    </div>
-                  </td>
-                  <td id="response-space">
-                    <div class="response-top">
-                      <section class="survey-discrip">
-                        <label for="survey-description-mc">About</label>
-                        <h6>test description2</h6>
-                      </section>
-                      <section class="descript inpt ">
-                        <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
-                        <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
-                          class="survey-input" rows="4" required=""></textarea>
-                      </section>
-                    </div>
-                    <div class="surv-dwn">
-                      <button class=" bck-btn nav-button next step-button v-back ">
-                        <i class="material-symbols-outlined">keyboard_backspace</i>
-                        <p>Go back</p>
-                      </button>
-                      <button type="submit" id="submit-response" class="v-button-filled submit-survey">
-                        <p>Submit</p>
-                        <i class="material-symbols-outlined">send</i>
-                      </button>
-                    </div>
-                  </td>
-                  <td id="feed-pg" class="v-written">
-                    <div class="feed-paragraph">
-                      <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note
-                          </i>
-                        </div>
-                      </span>
-                      <article class="v-title">
-                        <label class="v-user">
-                          <h6>test_user2</h6>
-                        </label>
-                        <h1>test title2</h1>
-                      </article>
-                    </div>
-                  </td>
-                </tr>
-                <script type="text/javascript">tableData[3][0] = 'text'; tableData[3][1] = '';</script>
-                <tr id="topic22class=&quot;v-closed&quot;">
-                  <td>
-                    <div class="feed-head label-parent">
-                      <label class="state-closed">Calculating</label>
-                      <i class="material-symbols-outlined">hourglass_top</i>
-                    </div>
-                  </td>
-                  <td id="response-space">
-                    <div class="response-top">
-                      <section class="survey-discrip">
-                        <label for="survey-description-mc">About</label>
-                        <h6>rrrr</h6>
-                      </section>
-                      <section class="descript inpt ">
-                        <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
-                        <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
-                          class="survey-input" rows="4" required=""></textarea>
-                      </section>
-                    </div>
-                    <div class="surv-dwn">
-                      <button class=" bck-btn nav-button next step-button v-back ">
-                        <i class="material-symbols-outlined">keyboard_backspace</i>
-                        <p>Go back</p>
-                      </button>
-                      <button type="submit" id="submit-response" class="v-button-filled submit-survey">
-                        <p>Submit</p>
-                        <i class="material-symbols-outlined">send</i>
-                      </button>
-                    </div>
-                  </td>
-                  <td id="feed-pg" class="v-written">
-                    <div class="feed-paragraph">
-                      <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note
-                          </i>
-                        </div>
-                      </span>
-                      <article class="v-title">
-                        <label class="v-user">
-                          <h6>test_user4</h6>
-                        </label>
-                        <h1>rrr</h1>
-                      </article>
-                    </div>
-                  </td>
-                </tr>
-                <script type="text/javascript">tableData[22][0] = 'text'; tableData[22][1] = '';</script>
-                <tr id="topic23class=&quot;v-closed&quot;">
-                  <td>
-                    <div class="feed-head label-parent">
-                      <label class="state-closed">Calculating</label>
-                      <i class="material-symbols-outlined">hourglass_top</i>
-                    </div>
-                  </td>
-                  <td id="response-space">
-                    <div class="response-top">
-                      <section class="survey-discrip">
-                        <label for="survey-description-mc">About</label>
-                        <h6>rrrr</h6>
-                      </section>
-                      <section class="descript inpt ">
-                        <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
-                        <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
-                          class="survey-input" rows="4" required=""></textarea>
-                      </section>
-                    </div>
-                    <div class="surv-dwn">
-                      <button class=" bck-btn nav-button next step-button v-back ">
-                        <i class="material-symbols-outlined">keyboard_backspace</i>
-                        <p>Go back</p>
-                      </button>
-                      <button type="submit" id="submit-response" class="v-button-filled submit-survey">
-                        <p>Submit</p>
-                        <i class="material-symbols-outlined">send</i>
-                      </button>
-                    </div>
-                  </td>
-                  <td id="feed-pg" class="v-opt">
-                    <div class="feed-paragraph">
-                      <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined">
-                            format_list_bulleted </i>
-                        </div>
-                      </span>
-                      <article class="v-title">
-                        <label class="v-user">
-                          <h6>test_user4</h6>
-                        </label>
-                        <h1>rrr</h1>
-                      </article>
-                    </div>
-                  </td>
-                </tr>
-                <script type="text/javascript">tableData[23][0] = 'multiple'; tableData[23][1] = 'rr, rrr, rrrr';</script>
-                <tr id="topic24class=&quot;v-closed&quot;">
-                  <td>
-                    <div class="feed-head label-parent">
-                      <label class="state-closed">Calculating</label>
-                      <i class="material-symbols-outlined">hourglass_top</i>
-                    </div>
-                  </td>
-                  <td id="response-space">
-                    <div class="response-top">
-                      <section class="survey-discrip">
-                        <label for="survey-description-mc">About</label>
-                        <h6>d</h6>
-                      </section>
-                      <section class="descript inpt ">
-                        <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
-                        <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
-                          class="survey-input" rows="4" required=""></textarea>
-                      </section>
-                    </div>
-                    <div class="surv-dwn">
-                      <button class=" bck-btn nav-button next step-button v-back ">
-                        <i class="material-symbols-outlined">keyboard_backspace</i>
-                        <p>Go back</p>
-                      </button>
-                      <button type="submit" id="submit-response" class="v-button-filled submit-survey">
-                        <p>Submit</p>
-                        <i class="material-symbols-outlined">send</i>
-                      </button>
-                    </div>
-                  </td>
-                  <td id="feed-pg" class="v-opt">
-                    <div class="feed-paragraph">
-                      <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined">
-                            format_list_bulleted </i>
-                        </div>
-                      </span>
-                      <article class="v-title">
-                        <label class="v-user">
-                          <h6>test_user4</h6>
-                        </label>
-                        <h1>d</h1>
-                      </article>
-                    </div>
-                  </td>
-                </tr>
-                <script
-                  type="text/javascript">tableData[24][0] = 'multiple'; tableData[24][1] = '{"1": "d", "2": "d"}';</script>
-                <tr id="topic25class=&quot;v-closed&quot;">
-                  <td>
-                    <div class="feed-head label-parent">
-                      <label class="state-closed">Calculating</label>
-                      <i class="material-symbols-outlined">hourglass_top</i>
-                    </div>
-                  </td>
-                  <td id="response-space">
-                    <div class="response-top">
-                      <section class="survey-discrip">
-                        <label for="survey-description-mc">About</label>
-                        <h6>Test 01</h6>
-                      </section>
-                      <section class="descript inpt ">
-                        <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
-                        <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
-                          class="survey-input" rows="4" required=""></textarea>
-                      </section>
-                    </div>
-                    <div class="surv-dwn">
-                      <button class=" bck-btn nav-button next step-button v-back ">
-                        <i class="material-symbols-outlined">keyboard_backspace</i>
-                        <p>Go back</p>
-                      </button>
-                      <button type="submit" id="submit-response" class="v-button-filled submit-survey">
-                        <p>Submit</p>
-                        <i class="material-symbols-outlined">send</i>
-                      </button>
-                    </div>
-                  </td>
-                  <td id="feed-pg" class="v-opt">
-                    <div class="feed-paragraph">
-                      <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined">
-                            format_list_bulleted </i>
-                        </div>
-                      </span>
-                      <article class="v-title">
-                        <label class="v-user">
-                          <h6>test_user4</h6>
-                        </label>
-                        <h1>Test 01</h1>
-                      </article>
-                    </div>
-                  </td>
-                </tr>
-                <script
-                  type="text/javascript">tableData[25][0] = 'multiple'; tableData[25][1] = '{"1": "Test 01", "2": "Test 02"}';</script>
-                <tr id="topic26class=&quot;v-closed&quot;">
-                  <td>
-                    <div class="feed-head label-parent">
-                      <label class="state-closed">Calculating</label>
-                      <i class="material-symbols-outlined">hourglass_top</i>
-                    </div>
-                  </td>
-                  <td id="response-space">
-                    <div class="response-top">
-                      <section class="survey-discrip">
-                        <label for="survey-description-mc">About</label>
-                        <h6>bvbvbc</h6>
-                      </section>
-                      <section class="descript inpt ">
-                        <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
-                        <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
-                          class="survey-input" rows="4" required=""></textarea>
-                      </section>
-                    </div>
-                    <div class="surv-dwn">
-                      <button class=" bck-btn nav-button next step-button v-back ">
-                        <i class="material-symbols-outlined">keyboard_backspace</i>
-                        <p>Go back</p>
-                      </button>
-                      <button type="submit" id="submit-response" class="v-button-filled submit-survey">
-                        <p>Submit</p>
-                        <i class="material-symbols-outlined">send</i>
-                      </button>
-                    </div>
-                  </td>
-                  <td id="feed-pg" class="v-written">
-                    <div class="feed-paragraph">
-                      <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note
-                          </i>
-                        </div>
-                      </span>
-                      <article class="v-title">
-                        <label class="v-user">
-                          <h6>test_user4</h6>
-                        </label>
-                        <h1>vbv</h1>
-                      </article>
-                    </div>
-                  </td>
-                </tr>
-                <script type="text/javascript">tableData[26][0] = 'text'; tableData[26][1] = '""';</script>
-                <tr id="topic27class=&quot;v-closed&quot;">
-                  <td>
-                    <div class="feed-head label-parent">
-                      <label class="state-closed">Calculating</label>
-                      <i class="material-symbols-outlined">hourglass_top</i>
-                    </div>
-                  </td>
-                  <td id="response-space">
-                    <div class="response-top">
-                      <section class="survey-discrip">
-                        <label for="survey-description-mc">About</label>
-                        <h6>bvbvbc</h6>
-                      </section>
-                      <section class="descript inpt ">
-                        <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
-                        <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
-                          class="survey-input" rows="4" required=""></textarea>
-                      </section>
-                    </div>
-                    <div class="surv-dwn">
-                      <button class=" bck-btn nav-button next step-button v-back ">
-                        <i class="material-symbols-outlined">keyboard_backspace</i>
-                        <p>Go back</p>
-                      </button>
-                      <button type="submit" id="submit-response" class="v-button-filled submit-survey">
-                        <p>Submit</p>
-                        <i class="material-symbols-outlined">send</i>
-                      </button>
-                    </div>
-                  </td>
-                  <td id="feed-pg" class="v-written">
-                    <div class="feed-paragraph">
-                      <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note
-                          </i>
-                        </div>
-                      </span>
-                      <article class="v-title">
-                        <label class="v-user">
-                          <h6>test_user4</h6>
-                        </label>
-                        <h1>vbv</h1>
-                      </article>
-                    </div>
-                  </td>
-                </tr>
-                <script type="text/javascript">tableData[27][0] = 'text'; tableData[27][1] = '""';</script>
-                <tr id="topic28class=&quot;v-closed&quot;">
-                  <td>
-                    <div class="feed-head label-parent">
-                      <label class="state-closed">Calculating</label>
-                      <i class="material-symbols-outlined">hourglass_top</i>
-                    </div>
-                  </td>
-                  <td id="response-space">
-                    <div class="response-top">
-                      <section class="survey-discrip">
-                        <label for="survey-description-mc">About</label>
-                        <h6>Description</h6>
-                      </section>
-                      <section class="descript inpt ">
-                        <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
-                        <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
-                          class="survey-input" rows="4" required=""></textarea>
-                      </section>
-                    </div>
-                    <div class="surv-dwn">
-                      <button class=" bck-btn nav-button next step-button v-back ">
-                        <i class="material-symbols-outlined">keyboard_backspace</i>
-                        <p>Go back</p>
-                      </button>
-                      <button type="submit" id="submit-response" class="v-button-filled submit-survey">
-                        <p>Submit</p>
-                        <i class="material-symbols-outlined">send</i>
-                      </button>
-                    </div>
-                  </td>
-                  <td id="feed-pg" class="v-written">
-                    <div class="feed-paragraph">
-                      <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note
-                          </i>
-                        </div>
-                      </span>
-                      <article class="v-title">
-                        <label class="v-user">
-                          <h6>test_user4</h6>
-                        </label>
-                        <h1>Title test 08312023</h1>
-                      </article>
-                    </div>
-                  </td>
-                </tr>
-                <script type="text/javascript">tableData[28][0] = 'text'; tableData[28][1] = '""';</script>
-                <tr id="topic29class=&quot;v-closed&quot;">
-                  <td>
-                    <div class="feed-head label-parent">
-                      <label class="state-closed">Calculating</label>
-                      <i class="material-symbols-outlined">hourglass_top</i>
-                    </div>
-                  </td>
-                  <td id="response-space">
-                    <div class="response-top">
-                      <section class="survey-discrip">
-                        <label for="survey-description-mc">About</label>
-                        <h6>dddd</h6>
-                      </section>
-                      <section class="descript inpt ">
-                        <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
-                        <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
-                          class="survey-input" rows="4" required=""></textarea>
-                      </section>
-                    </div>
-                    <div class="surv-dwn">
-                      <button class=" bck-btn nav-button next step-button v-back ">
-                        <i class="material-symbols-outlined">keyboard_backspace</i>
-                        <p>Go back</p>
-                      </button>
-                      <button type="submit" id="submit-response" class="v-button-filled submit-survey">
-                        <p>Submit</p>
-                        <i class="material-symbols-outlined">send</i>
-                      </button>
-                    </div>
-                  </td>
-                  <td id="feed-pg" class="v-written">
-                    <div class="feed-paragraph">
-                      <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note
-                          </i>
-                        </div>
-                      </span>
-                      <article class="v-title">
-                        <label class="v-user">
-                          <h6>test_user4</h6>
-                        </label>
-                        <h1>08312023</h1>
-                      </article>
-                    </div>
-                  </td>
-                </tr>
-                <script type="text/javascript">tableData[29][0] = 'text'; tableData[29][1] = '""';</script>
-                <tr id="topic30class=&quot;v-closed&quot;">
-                  <td>
-                    <div class="feed-head label-parent">
-                      <label class="state-closed">Calculating</label>
-                      <i class="material-symbols-outlined">hourglass_top</i>
-                    </div>
-                  </td>
-                  <td id="response-space">
-                    <div class="response-top">
-                      <section class="survey-discrip">
-                        <label for="survey-description-mc">About</label>
-                        <h6>Describe it</h6>
-                      </section>
-                      <section class="descript inpt ">
-                        <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
-                        <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
-                          class="survey-input" rows="4" required=""></textarea>
-                      </section>
-                    </div>
-                    <div class="surv-dwn">
-                      <button class=" bck-btn nav-button next step-button v-back ">
-                        <i class="material-symbols-outlined">keyboard_backspace</i>
-                        <p>Go back</p>
-                      </button>
-                      <button type="submit" id="submit-response" class="v-button-filled submit-survey">
-                        <p>Submit</p>
-                        <i class="material-symbols-outlined">send</i>
-                      </button>
-                    </div>
-                  </td>
-                  <td id="feed-pg" class="v-written">
-                    <div class="feed-paragraph">
-                      <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note
-                          </i>
-                        </div>
-                      </span>
-                      <article class="v-title">
-                        <label class="v-user">
-                          <h6>test_user4</h6>
-                        </label>
-                        <h1>Whats todays date</h1>
-                      </article>
-                    </div>
-                  </td>
-                </tr>
-                <script type="text/javascript">tableData[30][0] = 'text'; tableData[30][1] = '""';</script>
-                <tr id="topic31class=&quot;v-closed&quot;">
-                  <td>
-                    <div class="feed-head label-parent">
-                      <label class="state-closed">Calculating</label>
-                      <i class="material-symbols-outlined">hourglass_top</i>
-                    </div>
-                  </td>
-                  <td id="response-space">
-                    <div class="response-top">
-                      <section class="survey-discrip">
-                        <label for="survey-description-mc">About</label>
-                        <h6>How many errors you found at the web page</h6>
-                      </section>
-                      <section class="descript inpt ">
-                        <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
-                        <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
-                          class="survey-input" rows="4" required=""></textarea>
-                      </section>
-                    </div>
-                    <div class="surv-dwn">
-                      <button class=" bck-btn nav-button next step-button v-back ">
-                        <i class="material-symbols-outlined">keyboard_backspace</i>
-                        <p>Go back</p>
-                      </button>
-                      <button type="submit" id="submit-response" class="v-button-filled submit-survey">
-                        <p>Submit</p>
-                        <i class="material-symbols-outlined">send</i>
-                      </button>
-                    </div>
-                  </td>
-                  <td id="feed-pg" class="v-opt">
-                    <div class="feed-paragraph">
-                      <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined">
-                            format_list_bulleted </i>
-                        </div>
-                      </span>
-                      <article class="v-title">
-                        <label class="v-user">
-                          <h6>test_user4</h6>
-                        </label>
-                        <h1>How many errors you found at the web page</h1>
-                      </article>
-                    </div>
-                  </td>
-                </tr>
-                <script
-                  type="text/javascript">tableData[31][0] = 'multiple'; tableData[31][1] = '{"1": "3", "2": "2", "3": "10"}';</script>
-                <tr id="topic32class=&quot;v-closed&quot;">
-                  <td>
-                    <div class="feed-head label-parent">
-                      <label class="state-closed">Calculating</label>
-                      <i class="material-symbols-outlined">hourglass_top</i>
-                    </div>
-                  </td>
-                  <td id="response-space">
-                    <div class="response-top">
-                      <section class="survey-discrip">
-                        <label for="survey-description-mc">About</label>
-                        <h6>What is the time and date of today</h6>
-                      </section>
-                      <section class="descript inpt ">
-                        <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
-                        <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
-                          class="survey-input" rows="4" required=""></textarea>
-                      </section>
-                    </div>
-                    <div class="surv-dwn">
-                      <button class=" bck-btn nav-button next step-button v-back ">
-                        <i class="material-symbols-outlined">keyboard_backspace</i>
-                        <p>Go back</p>
-                      </button>
-                      <button type="submit" id="submit-response" class="v-button-filled submit-survey">
-                        <p>Submit</p>
-                        <i class="material-symbols-outlined">send</i>
-                      </button>
-                    </div>
-                  </td>
-                  <td id="feed-pg" class="v-written">
-                    <div class="feed-paragraph">
-                      <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note
-                          </i>
-                        </div>
-                      </span>
-                      <article class="v-title">
-                        <label class="v-user">
-                          <h6>test_user4</h6>
-                        </label>
-                        <h1>What is todays date</h1>
-                      </article>
-                    </div>
-                  </td>
-                </tr>
-                <script type="text/javascript">tableData[32][0] = 'text'; tableData[32][1] = '""';</script>
-                <tr id="topic33class=&quot;v-closed&quot;">
-                  <td>
-                    <div class="feed-head label-parent">
-                      <label class="state-closed">Calculating</label>
-                      <i class="material-symbols-outlined">hourglass_top</i>
-                    </div>
-                  </td>
-                  <td id="response-space">
-                    <div class="response-top">
-                      <section class="survey-discrip">
-                        <label for="survey-description-mc">About</label>
-                        <h6>Question?</h6>
-                      </section>
-                      <section class="descript inpt ">
-                        <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
-                        <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
-                          class="survey-input" rows="4" required=""></textarea>
-                      </section>
-                    </div>
-                    <div class="surv-dwn">
-                      <button class=" bck-btn nav-button next step-button v-back ">
-                        <i class="material-symbols-outlined">keyboard_backspace</i>
-                        <p>Go back</p>
-                      </button>
-                      <button type="submit" id="submit-response" class="v-button-filled submit-survey">
-                        <p>Submit</p>
-                        <i class="material-symbols-outlined">send</i>
-                      </button>
-                    </div>
-                  </td>
-                  <td id="feed-pg" class="v-written">
-                    <div class="feed-paragraph">
-                      <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note
-                          </i>
-                        </div>
-                      </span>
-                      <article class="v-title">
-                        <label class="v-user">
-                          <h6>test_user4</h6>
-                        </label>
-                        <h1>Question?</h1>
-                      </article>
-                    </div>
-                  </td>
-                </tr>
-                <script type="text/javascript">tableData[33][0] = 'text'; tableData[33][1] = '""';</script>
-                <tr id="topic34class=&quot;v-closed&quot;">
-                  <td>
-                    <div class="feed-head label-parent">
-                      <label class="state-closed">Calculating</label>
-                      <i class="material-symbols-outlined">hourglass_top</i>
-                    </div>
-                  </td>
-                  <td id="response-space">
-                    <div class="response-top">
-                      <section class="survey-discrip">
-                        <label for="survey-description-mc">About</label>
-                        <h6>gffd</h6>
-                      </section>
-                      <section class="descript inpt ">
-                        <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
-                        <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
-                          class="survey-input" rows="4" required=""></textarea>
-                      </section>
-                    </div>
-                    <div class="surv-dwn">
-                      <button class=" bck-btn nav-button next step-button v-back ">
-                        <i class="material-symbols-outlined">keyboard_backspace</i>
-                        <p>Go back</p>
-                      </button>
-                      <button type="submit" id="submit-response" class="v-button-filled submit-survey">
-                        <p>Submit</p>
-                        <i class="material-symbols-outlined">send</i>
-                      </button>
-                    </div>
-                  </td>
-                  <td id="feed-pg" class="v-written">
-                    <div class="feed-paragraph">
-                      <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note
-                          </i>
-                        </div>
-                      </span>
-                      <article class="v-title">
-                        <label class="v-user">
-                          <h6>test_user4</h6>
-                        </label>
-                        <h1>gfgd?</h1>
-                      </article>
-                    </div>
-                  </td>
-                </tr>
-                <script type="text/javascript">tableData[34][0] = 'text'; tableData[34][1] = '""';</script>
-              </tbody>
-            </table>
+
+            <!-- <div class="v-splash">
+              <div class="v-logo-wrapper ">
+                <img src="img/MIN-WIDTH-screen-logo.png" class="v-logo" alt="veras-ico">
+              </div>
+            </div> -->
+
+            <section id="data-surface">
+              <table>
+                <tbody>
+                  <tr id="topic102" class="v-closed">
+                    <td>
+                      <div class="feed-head label-parent">
+                        <label class="state-closed">Calculating</label>
+                        <i class="material-symbols-outlined">hourglass_top</i>
+                      </div>
+                    </td>
+                    <td id="response-space" class="v-written-response">
+                      <div class="response-top">
+                        <section class="survey-discrip">
+                          <label for="survey-description-mc">About</label>
+                          <h6></h6>
+                        </section>
+                        <section class="descript inpt ">
+                          <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
+                          <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
+                            class="survey-input" rows="4" required=""></textarea>
+                        </section>
+                      </div>
+                      <div class="surv-dwn">
+                        <button class=" bck-btn nav-button next step-button v-back ">
+                          <i class="material-symbols-outlined">keyboard_backspace</i>
+                          <p>Go back</p>
+                        </button>
+                        <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                          onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('102','text')">
+                          <p>Submit</p>
+                          <i class="material-symbols-outlined">send</i>
+                        </button>
+                      </div>
+                    </td>
+                    <td id="feed-pg" class="v-written">
+                      <div class="feed-paragraph">
+                        <span><label>Time left: 20h+</label>
+                          <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note </i>
+                          </div>
+                        </span>
+                        <article class="v-title">
+                          <label class="v-user">
+                            <h6>82211394</h6>
+                          </label>
+                          <h1>What do you think is the most useful major to take in 2023</h1>
+                        </article>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="topic101" class="v-closed">
+                    <td>
+                      <div class="feed-head label-parent">
+                        <label class="state-closed">Calculating</label>
+                        <i class="material-symbols-outlined">hourglass_top</i>
+                      </div>
+                    </td>
+                    <td id="response-space" class="v-multiple-choice">
+                      <div class="response-top">
+                        <section class="survey-discrip">
+                          <label for="survey-description-mc">About</label>
+                          <h6></h6>
+                        </section>
+                        <section class="descript inpt "><label for="survey-description-mc">Response <span> Max Char:
+                              300</span></label>
+                          <section name="survey-response-mc" placeholder="Choose an option" class="optS-space">
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-1"
+                                value="1" placeholder="Option 1" required=""><label id="r-label-1"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-2"
+                                value="2" placeholder="Option 2" required=""><label id="r-label-2"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-3"
+                                value="3" placeholder="Option 3" required=""><label id="r-label-3"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-4"
+                                value="4" placeholder="Option 4" required=""><label id="r-label-4"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-5"
+                                value="5" placeholder="Option 5" required=""><label id="r-label-5"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-6"
+                                value="6" placeholder="Option 6" required=""><label id="r-label-6"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-7"
+                                value="7" placeholder="Option 7" required=""><label id="r-label-7"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-8"
+                                value="8" placeholder="Option 8" required=""><label id="r-label-8"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-9"
+                                value="9" placeholder="Option 9" required=""><label id="r-label-9"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-10"
+                                value="10" placeholder="Option 10" required=""><label id="r-label-10"></label></div>
+                          </section>
+                        </section>
+                      </div>
+                      <div class="surv-dwn">
+                        <button class=" bck-btn nav-button next step-button v-back ">
+                          <i class="material-symbols-outlined">keyboard_backspace</i>
+                          <p>Go back</p>
+                        </button>
+                        <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                          onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('101','multiple')">
+                          <p>Submit</p>
+                          <i class="material-symbols-outlined">send</i>
+                        </button>
+                      </div>
+                    </td>
+                    <td id="feed-pg" class="v-opt">
+                      <div class="feed-paragraph">
+                        <span><label>Time left: 20h+</label>
+                          <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined"> format_list_bulleted
+                            </i>
+                          </div>
+                        </span>
+                        <article class="v-title">
+                          <label class="v-user">
+                            <h6>82211394</h6>
+                          </label>
+                          <h1>How represented or included do you feel in municipal politics</h1>
+                        </article>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="topic100" class="v-closed">
+                    <td>
+                      <div class="feed-head label-parent">
+                        <label class="state-closed">Calculating</label>
+                        <i class="material-symbols-outlined">hourglass_top</i>
+                      </div>
+                    </td>
+                    <td id="response-space" class="v-written-response">
+                      <div class="response-top">
+                        <section class="survey-discrip">
+                          <label for="survey-description-mc">About</label>
+                          <h6></h6>
+                        </section>
+                        <section class="descript inpt ">
+                          <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
+                          <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
+                            class="survey-input" rows="4" required=""></textarea>
+                        </section>
+                      </div>
+                      <div class="surv-dwn">
+                        <button class=" bck-btn nav-button next step-button v-back ">
+                          <i class="material-symbols-outlined">keyboard_backspace</i>
+                          <p>Go back</p>
+                        </button>
+                        <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                          onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('100','text')">
+                          <p>Submit</p>
+                          <i class="material-symbols-outlined">send</i>
+                        </button>
+                      </div>
+                    </td>
+                    <td id="feed-pg" class="v-written">
+                      <div class="feed-paragraph">
+                        <span><label>Time left: 20h+</label>
+                          <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note </i>
+                          </div>
+                        </span>
+                        <article class="v-title">
+                          <label class="v-user">
+                            <h6>327863475</h6>
+                          </label>
+                          <h1>If you could be anywhere in the world right now where would you be</h1>
+                        </article>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="topic99" class="v-closed">
+                    <td>
+                      <div class="feed-head label-parent">
+                        <label class="state-closed">Calculating</label>
+                        <i class="material-symbols-outlined">hourglass_top</i>
+                      </div>
+                    </td>
+                    <td id="response-space" class="v-multiple-choice">
+                      <div class="response-top">
+                        <section class="survey-discrip">
+                          <label for="survey-description-mc">About</label>
+                          <h6>To see if theres a difference between individualss actual political activism and their desired amount
+                            of political activism</h6>
+                        </section>
+                        <section class="descript inpt "><label for="survey-description-mc">Response <span> Max Char:
+                              300</span></label>
+                          <section name="survey-response-mc" placeholder="Choose an option" class="optS-space">
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-1"
+                                value="1" placeholder="Option 1" required=""><label id="r-label-1"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-2"
+                                value="2" placeholder="Option 2" required=""><label id="r-label-2"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-3"
+                                value="3" placeholder="Option 3" required=""><label id="r-label-3"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-4"
+                                value="4" placeholder="Option 4" required=""><label id="r-label-4"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-5"
+                                value="5" placeholder="Option 5" required=""><label id="r-label-5"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-6"
+                                value="6" placeholder="Option 6" required=""><label id="r-label-6"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-7"
+                                value="7" placeholder="Option 7" required=""><label id="r-label-7"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-8"
+                                value="8" placeholder="Option 8" required=""><label id="r-label-8"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-9"
+                                value="9" placeholder="Option 9" required=""><label id="r-label-9"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-10"
+                                value="10" placeholder="Option 10" required=""><label id="r-label-10"></label></div>
+                          </section>
+                        </section>
+                      </div>
+                      <div class="surv-dwn">
+                        <button class=" bck-btn nav-button next step-button v-back ">
+                          <i class="material-symbols-outlined">keyboard_backspace</i>
+                          <p>Go back</p>
+                        </button>
+                        <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                          onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('99','multiple')">
+                          <p>Submit</p>
+                          <i class="material-symbols-outlined">send</i>
+                        </button>
+                      </div>
+                    </td>
+                    <td id="feed-pg" class="v-opt">
+                      <div class="feed-paragraph">
+                        <span><label>Time left: 20h+</label>
+                          <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined"> format_list_bulleted
+                            </i>
+                          </div>
+                        </span>
+                        <article class="v-title">
+                          <label class="v-user">
+                            <h6>342816708</h6>
+                          </label>
+                          <h1>How much do you think you should be engaging in political activism</h1>
+                        </article>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="topic98" class="v-closed">
+                    <td>
+                      <div class="feed-head label-parent">
+                        <label class="state-closed">Calculating</label>
+                        <i class="material-symbols-outlined">hourglass_top</i>
+                      </div>
+                    </td>
+                    <td id="response-space" class="v-written-response">
+                      <div class="response-top">
+                        <section class="survey-discrip">
+                          <label for="survey-description-mc">About</label>
+                          <h6></h6>
+                        </section>
+                        <section class="descript inpt ">
+                          <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
+                          <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
+                            class="survey-input" rows="4" required=""></textarea>
+                        </section>
+                      </div>
+                      <div class="surv-dwn">
+                        <button class=" bck-btn nav-button next step-button v-back ">
+                          <i class="material-symbols-outlined">keyboard_backspace</i>
+                          <p>Go back</p>
+                        </button>
+                        <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                          onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('98','text')">
+                          <p>Submit</p>
+                          <i class="material-symbols-outlined">send</i>
+                        </button>
+                      </div>
+                    </td>
+                    <td id="feed-pg" class="v-written">
+                      <div class="feed-paragraph">
+                        <span><label>Time left: 20h+</label>
+                          <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note </i>
+                          </div>
+                        </span>
+                        <article class="v-title">
+                          <label class="v-user">
+                            <h6>389727704</h6>
+                          </label>
+                          <h1>How does your budget as a student effect your diet</h1>
+                        </article>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="topic97" class="v-closed">
+                    <td>
+                      <div class="feed-head label-parent">
+                        <label class="state-closed">Calculating</label>
+                        <i class="material-symbols-outlined">hourglass_top</i>
+                      </div>
+                    </td>
+                    <td id="response-space" class="v-multiple-choice">
+                      <div class="response-top">
+                        <section class="survey-discrip">
+                          <label for="survey-description-mc">About</label>
+                          <h6></h6>
+                        </section>
+                        <section class="descript inpt "><label for="survey-description-mc">Response <span> Max Char:
+                              300</span></label>
+                          <section name="survey-response-mc" placeholder="Choose an option" class="optS-space">
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-1"
+                                value="1" placeholder="Option 1" required=""><label id="r-label-1"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-2"
+                                value="2" placeholder="Option 2" required=""><label id="r-label-2"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-3"
+                                value="3" placeholder="Option 3" required=""><label id="r-label-3"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-4"
+                                value="4" placeholder="Option 4" required=""><label id="r-label-4"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-5"
+                                value="5" placeholder="Option 5" required=""><label id="r-label-5"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-6"
+                                value="6" placeholder="Option 6" required=""><label id="r-label-6"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-7"
+                                value="7" placeholder="Option 7" required=""><label id="r-label-7"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-8"
+                                value="8" placeholder="Option 8" required=""><label id="r-label-8"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-9"
+                                value="9" placeholder="Option 9" required=""><label id="r-label-9"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-10"
+                                value="10" placeholder="Option 10" required=""><label id="r-label-10"></label></div>
+                          </section>
+                        </section>
+                      </div>
+                      <div class="surv-dwn">
+                        <button class=" bck-btn nav-button next step-button v-back ">
+                          <i class="material-symbols-outlined">keyboard_backspace</i>
+                          <p>Go back</p>
+                        </button>
+                        <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                          onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('97','multiple')">
+                          <p>Submit</p>
+                          <i class="material-symbols-outlined">send</i>
+                        </button>
+                      </div>
+                    </td>
+                    <td id="feed-pg" class="v-opt">
+                      <div class="feed-paragraph">
+                        <span><label>Time left: 20h+</label>
+                          <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined"> format_list_bulleted
+                            </i>
+                          </div>
+                        </span>
+                        <article class="v-title">
+                          <label class="v-user">
+                            <h6>82211394</h6>
+                          </label>
+                          <h1>By what degree should the university grow its student population</h1>
+                        </article>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="topic96" class="v-closed">
+                    <td>
+                      <div class="feed-head label-parent">
+                        <label class="state-closed">Calculating</label>
+                        <i class="material-symbols-outlined">hourglass_top</i>
+                      </div>
+                    </td>
+                    <td id="response-space" class="v-written-response">
+                      <div class="response-top">
+                        <section class="survey-discrip">
+                          <label for="survey-description-mc">About</label>
+                          <h6></h6>
+                        </section>
+                        <section class="descript inpt ">
+                          <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
+                          <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
+                            class="survey-input" rows="4" required=""></textarea>
+                        </section>
+                      </div>
+                      <div class="surv-dwn">
+                        <button class=" bck-btn nav-button next step-button v-back ">
+                          <i class="material-symbols-outlined">keyboard_backspace</i>
+                          <p>Go back</p>
+                        </button>
+                        <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                          onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('96','text')">
+                          <p>Submit</p>
+                          <i class="material-symbols-outlined">send</i>
+                        </button>
+                      </div>
+                    </td>
+                    <td id="feed-pg" class="v-written">
+                      <div class="feed-paragraph">
+                        <span><label>Time left: 20h+</label>
+                          <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note </i>
+                          </div>
+                        </span>
+                        <article class="v-title">
+                          <label class="v-user">
+                            <h6>745041664</h6>
+                          </label>
+                          <h1>How do you engage in activism at school</h1>
+                        </article>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="topic95" class="v-closed">
+                    <td>
+                      <div class="feed-head label-parent">
+                        <label class="state-closed">Calculating</label>
+                        <i class="material-symbols-outlined">hourglass_top</i>
+                      </div>
+                    </td>
+                    <td id="response-space" class="v-written-response">
+                      <div class="response-top">
+                        <section class="survey-discrip">
+                          <label for="survey-description-mc">About</label>
+                          <h6></h6>
+                        </section>
+                        <section class="descript inpt ">
+                          <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
+                          <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
+                            class="survey-input" rows="4" required=""></textarea>
+                        </section>
+                      </div>
+                      <div class="surv-dwn">
+                        <button class=" bck-btn nav-button next step-button v-back ">
+                          <i class="material-symbols-outlined">keyboard_backspace</i>
+                          <p>Go back</p>
+                        </button>
+                        <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                          onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('95','text')">
+                          <p>Submit</p>
+                          <i class="material-symbols-outlined">send</i>
+                        </button>
+                      </div>
+                    </td>
+                    <td id="feed-pg" class="v-written">
+                      <div class="feed-paragraph">
+                        <span><label>Time left: 20h+</label>
+                          <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note </i>
+                          </div>
+                        </span>
+                        <article class="v-title">
+                          <label class="v-user">
+                            <h6>43623644</h6>
+                          </label>
+                          <h1>In one word how would you say your school year is going</h1>
+                        </article>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="topic94" class="v-closed">
+                    <td>
+                      <div class="feed-head label-parent">
+                        <label class="state-closed">Calculating</label>
+                        <i class="material-symbols-outlined">hourglass_top</i>
+                      </div>
+                    </td>
+                    <td id="response-space" class="v-multiple-choice">
+                      <div class="response-top">
+                        <section class="survey-discrip">
+                          <label for="survey-description-mc">About</label>
+                          <h6>Student living Experience</h6>
+                        </section>
+                        <section class="descript inpt "><label for="survey-description-mc">Response <span> Max Char:
+                              300</span></label>
+                          <section name="survey-response-mc" placeholder="Choose an option" class="optS-space">
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-1"
+                                value="1" placeholder="Option 1" required=""><label id="r-label-1"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-2"
+                                value="2" placeholder="Option 2" required=""><label id="r-label-2"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-3"
+                                value="3" placeholder="Option 3" required=""><label id="r-label-3"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-4"
+                                value="4" placeholder="Option 4" required=""><label id="r-label-4"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-5"
+                                value="5" placeholder="Option 5" required=""><label id="r-label-5"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-6"
+                                value="6" placeholder="Option 6" required=""><label id="r-label-6"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-7"
+                                value="7" placeholder="Option 7" required=""><label id="r-label-7"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-8"
+                                value="8" placeholder="Option 8" required=""><label id="r-label-8"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-9"
+                                value="9" placeholder="Option 9" required=""><label id="r-label-9"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-10"
+                                value="10" placeholder="Option 10" required=""><label id="r-label-10"></label></div>
+                          </section>
+                        </section>
+                      </div>
+                      <div class="surv-dwn">
+                        <button class=" bck-btn nav-button next step-button v-back ">
+                          <i class="material-symbols-outlined">keyboard_backspace</i>
+                          <p>Go back</p>
+                        </button>
+                        <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                          onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('94','multiple')">
+                          <p>Submit</p>
+                          <i class="material-symbols-outlined">send</i>
+                        </button>
+                      </div>
+                    </td>
+                    <td id="feed-pg" class="v-opt">
+                      <div class="feed-paragraph">
+                        <span><label>Time left: 20h+</label>
+                          <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined"> format_list_bulleted
+                            </i>
+                          </div>
+                        </span>
+                        <article class="v-title">
+                          <label class="v-user">
+                            <h6>312686098</h6>
+                          </label>
+                          <h1>Do you prefer to live On or Off Campus</h1>
+                        </article>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="topic93" class="v-closed">
+                    <td>
+                      <div class="feed-head label-parent">
+                        <label class="state-closed">Calculating</label>
+                        <i class="material-symbols-outlined">hourglass_top</i>
+                      </div>
+                    </td>
+                    <td id="response-space" class="v-written-response">
+                      <div class="response-top">
+                        <section class="survey-discrip">
+                          <label for="survey-description-mc">About</label>
+                          <h6>Student live matters</h6>
+                        </section>
+                        <section class="descript inpt ">
+                          <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
+                          <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
+                            class="survey-input" rows="4" required=""></textarea>
+                        </section>
+                      </div>
+                      <div class="surv-dwn">
+                        <button class=" bck-btn nav-button next step-button v-back ">
+                          <i class="material-symbols-outlined">keyboard_backspace</i>
+                          <p>Go back</p>
+                        </button>
+                        <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                          onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('93','text')">
+                          <p>Submit</p>
+                          <i class="material-symbols-outlined">send</i>
+                        </button>
+                      </div>
+                    </td>
+                    <td id="feed-pg" class="v-written">
+                      <div class="feed-paragraph">
+                        <span><label>Time left: 20h+</label>
+                          <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note </i>
+                          </div>
+                        </span>
+                        <article class="v-title">
+                          <label class="v-user">
+                            <h6>312686098</h6>
+                          </label>
+                          <h1>Tell me how you like to spend your Halloween</h1>
+                        </article>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="topic92" class="v-closed">
+                    <td>
+                      <div class="feed-head label-parent">
+                        <label class="state-closed">Calculating</label>
+                        <i class="material-symbols-outlined">hourglass_top</i>
+                      </div>
+                    </td>
+                    <td id="response-space" class="v-written-response">
+                      <div class="response-top">
+                        <section class="survey-discrip">
+                          <label for="survey-description-mc">About</label>
+                          <h6>Artificial Intelligence is the Future</h6>
+                        </section>
+                        <section class="descript inpt ">
+                          <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
+                          <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
+                            class="survey-input" rows="4" required=""></textarea>
+                        </section>
+                      </div>
+                      <div class="surv-dwn">
+                        <button class=" bck-btn nav-button next step-button v-back ">
+                          <i class="material-symbols-outlined">keyboard_backspace</i>
+                          <p>Go back</p>
+                        </button>
+                        <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                          onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('92','text')">
+                          <p>Submit</p>
+                          <i class="material-symbols-outlined">send</i>
+                        </button>
+                      </div>
+                    </td>
+                    <td id="feed-pg" class="v-written">
+                      <div class="feed-paragraph">
+                        <span><label>Time left: 20h+</label>
+                          <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note </i>
+                          </div>
+                        </span>
+                        <article class="v-title">
+                          <label class="v-user">
+                            <h6>312686098</h6>
+                          </label>
+                          <h1>How has or will AI augment your work study and play</h1>
+                        </article>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="topic91" class="v-closed">
+                    <td>
+                      <div class="feed-head label-parent">
+                        <label class="state-closed">Calculating</label>
+                        <i class="material-symbols-outlined">hourglass_top</i>
+                      </div>
+                    </td>
+                    <td id="response-space" class="v-multiple-choice">
+                      <div class="response-top">
+                        <section class="survey-discrip">
+                          <label for="survey-description-mc">About</label>
+                          <h6>With a rainbow of fruits available everyone has a favorite From the succulent sweetness of mangoes to
+                            the tart tanginess of cranberries fruits not only tantalize our taste buds but also offer a myriad of
+                            health benefits Which fruit do you reach for to not only satisfy your sweet cravings but also to nourish
+                            your body Is it the classic apple the tropical banana or perhaps the exotic dragon fruit Share your
+                            fruity favorite and lets explore the myriad flavors and health benefits our natures candy has to offer
+                          </h6>
+                        </section>
+                        <section class="descript inpt "><label for="survey-description-mc">Response <span> Max Char:
+                              300</span></label>
+                          <section name="survey-response-mc" placeholder="Choose an option" class="optS-space">
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-1"
+                                value="1" placeholder="Option 1" required=""><label id="r-label-1"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-2"
+                                value="2" placeholder="Option 2" required=""><label id="r-label-2"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-3"
+                                value="3" placeholder="Option 3" required=""><label id="r-label-3"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-4"
+                                value="4" placeholder="Option 4" required=""><label id="r-label-4"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-5"
+                                value="5" placeholder="Option 5" required=""><label id="r-label-5"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-6"
+                                value="6" placeholder="Option 6" required=""><label id="r-label-6"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-7"
+                                value="7" placeholder="Option 7" required=""><label id="r-label-7"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-8"
+                                value="8" placeholder="Option 8" required=""><label id="r-label-8"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-9"
+                                value="9" placeholder="Option 9" required=""><label id="r-label-9"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-10"
+                                value="10" placeholder="Option 10" required=""><label id="r-label-10"></label></div>
+                          </section>
+                        </section>
+                      </div>
+                      <div class="surv-dwn">
+                        <button class=" bck-btn nav-button next step-button v-back ">
+                          <i class="material-symbols-outlined">keyboard_backspace</i>
+                          <p>Go back</p>
+                        </button>
+                        <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                          onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('91','multiple')">
+                          <p>Submit</p>
+                          <i class="material-symbols-outlined">send</i>
+                        </button>
+                      </div>
+                    </td>
+                    <td id="feed-pg" class="v-opt">
+                      <div class="feed-paragraph">
+                        <span><label>Time left: 20h+</label>
+                          <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined"> format_list_bulleted
+                            </i>
+                          </div>
+                        </span>
+                        <article class="v-title">
+                          <label class="v-user">
+                            <h6>312686098</h6>
+                          </label>
+                          <h1>Fruitful Choices Whats Your Goto Fruit</h1>
+                        </article>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="topic90" class="v-closed">
+                    <td>
+                      <div class="feed-head label-parent">
+                        <label class="state-closed">Calculating</label>
+                        <i class="material-symbols-outlined">hourglass_top</i>
+                      </div>
+                    </td>
+                    <td id="response-space" class="v-written-response">
+                      <div class="response-top">
+                        <section class="survey-discrip">
+                          <label for="survey-description-mc">About</label>
+                          <h6>Round the the nearest fifty dollars</h6>
+                        </section>
+                        <section class="descript inpt ">
+                          <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
+                          <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
+                            class="survey-input" rows="4" required=""></textarea>
+                        </section>
+                      </div>
+                      <div class="surv-dwn">
+                        <button class=" bck-btn nav-button next step-button v-back ">
+                          <i class="material-symbols-outlined">keyboard_backspace</i>
+                          <p>Go back</p>
+                        </button>
+                        <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                          onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('90','text')">
+                          <p>Submit</p>
+                          <i class="material-symbols-outlined">send</i>
+                        </button>
+                      </div>
+                    </td>
+                    <td id="feed-pg" class="v-written">
+                      <div class="feed-paragraph">
+                        <span><label>Time left: 20h+</label>
+                          <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note </i>
+                          </div>
+                        </span>
+                        <article class="v-title">
+                          <label class="v-user">
+                            <h6>312686098</h6>
+                          </label>
+                          <h1>How much do you pay in rent per month including utilities and internet</h1>
+                        </article>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="topic89" class="v-closed">
+                    <td>
+                      <div class="feed-head label-parent">
+                        <label class="state-closed">Calculating</label>
+                        <i class="material-symbols-outlined">hourglass_top</i>
+                      </div>
+                    </td>
+                    <td id="response-space" class="v-multiple-choice">
+                      <div class="response-top">
+                        <section class="survey-discrip">
+                          <label for="survey-description-mc">About</label>
+                          <h6></h6>
+                        </section>
+                        <section class="descript inpt "><label for="survey-description-mc">Response <span> Max Char:
+                              300</span></label>
+                          <section name="survey-response-mc" placeholder="Choose an option" class="optS-space">
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-1"
+                                value="1" placeholder="Option 1" required=""><label id="r-label-1"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-2"
+                                value="2" placeholder="Option 2" required=""><label id="r-label-2"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-3"
+                                value="3" placeholder="Option 3" required=""><label id="r-label-3"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-4"
+                                value="4" placeholder="Option 4" required=""><label id="r-label-4"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-5"
+                                value="5" placeholder="Option 5" required=""><label id="r-label-5"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-6"
+                                value="6" placeholder="Option 6" required=""><label id="r-label-6"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-7"
+                                value="7" placeholder="Option 7" required=""><label id="r-label-7"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-8"
+                                value="8" placeholder="Option 8" required=""><label id="r-label-8"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-9"
+                                value="9" placeholder="Option 9" required=""><label id="r-label-9"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-10"
+                                value="10" placeholder="Option 10" required=""><label id="r-label-10"></label></div>
+                          </section>
+                        </section>
+                      </div>
+                      <div class="surv-dwn">
+                        <button class=" bck-btn nav-button next step-button v-back ">
+                          <i class="material-symbols-outlined">keyboard_backspace</i>
+                          <p>Go back</p>
+                        </button>
+                        <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                          onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('89','multiple')">
+                          <p>Submit</p>
+                          <i class="material-symbols-outlined">send</i>
+                        </button>
+                      </div>
+                    </td>
+                    <td id="feed-pg" class="v-opt">
+                      <div class="feed-paragraph">
+                        <span><label>Time left: 20h+</label>
+                          <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined"> format_list_bulleted
+                            </i>
+                          </div>
+                        </span>
+                        <article class="v-title">
+                          <label class="v-user">
+                            <h6>82211394</h6>
+                          </label>
+                          <h1>Should Alberta leave the Canadian Pension Plan CPP and create the Alberta Pension Plan APP</h1>
+                        </article>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="topic85" class="v-closed">
+                    <td>
+                      <div class="feed-head label-parent">
+                        <label class="state-closed">Calculating</label>
+                        <i class="material-symbols-outlined">hourglass_top</i>
+                      </div>
+                    </td>
+                    <td id="response-space" class="v-written-response">
+                      <div class="response-top">
+                        <section class="survey-discrip">
+                          <label for="survey-description-mc">About</label>
+                          <h6>Intended to aid struggling students in meal planning</h6>
+                        </section>
+                        <section class="descript inpt ">
+                          <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
+                          <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
+                            class="survey-input" rows="4" required=""></textarea>
+                        </section>
+                      </div>
+                      <div class="surv-dwn">
+                        <button class=" bck-btn nav-button next step-button v-back ">
+                          <i class="material-symbols-outlined">keyboard_backspace</i>
+                          <p>Go back</p>
+                        </button>
+                        <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                          onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('85','text')">
+                          <p>Submit</p>
+                          <i class="material-symbols-outlined">send</i>
+                        </button>
+                      </div>
+                    </td>
+                    <td id="feed-pg" class="v-written">
+                      <div class="feed-paragraph">
+                        <span><label>Time left: 20h+</label>
+                          <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note </i>
+                          </div>
+                        </span>
+                        <article class="v-title">
+                          <label class="v-user">
+                            <h6>312686098</h6>
+                          </label>
+                          <h1>How do you manage with healthy food prep in this fast paced society</h1>
+                        </article>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="topic84" class="v-closed">
+                    <td>
+                      <div class="feed-head label-parent">
+                        <label class="state-closed">Calculating</label>
+                        <i class="material-symbols-outlined">hourglass_top</i>
+                      </div>
+                    </td>
+                    <td id="response-space" class="v-written-response">
+                      <div class="response-top">
+                        <section class="survey-discrip">
+                          <label for="survey-description-mc">About</label>
+                          <h6>This survey is intended to aid new students in navigating the complexities and responsivities of an
+                            Undergraduate</h6>
+                        </section>
+                        <section class="descript inpt ">
+                          <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
+                          <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
+                            class="survey-input" rows="4" required=""></textarea>
+                        </section>
+                      </div>
+                      <div class="surv-dwn">
+                        <button class=" bck-btn nav-button next step-button v-back ">
+                          <i class="material-symbols-outlined">keyboard_backspace</i>
+                          <p>Go back</p>
+                        </button>
+                        <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                          onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('84','text')">
+                          <p>Submit</p>
+                          <i class="material-symbols-outlined">send</i>
+                        </button>
+                      </div>
+                    </td>
+                    <td id="feed-pg" class="v-written">
+                      <div class="feed-paragraph">
+                        <span><label>Time left: 20h+</label>
+                          <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note </i>
+                          </div>
+                        </span>
+                        <article class="v-title">
+                          <label class="v-user">
+                            <h6>312686098</h6>
+                          </label>
+                          <h1>Tell me what you could have done better in your first year as a Uleth undergrad</h1>
+                        </article>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="topic83" class="v-closed">
+                    <td>
+                      <div class="feed-head label-parent">
+                        <label class="state-closed">Calculating</label>
+                        <i class="material-symbols-outlined">hourglass_top</i>
+                      </div>
+                    </td>
+                    <td id="response-space" class="v-written-response">
+                      <div class="response-top">
+                        <section class="survey-discrip">
+                          <label for="survey-description-mc">About</label>
+                          <h6>This is related to Astrology</h6>
+                        </section>
+                        <section class="descript inpt ">
+                          <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
+                          <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
+                            class="survey-input" rows="4" required=""></textarea>
+                        </section>
+                      </div>
+                      <div class="surv-dwn">
+                        <button class=" bck-btn nav-button next step-button v-back ">
+                          <i class="material-symbols-outlined">keyboard_backspace</i>
+                          <p>Go back</p>
+                        </button>
+                        <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                          onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('83','text')">
+                          <p>Submit</p>
+                          <i class="material-symbols-outlined">send</i>
+                        </button>
+                      </div>
+                    </td>
+                    <td id="feed-pg" class="v-written">
+                      <div class="feed-paragraph">
+                        <span><label>Time left: 20h+</label>
+                          <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note </i>
+                          </div>
+                        </span>
+                        <article class="v-title">
+                          <label class="v-user">
+                            <h6>312686098</h6>
+                          </label>
+                          <h1>What are your thoughts about Mercury being in retrograde</h1>
+                        </article>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="topic82" class="v-closed">
+                    <td>
+                      <div class="feed-head label-parent">
+                        <label class="state-closed">Calculating</label>
+                        <i class="material-symbols-outlined">hourglass_top</i>
+                      </div>
+                    </td>
+                    <td id="response-space" class="v-multiple-choice">
+                      <div class="response-top">
+                        <section class="survey-discrip">
+                          <label for="survey-description-mc">About</label>
+                          <h6>Survey about student health</h6>
+                        </section>
+                        <section class="descript inpt "><label for="survey-description-mc">Response <span> Max Char:
+                              300</span></label>
+                          <section name="survey-response-mc" placeholder="Choose an option" class="optS-space">
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-1"
+                                value="1" placeholder="Option 1" required=""><label id="r-label-1"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-2"
+                                value="2" placeholder="Option 2" required=""><label id="r-label-2"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-3"
+                                value="3" placeholder="Option 3" required=""><label id="r-label-3"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-4"
+                                value="4" placeholder="Option 4" required=""><label id="r-label-4"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-5"
+                                value="5" placeholder="Option 5" required=""><label id="r-label-5"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-6"
+                                value="6" placeholder="Option 6" required=""><label id="r-label-6"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-7"
+                                value="7" placeholder="Option 7" required=""><label id="r-label-7"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-8"
+                                value="8" placeholder="Option 8" required=""><label id="r-label-8"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-9"
+                                value="9" placeholder="Option 9" required=""><label id="r-label-9"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-10"
+                                value="10" placeholder="Option 10" required=""><label id="r-label-10"></label></div>
+                          </section>
+                        </section>
+                      </div>
+                      <div class="surv-dwn">
+                        <button class=" bck-btn nav-button next step-button v-back ">
+                          <i class="material-symbols-outlined">keyboard_backspace</i>
+                          <p>Go back</p>
+                        </button>
+                        <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                          onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('82','multiple')">
+                          <p>Submit</p>
+                          <i class="material-symbols-outlined">send</i>
+                        </button>
+                      </div>
+                    </td>
+                    <td id="feed-pg" class="v-opt">
+                      <div class="feed-paragraph">
+                        <span><label>Time left: 20h+</label>
+                          <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined"> format_list_bulleted
+                            </i>
+                          </div>
+                        </span>
+                        <article class="v-title">
+                          <label class="v-user">
+                            <h6>312686098</h6>
+                          </label>
+                          <h1>How many do you sleep at night</h1>
+                        </article>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="topic81" class="v-closed">
+                    <td>
+                      <div class="feed-head label-parent">
+                        <label class="state-closed">Calculating</label>
+                        <i class="material-symbols-outlined">hourglass_top</i>
+                      </div>
+                    </td>
+                    <td id="response-space" class="v-written-response">
+                      <div class="response-top">
+                        <section class="survey-discrip">
+                          <label for="survey-description-mc">About</label>
+                          <h6>Deep thoughts about the future</h6>
+                        </section>
+                        <section class="descript inpt ">
+                          <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
+                          <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
+                            class="survey-input" rows="4" required=""></textarea>
+                        </section>
+                      </div>
+                      <div class="surv-dwn">
+                        <button class=" bck-btn nav-button next step-button v-back ">
+                          <i class="material-symbols-outlined">keyboard_backspace</i>
+                          <p>Go back</p>
+                        </button>
+                        <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                          onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('81','text')">
+                          <p>Submit</p>
+                          <i class="material-symbols-outlined">send</i>
+                        </button>
+                      </div>
+                    </td>
+                    <td id="feed-pg" class="v-written">
+                      <div class="feed-paragraph">
+                        <span><label>Time left: 20h+</label>
+                          <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note </i>
+                          </div>
+                        </span>
+                        <article class="v-title">
+                          <label class="v-user">
+                            <h6>312686098</h6>
+                          </label>
+                          <h1>Do you think Chat Gpt or AI in general will Cause Intellectual Dysmorphia</h1>
+                        </article>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="topic80" class="v-closed">
+                    <td>
+                      <div class="feed-head label-parent">
+                        <label class="state-closed">Calculating</label>
+                        <i class="material-symbols-outlined">hourglass_top</i>
+                      </div>
+                    </td>
+                    <td id="response-space" class="v-written-response">
+                      <div class="response-top">
+                        <section class="survey-discrip">
+                          <label for="survey-description-mc">About</label>
+                          <h6>A survey about financial management</h6>
+                        </section>
+                        <section class="descript inpt ">
+                          <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
+                          <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
+                            class="survey-input" rows="4" required=""></textarea>
+                        </section>
+                      </div>
+                      <div class="surv-dwn">
+                        <button class=" bck-btn nav-button next step-button v-back ">
+                          <i class="material-symbols-outlined">keyboard_backspace</i>
+                          <p>Go back</p>
+                        </button>
+                        <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                          onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('80','text')">
+                          <p>Submit</p>
+                          <i class="material-symbols-outlined">send</i>
+                        </button>
+                      </div>
+                    </td>
+                    <td id="feed-pg" class="v-written">
+                      <div class="feed-paragraph">
+                        <span><label>Time left: 20h+</label>
+                          <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note </i>
+                          </div>
+                        </span>
+                        <article class="v-title">
+                          <label class="v-user">
+                            <h6>312686098</h6>
+                          </label>
+                          <h1>What is the most you have spent impulsively</h1>
+                        </article>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="topic79" class="v-closed">
+                    <td>
+                      <div class="feed-head label-parent">
+                        <label class="state-closed">Calculating</label>
+                        <i class="material-symbols-outlined">hourglass_top</i>
+                      </div>
+                    </td>
+                    <td id="response-space" class="v-multiple-choice">
+                      <div class="response-top">
+                        <section class="survey-discrip">
+                          <label for="survey-description-mc">About</label>
+                          <h6></h6>
+                        </section>
+                        <section class="descript inpt "><label for="survey-description-mc">Response <span> Max Char:
+                              300</span></label>
+                          <section name="survey-response-mc" placeholder="Choose an option" class="optS-space">
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-1"
+                                value="1" placeholder="Option 1" required=""><label id="r-label-1"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-2"
+                                value="2" placeholder="Option 2" required=""><label id="r-label-2"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-3"
+                                value="3" placeholder="Option 3" required=""><label id="r-label-3"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-4"
+                                value="4" placeholder="Option 4" required=""><label id="r-label-4"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-5"
+                                value="5" placeholder="Option 5" required=""><label id="r-label-5"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-6"
+                                value="6" placeholder="Option 6" required=""><label id="r-label-6"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-7"
+                                value="7" placeholder="Option 7" required=""><label id="r-label-7"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-8"
+                                value="8" placeholder="Option 8" required=""><label id="r-label-8"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-9"
+                                value="9" placeholder="Option 9" required=""><label id="r-label-9"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-10"
+                                value="10" placeholder="Option 10" required=""><label id="r-label-10"></label></div>
+                          </section>
+                        </section>
+                      </div>
+                      <div class="surv-dwn">
+                        <button class=" bck-btn nav-button next step-button v-back ">
+                          <i class="material-symbols-outlined">keyboard_backspace</i>
+                          <p>Go back</p>
+                        </button>
+                        <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                          onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('79','multiple')">
+                          <p>Submit</p>
+                          <i class="material-symbols-outlined">send</i>
+                        </button>
+                      </div>
+                    </td>
+                    <td id="feed-pg" class="v-opt">
+                      <div class="feed-paragraph">
+                        <span><label>Time left: 20h+</label>
+                          <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined"> format_list_bulleted
+                            </i>
+                          </div>
+                        </span>
+                        <article class="v-title">
+                          <label class="v-user">
+                            <h6>679443420</h6>
+                          </label>
+                          <h1>What factor is your biggest contributor to not voting</h1>
+                        </article>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="topic76" class="v-closed">
+                    <td>
+                      <div class="feed-head label-parent">
+                        <label class="state-closed">Calculating</label>
+                        <i class="material-symbols-outlined">hourglass_top</i>
+                      </div>
+                    </td>
+                    <td id="response-space" class="v-multiple-choice">
+                      <div class="response-top">
+                        <section class="survey-discrip">
+                          <label for="survey-description-mc">About</label>
+                          <h6>How do you stay informed</h6>
+                        </section>
+                        <section class="descript inpt "><label for="survey-description-mc">Response <span> Max Char:
+                              300</span></label>
+                          <section name="survey-response-mc" placeholder="Choose an option" class="optS-space">
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-1"
+                                value="1" placeholder="Option 1" required=""><label id="r-label-1"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-2"
+                                value="2" placeholder="Option 2" required=""><label id="r-label-2"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-3"
+                                value="3" placeholder="Option 3" required=""><label id="r-label-3"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-4"
+                                value="4" placeholder="Option 4" required=""><label id="r-label-4"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-5"
+                                value="5" placeholder="Option 5" required=""><label id="r-label-5"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-6"
+                                value="6" placeholder="Option 6" required=""><label id="r-label-6"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-7"
+                                value="7" placeholder="Option 7" required=""><label id="r-label-7"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-8"
+                                value="8" placeholder="Option 8" required=""><label id="r-label-8"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-9"
+                                value="9" placeholder="Option 9" required=""><label id="r-label-9"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-10"
+                                value="10" placeholder="Option 10" required=""><label id="r-label-10"></label></div>
+                          </section>
+                        </section>
+                      </div>
+                      <div class="surv-dwn">
+                        <button class=" bck-btn nav-button next step-button v-back ">
+                          <i class="material-symbols-outlined">keyboard_backspace</i>
+                          <p>Go back</p>
+                        </button>
+                        <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                          onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('76','multiple')">
+                          <p>Submit</p>
+                          <i class="material-symbols-outlined">send</i>
+                        </button>
+                      </div>
+                    </td>
+                    <td id="feed-pg" class="v-opt">
+                      <div class="feed-paragraph">
+                        <span><label>Time left: 20h+</label>
+                          <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined"> format_list_bulleted
+                            </i>
+                          </div>
+                        </span>
+                        <article class="v-title">
+                          <label class="v-user">
+                            <h6>658665383</h6>
+                          </label>
+                          <h1>What is your most used method of being informed on recent news in the last 12 months</h1>
+                        </article>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="topic75" class="v-closed">
+                    <td>
+                      <div class="feed-head label-parent">
+                        <label class="state-closed">Calculating</label>
+                        <i class="material-symbols-outlined">hourglass_top</i>
+                      </div>
+                    </td>
+                    <td id="response-space" class="v-multiple-choice">
+                      <div class="response-top">
+                        <section class="survey-discrip">
+                          <label for="survey-description-mc">About</label>
+                          <h6>What type of expense have you noticed has increased in price the most in the past 24 months</h6>
+                        </section>
+                        <section class="descript inpt "><label for="survey-description-mc">Response <span> Max Char:
+                              300</span></label>
+                          <section name="survey-response-mc" placeholder="Choose an option" class="optS-space">
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-1"
+                                value="1" placeholder="Option 1" required=""><label id="r-label-1"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-2"
+                                value="2" placeholder="Option 2" required=""><label id="r-label-2"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-3"
+                                value="3" placeholder="Option 3" required=""><label id="r-label-3"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-4"
+                                value="4" placeholder="Option 4" required=""><label id="r-label-4"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-5"
+                                value="5" placeholder="Option 5" required=""><label id="r-label-5"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-6"
+                                value="6" placeholder="Option 6" required=""><label id="r-label-6"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-7"
+                                value="7" placeholder="Option 7" required=""><label id="r-label-7"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-8"
+                                value="8" placeholder="Option 8" required=""><label id="r-label-8"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-9"
+                                value="9" placeholder="Option 9" required=""><label id="r-label-9"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-10"
+                                value="10" placeholder="Option 10" required=""><label id="r-label-10"></label></div>
+                          </section>
+                        </section>
+                      </div>
+                      <div class="surv-dwn">
+                        <button class=" bck-btn nav-button next step-button v-back ">
+                          <i class="material-symbols-outlined">keyboard_backspace</i>
+                          <p>Go back</p>
+                        </button>
+                        <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                          onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('75','multiple')">
+                          <p>Submit</p>
+                          <i class="material-symbols-outlined">send</i>
+                        </button>
+                      </div>
+                    </td>
+                    <td id="feed-pg" class="v-opt">
+                      <div class="feed-paragraph">
+                        <span><label>Time left: 20h+</label>
+                          <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined"> format_list_bulleted
+                            </i>
+                          </div>
+                        </span>
+                        <article class="v-title">
+                          <label class="v-user">
+                            <h6>312686098</h6>
+                          </label>
+                          <h1>What type of expense have you noticed has increased in price the most in the past 24 months</h1>
+                        </article>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="topic74" class="v-closed">
+                    <td>
+                      <div class="feed-head label-parent">
+                        <label class="state-closed">Calculating</label>
+                        <i class="material-symbols-outlined">hourglass_top</i>
+                      </div>
+                    </td>
+                    <td id="response-space" class="v-multiple-choice">
+                      <div class="response-top">
+                        <section class="survey-discrip">
+                          <label for="survey-description-mc">About</label>
+                          <h6>What city do you think is best for students</h6>
+                        </section>
+                        <section class="descript inpt "><label for="survey-description-mc">Response <span> Max Char:
+                              300</span></label>
+                          <section name="survey-response-mc" placeholder="Choose an option" class="optS-space">
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-1"
+                                value="1" placeholder="Option 1" required=""><label id="r-label-1"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-2"
+                                value="2" placeholder="Option 2" required=""><label id="r-label-2"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-3"
+                                value="3" placeholder="Option 3" required=""><label id="r-label-3"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-4"
+                                value="4" placeholder="Option 4" required=""><label id="r-label-4"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-5"
+                                value="5" placeholder="Option 5" required=""><label id="r-label-5"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-6"
+                                value="6" placeholder="Option 6" required=""><label id="r-label-6"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-7"
+                                value="7" placeholder="Option 7" required=""><label id="r-label-7"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-8"
+                                value="8" placeholder="Option 8" required=""><label id="r-label-8"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-9"
+                                value="9" placeholder="Option 9" required=""><label id="r-label-9"></label></div>
+                            <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-10"
+                                value="10" placeholder="Option 10" required=""><label id="r-label-10"></label></div>
+                          </section>
+                        </section>
+                      </div>
+                      <div class="surv-dwn">
+                        <button class=" bck-btn nav-button next step-button v-back ">
+                          <i class="material-symbols-outlined">keyboard_backspace</i>
+                          <p>Go back</p>
+                        </button>
+                        <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                          onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('74','multiple')">
+                          <p>Submit</p>
+                          <i class="material-symbols-outlined">send</i>
+                        </button>
+                      </div>
+                    </td>
+                    <td id="feed-pg" class="v-opt">
+                      <div class="feed-paragraph">
+                        <span><label>Time left: 20h+</label>
+                          <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined"> format_list_bulleted
+                            </i>
+                          </div>
+                        </span>
+                        <article class="v-title">
+                          <label class="v-user">
+                            <h6>82211394</h6>
+                          </label>
+                          <h1>What city do you think is best for students</h1>
+                        </article>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="topic73" class="v-closed">
+                    <td>
+                      <div class="feed-head label-parent">
+                        <label class="state-closed">Calculating</label>
+                        <i class="material-symbols-outlined">hourglass_top</i>
+                      </div>
+                    </td>
+                    <td id="response-space" class="v-written-response">
+                      <div class="response-top">
+                        <section class="survey-discrip">
+                          <label for="survey-description-mc">About</label>
+                          <h6>Write your response</h6>
+                        </section>
+                        <section class="descript inpt ">
+                          <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
+                          <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
+                            class="survey-input" rows="4" required=""></textarea>
+                        </section>
+                      </div>
+                      <div class="surv-dwn">
+                        <button class=" bck-btn nav-button next step-button v-back ">
+                          <i class="material-symbols-outlined">keyboard_backspace</i>
+                          <p>Go back</p>
+                        </button>
+                        <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                          onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('73','text')">
+                          <p>Submit</p>
+                          <i class="material-symbols-outlined">send</i>
+                        </button>
+                      </div>
+                    </td>
+                    <td id="feed-pg" class="v-written">
+                      <div class="feed-paragraph">
+                        <span><label>Time left: 20h+</label>
+                          <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note </i>
+                          </div>
+                        </span>
+                        <article class="v-title">
+                          <label class="v-user">
+                            <h6>82211394</h6>
+                          </label>
+                          <h1>What is the biggest economic social or political issue you face as a University of Lethbridge student
+                          </h1>
+                        </article>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <script> function populateTableData() { tableData.set('102', ['text', '""']); tableData.set('101', ['multiple', '{"1": "Not represented", "2": "Somewhat represented", "3": "Very represented"}']); tableData.set('100', ['text', '""']); tableData.set('99', ['multiple', '{"1": "Much less", "2": "Less", "3": "About the same", "4": "More", "5": "Much more"}']); tableData.set('98', ['text', '""']); tableData.set('97', ['multiple', '{"1": "Stay the same (same amount of students)", "2": "Grow a bit (a bit more students)", "3": "Grow substantially (significantly more students)"}']); tableData.set('96', ['text', '""']); tableData.set('95', ['text', '""']); tableData.set('94', ['multiple', '{"1": "Yes", "2": "No"}']); tableData.set('93', ['text', '""']); tableData.set('92', ['text', '""']); tableData.set('91', ['multiple', '{"1": "Apple", "2": "Banana", "3": "Orange", "4": "Strawberry", "5": "Mango", "6": "Blueberry", "7": "Pineapple", "8": "Dragon Fruit", "9": "Kiwi", "10": "Cranberry"}']); tableData.set('90', ['text', '""']); tableData.set('89', ['multiple', '{"1": "Yes", "2": "No"}']); tableData.set('85', ['text', '""']); tableData.set('84', ['text', '""']); tableData.set('83', ['text', '""']); tableData.set('82', ['multiple', '{"1": "4 hr", "2": "6 hr", "3": "7 hr", "4": "8 hr", "5": "9 hr ", "6": "12 hr "}']); tableData.set('81', ['text', '""']); tableData.set('80', ['text', '""']); tableData.set('79', ['multiple', '{"1": "Not informed/lack of knowledge", "2": "Do not care", "3": "Voting process is inaccessible ", "4": "Do not feel like it makes a difference", "5": "Do not know how to vote", "6": "Other"}']); tableData.set('76', ['multiple', '{"1": "social media ", "2": "watching news channels on television", "3": "word of mouth", "4": "newspaper"}']); tableData.set('75', ['multiple', '{"1": "Rent/Housing", "2": "Tuition", "3": "Food/Groceries", "4": "Transportation/Gas"}']); tableData.set('74', ['multiple', '{"1": "Lethbridge", "2": "Calgary"}']); tableData.set('73', ['text', '""']); }</script>
+              <div id="alert" style="display: none;">
+                <h2>Your survey has been successfully posted!</h2>
+                <h2> <span>
+                    <p>Other users will have 24 hours to respond before your survey closes and results are calculated</p>
+                  </span></h2>
+              </div>
+            </section>
+
           </section>
 
 
@@ -961,6 +1705,36 @@
 
       <div class="collapsable-comp">
         <div class="settings-modal">
+
+          <section class="set-Top">
+            <span>Need Help?</span>
+            <div class="F-LI-02">
+              <div class="F-number F-chip">
+                 <div class="F-number-L">
+                    <div class="material-symbols-outlined Phone">Phone_Enabled</div>
+                    <p>+1 780-435-2098</p>
+                 </div>
+                 <div id="f-copy-2" class="material-symbols-outlined">Content_Copy</div>
+              </div>
+              <div class="F-mail F-chip">
+                 <div class="F-mail-L">
+                    <div class="material-symbols-outlined Mail">Mail</div>
+                    <p>peter@veras.ca</p>
+                 </div>
+                 <div id="f-copy-1" class=" material-symbols-outlined ">Content_Copy</div>
+              </div>
+              <div class="social-ico">
+                 <a target="_blank" href="https://www.facebook.com/verastechnologiesinc" rel="noopener" title="Visit Vera's Facebook page">
+                    <div class="material-symbols-outlined chip-ico fb touched-pressed"></div>
+                 </a>
+                 <a target="_blank" href="https://www.linkedin.com/company/verastechnologiesinc/" rel="noopener" title="Visit Vera's LinkedIn page">
+                    <div class="material-symbols-outlined chip-ico lkd-in touched-pressed"></div>
+                 </a>
+              </div>
+  
+           </div>
+          </section>
+        
           <div class="modal-btn">
             <div class="v-button-filled logout-button v-pressed">
               <p>Logout</p>

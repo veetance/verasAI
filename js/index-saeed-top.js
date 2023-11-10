@@ -1,106 +1,46 @@
 ////////// VERAS AI INDEX.JS //////////
-////// created with love by veetance //////
 
-// window.AlertElements = {};
 window.tableData = new Map(); // let globalValue_mul;
-
-// Retrieve user data from local storage first
-window.storedData = JSON.parse(localStorage.getItem('userLoginData'));
-// If storedData is null, fall back to global variables
-window.userLoginData = storedData || window.userLoginData || window.registerData;
-
 
 window.eventHandlers = {
 
+  //// Saeed's methods ////
+
   updateNewsfeedUI: {
-
-    // refactored  Define your function inside the event listener
-    handleWittenSurveyResponseSubmission: function (topicId, type) {
-      if (type === 'text') {
-        this.handleWrittenSurveyResponseSubmission(topicId);  // Use 'this' to refer to the current object
-      } else if (type === 'multiple') {
-        this.handleMultipleChoiceSurveyFormSubmission(topicId);  // Use 'this' to refer to the current object
-      } else {
-        console.error("Invalid submission type:", type);
-      }
-    },
-
-    // refactored  Handle Written Text Submissions
-    handleWrittenSurveyResponseSubmission: function (input) {
-      // Log the call of the function with the input ID
-      console.log("handleWrittenSurveyResponseSubmission called with ID", input);
-
-      // Get the textarea element by its ID
-
+    handleWittenSurveyResponseSubmission: function (input) {
+      console.log("handleWittenSurveyResponseSubmission called with ID", input);
       const response_Input = document.getElementById("survey-response");
-      // Get the value inside the textarea
-      const response_to_send = response_Input.value;  // Declared explicitly
+      response_to_send = response_Input.value;
       const Topic_ID = input;
+      console.log("test_success", response_to_send);
+      // JavaScript
+      if (response_to_send == "") {
+        const radioOptions = document.querySelectorAll('input[name="v-radio"]');
+        let selectedValue;
+        
+        radioOptions.forEach((option) => {
+          if (option.checked) {
+            selectedValue = option.value;
+            response_to_send = selectedValue;
+          }
 
-      // Log the textarea element
-      console.log("response_Input:", response_Input);
+        });
 
-      // Check if the textarea exists
-      if (response_Input) {
-        // Log the current content of the textarea
-        console.log("Textarea content before validation:", response_Input.value);
-
-
-
-        // Validate the written response
-        if (response_to_send.trim() === "") { // Also trim to check for only whitespace
-          console.log("empty-textarea", response_to_send);
-          return;
-        }
-
-        // Create data object
-        const Res_surveyData = {
-          response: response_to_send,
-          TopicID: Topic_ID,
-        };
-
-        // Log and proceed to submit
-        console.log("Responsedata:", Res_surveyData);
-        this.submitSurveyData(Res_surveyData); // Call your existing function to submit data
-
-      } else {
-        // If textarea is not found, log an error
-        console.log("response_Input-NOT-FOUND at the time of submission.");
+        if (selectedValue) {
+          console.log("Selected radio option value: " + selectedValue);
+        } else {
+          console.log("No radio option selected.");
+          alert("Please fill in all required fields.");
+        }  // comment from Divine , WHY IS IT CHECKING FOR RADIO BUTTONS WHEN IT IS A TEXT INPUT ???
       }
-    },
-
-    // refactored Handle Multiple-Choice Submissions
-    handleMultipleChoiceSurveyFormSubmission: function (input) {
-      console.log("handleMultipleChoiceSurveyFormSubmission called with ID", input);
-      const radioOptions = document.querySelectorAll('input[name="v-radio"]');
-      let selectedValue;
-
-      // Validate multiple-choice response
-      radioOptions.forEach((option) => {
-        if (option.checked) {
-          selectedValue = option.value;
-        }
-      });
-
-      if (!selectedValue) {
-        alert("Please select a radio option.");
-        return;
-      }
+      // Call the function when the document is ready
 
 
-      // Prepare data
       const Res_surveyData = {
-        response: selectedValue,
-        TopicID: input,
+        response: response_to_send,
+        TopicID: Topic_ID,
       };
-
       console.log("Responsedata:", Res_surveyData);
-
-      // Submit data
-      this.submitSurveyData(Res_surveyData);
-    },
-    // refactored Shared Helper Function to Submit Survey Data
-    submitSurveyData: function (Res_surveyData) {
       fetch("https://study.veras.ca/surveypost.phps", {
         method: "POST",
         headers: {
@@ -111,127 +51,345 @@ window.eventHandlers = {
         .then((response) => {
           if (response.ok) {
             console.log("Response successful:", response);
+
+            // Show an alert to the user
             alert("SUCCESS: Redirecting to newsfeed...");
+
+            // Redirect the user after they acknowledge the alert
             window.location.href = "?newsfeed";
           } else {
-            console.log("FAILED-POST: HTTP error! status:", response.status);
-            alert("FAILED-POST: HTTP error! status: " + response.status);
+            showAlert("FAILED-POST: HTTP error! status: " + response.status);
+
             window.location.href = "?login";
           }
         })
         .catch((error) => {
-          console.error("FAILED TO SUBMIT RESPONSE:", error.message);
+          console.error("FAILED TO SUBMIT RESPONSE:", error.message); // Log the error message to the console
+
+          // Show an alert to the user
           alert("FAILED TO SUBMIT RESPONSE: " + error.message);
+
+          // After the user dismisses the alert, redirect them
           window.location.href = "?newsfeed";
         });
     },
+    // create  written survey
+    handleWittenSurveyFormSubmission: function (input) {
+      // ... Saeed's code for written survey
+      const submitButton = document.getElementById("submit-written-survey");
+      const titleInput = document.getElementById("survey-title-mc");
+      const descriptionInput = document.getElementById("survey-description-mc");
+      //const charLimitSelect = document.getElementById("char-limit"); // Added #char-limit-section
+
+      if (submitButton) {
+        submitButton.addEventListener("click", async (event) => {
+          event.preventDefault();
+
+          const title = titleInput.value;
+          const description = descriptionInput.value;
+          //const charLimit = parseInt(charLimitSelect.value); // Added
+
+          if (!title || !description) {
+            showAlert("Please fill in all fields.");
+            return;
+          }
+
+          /*           // Check if the description exceeds the character limit
+                    if (description.length > charLimit) {
+                      showAlert(`Description exceeds the character limit of ${charLimit} characters.`);
+                      return;
+                    } */
+
+          // Function to update character count based on selected limit
+          function updateCharacterCount() {
+            const charLimitSelect = document.getElementById("char-limit");
+            const descriptionInput =
+              document.getElementById("survey-description");
+            const charLimit = parseInt(charLimitSelect.value);
+
+            descriptionInput.addEventListener("input", () => {
+              const currentText = descriptionInput.value;
+              if (currentText.length > charLimit) {
+                descriptionInput.value = currentText.substring(0, charLimit);
+              }
+            });
+          }
+
+          // Call the function when the document is ready
+          document.addEventListener("DOMContentLoaded", () => {
+            updateCharacterCount();
+          });
 
 
+          const W_surveyData = {
+            topic_title: title,
+
+            description: description,
+            options: "",
+            type: "text",
+          };
+
+          console.log("Logindata:", W_surveyData);
+
+          fetch("https://study.veras.ca/surveynew.phps", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(W_surveyData),
+          })
+            .then((response) => {
+              if (response.ok) {
+                console.log("Response URL:", response.url);
+                console.log("Logindata:", response);
+                // Call showAlert with navigation to home
+                showAlert("SUCCESS: Redirecting to newsfeed...").then(() => {
+                  window.location.reload();
+                });
+              } else {
+                showAlert(
+                  "FAILED-POST: HTTP error! status: " + response.status
+                ).then(() => {
+                  window.location.reload();
+                });
+              }
+            })
+            .catch((error) => {
+              showAlert("FAILED TO POST SURVEY: " + error.message).then(() => {
+                console.log(error);
+                // window.location.href = response.url;
+                window.location.reload();
+              });
+            });
+        });
+      };
+
+    },
+    // create  mltple choice survey
+    handleMultipleChoiceSurveyFormSubmission: function (input) {
+      
+      //const submitButton = document.getElementById("submit-multiple-choice");
+      //const titleInput = document.getElementById("survey-title-mc");
+      //const descriptionInput = document.getElementById("survey-description-mc");
+
+      //const titleInput = document.querySelector('input#survey-title-mc[type="text"]');
+      //const descriptionInput = document.querySelector('textarea#survey-description-mc');
+
+
+  
+
+
+        const addOptionButton = document.getElementById("add-option");
+        //console.log(titleInput, descriptionInput)
+
+        const optionsDiv = document.getElementById("opt-space");
+        const addRemove = document.querySelector(".add-remove");
+        const globalRemoveButton = document.querySelector(".globalRemove");
+
+
+        // Function to update the display state of optionsDiv
+
+        let optionCount = 0; // Initialize option count
+
+
+        function updateOptionsDisplay() {
+          if (optionCount > 0) {
+
+            if(optionsDiv){
+            optionsDiv.style.display = "grid";
+            optionsDiv.style.height = "100% !important";
+            addRemove.style.borderRadius = "0px 0px 0px 0px";
+            }
+          } else {
+            
+            if(optionsDiv){
+            optionsDiv.style.display = "none";
+            addRemove.style.borderRadius = "0px 0px 10px 10px";
+            }
+          }
+        }
+
+
+        if (globalRemoveButton) {
+
+        globalRemoveButton.addEventListener("click", () => {
+          if (optionsDiv.lastChild) {
+            optionsDiv.removeChild(optionsDiv.lastChild);
+            optionCount--;
+          }
+          updateOptionsDisplay();
+
+         });
+
+         } else if (addOptionButton) {
+
+
+
+
+        addOptionButton.addEventListener("click", () => {
+          const newOptionInput = document.createElement("div");
+          newOptionInput.classList.add("option");
+
+          const newOptionTextInput = document.createElement("input");
+          newOptionTextInput.classList.add("option-input");
+          newOptionTextInput.type = "text";
+          newOptionTextInput.placeholder = "Option " + (optionCount + 1);
+          newOptionTextInput.required = true;
+
+          const removeOptionButton = document.createElement("button");
+          removeOptionButton.classList.add("remove-option");
+          removeOptionButton.innerText = "-";
+          removeOptionButton.onclick = () => {
+            // Remove the corresponding option when the button is clicked
+            optionsDiv.removeChild(newOptionInput);
+            optionCount--;
+            updateOptionsDisplay();
+          };
+
+          newOptionInput.appendChild(newOptionTextInput);
+          newOptionInput.appendChild(removeOptionButton);
+
+          optionsDiv.appendChild(newOptionInput);
+          optionCount++;
+
+          updateOptionsDisplay();
+        });
+
+                // Initial state check
+                updateOptionsDisplay();
+
+
+
+      }
+
+  
+        
+
+
+
+
+      const submitButton = document.getElementById("submit-multiple-choice");
+
+      if (submitButton) {
+        submitButton.addEventListener("click", async (event) => {
+          event.preventDefault();
+
+          //const titleInput = document.querySelector('input#survey-title-mc[type="text"]');
+          // Targeting the input element with ID "survey-title-mc"
+          //const titleInput = document.querySelector('#survey-title-mc[name="survey-title-mc"].create-input');
+          // Targeting the input element with ID "survey-title-mc" inside the div with ID "multiple-choice-content"
+          const titleInput = document.querySelector(
+            '#multiple-choice-content #survey-title-mc[name="survey-title-mc"].create-input'
+          );
+
+          //const descriptionInput = document.querySelector('textarea#survey-description-mc');
+          // Targeting the textarea element with ID "survey-description-mc"
+          //const descriptionInput = document.querySelector('#survey-description-mc[name="survey-description-mc"].survey-input');
+          // Targeting the textarea element with ID "survey-description-mc" inside the div with ID "multiple-choice-content"
+          const descriptionInput = document.querySelector(
+            '#multiple-choice-content #survey-description-mc[name="survey-description-mc"].survey-input'
+          );
+
+          if (titleInput.value && descriptionInput.value) {
+            console.log("titleInput found");
+            console.log("descriptionInput found");
+          } else {
+            console.log("titleInput not found");
+            console.log("descriptionInput not found");
+          }
+
+          const title = titleInput.value;
+          const description = descriptionInput.value;
+
+          // Modify the options to be a single string with commas
+          // const optionsString = options.filter(option => option.trim() !== '').join(', ');
+          const optionInputs = document.querySelectorAll(".option-input");
+          const options = Array.from(optionInputs).map((input) => input.value);
+
+          // Remove empty options
+          const filteredOptions = options.filter(
+            (option) => option.trim() !== ""
+          );
+
+          // Convert the options into an object with numbered keys
+          const optionsObject = {};
+          filteredOptions.forEach((option, index) => {
+            optionsObject[index + 1] = option;
+          });
+
+          // Perform validation
+          //console.log("options.length", title, description, options.length)
+          if (!title || !description || options.length < 2) {
+            alert("Please fill in all fields and provide at least two options");
+            return;
+          }
+
+          const MC_surveyData = {
+            topic_title: title,
+            description: description,
+            options: optionsObject,
+            type: "multiple",
+          };
+          console.log("W_surveyData:", MC_surveyData);
+
+          fetch("https://study.veras.ca/surveynew.phps", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(MC_surveyData),
+          })
+            .then((response) => {
+              if (response.ok) {
+                console.log("Response URL:", response.url);
+                console.log("Logindata:", MC_surveyData);
+                // Call showAlert with navigation to home
+                showAlert("SUCCESS: Redirecting to newsfeed...").then(() => {
+                  window.location.reload();
+                });
+              } else {
+                showAlert(
+                  "FAILED-POST: HTTP error! status: " + response.status
+                ).then(() => {
+                  window.location.reload();
+                });
+              }
+            })
+            .catch((error) => {
+              showAlert("FAILED TO POST SURVEY: " + error.message).then(() => {
+                console.log(error);
+                window.location.href = response.url;
+                //window.location.reload();
+              });
+            });
+
+          // Perform further processing or API call here
+          // ...
+
+          alert("Multiple Choice Survey submitted successfully!");
+        });
+      }
+
+
+    },
   },
+
+  //// Saeed's methods end ////
+
+
 };
 
-var AlertElements = {};
-
-// Use the DOMContentLoaded event to ensure the DOM is fully loaded before accessing elements
-
-
-// Assign DOM elements to the AlertElements object
-
-AlertElements.customAlert = document.getElementById("customAlert");
-AlertElements.closeAlertButton = document.getElementById("closeAlertButton");
-AlertElements.alertMessage = document.getElementById("alertMessage");
+// Saeed's eventHandlers, you would call them like this:
+window.eventHandlers.updateNewsfeedUI.handleWittenSurveyFormSubmission(true);
+window.eventHandlers.updateNewsfeedUI.handleMultipleChoiceSurveyFormSubmission(true);
 
 
-// showAlert and closeAlert
 
-async function alertFade(message, duration = 500) {
-
-  // realtime log the duration
-    console.log("duration:", duration);
-    // hide vsplash
-  
-    return new Promise((resolve) => {
-      // Check if the wrapper exists, if not create it
-      let alertWrapper = document.querySelector('.alert-wrapper');
-      if (!alertWrapper) {
-        alertWrapper = document.createElement('div');
-        alertWrapper.className = 'alert-wrapper';
-        document.body.appendChild(alertWrapper);
-      }
-  
-      // Create the alert box 
-      const alertBox = document.createElement('div');
-      alertBox.className = 'fade-alert';
-      alertBox.textContent = message;
-      alertBox.style.display = 'flex';
-  
-      // Append the alert box to the wrapper
-      alertWrapper.appendChild(alertBox);
-  
-      // Fade out after the specified duration
-      setTimeout(() => {
-        alertBox.style.opacity = '0';
-  
-        // Remove the alert from the DOM after it's fully faded out
-        setTimeout(() => {
-          alertWrapper.removeChild(alertBox);
-          // Remove the wrapper if no more alerts are present
-          if (!alertWrapper.hasChildNodes()) {
-            document.body.removeChild(alertWrapper);
-          }
-          resolve(); // Resolve the promise
-        }, 500); // This 1000ms should match the transition duration in the CSS
-      }, duration);
-    });
-}
-
-async function showAlert(message) {
-  return new Promise((resolve, reject) => {
-    // Check if AlertElements is properly initialized
-    if (AlertElements && AlertElements.customAlert && AlertElements.alertMessage && AlertElements.closeAlertButton) {
-      // Make the custom alert visible
-      AlertElements.customAlert.style.display = "flex";
-      console.log("Custom alert made visible");
-
-      // Update the alert message text
-      AlertElements.alertMessage.innerText = message;
-      console.log("Alert message updated to:", message);
-
-      // Attach click event listener to the close alert button
-     
-     
-
-      AlertElements.closeAlertButton.addEventListener('click', function () {
-        console.log("OK button clicked, closing alert");
-        closeAlert(); // Close the alert visually
-        console.log("Resolving promise after alert closed");
-        resolve(); // Resolve the promise
-      });
-      console.log("Event listener attached to OK button");
-
-    } else {
-      // If AlertElements is not initialized properly, log the error and reject the promise
-      console.error("AlertElements is not initialized or missing elements");
-      reject(new Error("AlertElements is not initialized or missing elements"));
-    }
-  });
-}
-
-function closeAlert() {
-  console.log("Closing alert"); // Log when closing the alert
-  if (AlertElements && AlertElements.customAlert) {
-    AlertElements.customAlert.style.display = "none";
-    console.log("Alert closed"); // Log when the alert is closed
-    // Rest of your code...
-  } else {
-    console.error("AlertElements is not initialized for closeAlert");
-  }
-}
+//////// V's Code ////////
 
 
 
 let Loadsplash = document.querySelector(".v-splash");
-
 
 const createAction = (url, type, payload) => {
   const urlObj = new URL(url, window.location.href);
@@ -274,21 +432,12 @@ const actions = {
     payload: html,
   }),
   showOnboardingSteps: () =>
-    createAction(
-      "?onboardingSteps",
-      SHOW_ONBOARDING_STEPS,
-      "onboardingSteps"
-    ),
+    createAction("?onboardingSteps", SHOW_ONBOARDING_STEPS, "onboardingSteps"),
 };
 const elements = {
-
-  //alert
-  closeAlertButton: document.getElementById("closeAlertButton"),
-  alertElement: document.getElementById("customAlert"),
-  alertMessageElement: document.getElementById("alertMessage"),
-
   loginButton: document.querySelector(".login-button"),
   logoutButton: document.querySelector(".logout-button"),
+  closeAlertButton: document.getElementById("closeAlertButton"),
   surfaceView: document.querySelector(".surface-view"),
   footer: document.querySelector(".footer-Contents"),
   insightsButton: document.querySelector(".lnk-ico .insights-btn"),
@@ -301,7 +450,6 @@ const elements = {
     ".nav-logo, .nav-title, .VLOGO-wrapper"
   ),
 };
-
 const eventHandlers = {
   pageActions: {
     login: () => eventHandlers.handleLoginButtonClick(),
@@ -310,22 +458,14 @@ const eventHandlers = {
       loadLong();
 
       setTimeout(() => {
-        loadPage(
-          "logins",
-          actions.showLogins(),
-          actions.setLoginsContent
-        ).then(() => {
-          let loginsSpace = document.querySelector(".logins-Space");
-          handleLoginsFormSubmission(loginsSpace);
-
-          let waitListButton = document.querySelector("#waitList");
-          waitListButton.addEventListener("click", () => {
-            //store.dispatch(actions.showHome()), (window.location = "?home"); // Redirect to home
-            window.location.href = "?login";
-          });
-          // You can add additional UI updates or logic specific to the 'logins' page here if needed.
-          elements.splash.style.display = "none";
-        });
+        loadPage("logins", actions.showLogins(), actions.setLoginsContent).then(
+          () => {
+            let loginsSpace = document.querySelector(".logins-Space");
+            handleLoginsFormSubmission(loginsSpace);
+            // You can add additional UI updates or logic specific to the 'logins' page here if needed.
+            elements.splash.style.display = "none";
+          }
+        );
       }, 200);
     },
     home: () => {
@@ -363,14 +503,16 @@ const eventHandlers = {
     if (pageName in eventHandlers.pageActions) {
       await eventHandlers.pageActions[pageName]();
     } else {
-      // CHANGE TAB TITLE TO UNKNOWN PAGE
-      document.title = "Unknown page | Click ok to go to [Home]";
-  
-      await showAlert(`Unknown page | Click ok to go to [Home]: ${pageName}`);
-      console.log("Promise resolved, redirecting to home"); // Log when the promise resolves
-      window.location.href = "?home"; // Redirect to the home page
-      console.error('Error displaying the alert:', error);
+      await new Promise((resolve) => setTimeout(resolve, 800));
 
+      // CHANGE  TAB TIOTLE TO UNKNOWN PAGE
+      document.title = "Unknown page | Click ok to go to [Home]";
+
+      await showAlert(
+        `Unknown page | Click ok to go to [Home]: ${pageName}`
+      ).then(() => {
+        window.location.href = "?home";
+      });
     }
   },
   init: () => {
@@ -382,37 +524,56 @@ const eventHandlers = {
     };
     eventHandlers.handleReirectDispatchOnLoad();
   },
+  // handleReirectDispatchOnLoad: async () => {
+  //   // Handle search change
+  //   const url = new URL(window.location.href);
+  //   let pageName = url.search ? url.search.slice(1) : "home"; // Change from hash to search
+  //   url.pathname = getPagePath(pageName);
+  //   url.search = pageName; // Change from hash to search
+  //   history.replaceState({}, document.title, `${url.search}`);
+  //   await eventHandlers.dispatchPageAction(pageName);
+  // },
   handleReirectDispatchOnLoad: async () => {
-    // Handle search change
-    const url = new URL(window.location.href);
-    let pageName = url.search ? url.search.slice(1) : "home"; // Change from hash to search
-    url.pathname = getPagePath(pageName);
-    url.search = pageName; // Change from hash to search
-    history.replaceState({}, document.title, `${url.search}`);
-    await eventHandlers.dispatchPageAction(pageName);
+    // Parse the current URL
+    const currentUrl = new URL(window.location.href);
+    let pageName = currentUrl.search ? currentUrl.search.slice(1) : "home";
+
+    // Determine the new URL
+    const newPagePath = getPagePath(pageName);
+    const newUrl = new URL(currentUrl.toString()); // Create a copy of the current URL
+    newUrl.pathname = newPagePath;
+    newUrl.search = pageName;
+
+    // Check if the URL has changed
+    if (currentUrl.toString() !== newUrl.toString()) {
+      // Update the URL and state
+      history.replaceState({}, document.title, `${newUrl.search}`);
+
+      // Dispatch the page action
+      await eventHandlers.dispatchPageAction(pageName);
+    }
+    // If the URL hasn't changed, no action is taken, preventing a reload.
   },
+
   handleLoginButtonClick: () => {
-    loadPage("login", actions.showLogin(), actions.setLoginContent).then(
-      () => {
-        // Call login handler///
-        let loginSpace = document.querySelector(".login-Space");
-        handleLoginFormSubmission(loginSpace);
+    loadPage("login", actions.showLogin(), actions.setLoginContent).then(() => {
+      // Call login handler///
+      let loginSpace = document.querySelector(".login-Space");
+      handleLoginFormSubmission(loginSpace);
 
-        ///// logic to register /////
-        const toOnboardingForm = document.getElementById("registr");
-        toOnboardingForm.addEventListener("click", () => {
-          // Set loading
-          window.location.href = "?logins";
-          eventHandlers.pageActions.logins();
-        });
+      ///// logic to register /////
+      const toOnboardingForm = document.getElementById("registr");
+      toOnboardingForm.addEventListener("click", () => {
+        // Set loading
+        window.location.href = "?logins";
+        eventHandlers.pageActions.logins();
+      });
 
-        let waitListButton = document.querySelector("#waitList");
-        waitListButton.addEventListener("click", () => {
-          //store.dispatch(actions.showHome()), (window.location = "?home"); // Redirect to home
-          window.location.href = "?logins";
-        });
-      }
-    );
+      let waitListButton = document.querySelector("#waitList");
+      waitListButton.addEventListener("click", () => {
+        store.dispatch(actions.showHome()), window.location = "?home;"; // Redirect to home
+      });
+    });
   },
   handleToOnboardFormClick: () => {
     loadPage(
@@ -432,25 +593,9 @@ const eventHandlers = {
     store.dispatch(actions.hideInsights());
     loadPage("create", actions.showCreate, actions.setCreateContent);
   },
-  handleRefreshButtonClick: (event) => {
-    event.preventDefault(); // Prevent default action
-
-    // Using currentTarget to refer to the element to which the event handler is attached
-    const currentElement = event.currentTarget;
-
-    // Check if the current element or any of its parents have the "nav-title" class
-    if (
-      currentElement.classList.contains("nav-title") ||
-      currentElement.querySelector(".nav-title")
-    ) {
-      window.location.href = "?login"; // Navigate login
-    } else {
-      window.location.href = "?home"; // Perform the default reload action
-
-      if (window.location.href.includes("?home")) {
-        window.location.reload();
-      }
-    }
+  handleRefreshButtonClick: () => {
+    store.dispatch(actions.showHome());
+    window.location = "?login";
   },
   handleNavSlideUpClick: () => { },
   addStepButtonListeners: () => {
@@ -494,8 +639,7 @@ const eventHandlers = {
     );
     if (nextStep) {
       // Before switching steps, remove the 'visible' class to reset the animation
-      let currentElementsToFade =
-        currentStep.querySelectorAll(".softTransit");
+      let currentElementsToFade = currentStep.querySelectorAll(".softTransit");
       currentElementsToFade.forEach((el) => el.classList.remove("visible"));
 
       currentStep.classList.remove("active");
@@ -511,38 +655,41 @@ const eventHandlers = {
 
       if (parseInt(nextStep.dataset.step) === 5) {
         const stepFinishButtons = nextStep.querySelectorAll(".step-finish");
-
         if (stepFinishButtons) {
-          console.log("REGISTERDATA", window.userLoginData);
+          console.log("REGISTERDATA", window.registerData);
           stepFinishButtons.forEach(function (button) {
             button.addEventListener("click", function () {
               isLoadPageRunning = true;
               loadLong();
-  
+              alert(
+                "Prototype: Data is not connected. Proceeding to news feed..."
+              );
+
               // Use window.registerData here to post to home.phps
               fetch("https://study.veras.ca/register.phps", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
                 },
-                body: JSON.stringify(window.userLoginData),
+                body: JSON.stringify(window.registerData),
               })
-              .then((response) => {
-                if (!response.ok) {
-                  throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                console.log("onboarding-data:", window.userLoginData);
-                alertFade("SUCCESS: Redirecting to" + response.url);
-                window.location.href = response.url;
-              })
-              .catch((error) => {
-                console.log("Response or Parsing Failed", error);
-                alert("error with the fetch request: " + error.message);
-                window.location.href = "?login";
-              });
-              
-              
-              
+                .then((response) => {
+                  if (response.ok) {
+                    window.location.href = response.url; // Redirect if the response wants a redirect
+                  } else if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                  }
+                  return response.json();
+                })
+                .catch((error) => {
+                  showAlert(
+                    "Prototype call | Proceeding to newsfeed: " + error.message
+                  ).then(() => {
+                    // This block will run if there was an error with the fetch request.
+                    // Here we're just redirecting to the newsfeed.
+                    eventHandlers.pageActions.newsfeed();
+                  });
+                });
             });
           });
         }
@@ -573,7 +720,7 @@ const eventHandlers = {
     const settingsModal = document.querySelector(".settings-modal");
     const modal = document.querySelector(".collapsable-comp");
 
-    const dataGrid = document.querySelector("#data-surface tbody");
+    const dataGrid = document.querySelector("tbody");
 
     const newsfeedLeft = document.querySelector(".Newsfeed-Left");
     const quickSurvey = document.querySelector(".Quick-survey");
@@ -608,117 +755,42 @@ const eventHandlers = {
       });
     }
 
-
-
-
     //////////////// logout-logic ////////////////
     const LogOutButton = document.querySelector(".logout-button");
     LogOutButton.addEventListener("click", function () {
+      showAlertFade("You are about to be logged out.");
+
       fetch("https://study.veras.ca/logout.phps", {
         method: "POST",
       })
         .then((response) => {
           // Redirect to the URL specified by the backend
-          alertFade("You have been logged out.");
-          setTimeout(() => {
-            window.location.href = response.url;
-          }, 1000);
-         
+          showAlertFade("You have been logged out.");
+          window.location.href = response.url;
         })
         .catch((error) => {
           console.error("Error during logout:", error);
         });
+      s;
     });
 
     const newsfeedButton = document.querySelector(".newsfeed-button");
     newsfeedButton.addEventListener("click", function () {
-      window.location.reload();
+      window.location = "?newsfeed";
     });
+
 
 
 
     /////////////// grab Data ////////////////
 
-    //ofline overide for testing
-    
-    setTimeout(() => {
-      // hide display splash 
-      document.querySelectorAll(".v-back").forEach((vBack) => {
-        vBack.addEventListener("click", function () {
-          const clickedRow = vBack.closest("tr");
-
-          if (
-            clickedRow &&
-            clickedRow.classList.contains("expanded-row")
-          ) {
-            const textArea = clickedRow.querySelector("textarea");
-            const closeButton =
-              clickedRow.querySelector(".close-discrip");
-
-            if (textArea && closeButton) {
-              const alertElement = document.querySelector(".alert");
-              if (alertElement) {
-                alertElement.style.top = "50%"; // Adjust the position
-                alertElement.style.backgroundColor = "#288369"; // Change the background color
-              }
-
-              alertFade("Your reply is now a draft")
-                .then(() => {
-                  // Assuming closeTextArea is a method to close or clear the textarea
-                  textArea.closeTextArea();
-                  handleRowClick(clickedRow);
-                  if (clickedRow.rsetAugmt) {
-                    clickedRow.rsetAugmt();
-                  }
-                })
-                .catch(() => {
-                  // If the user decides not to abort the reply, handle it here. (Maybe do nothing?)
-                });
-            } else {
-              handleRowClick(clickedRow);
-              if (clickedRow.rsetAugmt) {
-                clickedRow.rsetAugmt();
-              }
-            }
-          }
-        });
-      });
-
-      document
-        .querySelector("#data-surface table tbody")
-        .addEventListener("click", function (event) {
-          let clickedRow = event.target.closest("tr");
-
-          if (
-            clickedRow &&
-            !clickedRow.classList.contains("expanded-row")
-          ) {
-            // Assume 'handleRowClick' is a function you've defined elsewhere to handle the row click.
-            handleRowClick(clickedRow);
-
-            const rowData = accessData(clickedRow);
-
-            setTimeout(() => {
-              console.log("Data-Post:", tableData); // Debugging line
-              appendOptionData(clickedRow, rowData);
-            }, 550);
 
 
-
-          }
-        });
-
-      resolve(); // Resolve the promise when done
-    }, 0);
-
-
-    console.log("Logindata-Before-Fetch:", userLoginData,);
-    console.log("cached data:" + JSON.stringify(storedData));
-
-
+    // Using async/await to handle the fetch operation
     async function fetchAndDisplayTable() {
-
       try {
+        // Assuming user data is stored in global variables
+        const userLoginData = window.userLoginData || window.registerData;
 
         // The 'await' keyword waits for the fetch operation to complete before moving on
         const response = await fetch("https://study.veras.ca/homepage.phps", {
@@ -738,16 +810,15 @@ const eventHandlers = {
         // Wait for the response text and handle it
         const responseText = await response.text();
         handleResponseText(responseText);
-      }
-
-      catch (error) {
+      } catch (error) {
         console.error('Error:', error);
         handleErrorResponse(error); // handle network error
- 
       }
-
     }
-    //fetchAndDisplayTable();
+
+    // Call the function
+    fetchAndDisplayTable();
+
 
     function handleErrorResponse(error) {
       isLoadPageRunning = true;
@@ -757,29 +828,16 @@ const eventHandlers = {
         (error.responseURL || 'Unknown URL') +  // Use the response URL from the error object or 'Unknown URL' if it's not available
         " | Redirecting to | " +
         "?login"
-      );
-
-      window.location.href = "?login";
-
+      ).then(() => {
+        window.location.href = "?login";  // Redirect to login on error
+        console.log("Error fetching table:", error.responseURL || 'Unknown URL');
+      });
     }
+
     function handleResponseText(responseText) {
       isLoadPageRunning = true;
       loadLong();
-
       appendTableToTarget(responseText);
-
-      // Now, we should search for the #alert div after the DOM has been updated
-      let dataSurface = document.querySelector("#data-surface");
-      console.log("Data Surface:", dataSurface);
-
-      let alertDiv = dataSurface ? dataSurface.querySelector("#alert") : null;
-      if (alertDiv) {
-        window.globalData = window.globalData || {};
-        window.globalData.alertDiv = alertDiv; // Store the alert div element itself
-        console.log("Alert div found and stored in globalData");
-      } else {
-        console.log("Alert div not found within data-surface");
-      }
 
       // console.log(responseText);
 
@@ -787,19 +845,14 @@ const eventHandlers = {
       document.dispatchEvent(scriptLoadedEvent);
 
       if (scriptLoadedEvent) {
-        document.querySelector(".v-splash").style.display = "none";
         // console.log("populateTableData --> ARMED(1000ms)", scriptLoadedEvent);
 
         new Promise((resolve, reject) => {
-
           setTimeout(() => {
-       
-            
             // Extract script content from responseText
             let parser = new DOMParser();
             let doc = parser.parseFromString(responseText, "text/html");
             let scriptContent = doc.querySelector("script").innerText;
-
 
             // Define execScript if it doesn't exist and execute the script content
             window.execScript =
@@ -808,7 +861,6 @@ const eventHandlers = {
                 window.eval.call(window, code);
               };
             window.execScript(scriptContent); // using execScript here
-
 
             // Check if the script has been executed successfully and if the function populateTableData is available
             if (
@@ -848,10 +900,9 @@ const eventHandlers = {
                         const alertElement = document.querySelector(".alert");
                         if (alertElement) {
                           alertElement.style.top = "50%"; // Adjust the position
-                          alertElement.style.backgroundColor = "#288369"; // Change the background color
                         }
 
-                        alertFade("Your reply is now a draft")
+                        showLert("Are you sure you want to Abort your reply?")
                           .then(() => {
                             // Assuming closeTextArea is a method to close or clear the textarea
                             textArea.closeTextArea();
@@ -873,6 +924,7 @@ const eventHandlers = {
                   });
                 });
 
+
                 document
                   .querySelector("#data-surface table tbody")
                   .addEventListener("click", function (event) {
@@ -891,9 +943,6 @@ const eventHandlers = {
                         console.log("Data-Post:", tableData); // Debugging line
                         appendOptionData(clickedRow, rowData);
                       }, 550);
-
-                      
-
                     }
                   });
 
@@ -908,312 +957,29 @@ const eventHandlers = {
     }
 
 
-
     /////////////// grab Data end////////////////
 
 
 
 
 
-    function handleWittenSurveyFormSubmission(input) {
-      const submitButton = document.getElementById("submit-written-survey");
-      const titleInput = document.getElementById("survey-title-mc");
-      const descriptionInput = document.getElementById(
-        "survey-description-mc"
-      );
-      //const charLimitSelect = document.getElementById("char-limit"); // Added #char-limit-section
-
-      submitButton.addEventListener("click", async (event) => {
-        event.preventDefault();
-
-        const title = titleInput.value;
-        const description = descriptionInput.value;
-        //const charLimit = parseInt(charLimitSelect.value); // Added
-
-        if (!title) {
-          alert("Please fill in title field.");
-          return;
-        }
-
-        /*           // Check if the description exceeds the character limit
-                  if (description.length > charLimit) {
-                    alert(`Description exceeds the character limit of ${charLimit} characters.`);
-                    return;
-                  } */
-
-        // Function to update character count based on selected limit
-        function updateCharacterCount() {
-          const charLimitSelect = document.getElementById("char-limit");
-          const descriptionInput =
-            document.getElementById("survey-description");
-          const charLimit = parseInt(charLimitSelect.value);
-
-          descriptionInput.addEventListener("input", () => {
-            const currentText = descriptionInput.value;
-            if (currentText.length > charLimit) {
-              descriptionInput.value = currentText.substring(0, charLimit);
-            }
-          });
-        }
-
-        // Call the function when the document is ready
-        document.addEventListener("DOMContentLoaded", () => {
-          updateCharacterCount();
-        });
-
-        const W_surveyData = {
-          topic_title: title,
-          description: description,
-          options: "",
-          type: "text",
-        };
-
-        console.log("Logindata:", W_surveyData);
-
-        fetch("https://study.veras.ca/surveynew.phps", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(W_surveyData),
-        })
-          .then((response) => {
-            if (response.ok) {
-              console.log("Response URL:", response.url);
-              console.log("Logindata:", response);
-              // Call alert with navigation to home
-              alert("SUCCESS: Redirecting to newsfeed...");
-              window.location.reload();
-
-            } else {
-              alert(
-                "FAILED-POST: HTTP error! status: " + response.status
-              );
-              window.location.reload();
-
-            }
-          })
-          .catch((error) => {
-            alert("FAILED TO POST SURVEY: " + error.message);
-            console.log(error);
-            // window.location.href = response.url;
-            window.location.reload();
-          });
-      });
-    }
-    handleWittenSurveyFormSubmission(true);
-
-    function handleMultipleChoiceSurveyFormSubmission(input) {
-      //const submitButton = document.getElementById("submit-multiple-choice");
-      //const titleInput = document.getElementById("survey-title-mc");
-      //const descriptionInput = document.getElementById("survey-description-mc");
-
-      //const titleInput = document.querySelector('input#survey-title-mc[type="text"]');
-      //const descriptionInput = document.querySelector('textarea#survey-description-mc');
-
-      const addOptionButton = document.getElementById("add-option");
-      //console.log(titleInput, descriptionInput)
-
-      const optionsDiv = document.getElementById("opt-space");
-      const addRemove = document.querySelector(".add-remove");
-      const globalRemoveButton = document.querySelector(".globalRemove");
-
-      // Function to update the display state of optionsDiv
-      function updateOptionsDisplay() {
-        if (optionCount > 0) {
-          optionsDiv.style.display = "grid";
-          optionsDiv.style.height = "100% !important";
-          addRemove.style.borderRadius = "0px 0px 0px 0px";
-        } else {
-          optionsDiv.style.display = "none";
-          addRemove.style.borderRadius = "0px 0px 10px 10px";
-        }
-      }
-
-      globalRemoveButton.addEventListener("click", () => {
-        if (optionsDiv.lastChild) {
-          optionsDiv.removeChild(optionsDiv.lastChild);
-          optionCount--;
-        }
-        updateOptionsDisplay();
-      });
-
-      let optionCount = 0; // Initialize option count
-      // Maximum number of options allowed
-      const maxOptions = 10;
-      /* 
-            // Function to check if an option field is empty
-            function isOptionEmpty(optionInput) {
-              return optionInput.value.trim() === '';
-            } */
-
-      // Add an event listener to the "Add Option" button
-      addOptionButton.addEventListener("click", () => {
-        if (optionCount < maxOptions) {
-          // Create a new option input field
-          const newOptionInput = document.createElement("div");
-          newOptionInput.classList.add("option");
-
-          const newOptionTextInput = document.createElement("input");
-          newOptionTextInput.classList.add("option-input");
-          newOptionTextInput.type = "text";
-          newOptionTextInput.placeholder = "Option " + (optionCount + 1);
-          newOptionTextInput.required = true;
-
-          const removeOptionButton = document.createElement("button");
-          removeOptionButton.classList.add("remove-option");
-          removeOptionButton.innerText = "-";
-          removeOptionButton.onclick = () => {
-            // Remove the corresponding option when the button is clicked
-            optionsDiv.removeChild(newOptionInput);
-            optionCount--;
-            updateOptionsDisplay();
-          };
-
-          newOptionInput.appendChild(newOptionTextInput);
-          newOptionInput.appendChild(removeOptionButton);
-
-          /*             // Add an input event listener to validate the option
-                      newOptionTextInput.addEventListener("input", () => {
-                          if (isOptionEmpty(newOptionTextInput)) {
-                              // If the option is empty, prevent adding it
-                              alert("Option fields cannot be empty.");
-                              optionsDiv.removeChild(newOptionInput);
-                              optionCount--;
-                          }
-                      }); */
-
-          optionsDiv.appendChild(newOptionInput);
-          optionCount++;
-
-          updateOptionsDisplay();
-        } else {
-          alert("You can only add up to 10 options.");
-        }
-      });
-
-      // Initial state check
-      updateOptionsDisplay();
-
-      const submitButton = document.getElementById("submit-multiple-choice");
-
-      submitButton.addEventListener("click", async (event) => {
-        event.preventDefault();
-
-        //const titleInput = document.querySelector('input#survey-title-mc[type="text"]');
-        // Targeting the input element with ID "survey-title-mc"
-        //const titleInput = document.querySelector('#survey-title-mc[name="survey-title-mc"].create-input');
-        // Targeting the input element with ID "survey-title-mc" inside the div with ID "multiple-choice-content"
-        const titleInput = document.querySelector(
-          '#multiple-choice-content #survey-title-mc[name="survey-title-mc"].create-input'
-        );
-
-        //const descriptionInput = document.querySelector('textarea#survey-description-mc');
-        // Targeting the textarea element with ID "survey-description-mc"
-        //const descriptionInput = document.querySelector('#survey-description-mc[name="survey-description-mc"].survey-input');
-        // Targeting the textarea element with ID "survey-description-mc" inside the div with ID "multiple-choice-content"
-        const descriptionInput = document.querySelector(
-          '#multiple-choice-content #survey-description-mc[name="survey-description-mc"].survey-input'
-        );
-
-        if (titleInput.value && descriptionInput.value) {
-          console.log("titleInput found");
-          console.log("descriptionInput found");
-        } else {
-          console.log("titleInput not found");
-          console.log("descriptionInput not found");
-        }
-
-        const title = titleInput.value;
-        const description = descriptionInput.value;
-
-        // Modify the options to be a single string with commas
-        // const optionsString = options.filter(option => option.trim() !== '').join(', ');
-        const optionInputs = document.querySelectorAll(".option-input");
-        const options_01 = Array.from(optionInputs).map(
-          (input) => input.value
-        );
-        console.log("optionCount", optionCount);
-        const options = options_01.slice(0, optionCount);
-        console.log("options.length:", options.length);
-        // Remove empty options
-        const filteredOptions = options.filter(
-          (option) => option.trim() !== ""
-        );
-        // Convert the options into an object with numbered keys
-        const optionsObject = {};
-        filteredOptions.forEach((option, index) => {
-          optionsObject[index + 1] = option;
-        });
-
-        // Perform validation
-        //console.log("options.length", title, description, options.length)
-        if (!title || options.length < 2) {
-          alert(
-            "Please fill in title field and provide at least two options"
-          );
-          return;
-        }
-
-        const MC_surveyData = {
-          topic_title: title,
-          description: description,
-          options: optionsObject,
-          type: "multiple",
-        };
-        console.log("W_surveyData:", MC_surveyData);
-
-        fetch("https://study.veras.ca/surveynew.phps", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(MC_surveyData),
-        })
-          .then((response) => {
-
-            if (response.ok) {
-              console.log("Response URL:", response.url);
-              console.log("Logindata:", MC_surveyData);
-              // Call alert with navigation to home
-              alert("SUCCESS: Redirecting to newsfeed...");
-              window.location.reload();
-            } else {
-              alert(
-                "FAILED-POST: HTTP error! status: " + response.status
-              );
-              window.location.reload();
-
-            }
-          })
-          .catch((error) => {
-
-            alert("FAILED TO POST SURVEY: " + error.message);
-            console.log(error);
-            window.location.href = response.url;
-            //window.location.reload();
-
-          });
-
-        // Perform further processing or API call here
-        // ...
-
-        alert("Multiple Choice Survey submitted successfully!");
-      });
-    }
-    handleMultipleChoiceSurveyFormSubmission(true);
+    //// saeed's Old code location /////
 
 
+
+
+    //// saeed's Old code location done /////
 
 
 
     /////////////// main dashboard section ////////////////
 
+
     function initialize() {
       // console.log('newsfeedLeft:', document.querySelector(".Newsfeed-Left"));
       // console.log('quickSurvey:', document.querySelector(".Quick-survey"));
       // console.log('feedWRAP:', document.querySelector(".feed-wrapper"));
-    
+
       if (window.innerWidth > 1060) {
         // Desktop
         newsfeedLeft.style.transition = "All .4s cubic-bezier(0,1.02,0,.93)";
@@ -1222,12 +988,21 @@ const eventHandlers = {
         if (activeTab === "quickSurvey") {
           feedWRAP.style.gridTemplateColumns = "1.3fr 2fr";
 
+          if (dataGrid) {
+            dataGrid.style.gridTemplateColumns =
+              "repeat(2, minmax(200px, 1fr))";
+          }
+
           openVtabs(newsfeedLeft);
           quickSurvey.style.display = "flex";
           newsfeedLeft.style.display = "flex";
           feedBTN.classList.remove("active");
           createBTN.classList.add("active");
         } else {
+          if (dataGrid) {
+            dataGrid.style.gridTemplateColumns =
+              "repeat(3, minmax(200px, 1fr))";
+          }
           feedWRAP.style.gridTemplateColumns = "1fr";
           quickSurvey.style.display = "none";
           newsfeedLeft.style.display = "flex";
@@ -1245,7 +1020,10 @@ const eventHandlers = {
           feedBTN.classList.remove("active");
           createBTN.classList.add("active");
         } else {
-        
+          if (dataGrid) {
+            dataGrid.style.gridTemplateColumns =
+              "repeat(2, minmax(200px, 1fr))";
+          }
           newsfeedLeft.style.display = "flex";
           newsfeedLeft.style.maxHeight = "100%";
           newsfeedLeft.style.opacity = "1";
@@ -1275,8 +1053,7 @@ const eventHandlers = {
         feedWRAP.style.gridTemplateColumns = "1fr";
         handleGchange(newsfeedLeft);
         if (dataGrid) {
-          dataGrid.style.gridTemplateColumns =
-            "repeat(3, minmax(200px, 1fr))";
+          dataGrid.style.gridTemplateColumns = "repeat(3, minmax(200px, 1fr))";
         }
 
         quickSurvey.style.display = "none";
@@ -1286,8 +1063,7 @@ const eventHandlers = {
         createBTN.classList.remove("active");
       } else {
         if (dataGrid) {
-          dataGrid.style.gridTemplateColumns =
-            "repeat(2, minmax(200px, 1fr))";
+          dataGrid.style.gridTemplateColumns = "repeat(2, minmax(200px, 1fr))";
         }
         openVtabs(newsfeedLeft);
         feedBTN.classList.add("active");
@@ -1304,8 +1080,7 @@ const eventHandlers = {
         feedWRAP.style.gridTemplateColumns = "1.3fr 2fr";
 
         if (dataGrid) {
-          dataGrid.style.gridTemplateColumns =
-            "repeat(2, minmax(200px, 1fr))";
+          dataGrid.style.gridTemplateColumns = "repeat(2, minmax(200px, 1fr))";
         }
         quickSurvey.style.display = "flex";
 
@@ -1361,17 +1136,12 @@ const eventHandlers = {
       return false; // Indicate that no reload occurred
     }
 
-
-
     // Functions for smooth height transitions, from old logic
     function openVtabs(element) {
       element.style.display = "flex";
       element.style.opacity = "1";
       // Check if the height is already 100% and opacity is 1
-      if (
-        element.style.maxHeight !== "100%" &&
-        element.style.opacity !== "1"
-      ) {
+      if (element.style.maxHeight !== "100%" && element.style.opacity !== "1") {
         element.style.maxHeight = "0px"; // Set to 0% to ensure transition starts from here
         setTimeout(() => {
           element.style.maxHeight = "100%";
@@ -1382,10 +1152,7 @@ const eventHandlers = {
     }
     function closeVtabs(element) {
       // Check if the height is already 0% and opacity is 0
-      if (
-        element.style.maxHeight !== "0px" &&
-        element.style.opacity !== "0"
-      ) {
+      if (element.style.maxHeight !== "0px" && element.style.opacity !== "0") {
         element.style.maxHeight = "0px";
         element.style.opacity = "0";
         setTimeout(() => {
@@ -1408,7 +1175,6 @@ const eventHandlers = {
       }, 50); // Allow time for the height to be set to auto
     }
 
-
     initialize();
     window.addEventListener("resize", handleScreenChange);
     feedBTN.addEventListener("click", handleFeedBTNClick);
@@ -1425,9 +1191,6 @@ const eventHandlers = {
       .addEventListener("click", function () {
         activateTab("multiple-choice");
       });
-
-
-
 
     // add focus to tab lnks //
     function activateTab(tabName) {
@@ -1477,8 +1240,7 @@ const eventHandlers = {
       let initialWidth =
         clickedRow.dataset.initialWidth || getComputedStyle(clickedRow).width;
       let initialHeight =
-        clickedRow.dataset.initialHeight ||
-        getComputedStyle(clickedRow).height;
+        clickedRow.dataset.initialHeight || getComputedStyle(clickedRow).height;
       clickedRow.dataset.initialWidth = initialWidth;
       clickedRow.dataset.initialHeight = initialHeight;
 
@@ -1534,8 +1296,7 @@ const eventHandlers = {
           }, 0);
         }, 60);
         navBarr.style.maxHeight = "89px !important";
-        navBarr.style.transition =
-          "max-height .4s cubic-bezier(0,1.02,0,1.02)";
+        navBarr.style.transition = "max-height .4s cubic-bezier(0,1.02,0,1.02)";
         setTimeout(() => {
           navBarr.style.display = "flex";
         }, 10);
@@ -1579,8 +1340,7 @@ const eventHandlers = {
           clickedRow.classList.add("expanded-row");
           dataSurface.classList.add("expanding");
         }, 20);
-        navBarr.style.transition =
-          "max-height .4s cubic-bezier(0,1.02,0,1.02)";
+        navBarr.style.transition = "max-height .4s cubic-bezier(0,1.02,0,1.02)";
         navBarr.style.maxHeight = "0px !important";
         setTimeout(() => {
           navBarr.style.display = "none";
@@ -1687,8 +1447,6 @@ const eventHandlers = {
       }
     }
 
-
-
     function accessData(rowElement) {
       const topicId = rowElement.id.replace("topic", "");
 
@@ -1708,6 +1466,8 @@ const eventHandlers = {
 
       return tableRow; // Data exists, return it for use
     }
+
+    // Function to handle option data appending and interaction within a row.
     function appendOptionData(clickedRow, rowData) {
       // Validate rowData
       if (!rowData || rowData[0] !== "multiple" || !rowData[1]) {
@@ -1716,8 +1476,7 @@ const eventHandlers = {
       }
 
       // Locate the multiple choice section within the clicked row
-      const multipleChoiceResponse =
-        clickedRow.querySelector(".v-multiple-choice");
+      const multipleChoiceResponse = clickedRow.querySelector(".v-multiple-choice");
       if (!multipleChoiceResponse) {
         console.error("Multiple choice response section not found");
         return;
@@ -1740,8 +1499,7 @@ const eventHandlers = {
       }
 
       // Iterate over each fixed option. The number of iterations here should match the maximum number of possible options.
-      for (let index = 0; index < 10; index++) {
-        // Assuming a maximum of 10 options.
+      for (let index = 0; index < 10; index++) { // Assuming a maximum of 10 options.
         const optionElement = options[index]; // Get the current option element.
         const optionDataText = optionValues[(index + 1).toString()];
 
@@ -1773,7 +1531,6 @@ const eventHandlers = {
     }
 
 
-
     function logOptionData(topicId, selectedValue) {
       // Create a JSON object with the topic ID and the selected value
       const optionsRresponseObject = {
@@ -1788,9 +1545,6 @@ const eventHandlers = {
       // TODO: Implement the functionality to submit the response,
       // e.g., send it to a server or make it globally accessible as needed
     }
-
-
-
   },
   validateForm: (loginNumber, password, confirmPassword, nickname) => {
     // Check if loginNumber, password, and confirmPassword fields are filled
@@ -1813,13 +1567,13 @@ const eventHandlers = {
       return false;
     }
 
-    /*     // If nickname is provided, check it's not empty
-        if (nickname && nickname.length < 1) {
-          alert("Nickname should not be empty.");
-          return false;
-        } else if (!nickname) {
-          alert("Nickname is optional.");
-        } */
+    // If nickname is provided, check it's not empty
+    if (nickname && nickname.length < 1) {
+      alert("Nickname should not be empty.");
+      return false;
+    } else if (!nickname) {
+      alert("Nickname is optional.");
+    }
 
     // Return the form data
     let formData = {
@@ -1858,6 +1612,7 @@ eventHandlers.init();
 
 //attatch event listiners
 window.addEventListener("load", function () {
+
   if (elements.loginButton) {
     elements.loginButton.addEventListener(
       "click",
@@ -1945,17 +1700,99 @@ function fadeInOnLoad() {
 }
 
 
+function showAlert(message) {
+  return new Promise((resolve) => {
+    document.getElementById("alertMessage").innerText = message;
+    document.getElementById("customAlert").style.display = "flex";
+
+    if (elements.navbarWrapperElement) {
+      elements.navbarWrapperElement.style.display = "none";
+    }
+    if (elements.verasSurfaceElement) {
+      elements.verasSurfaceElement.style.display = "none";
+    }
+
+    // Add event listener to RESOLVE the promise when the user clicks the button
+    closeAlertButton.addEventListener("click", function closeAlertAndResolve() {
+      closeAlert();
+
+      // Remove this event listener so it doesn't pile up unwanted multiple listeners
+      closeAlertButton.removeEventListener("click", closeAlertAndResolve);
+      resolve();
+    });
+  });
+}
+function showLert(message) {
+  return new Promise((resolve) => {
+    document.getElementById("alertMessage").innerText = message;
+    document.getElementById("customAlert").style.display = "flex";
+
+    if (elements.navbarWrapperElement) {
+      elements.navbarWrapperElement.style.display = "none";
+    }
+    // if (elements.verasSurfaceElement) {
+    //   elements.verasSurfaceElement.style.display = "none";
+    // }
+
+    // Add event listener to RESOLVE the promise when the user clicks the button
+    closeAlertButton.addEventListener("click", function closeAlertAndResolve() {
+      closeAlert();
+
+      if (elements.navbarWrapperElement) {
+        elements.navbarWrapperElement.style.display = "none";
+      }
+
+      // Remove this event listener so it doesn't pile up unwanted multiple listeners
+      closeAlertButton.removeEventListener("click", closeAlertAndResolve);
+      resolve();
+    });
+  });
+}
+function closeAlert() {
+  document.getElementById("customAlert").style.display = "none";
+
+  if (elements.navbarWrapperElement) {
+    elements.navbarWrapperElement.style.display = "block";
+  }
+  if (elements.verasSurfaceElement) {
+    elements.verasSurfaceElement.style.display = "block";
+  }
+}
+function showAlertFade(message, duration = 1000) {
+  const alertBox = document.createElement("div");
+  alertBox.className = "fade-alert";
+  alertBox.textContent = message;
+
+  document.body.appendChild(alertBox);
+
+  // Fade out after the specified duration
+  setTimeout(() => {
+    alertBox.style.opacity = "0";
+
+    // Remove the alert from the DOM after it's fully faded out
+    setTimeout(() => {
+      document.body.removeChild(alertBox);
+    }, 500); // This 500ms should match the transition duration in the CSS
+  }, duration);
+}
+closeAlertButton.onclick = closeAlert;
+
+///////// global functions /////////
+
+
+
 function appendTableToTarget(responseText) {
   const target = document.querySelector("#data-surface");
   target.innerHTML = responseText;
+
+  elements.splash.style.display = "none";
 }
+
 function getPagePath(pageName) {
   const isHome = pageName === "home";
   const path = isHome ? "" : "./pages/";
   return `${path}${pageName}.html`;
 }
-
-
 function loadLong() {
   if (!isLoadPageRunning) {
     displayLoadSplash();
@@ -2026,8 +1863,6 @@ function updateNewsfeedNAV(newsfeedVisible) {
     upNavNewsfeed.style.display = "flex";
   }
 }
-
-
 function handleLoginFormSubmission(loginSpace) {
   if (loginSpace.dataset.formEventAttached === "true") {
     return;
@@ -2048,6 +1883,9 @@ function handleLoginFormSubmission(loginSpace) {
   loginForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
+    isLoadPageRunning = true;
+    loadLong();
+
     const loginNumber = loginNumberInput.value;
     const password = passwordInput.value;
 
@@ -2062,13 +1900,7 @@ function handleLoginFormSubmission(loginSpace) {
       password: formData.password,
     };
 
-    // window.userLoginData = userLoginData;
-
-    // userLoginData is the data we want to store
-    localStorage.setItem('userLoginData', JSON.stringify(userLoginData));
-
-    isLoadPageRunning = true;
-    loadLong();
+    window.userLoginData = userLoginData;
 
     fetch("https://study.veras.ca/login.phps", {
       method: "POST",
@@ -2082,42 +1914,22 @@ function handleLoginFormSubmission(loginSpace) {
           console.log("Response URL:", response.url);
           console.log("Logindata:", userLoginData);
 
-          alertFade(" Validating: Checking Login Details");
-
-          setTimeout(() => {
-            let message;
-            // Check the response URL
-            if (response.url.includes("?login")) {
-              // If it contains the login URL parameter, login has failed
-              message = "Invalid Login Details";
-              alertFade("Login Failed: Try again ").then(() => {
-                showAlert(message).then(() => {
-                  // Redirect to the login page
-                  window.location.href = "?login";
-                });
-              });
-            } else {
-              // If it's any other URL, then login has succeeded
-              message = "Login Successful: Redirecting to Newsfeed";
-              showAlert(message).then(() => {
-                // Redirect to the response URL
-                window.location.href = response.url;
-              });
-            }
-          },1100);
+          showAlert("SUCCESS: Redirecting to newsfeed...").then(() => {
+            window.location.href = response.url;
+          });
         } else {
-          alertFade(
-            "FAILED-POST: HTTP error! status: " + response.status
+          showAlert("FAILED-POST: HTTP error! status: " + response.status).then(
+            () => {
+              window.location = "?login";
+            }
           );
-            window.location = "?login";
         }
       })
       .catch((error) => {
-       alertFade("FAILED TO LOGIN: " + error.message).then(() => {
-        console.log(error);
-        window.location = "?login";
-       });
-
+        showAlert("FAILED TO LOGIN: " + error.message).then(() => {
+          console.log(error);
+          window.location = "?login";
+        });
       });
   });
 }
@@ -2161,8 +1973,7 @@ function handleLoginsFormSubmission(loginsSpace) {
       // Add any other form data you're sending to the server here
     };
 
-    //window.registerData = userLoginsData; // Assuming you want to store it in registerData
-    localStorage.setItem('userLoginsData', JSON.stringify(userLoginsData));
+    window.registerData = userLoginsData; // Assuming you want to store it in registerData
 
     setTimeout(() => {
       fetch("https://study.veras.ca/logins.phps", {
@@ -2172,24 +1983,28 @@ function handleLoginsFormSubmission(loginsSpace) {
         },
         body: JSON.stringify(userLoginsData),
       })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-       
-          console.log("Loginsdata:", userLoginsData);
-          alert("SUCCESS: Redirecting to" + response.url);
-          window.location.href = response.url;
-        
-      })
-      .catch((error) => {
-        console.log("Error during 2Factor Registration:", error);
-        alert("Error during 2Factor Registration: " + error.message);
-        window.location = "?login";
-      });
-    }, 10);
-    
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response;
+        })
 
+        .then((response) => {
+          console.log("Loginsdata:", userLoginsData);
+          showAlert("SUCCESS: Redirecting to" + response.url).then(() => {
+            window.location.href = response.url;
+          });
+        })
+        .catch((error) => {
+          console.error("Error during 2Factor Registration:", error);
+          showAlert("Error during 2Factor Registration: " + error.message).then(
+            () => {
+              window.location = "?login";
+            }
+          );
+        });
+    }, 10);
   });
 }
 function handleOnboardingFormSubmission(onboardingSpace) {
@@ -2210,11 +2025,10 @@ function handleOnboardingFormSubmission(onboardingSpace) {
 
     let waitListButton = document.querySelector("#waitList");
     waitListButton.addEventListener("click", () => {
-      store.dispatch(actions.showLogin()), (window.location = "?login"); // Redirect to logins page
-      window.location.href = "?login";
+      store.dispatch(actions.showHome());
+      window.location = "?home";
     });
 
-    
     if (onboardingForm) {
       onboardingForm.onsubmit = (event) => {
         event.preventDefault();
@@ -2245,18 +2059,15 @@ function handleOnboardingFormSubmission(onboardingSpace) {
           username: formData.loginNumber,
           password: formData.password,
           confirmPassword: formData.confirmPassword,
-          //nickname: formData.nickname,
+          nickname: formData.nickname,
         };
 
-        //window.registerData = registerData; // Make registerData globally accessible
-        localStorage.setItem('userLoginsData', JSON.stringify(registerData));
+        window.registerData = registerData; // Make registerData globally accessible
         eventHandlers.onboardSuccess(); // Call onboardSuccess function
       };
     }
   }
 }
-
-
 
 //UI-UPDATES
 store.subscribe(() => {
@@ -2271,8 +2082,6 @@ store.subscribe(() => {
   } else if (state.insightsVisible || state.createVisible) {
   }
 });
-
-
 
 
 

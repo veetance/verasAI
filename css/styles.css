@@ -52,7 +52,7 @@ img {
   left            : 0;
   height          : 100vh;
   width           : 100vw;
-  z-index         : 9988;
+  z-index         :900;
   background-color: #f3f1ffdc;
   backdrop-filter : blur(20px);
   overflow        : hidden;
@@ -71,7 +71,7 @@ img {
   left            : 0;
   height          : 100vh;
   width           : 100vw;
-  z-index         : 9999;
+  z-index         : 900;
   background-color: #f7f3ffa6;
   backdrop-filter : blur(20px);
   overflow        : hidden;
@@ -257,7 +257,7 @@ h6{
   padding        : 1vw;
   padding-bottom : 0px;
   margin         : 0px;
-  z-index        : 999;
+  z-index        : 800;
   background-image: linear-gradient(to top,
       var(--v-white-plane-clear),
       var(--v-white-plane),
@@ -1170,17 +1170,35 @@ border-radius   : 6px;
 }
 
 .fade-alert {
-  padding: 10px;
-  background-color: #f44336; /* Red by default, change if needed */
+  display: none;
+  width: 100% !important;
+  padding: 12px;
+  background-color: #f46c36; /* Red by default, change if needed */
   color: white;
-  position: fixed;
-  top: 10px; /* Adjust for desired position */
+  position: relative;
+  /* top: 10px; 
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%); */
   opacity: 1;
   transition: opacity 0.5s linear;
-  z-index: 10000; /* Ensure it appears on top */
+  z-index: 999; /* Ensure it appears on top */
+  border-radius: 6PX;
 }
+
+.alert-wrapper {
+  display: flex;
+  height: fit-content;
+  width: fit-content;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px; /* space between alerts */
+  position: fixed;
+  top: 10px; /* Adjust as needed */
+  z-index: 999; /* to ensure it's above other elements */
+  /*make the mot point of orogin center*/
+}
+
 
 
 .alert {
@@ -1224,6 +1242,33 @@ border-radius   : 6px;
 #alertMessage {
   display: flex;
   align-items: center;
+}
+
+#brandedAlert{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #2883699c;
+  padding: 10px;
+  border-radius: 8px;
+
+  position: absolute;
+
+  top: 50%;
+  z-index: 9999;
+}
+
+.v-white{
+  display: flex;
+  aspect-ratio: 1/1;
+  width: 40px;
+}
+
+#brandedAlert button{
+  display: flex;
+  width: 100%;
+  justify-content: center;
 }
 
 
@@ -1451,16 +1496,14 @@ border-radius   : 6px;
   flex-direction: column;
   height        : fit-content;
   width         : 100%;
-  grid-gap      : 1.5vw;
+  grid-gap      : 20px;
 }
 
 .v-page-plane-cont-text h2 {
   color             : #372c6b;
   width             : fit-content !important;
-
-  font-size      : clamp(.9rem, 2.8vw, 2rem) !important;
-  line-height: clamp(1rem, 3vw, 2.4rem) !important;
-
+  font-size      : clamp(1.2rem, 2.6vw, 2rem) !important;
+  line-height: clamp(1.4rem, 2.9vw, 2.4rem) !important;
   /* background-clip: text; 
   -webkit-background-clip: text; 
   color: transparent; 

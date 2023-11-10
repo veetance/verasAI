@@ -63,12 +63,16 @@ document.addEventListener("DOMContentLoaded", () => {
   
     if (vFormBtn) {
       vFormBtn.addEventListener("click", function () {
-        showContactUS();
+        // showContactUS();
+
+        window.location.href = "?logins";
       });
     }
     if (vFormBtn2) {
       vFormBtn2.addEventListener("click", function () {
-        showContactUS();
+         // showContactUS();
+
+         window.location.href = "?logins";
       });
     }
     if (vFormClose) {
