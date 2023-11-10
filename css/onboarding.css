@@ -315,14 +315,31 @@
   padding-bottom: 0.7px;
 }
 
+
+
 .overline strong span {
   display    : flex;
   color      : rgb(94, 80, 178);
   font-weight: 500;
   height     : 100%;
+  padding-left    : 8px;
+  margin-top      : 4px;
   align-items: center;
-  transition : all 1s cubic-bezier(0, 1.02, 0, 1.02) 0s;
+  border          :1px solid rgba(95, 80, 178, 0.443);
+  border-radius   : 6px;
+  transition : all 1s cubic-bezier(0, 1.02, 0, 1.02);
+  background-color: rgba(217, 211, 253, 0);
+
+  position: relative;
+  left: -1px;
+  top: 0px;
+
+ /* disable webkit tap highlight */
+  -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
+
+  outline: 2px solid #008b3f00; /* This will create a red outline */
 }
+  
 
 .overline strong span:hover {
   font-weight     : 500;
@@ -332,15 +349,34 @@
   align-items     : center;
   border          : 1px solid rgba(95, 80, 178, 0.443);
   border-radius   : 6px;
-  background-color: rgba(242, 240, 255, 0.685);
+  background-color: rgba(217, 211, 253, 0.61);
+  transition : all 1s cubic-bezier(0, 1.02, 0, 1.02);
+  position: relative;
+  top: 4px;
 }
+
+
+
+
+.overline strong span:hover p {
+  font-weight: 650;
+}
+.overline strong span:active p {
+  font-weight: 650;
+}
+
+
 
 .overline strong span:active {
   padding-left    : 8px;
   margin-top      : 4px;
   scale           : 0.98;
   background-color: rgb(234, 231, 253);
-  opacity         : 0.8;
+  opacity         : 1;
+  border          : 1px solid rgba(95, 80, 178, 0);
+  position: relative;
+  top: 4px;
+  
 }
 
 .step-nav {

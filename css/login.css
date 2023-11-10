@@ -73,7 +73,7 @@
   align-items        : center;
   padding            : clamp(10px, 6.5vw, 50vw);
   grid-area          : header;
-  gap                : 24px;
+  /* gap                : 24px; */
 }
 
 .overline .material-symbols-outlined {
@@ -171,8 +171,38 @@
   display    : flex;
   font-size  : clamp(1em, 2.6vw, 5rem);
   line-height: clamp(1em, 3.3vw, 4rem);
-  white-space: nowrap;
-  width      : auto;
+  white-space: pre-wrap !important;
+  width      : fit-content;
+  flex-direction: column-reverse;
+}
+
+.full-page .header {
+  gap: 30px;
+}
+
+.full-page h1 span {
+  display: flex;
+  width: 100% !important;
+}
+
+.full-page h1 span h2 {
+  
+  display: flex;
+  margin-bottom: 10px;
+  flex-direction: row;
+  width: 100% !important;
+}
+
+.full-page h1 span h2 span{
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 6px;
+  font-weight: 500;
+  padding-top: 2px;
+
+  font-size: clamp(0.9rem, 2vw, 1.2rem) !important;
+
+
 }
 
 .form .v-button-filled {
@@ -309,7 +339,7 @@
 /* styles for tablet devices */
 @media (min-width: 580px) and (max-width: 1055px) {
   .overline {
-    height: 66px;
+    height: auto !important;
   }
 
   .full-page {
@@ -336,7 +366,7 @@
     padding-top: 150px !important;
     padding    : clamp(30px, 11vw, 68px);
     height     : auto;
-    grid-gap   : 30px;
+    /* grid-gap   : 20px; */
   }
 
   .full-page,
@@ -350,6 +380,11 @@
     line-height: clamp(2.5rem, 4.7vw, 10rem);
     white-space: pre-wrap !important;
     width      : fit-content;
+
+  }
+
+  .full-page h1 span h2 {
+    font-size: clamp(1.3rem, 2.4vw, 1.7rem) !important;
   }
 
   .form-container {
@@ -384,8 +419,7 @@
     padding-right: 2rem;
     padding-top  : 110px;
     height       : auto;
-
-    gap: 20px;
+    /* gap: 20px; */
   }
 
   .full-page,
@@ -446,8 +480,7 @@
     padding-right: 2rem;
     padding-top  : 110px;
     height       : fit-content;
-
-    grid-gap: 18px;
+    /* grid-gap: 18px; */
   }
 
   .full-page,
@@ -472,8 +505,8 @@
 
   .full-page h1 {
     display    : flex;
-    font-size  : clamp(1rem, 7.2vw, 4rem);
-    line-height: clamp(1.4rem, 8vw, 10rem);
+    font-size  : clamp(1.4rem, 7.2vw, 4rem);
+    line-height: clamp(1.8rem, 8vw, 10rem);
     white-space: pre-wrap !important;
     width      : fit-content;
   }
