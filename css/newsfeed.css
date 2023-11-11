@@ -1030,8 +1030,9 @@ gap:0px;
   font-weight: 800;
   color: #325248;
   opacity: .8;
-
   white-space: nowrap;
+  padding-bottom: 6px;
+  border-bottom: solid 1px #5d736c83;
 }
 
 .set-Top p{

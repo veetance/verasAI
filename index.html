@@ -7,7 +7,7 @@
    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
    <meta name="description" content="Veras Technologies Inc.">
 
-  
+
    <meta name="theme-color" content="#FFFFFF">
    <meta http-equiv="Content-Security-Policy" content="connect-src *;">
 
@@ -41,18 +41,27 @@
 </head>
 
 <body>
+
    <!-- global alert -->
-
-   <!-- <div id="brandedAlert" class="Brandedalert">
-      <img class="v-white"  src="img/V-white.svg" alt="veras-logo">
-      <span id="alertMessage"> <p>Securly Respond to Survey</p></span>
-      <button id="v-closeAlertButton">OK</button>
-    </div> -->
-
-   <div id="customAlert" class="alert">
-      <span id="alertMessage">An error has occurred.</span>
-      <button id="closeAlertButton">OK</button>
+   <div class="alertSurface">
+      <div id="customAlert" class="alert">
+         <div class="alert-header">
+            <div class="alert-header-icon">
+               <img class="v-white" src="img/V-white.svg" alt="veras-logo">
+            </div>
+            <div class="alert-header-title">
+               <p>Veras Technologies Inc. </p>
+            </div>
+         </div>
+   
+         <section class="alert-inner-Wrapper">
+            <span id="alertMessage"> Alert Message </span>
+            <button id="closeAlertButton">OK</button>
+         </section>
+   
+      </div>
    </div>
+ 
    
 
    <div class="v-splash">
@@ -266,7 +275,8 @@
                            <h3>Secure Codebase</h3>
                         </div>
                         <div class="v-page-security-paragraph">
-                           <p>Our Code base is compiled while adhering to the Canadian General Data Protection Regulation </p>
+                           <p>Our Code base is compiled while adhering to the Canadian General Data Protection
+                              Regulation </p>
                         </div>
                      </div>
                      <div class="v-page-security-plane-style">
@@ -275,7 +285,8 @@
                            <h3>Local database</h3>
                         </div>
                         <div class="v-page-security-paragraph">
-                           <p>Our Data is Stored locally on Canadian servers which ensures security down to all our hardware </p>
+                           <p>Our Data is Stored locally on Canadian servers which ensures security down to all our
+                              hardware </p>
                         </div>
                      </div>
                      <div class="v-page-security-plane-style">
@@ -321,7 +332,7 @@
                </div>
             </section>
          </div>
- 
+
       </div>
 
       <!-- FOOTER -->
@@ -421,19 +432,19 @@
    </main>
 
    <Script src="js/jquery-3.6.1.min.js"></Script>
-   
+
    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.1.1/redux.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux-thunk/2.3.0/redux-thunk.min.js"></script>
-   
+
    <script src="js/store.js"></script>
    <script src="js/index.js"></script>
    <script src="js/front.js"></script>
- 
-   
+
+
 
 
    <!-- Google tag (gtag.js) -->
-   
+
 
 </body>
 

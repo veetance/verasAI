@@ -1170,7 +1170,7 @@ border-radius   : 6px;
 }
 
 .fade-alert {
-  display: none;
+  display: flex;
   width: 100% !important;
   padding: 12px;
   background-color: #f46c36; /* Red by default, change if needed */
@@ -1181,7 +1181,7 @@ border-radius   : 6px;
   transform: translateX(-50%); */
   opacity: 1;
   transition: opacity 0.5s linear;
-  z-index: 999; /* Ensure it appears on top */
+  z-index: 1111; /* Ensure it appears on top */
   border-radius: 6PX;
 }
 
@@ -1195,7 +1195,7 @@ border-radius   : 6px;
   gap: 10px; /* space between alerts */
   position: fixed;
   top: 10px; /* Adjust as needed */
-  z-index: 999; /* to ensure it's above other elements */
+  z-index: 1111; /* to ensure it's above other elements */
   /*make the mot point of orogin center*/
 }
 
@@ -1209,12 +1209,59 @@ border-radius   : 6px;
   left: 50%;
   top:80%;
   transform: translate(-50%, -50%);
-  padding: 20px;
+  padding: 0px;
   background-color: #f49236;
   color: white;
   border-radius: 10px;
   z-index: 9999;
+  gap: 0px;
+}
+
+.alertSurface{
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0%;
+  top:0%;
+  width: 100%;
+  height: 100%;
+
+  background-color: #e8e3ff91;
+  backdrop-filter: blur(8px);
+}
+
+.alert-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start ;
+  width: 100%;
+  gap: 7px;
+  border-bottom: solid 1px #ffffff;
+  padding: 14px;
+  align-content: center;
+  flex-direction: row;
+}
+
+.alert-header p{
+  padding-top: 2px;
+  white-space: nowrap;
+  font-size: 0.95rem;
+}
+
+.alert-inner-Wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px;
   gap: 10px;
+  
+ }
+
+.alert-header-icon .v-white {
+
+  display:flex;
+  width: 24px;
+
 }
 
 .alert button {
@@ -1225,39 +1272,40 @@ border-radius   : 6px;
   border-radius: 6px;
   background-color: transparent;
   cursor: pointer;
+
 }
 
 .alert button:hover {
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(255, 255, 255) !important;
   color: #f49236;
 }
 
 .alert button:active {
   outline: none;
-  background-color: rgba(255, 255, 255, 0.137);
+  background-color: rgba(255, 255, 255, 0.137) !important;
   color: #ffffff;
-  border: none;
+  border: solid 1px rgba(255, 255, 255, 0) !important;
 }
+
+.alert button:focus{
+  background-color: rgba(255, 255, 255, 0.137);
+  border: solid 1px rgba(255, 255, 255, 0) !important;
+}
+
 
 #alertMessage {
   display: flex;
   align-items: center;
+  margin: 10px;
+  width: 100%;
+  justify-content: center;
 }
 
-#brandedAlert{
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 10px;
-  background-color: #2883699c;
-  padding: 10px;
-  border-radius: 8px;
-
-  position: absolute;
-
-  top: 50%;
-  z-index: 9999;
+#alertMessage h2 {
+  color: rgb(255, 255, 255) !important;
+  padding-bottom: 8.5px;
 }
+
 
 .v-white{
   display: flex;
@@ -1268,7 +1316,7 @@ border-radius   : 6px;
 #brandedAlert button{
   display: flex;
   width: 100%;
-  justify-content: center;
+  justify-content: center; 
 }
 
 
@@ -1502,8 +1550,8 @@ border-radius   : 6px;
 .v-page-plane-cont-text h2 {
   color             : #372c6b;
   width             : fit-content !important;
-  font-size      : clamp(1.2rem, 2.6vw, 2rem) !important;
-  line-height: clamp(1.4rem, 2.9vw, 2.4rem) !important;
+  font-size      : clamp(1.6rem, 2.6vw, 2rem) !important;
+  line-height: clamp(1.7rem, 2.9vw, 2.2rem) !important;
   /* background-clip: text; 
   -webkit-background-clip: text; 
   color: transparent; 
@@ -2108,7 +2156,7 @@ border-radius   : 6px;
   }
 
   p {
-    font-size: clamp(0.9rem, 2vw, 1rem) !important;
+    font-size: clamp(.91rem, 2vw, 1rem) !important;
   }
 
   .F-set ul li p {
@@ -2286,8 +2334,8 @@ border-radius   : 6px;
 
   .v-page-plane-cont-text p {
     color        : #554c7d;
-    font-size    : clamp(.8rem, 1.8vw, 2rem) !important;
-    line-height  : clamp(1.1rem, 1.7vw, 3.8rem) !important;
+    font-size    : clamp(.95rem, 1.8vw, 2rem) !important;
+    line-height  : clamp(1.3rem, 1.7vw, 3.8rem) !important;
     font-family  : "mulish";
     font-weight  : 600;
     padding-right: 3vw;
@@ -2517,6 +2565,11 @@ border-radius   : 6px;
   h2 {
     font-size  : clamp(0.5rem, 5.5vw, 7rem) !important;
     line-height: clamp(0.5rem, 7vw, 9rem) !important;
+  }
+
+  .v-page-plane-cont-text h2 {
+    font-size: clamp(1.2rem, 2.6vw, 2rem) !important;
+    line-height: clamp(1.25rem, 2.9vw, 2.2rem) !important;
   }
 
   .plane-style-header h1 {

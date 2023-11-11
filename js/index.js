@@ -1,8 +1,10 @@
 ////////// VERAS AI INDEX.JS //////////
 ////// created with love by veetance //////
 
-// window.AlertElements = {};
+
+
 window.tableData = new Map(); // let globalValue_mul;
+
 
 // Retrieve user data from local storage first
 window.storedData = JSON.parse(localStorage.getItem('userLoginData'));
@@ -14,7 +16,7 @@ window.eventHandlers = {
 
   updateNewsfeedUI: {
 
-    // refactored  Define your function inside the event listener
+    // respond to written/MC survey helper
     handleWittenSurveyResponseSubmission: function (topicId, type) {
       if (type === 'text') {
         this.handleWrittenSurveyResponseSubmission(topicId);  // Use 'this' to refer to the current object
@@ -25,7 +27,7 @@ window.eventHandlers = {
       }
     },
 
-    // refactored  Handle Written Text Submissions
+    // Handle Written Survey Submissions
     handleWrittenSurveyResponseSubmission: function (input) {
       // Log the call of the function with the input ID
       console.log("handleWrittenSurveyResponseSubmission called with ID", input);
@@ -69,7 +71,8 @@ window.eventHandlers = {
       }
     },
 
-    // refactored Handle Multiple-Choice Submissions
+
+    // Handle Multiple-Choice Submissions
     handleMultipleChoiceSurveyFormSubmission: function (input) {
       console.log("handleMultipleChoiceSurveyFormSubmission called with ID", input);
       const radioOptions = document.querySelectorAll('input[name="v-radio"]');
@@ -83,7 +86,7 @@ window.eventHandlers = {
       });
 
       if (!selectedValue) {
-        alert("Please select a radio option.");
+        alertFade("Please select a radio option.");
         return;
       }
 
@@ -99,7 +102,7 @@ window.eventHandlers = {
       // Submit data
       this.submitSurveyData(Res_surveyData);
     },
-    // refactored Shared Helper Function to Submit Survey Data
+    // Shared Helper Function to Submit Survey Data
     submitSurveyData: function (Res_surveyData) {
       fetch("https://study.veras.ca/surveypost.phps", {
         method: "POST",
@@ -111,17 +114,18 @@ window.eventHandlers = {
         .then((response) => {
           if (response.ok) {
             console.log("Response successful:", response);
-            alert("SUCCESS: Redirecting to newsfeed...");
-            window.location.href = "?newsfeed";
+            respondAlert().then(() => {
+              window.location.href = "?newsfeed";
+            });
           } else {
             console.log("FAILED-POST: HTTP error! status:", response.status);
-            alert("FAILED-POST: HTTP error! status: " + response.status);
+            alertFade("FAILED-POST: HTTP error! status: " + response.status);
             window.location.href = "?login";
           }
         })
         .catch((error) => {
           console.error("FAILED TO SUBMIT RESPONSE:", error.message);
-          alert("FAILED TO SUBMIT RESPONSE: " + error.message);
+          alertFade("FAILED TO SUBMIT RESPONSE: " + error.message);
           window.location.href = "?newsfeed";
         });
     },
@@ -130,67 +134,115 @@ window.eventHandlers = {
   },
 };
 
+
 var AlertElements = {};
-
-// Use the DOMContentLoaded event to ensure the DOM is fully loaded before accessing elements
-
-
 // Assign DOM elements to the AlertElements object
-
+AlertElements.alertSurface = document.querySelector('.alertSurface');
 AlertElements.customAlert = document.getElementById("customAlert");
 AlertElements.closeAlertButton = document.getElementById("closeAlertButton");
 AlertElements.alertMessage = document.getElementById("alertMessage");
+AlertElements.alertheader = document.querySelector(".alert-header");
+
+// Attach click event listener to the close alert button
+if (AlertElements.closeAlertButton) {
+  AlertElements.closeAlertButton.addEventListener('click', function () {
+    closeAlert();
+  });
+}
 
 
 // showAlert and closeAlert
 
+
 async function alertFade(message, duration = 500) {
 
   // realtime log the duration
-    console.log("duration:", duration);
-    // hide vsplash
-  
-    return new Promise((resolve) => {
-      // Check if the wrapper exists, if not create it
-      let alertWrapper = document.querySelector('.alert-wrapper');
-      if (!alertWrapper) {
-        alertWrapper = document.createElement('div');
-        alertWrapper.className = 'alert-wrapper';
-        document.body.appendChild(alertWrapper);
-      }
-  
-      // Create the alert box 
-      const alertBox = document.createElement('div');
-      alertBox.className = 'fade-alert';
-      alertBox.textContent = message;
-      alertBox.style.display = 'flex';
-  
-      // Append the alert box to the wrapper
-      alertWrapper.appendChild(alertBox);
-  
-      // Fade out after the specified duration
-      setTimeout(() => {
-        alertBox.style.opacity = '0';
-  
-        // Remove the alert from the DOM after it's fully faded out
-        setTimeout(() => {
-          alertWrapper.removeChild(alertBox);
-          // Remove the wrapper if no more alerts are present
-          if (!alertWrapper.hasChildNodes()) {
-            document.body.removeChild(alertWrapper);
-          }
-          resolve(); // Resolve the promise
-        }, 500); // This 1000ms should match the transition duration in the CSS
-      }, duration);
-    });
-}
+  console.log("duration:", duration);
+  // hide vsplash
 
+  return new Promise((resolve) => {
+    // Check if the wrapper exists, if not create it
+    let alertWrapper = document.querySelector('.alert-wrapper');
+    if (!alertWrapper) {
+      alertWrapper = document.createElement('div');
+      alertWrapper.className = 'alert-wrapper';
+      document.body.appendChild(alertWrapper);
+    }
+
+    // Create the alert box 
+    const alertBox = document.createElement('div');
+    alertBox.className = 'fade-alert';
+    alertBox.textContent = message;
+    alertBox.style.display = 'flex';
+
+    // Append the alert box to the wrapper
+    alertWrapper.appendChild(alertBox);
+
+    // Fade out after the specified duration
+    setTimeout(() => {
+      alertBox.style.opacity = '0';
+
+      // Remove the alert from the DOM after it's fully faded out
+      setTimeout(() => {
+        alertWrapper.removeChild(alertBox);
+        // Remove the wrapper if no more alerts are present
+        if (!alertWrapper.hasChildNodes()) {
+          document.body.removeChild(alertWrapper);
+        }
+        resolve(); // Resolve the promise
+      }, 500); // This 1000ms should match the transition duration in the CSS
+    }, duration);
+  });
+}
+async function respondAlert() {
+  return new Promise((resolve, reject) => {
+    if (window.globalData && window.globalData.alertDiv && AlertElements && AlertElements.customAlert && AlertElements.alertSurface && AlertElements.alertMessage && AlertElements.closeAlertButton) {
+      // Extract h2 and p elements from the alertDiv
+      const h2 = window.globalData.alertDiv.querySelector('h2');
+      const p = window.globalData.alertDiv.querySelector('p');
+
+      // Create a wrapper for the message
+      const messageWrapper = document.createElement('div');
+      messageWrapper.style.display = 'flex';
+      messageWrapper.style.flexDirection = 'column';
+
+
+      if (h2) messageWrapper.appendChild(h2.cloneNode(true));
+      if (p) messageWrapper.appendChild(p.cloneNode(true));
+
+
+      // Update the alert message in the custom alert
+      AlertElements.alertMessage.innerHTML = '';
+      AlertElements.alertMessage.appendChild(messageWrapper);
+
+      // Make the custom alert visible
+
+      document.querySelector(".alert").style.setProperty('top', '50%', 'important');
+      document.querySelector(".alert").style.setProperty('background-color', '#288369');
+
+      AlertElements.customAlert.style.display = "flex";
+      AlertElements.alertSurface.style.display = "flex";
+
+      // Attach event listener to the close alert button
+      AlertElements.closeAlertButton.addEventListener('click', function () {
+        closeAlert();
+        resolve();
+      });
+    } else {
+      console.error("Required elements are not initialized or missing");
+      reject(new Error("Required elements are not initialized or missing"));
+    }
+  });
+}
 async function showAlert(message) {
   return new Promise((resolve, reject) => {
     // Check if AlertElements is properly initialized
-    if (AlertElements && AlertElements.customAlert && AlertElements.alertMessage && AlertElements.closeAlertButton) {
+    if (AlertElements && AlertElements.customAlert && AlertElements.alertSurface && AlertElements.alertMessage && AlertElements.closeAlertButton) {
       // Make the custom alert visible
+
       AlertElements.customAlert.style.display = "flex";
+      AlertElements.alertSurface.style.display = "flex";
+
       console.log("Custom alert made visible");
 
       // Update the alert message text
@@ -198,8 +250,6 @@ async function showAlert(message) {
       console.log("Alert message updated to:", message);
 
       // Attach click event listener to the close alert button
-     
-     
 
       AlertElements.closeAlertButton.addEventListener('click', function () {
         console.log("OK button clicked, closing alert");
@@ -216,7 +266,6 @@ async function showAlert(message) {
     }
   });
 }
-
 function closeAlert() {
   console.log("Closing alert"); // Log when closing the alert
   if (AlertElements && AlertElements.customAlert) {
@@ -227,7 +276,6 @@ function closeAlert() {
     console.error("AlertElements is not initialized for closeAlert");
   }
 }
-
 
 
 let Loadsplash = document.querySelector(".v-splash");
@@ -365,8 +413,10 @@ const eventHandlers = {
     } else {
       // CHANGE TAB TITLE TO UNKNOWN PAGE
       document.title = "Unknown page | Click ok to go to [Home]";
-  
-      await showAlert(`Unknown page | Click ok to go to [Home]: ${pageName}`);
+
+      AlertElements.alertheader.style.display = "none";
+
+      await showAlert('Unknown page | ' + 'Going [?home]');
       console.log("Promise resolved, redirecting to home"); // Log when the promise resolves
       window.location.href = "?home"; // Redirect to the home page
       console.error('Error displaying the alert:', error);
@@ -518,7 +568,7 @@ const eventHandlers = {
             button.addEventListener("click", function () {
               isLoadPageRunning = true;
               loadLong();
-  
+
               // Use window.registerData here to post to home.phps
               fetch("https://study.veras.ca/register.phps", {
                 method: "POST",
@@ -527,22 +577,22 @@ const eventHandlers = {
                 },
                 body: JSON.stringify(window.userLoginData),
               })
-              .then((response) => {
-                if (!response.ok) {
-                  throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                console.log("onboarding-data:", window.userLoginData);
-                alertFade("SUCCESS: Redirecting to" + response.url);
-                window.location.href = response.url;
-              })
-              .catch((error) => {
-                console.log("Response or Parsing Failed", error);
-                alert("error with the fetch request: " + error.message);
-                window.location.href = "?login";
-              });
-              
-              
-              
+                .then((response) => {
+                  if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                  }
+                  console.log("onboarding-data:", window.userLoginData);
+                  alertFade("SUCCESS: Redirecting to" + response.url);
+                  window.location.href = response.url;
+                })
+                .catch((error) => {
+                  console.log("Response or Parsing Failed", error);
+                  alert("error with the fetch request: " + error.message);
+                  window.location.href = "?login";
+                });
+
+
+
             });
           });
         }
@@ -566,15 +616,12 @@ const eventHandlers = {
     }, 900);
   },
   updateNewsfeedUI: () => {
-    /////////////// slide-out-modall ////////////////
 
     // Select elements
     const navLink = document.querySelector("#hamBurg");
     const settingsModal = document.querySelector(".settings-modal");
     const modal = document.querySelector(".collapsable-comp");
-
     const dataGrid = document.querySelector("#data-surface tbody");
-
     const newsfeedLeft = document.querySelector(".Newsfeed-Left");
     const quickSurvey = document.querySelector(".Quick-survey");
     const feedBTN = document.getElementById("nFeed-lnk");
@@ -609,9 +656,8 @@ const eventHandlers = {
     }
 
 
-
-
     //////////////// logout-logic ////////////////
+
     const LogOutButton = document.querySelector(".logout-button");
     LogOutButton.addEventListener("click", function () {
       fetch("https://study.veras.ca/logout.phps", {
@@ -622,13 +668,29 @@ const eventHandlers = {
           alertFade("You have been logged out.");
           setTimeout(() => {
             window.location.href = response.url;
-          }, 1000);
-         
+          }, 600);
+
         })
         .catch((error) => {
           console.error("Error during logout:", error);
         });
     });
+
+    function copyEmailToClipboard() {
+      var email = document.querySelector(".F-mail-L p").innerHTML;
+      var textArea = document.createElement("textarea");
+      textArea.value = email;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand("copy");
+      textArea.remove();
+      alertFade("Email Copied: " + email);
+    }
+    const FMailL = document.querySelector(".F-mail-L");
+    if (FMailL) {
+      FMailL.addEventListener("touchend", copyEmailToClipboard);
+      FMailL.addEventListener("mouseup", copyEmailToClipboard);
+    }
 
     const newsfeedButton = document.querySelector(".newsfeed-button");
     newsfeedButton.addEventListener("click", function () {
@@ -639,78 +701,76 @@ const eventHandlers = {
 
     /////////////// grab Data ////////////////
 
-    //ofline overide for testing
+       // ofline overide for testing
     
-    setTimeout(() => {
-      // hide display splash 
-      document.querySelectorAll(".v-back").forEach((vBack) => {
-        vBack.addEventListener("click", function () {
-          const clickedRow = vBack.closest("tr");
-
-          if (
-            clickedRow &&
-            clickedRow.classList.contains("expanded-row")
-          ) {
-            const textArea = clickedRow.querySelector("textarea");
-            const closeButton =
-              clickedRow.querySelector(".close-discrip");
-
-            if (textArea && closeButton) {
-              const alertElement = document.querySelector(".alert");
-              if (alertElement) {
-                alertElement.style.top = "50%"; // Adjust the position
-                alertElement.style.backgroundColor = "#288369"; // Change the background color
-              }
-
-              alertFade("Your reply is now a draft")
-                .then(() => {
-                  // Assuming closeTextArea is a method to close or clear the textarea
-                  textArea.closeTextArea();
-                  handleRowClick(clickedRow);
-                  if (clickedRow.rsetAugmt) {
-                    clickedRow.rsetAugmt();
-                  }
-                })
-                .catch(() => {
-                  // If the user decides not to abort the reply, handle it here. (Maybe do nothing?)
-                });
-            } else {
-              handleRowClick(clickedRow);
-              if (clickedRow.rsetAugmt) {
-                clickedRow.rsetAugmt();
+       setTimeout(() => {
+        // hide display splash 
+        document.querySelectorAll(".v-back").forEach((vBack) => {
+          vBack.addEventListener("click", function () {
+            const clickedRow = vBack.closest("tr");
+  
+            if (
+              clickedRow &&
+              clickedRow.classList.contains("expanded-row")
+            ) {
+              const textArea = clickedRow.querySelector("textarea");
+              const closeButton =
+                clickedRow.querySelector(".close-discrip");
+  
+              if (textArea && closeButton) {
+                const alertElement = document.querySelector(".alert");
+                if (alertElement) {
+                  alertElement.style.top = "50%"; // Adjust the position
+                  alertElement.style.backgroundColor = "#288369"; // Change the background color
+                }
+  
+                alertFade("Your reply is now a draft")
+                  .then(() => {
+                    // Assuming closeTextArea is a method to close or clear the textarea
+                    textArea.closeTextArea();
+                    handleRowClick(clickedRow);
+                    if (clickedRow.rsetAugmt) {
+                      clickedRow.rsetAugmt();
+                    }
+                  })
+                  .catch(() => {
+                    // If the user decides not to abort the reply, handle it here. (Maybe do nothing?)
+                  });
+              } else {
+                handleRowClick(clickedRow);
+                if (clickedRow.rsetAugmt) {
+                  clickedRow.rsetAugmt();
+                }
               }
             }
-          }
+          });
         });
-      });
-
-      document
-        .querySelector("#data-surface table tbody")
-        .addEventListener("click", function (event) {
-          let clickedRow = event.target.closest("tr");
-
-          if (
-            clickedRow &&
-            !clickedRow.classList.contains("expanded-row")
-          ) {
-            // Assume 'handleRowClick' is a function you've defined elsewhere to handle the row click.
-            handleRowClick(clickedRow);
-
-            const rowData = accessData(clickedRow);
-
-            setTimeout(() => {
-              console.log("Data-Post:", tableData); // Debugging line
-              appendOptionData(clickedRow, rowData);
-            }, 550);
-
-
-
-          }
-        });
-
-      resolve(); // Resolve the promise when done
-    }, 0);
-
+  
+        document
+          .querySelector("#data-surface table tbody")
+          .addEventListener("click", function (event) {
+            let clickedRow = event.target.closest("tr");
+  
+            if (
+              clickedRow &&
+              !clickedRow.classList.contains("expanded-row")
+            ) {
+              // Assume 'handleRowClick' is a function you've defined elsewhere to handle the row click.
+              handleRowClick(clickedRow);
+  
+              const rowData = accessData(clickedRow);
+  
+              setTimeout(() => {
+                console.log("Data-Post:", tableData); // Debugging line
+                appendOptionData(clickedRow, rowData);
+              }, 550);
+  
+  
+            }
+          });
+  
+        resolve(); // Resolve the promise when done
+      }, 0);
 
     console.log("Logindata-Before-Fetch:", userLoginData,);
     console.log("cached data:" + JSON.stringify(storedData));
@@ -743,7 +803,7 @@ const eventHandlers = {
       catch (error) {
         console.error('Error:', error);
         handleErrorResponse(error); // handle network error
- 
+
       }
 
     }
@@ -752,14 +812,15 @@ const eventHandlers = {
     function handleErrorResponse(error) {
       isLoadPageRunning = true;
       loadLong();
+      AlertElements.customAlert.style.top = "50%";
+      AlertElements.alertheader.style.display = "none";
       showAlert(
-        "Error fetching table: " +
-        (error.responseURL || 'Unknown URL') +  // Use the response URL from the error object or 'Unknown URL' if it's not available
-        " | Redirecting to | " +
-        "?login"
-      );
+        "Not Logged-in  " + " | Redirecting to | " + "[?login]"
+      ).then(() => {
+        window.location.href = "?login";
+      });
 
-      window.location.href = "?login";
+
 
     }
     function handleResponseText(responseText) {
@@ -793,8 +854,8 @@ const eventHandlers = {
         new Promise((resolve, reject) => {
 
           setTimeout(() => {
-       
-            
+
+
             // Extract script content from responseText
             let parser = new DOMParser();
             let doc = parser.parseFromString(responseText, "text/html");
@@ -845,11 +906,6 @@ const eventHandlers = {
                         clickedRow.querySelector(".close-discrip");
 
                       if (textArea && closeButton) {
-                        const alertElement = document.querySelector(".alert");
-                        if (alertElement) {
-                          alertElement.style.top = "50%"; // Adjust the position
-                          alertElement.style.backgroundColor = "#288369"; // Change the background color
-                        }
 
                         alertFade("Your reply is now a draft")
                           .then(() => {
@@ -866,7 +922,7 @@ const eventHandlers = {
                       } else {
                         handleRowClick(clickedRow);
                         if (clickedRow.rsetAugmt) {
-                          clickedRow.rsetAugmt();
+                          clickedRow.rsetAugmt();// to reset the augmented row
                         }
                       }
                     }
@@ -892,7 +948,7 @@ const eventHandlers = {
                         appendOptionData(clickedRow, rowData);
                       }, 550);
 
-                      
+
 
                     }
                   });
@@ -907,21 +963,19 @@ const eventHandlers = {
       }
     }
 
-
-
-    /////////////// grab Data end////////////////
-
+    /////////////// grab Data end///////////////
 
 
 
-
+    ///// create survey | MC | Written /////////
     function handleWittenSurveyFormSubmission(input) {
+
       const submitButton = document.getElementById("submit-written-survey");
       const titleInput = document.getElementById("survey-title-mc");
       const descriptionInput = document.getElementById(
         "survey-description-mc"
       );
-      //const charLimitSelect = document.getElementById("char-limit"); // Added #char-limit-section
+
 
       submitButton.addEventListener("click", async (event) => {
         event.preventDefault();
@@ -931,15 +985,9 @@ const eventHandlers = {
         //const charLimit = parseInt(charLimitSelect.value); // Added
 
         if (!title) {
-          alert("Please fill in title field.");
+          alertFade("Please fill in title field.");
           return;
         }
-
-        /*           // Check if the description exceeds the character limit
-                  if (description.length > charLimit) {
-                    alert(`Description exceeds the character limit of ${charLimit} characters.`);
-                    return;
-                  } */
 
         // Function to update character count based on selected limit
         function updateCharacterCount() {
@@ -982,35 +1030,38 @@ const eventHandlers = {
               console.log("Response URL:", response.url);
               console.log("Logindata:", response);
               // Call alert with navigation to home
-              alert("SUCCESS: Redirecting to newsfeed...");
-              window.location.reload();
+              respondAlert().then(() => {
+                window.location.href = "?newsfeed";
+              });
 
             } else {
-              alert(
+              alertFade(
                 "FAILED-POST: HTTP error! status: " + response.status
-              );
-              window.location.reload();
+              ).then(() => {
+                window.location.reload();
+              });
+
+
+
 
             }
           })
           .catch((error) => {
-            alert("FAILED TO POST SURVEY: " + error.message);
+
             console.log(error);
-            // window.location.href = response.url;
-            window.location.reload();
+            showAlert("FAILED TO POST SURVEY: " + error.message).then(() => {
+              window.location.reload();
+            });
+
+
           });
+        //alertFade("Written Survey Created successfully");
       });
     }
     handleWittenSurveyFormSubmission(true);
 
+
     function handleMultipleChoiceSurveyFormSubmission(input) {
-      //const submitButton = document.getElementById("submit-multiple-choice");
-      //const titleInput = document.getElementById("survey-title-mc");
-      //const descriptionInput = document.getElementById("survey-description-mc");
-
-      //const titleInput = document.querySelector('input#survey-title-mc[type="text"]');
-      //const descriptionInput = document.querySelector('textarea#survey-description-mc');
-
       const addOptionButton = document.getElementById("add-option");
       //console.log(titleInput, descriptionInput)
 
@@ -1041,11 +1092,6 @@ const eventHandlers = {
       let optionCount = 0; // Initialize option count
       // Maximum number of options allowed
       const maxOptions = 10;
-      /* 
-            // Function to check if an option field is empty
-            function isOptionEmpty(optionInput) {
-              return optionInput.value.trim() === '';
-            } */
 
       // Add an event listener to the "Add Option" button
       addOptionButton.addEventListener("click", () => {
@@ -1073,22 +1119,12 @@ const eventHandlers = {
           newOptionInput.appendChild(newOptionTextInput);
           newOptionInput.appendChild(removeOptionButton);
 
-          /*             // Add an input event listener to validate the option
-                      newOptionTextInput.addEventListener("input", () => {
-                          if (isOptionEmpty(newOptionTextInput)) {
-                              // If the option is empty, prevent adding it
-                              alert("Option fields cannot be empty.");
-                              optionsDiv.removeChild(newOptionInput);
-                              optionCount--;
-                          }
-                      }); */
-
           optionsDiv.appendChild(newOptionInput);
           optionCount++;
 
           updateOptionsDisplay();
         } else {
-          alert("You can only add up to 10 options.");
+          alertFade("You can only add up to 10 options.");
         }
       });
 
@@ -1100,18 +1136,10 @@ const eventHandlers = {
       submitButton.addEventListener("click", async (event) => {
         event.preventDefault();
 
-        //const titleInput = document.querySelector('input#survey-title-mc[type="text"]');
-        // Targeting the input element with ID "survey-title-mc"
-        //const titleInput = document.querySelector('#survey-title-mc[name="survey-title-mc"].create-input');
-        // Targeting the input element with ID "survey-title-mc" inside the div with ID "multiple-choice-content"
         const titleInput = document.querySelector(
           '#multiple-choice-content #survey-title-mc[name="survey-title-mc"].create-input'
         );
 
-        //const descriptionInput = document.querySelector('textarea#survey-description-mc');
-        // Targeting the textarea element with ID "survey-description-mc"
-        //const descriptionInput = document.querySelector('#survey-description-mc[name="survey-description-mc"].survey-input');
-        // Targeting the textarea element with ID "survey-description-mc" inside the div with ID "multiple-choice-content"
         const descriptionInput = document.querySelector(
           '#multiple-choice-content #survey-description-mc[name="survey-description-mc"].survey-input'
         );
@@ -1128,11 +1156,9 @@ const eventHandlers = {
         const description = descriptionInput.value;
 
         // Modify the options to be a single string with commas
-        // const optionsString = options.filter(option => option.trim() !== '').join(', ');
         const optionInputs = document.querySelectorAll(".option-input");
-        const options_01 = Array.from(optionInputs).map(
-          (input) => input.value
-        );
+        const options_01 = Array.from(optionInputs).map((input) => input.value);
+
         console.log("optionCount", optionCount);
         const options = options_01.slice(0, optionCount);
         console.log("options.length:", options.length);
@@ -1140,6 +1166,7 @@ const eventHandlers = {
         const filteredOptions = options.filter(
           (option) => option.trim() !== ""
         );
+
         // Convert the options into an object with numbered keys
         const optionsObject = {};
         filteredOptions.forEach((option, index) => {
@@ -1149,7 +1176,7 @@ const eventHandlers = {
         // Perform validation
         //console.log("options.length", title, description, options.length)
         if (!title || options.length < 2) {
-          alert(
+          alertFade(
             "Please fill in title field and provide at least two options"
           );
           return;
@@ -1171,49 +1198,43 @@ const eventHandlers = {
           body: JSON.stringify(MC_surveyData),
         })
           .then((response) => {
-
             if (response.ok) {
               console.log("Response URL:", response.url);
               console.log("Logindata:", MC_surveyData);
-              // Call alert with navigation to home
-              alert("SUCCESS: Redirecting to newsfeed...");
-              window.location.reload();
-            } else {
-              alert(
-                "FAILED-POST: HTTP error! status: " + response.status
-              );
-              window.location.reload();
 
+              // Call brandedAlert with navigation to home
+              respondAlert().then(() => {
+                window.location.href = "?newsfeed";
+              });
+            } else {
+              alertFade(
+                "FAILED-POST: HTTP error! status: " + response.status
+              ).then(() => {
+                window.location.reload();
+              });
             }
           })
           .catch((error) => {
-
-            alert("FAILED TO POST SURVEY: " + error.message);
-            console.log(error);
-            window.location.href = response.url;
-            //window.location.reload();
-
+            showAlert("FAILED TO POST SURVEY: " + error.message).then(() => {
+              console.log(error);
+              window.location.href = response.url;
+            });
           });
 
-        // Perform further processing or API call here
-        // ...
-
-        alert("Multiple Choice Survey submitted successfully!");
+        //alertFade("Multiple Choice created submitted successfully");
       });
     }
     handleMultipleChoiceSurveyFormSubmission(true);
-
-
+    ///// create survey | MC | Written end /////////
 
 
 
     /////////////// main dashboard section ////////////////
-
     function initialize() {
       // console.log('newsfeedLeft:', document.querySelector(".Newsfeed-Left"));
       // console.log('quickSurvey:', document.querySelector(".Quick-survey"));
       // console.log('feedWRAP:', document.querySelector(".feed-wrapper"));
-    
+
       if (window.innerWidth > 1060) {
         // Desktop
         newsfeedLeft.style.transition = "All .4s cubic-bezier(0,1.02,0,.93)";
@@ -1245,7 +1266,7 @@ const eventHandlers = {
           feedBTN.classList.remove("active");
           createBTN.classList.add("active");
         } else {
-        
+
           newsfeedLeft.style.display = "flex";
           newsfeedLeft.style.maxHeight = "100%";
           newsfeedLeft.style.opacity = "1";
@@ -1425,7 +1446,6 @@ const eventHandlers = {
       .addEventListener("click", function () {
         activateTab("multiple-choice");
       });
-
 
 
 
@@ -1688,7 +1708,6 @@ const eventHandlers = {
     }
 
 
-
     function accessData(rowElement) {
       const topicId = rowElement.id.replace("topic", "");
 
@@ -1772,8 +1791,6 @@ const eventHandlers = {
       }
     }
 
-
-
     function logOptionData(topicId, selectedValue) {
       // Create a JSON object with the topic ID and the selected value
       const optionsRresponseObject = {
@@ -1788,7 +1805,6 @@ const eventHandlers = {
       // TODO: Implement the functionality to submit the response,
       // e.g., send it to a server or make it globally accessible as needed
     }
-
 
 
   },
@@ -1853,6 +1869,8 @@ const eventHandlers = {
       password,
     };
   },
+
+
 };
 eventHandlers.init();
 
@@ -2098,25 +2116,26 @@ function handleLoginFormSubmission(loginSpace) {
               });
             } else {
               // If it's any other URL, then login has succeeded
-              message = "Login Successful: Redirecting to Newsfeed";
-              showAlert(message).then(() => {
+              message = "Login Successful | Redirecting to [?Newsfeed]";
+              AlertElements.alertheader.style.display = "none";
+              alertFade(message).then(() => {
                 // Redirect to the response URL
                 window.location.href = response.url;
               });
             }
-          },1100);
+          }, 1100);
         } else {
           alertFade(
             "FAILED-POST: HTTP error! status: " + response.status
           );
-            window.location = "?login";
+          window.location = "?login";
         }
       })
       .catch((error) => {
-       alertFade("FAILED TO LOGIN: " + error.message).then(() => {
-        console.log(error);
-        window.location = "?login";
-       });
+        alertFade("FAILED TO LOGIN: " + error.message).then(() => {
+          console.log(error);
+          window.location = "?login";
+        });
 
       });
   });
@@ -2172,23 +2191,25 @@ function handleLoginsFormSubmission(loginsSpace) {
         },
         body: JSON.stringify(userLoginsData),
       })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-       
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
           console.log("Loginsdata:", userLoginsData);
-          alert("SUCCESS: Redirecting to" + response.url);
-          window.location.href = response.url;
-        
-      })
-      .catch((error) => {
-        console.log("Error during 2Factor Registration:", error);
-        alert("Error during 2Factor Registration: " + error.message);
-        window.location = "?login";
-      });
+          alertFade("SUCCESS: Redirecting to" + response.url).then(() => {
+            window.location.href = response.url;
+          });
+
+
+        })
+        .catch((error) => {
+          console.log("Error during 2Factor Registration:", error);
+          alert("Error during 2Factor Registration: " + error.message);
+          window.location = "?login";
+        });
     }, 10);
-    
+
 
   });
 }
@@ -2214,7 +2235,7 @@ function handleOnboardingFormSubmission(onboardingSpace) {
       window.location.href = "?login";
     });
 
-    
+
     if (onboardingForm) {
       onboardingForm.onsubmit = (event) => {
         event.preventDefault();

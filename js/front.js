@@ -115,6 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
       FNumberL.addEventListener("touchend", copyToClipboard);
       FNumberL.addEventListener("mouseup", copyToClipboard);
     }
+
     function copyEmailToClipboard() {
       var email = document.querySelector(".F-mail-L p").innerHTML;
       var textArea = document.createElement("textarea");
@@ -130,4 +131,5 @@ document.addEventListener("DOMContentLoaded", () => {
       FMailL.addEventListener("touchend", copyEmailToClipboard);
       FMailL.addEventListener("mouseup", copyEmailToClipboard);
     }
+    
   });
