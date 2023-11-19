@@ -402,7 +402,7 @@
   padding        : 12px !important;
   height         : auto !important;
   width          : 100% !important;
-  border: solid 1px #5f50b24d;
+  border: solid 1px rgb(228, 223, 252)
 }
 
 .step .next {

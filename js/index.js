@@ -701,79 +701,78 @@ const eventHandlers = {
 
     /////////////// grab Data ////////////////
 
-       // ofline overide for testing
-    
-       setTimeout(() => {
-        // hide display splash 
-        document.querySelectorAll(".v-back").forEach((vBack) => {
-          vBack.addEventListener("click", function () {
-            const clickedRow = vBack.closest("tr");
-  
-            if (
-              clickedRow &&
-              clickedRow.classList.contains("expanded-row")
-            ) {
-              const textArea = clickedRow.querySelector("textarea");
-              const closeButton =
-                clickedRow.querySelector(".close-discrip");
-  
-              if (textArea && closeButton) {
-                const alertElement = document.querySelector(".alert");
-                if (alertElement) {
-                  alertElement.style.top = "50%"; // Adjust the position
-                  alertElement.style.backgroundColor = "#288369"; // Change the background color
-                }
-  
-                alertFade("Your reply is now a draft")
-                  .then(() => {
-                    // Assuming closeTextArea is a method to close or clear the textarea
-                    textArea.closeTextArea();
-                    handleRowClick(clickedRow);
-                    if (clickedRow.rsetAugmt) {
-                      clickedRow.rsetAugmt();
-                    }
-                  })
-                  .catch(() => {
-                    // If the user decides not to abort the reply, handle it here. (Maybe do nothing?)
-                  });
-              } else {
-                handleRowClick(clickedRow);
-                if (clickedRow.rsetAugmt) {
-                  clickedRow.rsetAugmt();
-                }
-              }
-            }
-          });
-        });
-  
-        document
-          .querySelector("#data-surface table tbody")
-          .addEventListener("click", function (event) {
-            let clickedRow = event.target.closest("tr");
-  
-            if (
-              clickedRow &&
-              !clickedRow.classList.contains("expanded-row")
-            ) {
-              // Assume 'handleRowClick' is a function you've defined elsewhere to handle the row click.
-              handleRowClick(clickedRow);
-  
-              const rowData = accessData(clickedRow);
-  
-              setTimeout(() => {
-                console.log("Data-Post:", tableData); // Debugging line
-                appendOptionData(clickedRow, rowData);
-              }, 550);
-  
-  
-            }
-          });
-  
-        resolve(); // Resolve the promise when done
-      }, 0);
-
     console.log("Logindata-Before-Fetch:", userLoginData,);
     console.log("cached data:" + JSON.stringify(storedData));
+
+    //bypass fetch and show newsfeed - for prototype
+    setTimeout(() => {
+      // hide display splash 
+      document.querySelectorAll(".v-back").forEach((vBack) => {
+        vBack.addEventListener("click", function () {
+          const clickedRow = vBack.closest("tr");
+
+          if (
+            clickedRow &&
+            clickedRow.classList.contains("expanded-row")
+          ) {
+            const textArea = clickedRow.querySelector("textarea");
+            const closeButton =
+              clickedRow.querySelector(".close-discrip");
+
+            if (textArea && closeButton) {
+              const alertElement = document.querySelector(".alert");
+              if (alertElement) {
+                alertElement.style.top = "50%"; // Adjust the position
+                alertElement.style.backgroundColor = "#288369"; // Change the background color
+              }
+
+              alertFade("Your reply is now a draft")
+                .then(() => {
+                  // Assuming closeTextArea is a method to close or clear the textarea
+                  textArea.closeTextArea();
+                  handleRowClick(clickedRow);
+                  if (clickedRow.rsetAugmt) {
+                    clickedRow.rsetAugmt();
+                  }
+                })
+                .catch(() => {
+                  // If the user decides not to abort the reply, handle it here. (Maybe do nothing?)
+                });
+            } else {
+              handleRowClick(clickedRow);
+              if (clickedRow.rsetAugmt) {
+                clickedRow.rsetAugmt();
+              }
+            }
+          }
+        });
+      });
+
+      document
+        .querySelector("#data-surface table tbody")
+        .addEventListener("click", function (event) {
+          let clickedRow = event.target.closest("tr");
+
+          if (
+            clickedRow &&
+            !clickedRow.classList.contains("expanded-row")
+          ) {
+            // Assume 'handleRowClick' is a function you've defined elsewhere to handle the row click.
+            handleRowClick(clickedRow);
+
+            const rowData = accessData(clickedRow);
+
+            setTimeout(() => {
+              console.log("Data-Post:", tableData); // Debugging line
+              appendOptionData(clickedRow, rowData);
+            }, 550);
+
+
+          }
+        });
+
+      //resolve(); // Resolve the promise when done
+    }, 0);
 
 
     async function fetchAndDisplayTable() {
@@ -964,6 +963,7 @@ const eventHandlers = {
     }
 
     /////////////// grab Data end///////////////
+
 
 
 
@@ -1435,6 +1435,8 @@ const eventHandlers = {
     feedBTN.addEventListener("click", handleFeedBTNClick);
     createBTN.addEventListener("click", handleCreateBTNClick);
 
+
+
     ///////////////switch tabs/////////////////
     document
       .getElementById("written-survey-tab")
@@ -1480,11 +1482,14 @@ const eventHandlers = {
       });
     });
 
+
+
+
     function handleRowClick(clickedRow) {
+
       const dataSurface = document.querySelector("#data-surface");
       const table = dataSurface.querySelector("table");
       const tBody = table.querySelector("tbody");
-
       const feedHead = clickedRow.querySelector(".feed-head");
       const feedpgrphP = clickedRow.querySelector(".feed-paragraph h1");
       const feedpgrph = clickedRow.querySelector("#feed-pg");
@@ -1493,6 +1498,9 @@ const eventHandlers = {
       const vTitle = clickedRow.querySelector(".v-title");
       const navBarr = document.querySelector(".N-Header");
       // const vtR = clickedRow.querySelector('tbody tr');
+
+      const survDeescrp = clickedRow.querySelector(".survey-discrip");
+      const survh6 = survDeescrp.querySelector("h6");
 
       let initialWidth =
         clickedRow.dataset.initialWidth || getComputedStyle(clickedRow).width;
@@ -1518,7 +1526,9 @@ const eventHandlers = {
           break;
       }
 
+    
       if (clickedRow.classList.contains("expanded-row")) {
+   
         table.querySelector("tbody").style.placeItems = "center";
         clickedRow.style.opacity = "1";
         feedHead.style.display = "flex";
@@ -1559,6 +1569,7 @@ const eventHandlers = {
         setTimeout(() => {
           navBarr.style.display = "flex";
         }, 10);
+
       } else {
         table.querySelector("tbody").style.placeItems = "center";
         feedHead.style.display = "none";
@@ -1605,7 +1616,26 @@ const eventHandlers = {
         setTimeout(() => {
           navBarr.style.display = "none";
         }, 10);
+      } // Check if survh6 is empty and hide survDeescrp if true
+      if (survh6.textContent.trim() === "") {
+        survDeescrp.style.display = "none";
       }
+
+     
+
+      // Get all label elements inside the '.option'
+      const labelElements = clickedRow.querySelectorAll('.option label');
+      // Add click event listener to each label inside '.option' element
+      labelElements.forEach(function (labelElement) {
+        labelElement.addEventListener('click', function () {
+          // Find the radio input within the clicked label's parent '.option' element
+          const radioInput = labelElement.closest('.option').querySelector('.option-input');
+
+          // Toggle the checked state of the radio input
+          radioInput.checked = !radioInput.checked;
+        });
+      });
+
 
       // Define the rsetAugmt function
       const rsetAugmt = function (feedpgrphP) {
@@ -1638,6 +1668,7 @@ const eventHandlers = {
         },
         true
       );
+
     }
     function onTextAreaFocus(event) {
       // Make sure we're getting the textarea from the event that was fired on focus
@@ -1706,7 +1737,6 @@ const eventHandlers = {
         textArea.closeTextArea = closeFunction;
       }
     }
-
 
     function accessData(rowElement) {
       const topicId = rowElement.id.replace("topic", "");
