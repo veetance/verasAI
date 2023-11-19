@@ -234,17 +234,222 @@
           </div>
 
           <!-- DATA GRID -->
+
+
           <section id="data-surface">
 
-           <!-- <div class="v-splash">
+            <!-- <div class="v-splash">
               <div class="v-logo-wrapper ">
                 <img src="img/MIN-WIDTH-screen-logo.png" class="v-logo" alt="veras-ico">
               </div>
             </div>  -->
-            
+
             <table>
               <tbody>
-                <tr id="topic102" class="v-closed">
+                <tr id="topic119" class="v-open">
+                  <td>
+                    <div class="feed-head label-parent v-active ">
+                      <label class="state-active">Respond</label>
+                      <i class="material-symbols-outlined">chat</i>
+                    </div>
+                  </td>
+                  <td id="response-space" class="v-written-response">
+                    <div class="response-top">
+                      <section class="survey-discrip">
+                        <label for="survey-description-mc">About</label>
+                        <h6></h6>
+                      </section>
+                      <section class="descript inpt ">
+                        <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
+                        <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
+                          class="survey-input" rows="4" required=""></textarea>
+                      </section>
+                    </div>
+                    <div class="surv-dwn">
+                      <button class=" bck-btn nav-button next step-button v-back ">
+                        <i class="material-symbols-outlined">keyboard_backspace</i>
+                        <p>Go back</p>
+                      </button>
+                      <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                        onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('119','text')">
+                        <p>Submit</p>
+                        <i class="material-symbols-outlined">send</i>
+                      </button>
+                    </div>
+                  </td>
+                  <td id="feed-pg" class="v-written">
+                    <div class="feed-paragraph">
+                      <span><label>Time left: 20h+</label>
+                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined">
+                            edit_note </i>
+                        </div>
+                      </span>
+                      <article class="v-title">
+                        <label class="v-user">
+                          <h6>82211394</h6>
+                        </label>
+                        <h1>What is the top thing the university of Lethbridge should do to improve the experience
+                          of us students</h1>
+                      </article>
+                    </div>
+                  </td>
+                </tr>
+                <tr id="topic118" class="v-open">
+                  <td>
+                    <div class="feed-head label-parent v-active ">
+                      <label class="state-active">Respond</label>
+                      <i class="material-symbols-outlined">chat</i>
+                    </div>
+                  </td>
+                  <td id="response-space" class="v-multiple-choice">
+                    <div class="response-top">
+                      <section class="survey-discrip">
+                        <label for="survey-description-mc">About</label>
+                        <h6></h6>
+                      </section>
+                      <section class="descript inpt "><label for="survey-description-mc">Response <span> Max Char:
+                            300</span></label>
+                        <section name="survey-response-mc" placeholder="Choose an option" class="optS-space">
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-1" value="1" placeholder="Option 1" required=""><label id="r-label-1"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-2" value="2" placeholder="Option 2" required=""><label id="r-label-2"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-3" value="3" placeholder="Option 3" required=""><label id="r-label-3"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-4" value="4" placeholder="Option 4" required=""><label id="r-label-4"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-5" value="5" placeholder="Option 5" required=""><label id="r-label-5"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-6" value="6" placeholder="Option 6" required=""><label id="r-label-6"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-7" value="7" placeholder="Option 7" required=""><label id="r-label-7"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-8" value="8" placeholder="Option 8" required=""><label id="r-label-8"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-9" value="9" placeholder="Option 9" required=""><label id="r-label-9"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-10" value="10" placeholder="Option 10" required=""><label
+                              id="r-label-10"></label></div>
+                        </section>
+                      </section>
+                    </div>
+                    <div class="surv-dwn">
+                      <button class=" bck-btn nav-button next step-button v-back ">
+                        <i class="material-symbols-outlined">keyboard_backspace</i>
+                        <p>Go back</p>
+                      </button>
+                      <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                        onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('118','multiple')">
+                        <p>Submit</p>
+                        <i class="material-symbols-outlined">send</i>
+                      </button>
+                    </div>
+                  </td>
+                  <td id="feed-pg" class="v-opt">
+                    <div class="feed-paragraph">
+                      <span><label>Time left: 20h+</label>
+                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined">
+                            format_list_bulleted </i>
+                        </div>
+                      </span>
+                      <article class="v-title">
+                        <label class="v-user">
+                          <h6>82211394</h6>
+                        </label>
+                        <h1>Do you read the Meliorist</h1>
+                      </article>
+                    </div>
+                  </td>
+                </tr>
+                <tr id="topic117" class="v-open">
+                  <td>
+                    <div class="feed-head label-parent v-active ">
+                      <label class="state-active">Respond</label>
+                      <i class="material-symbols-outlined">chat</i>
+                    </div>
+                  </td>
+                  <td id="response-space" class="v-multiple-choice">
+                    <div class="response-top">
+                      <section class="survey-discrip">
+                        <label for="survey-description-mc">About</label>
+                        <h6></h6>
+                      </section>
+                      <section class="descript inpt "><label for="survey-description-mc">Response <span> Max Char:
+                            300</span></label>
+                        <section name="survey-response-mc" placeholder="Choose an option" class="optS-space">
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-1" value="1" placeholder="Option 1" required=""><label id="r-label-1"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-2" value="2" placeholder="Option 2" required=""><label id="r-label-2"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-3" value="3" placeholder="Option 3" required=""><label id="r-label-3"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-4" value="4" placeholder="Option 4" required=""><label id="r-label-4"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-5" value="5" placeholder="Option 5" required=""><label id="r-label-5"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-6" value="6" placeholder="Option 6" required=""><label id="r-label-6"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-7" value="7" placeholder="Option 7" required=""><label id="r-label-7"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-8" value="8" placeholder="Option 8" required=""><label id="r-label-8"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-9" value="9" placeholder="Option 9" required=""><label id="r-label-9"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-10" value="10" placeholder="Option 10" required=""><label
+                              id="r-label-10"></label></div>
+                        </section>
+                      </section>
+                    </div>
+                    <div class="surv-dwn">
+                      <button class=" bck-btn nav-button next step-button v-back ">
+                        <i class="material-symbols-outlined">keyboard_backspace</i>
+                        <p>Go back</p>
+                      </button>
+                      <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                        onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('117','multiple')">
+                        <p>Submit</p>
+                        <i class="material-symbols-outlined">send</i>
+                      </button>
+                    </div>
+                  </td>
+                  <td id="feed-pg" class="v-opt">
+                    <div class="feed-paragraph">
+                      <span><label>Time left: 20h+</label>
+                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined">
+                            format_list_bulleted </i>
+                        </div>
+                      </span>
+                      <article class="v-title">
+                        <label class="v-user">
+                          <h6>82211394</h6>
+                        </label>
+                        <h1>Are Queers for Palestine protests oxymorons given the punishment for homosexuality in
+                          Palestine is death</h1>
+                      </article>
+                    </div>
+                  </td>
+                </tr>
+                <tr id="topic116" class="v-closed">
                   <td>
                     <div class="feed-head label-parent">
                       <label class="state-closed">Calculating</label>
@@ -269,6 +474,308 @@
                         <p>Go back</p>
                       </button>
                       <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                        onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('116','text')">
+                        <p>Submit</p>
+                        <i class="material-symbols-outlined">send</i>
+                      </button>
+                    </div>
+                  </td>
+                  <td id="feed-pg" class="v-written">
+                    <div class="feed-paragraph">
+                      <span><label>Time left: 20h+</label>
+                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined">
+                            edit_note </i>
+                        </div>
+                      </span>
+                      <article class="v-title">
+                        <label class="v-user">
+                          <h6>876031511</h6>
+                        </label>
+                        <h1>Should teachers be allowed to make tests where they averaged less than 50</h1>
+                      </article>
+                    </div>
+                  </td>
+                </tr>
+                <tr id="topic115" class="v-closed">
+                  <td>
+                    <div class="feed-head label-parent">
+                      <label class="state-closed">Calculating</label>
+                      <i class="material-symbols-outlined">hourglass_top</i>
+                    </div>
+                  </td>
+                  <td id="response-space" class="v-written-response">
+                    <div class="response-top">
+                      <section class="survey-discrip">
+                        <label for="survey-description-mc">About</label>
+                        <h6></h6>
+                      </section>
+                      <section class="descript inpt ">
+                        <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
+                        <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
+                          class="survey-input" rows="4" required=""></textarea>
+                      </section>
+                    </div>
+                    <div class="surv-dwn">
+                      <button class=" bck-btn nav-button next step-button v-back ">
+                        <i class="material-symbols-outlined">keyboard_backspace</i>
+                        <p>Go back</p>
+                      </button>
+                      <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                        onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('115','text')">
+                        <p>Submit</p>
+                        <i class="material-symbols-outlined">send</i>
+                      </button>
+                    </div>
+                  </td>
+                  <td id="feed-pg" class="v-written">
+                    <div class="feed-paragraph">
+                      <span><label>Time left: 20h+</label>
+                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined">
+                            edit_note </i>
+                        </div>
+                      </span>
+                      <article class="v-title">
+                        <label class="v-user">
+                          <h6>525462339</h6>
+                        </label>
+                        <h1>Do you think the Starbucks boycott for Palestine is actually working</h1>
+                      </article>
+                    </div>
+                  </td>
+                </tr>
+                <tr id="topic105" class="v-closed">
+                  <td>
+                    <div class="feed-head label-parent">
+                      <label class="state-closed">Calculating</label>
+                      <i class="material-symbols-outlined">hourglass_top</i>
+                    </div>
+                  </td>
+                  <td id="response-space" class="v-written-response">
+                    <div class="response-top">
+                      <section class="survey-discrip">
+                        <label for="survey-description-mc">About</label>
+                        <h6>AIs influence on our daily lives</h6>
+                      </section>
+                      <section class="descript inpt ">
+                        <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
+                        <textarea id="survey-response" name="survey-response" placeholder="Enter Your Response"
+                          class="survey-input" rows="4" required=""></textarea>
+                      </section>
+                    </div>
+                    <div class="surv-dwn">
+                      <button class=" bck-btn nav-button next step-button v-back ">
+                        <i class="material-symbols-outlined">keyboard_backspace</i>
+                        <p>Go back</p>
+                      </button>
+                      <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                        onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('105','text')">
+                        <p>Submit</p>
+                        <i class="material-symbols-outlined">send</i>
+                      </button>
+                    </div>
+                  </td>
+                  <td id="feed-pg" class="v-written">
+                    <div class="feed-paragraph">
+                      <span><label>Time left: 20h+</label>
+                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined">
+                            edit_note </i>
+                        </div>
+                      </span>
+                      <article class="v-title">
+                        <label class="v-user">
+                          <h6>312686098</h6>
+                        </label>
+                        <h1>Tell us the most unusual way you have used AI since it dropped</h1>
+                      </article>
+                    </div>
+                  </td>
+                </tr>
+                <tr id="topic104" class="v-closed">
+                  <td>
+                    <div class="feed-head label-parent">
+                      <label class="state-closed">Calculating</label>
+                      <i class="material-symbols-outlined">hourglass_top</i>
+                    </div>
+                  </td>
+                  <td id="response-space" class="v-multiple-choice">
+                    <div class="response-top">
+                      <section class="survey-discrip">
+                        <label for="survey-description-mc">About</label>
+                        <h6></h6>
+                      </section>
+                      <section class="descript inpt "><label for="survey-description-mc">Response <span> Max Char:
+                            300</span></label>
+                        <section name="survey-response-mc" placeholder="Choose an option" class="optS-space">
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-1" value="1" placeholder="Option 1" required=""><label id="r-label-1"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-2" value="2" placeholder="Option 2" required=""><label id="r-label-2"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-3" value="3" placeholder="Option 3" required=""><label id="r-label-3"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-4" value="4" placeholder="Option 4" required=""><label id="r-label-4"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-5" value="5" placeholder="Option 5" required=""><label id="r-label-5"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-6" value="6" placeholder="Option 6" required=""><label id="r-label-6"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-7" value="7" placeholder="Option 7" required=""><label id="r-label-7"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-8" value="8" placeholder="Option 8" required=""><label id="r-label-8"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-9" value="9" placeholder="Option 9" required=""><label id="r-label-9"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-10" value="10" placeholder="Option 10" required=""><label
+                              id="r-label-10"></label></div>
+                        </section>
+                      </section>
+                    </div>
+                    <div class="surv-dwn">
+                      <button class=" bck-btn nav-button next step-button v-back ">
+                        <i class="material-symbols-outlined">keyboard_backspace</i>
+                        <p>Go back</p>
+                      </button>
+                      <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                        onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('104','multiple')">
+                        <p>Submit</p>
+                        <i class="material-symbols-outlined">send</i>
+                      </button>
+                    </div>
+                  </td>
+                  <td id="feed-pg" class="v-opt">
+                    <div class="feed-paragraph">
+                      <span><label>Time left: 20h+</label>
+                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined">
+                            format_list_bulleted </i>
+                        </div>
+                      </span>
+                      <article class="v-title">
+                        <label class="v-user">
+                          <h6>82211394</h6>
+                        </label>
+                        <h1>Should there be a third bridge in Lethbridge</h1>
+                      </article>
+                    </div>
+                  </td>
+                </tr>
+                <tr id="topic103" class="v-closed">
+                  <td>
+                    <div class="feed-head label-parent">
+                      <label class="state-closed">Calculating</label>
+                      <i class="material-symbols-outlined">hourglass_top</i>
+                    </div>
+                  </td>
+                  <td id="response-space" class="v-multiple-choice">
+                    <div class="response-top">
+                      <section class="survey-discrip">
+                        <label for="survey-description-mc">About</label>
+                        <h6>Future of AI</h6>
+                      </section>
+                      <section class="descript inpt "><label for="survey-description-mc">Response <span> Max Char:
+                            300</span></label>
+                        <section name="survey-response-mc" placeholder="Choose an option" class="optS-space">
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-1" value="1" placeholder="Option 1" required=""><label id="r-label-1"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-2" value="2" placeholder="Option 2" required=""><label id="r-label-2"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-3" value="3" placeholder="Option 3" required=""><label id="r-label-3"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-4" value="4" placeholder="Option 4" required=""><label id="r-label-4"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-5" value="5" placeholder="Option 5" required=""><label id="r-label-5"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-6" value="6" placeholder="Option 6" required=""><label id="r-label-6"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-7" value="7" placeholder="Option 7" required=""><label id="r-label-7"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-8" value="8" placeholder="Option 8" required=""><label id="r-label-8"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-9" value="9" placeholder="Option 9" required=""><label id="r-label-9"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-10" value="10" placeholder="Option 10" required=""><label
+                              id="r-label-10"></label></div>
+                        </section>
+                      </section>
+                    </div>
+                    <div class="surv-dwn">
+                      <button class=" bck-btn nav-button next step-button v-back ">
+                        <i class="material-symbols-outlined">keyboard_backspace</i>
+                        <p>Go back</p>
+                      </button>
+                      <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
+                        onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('103','multiple')">
+                        <p>Submit</p>
+                        <i class="material-symbols-outlined">send</i>
+                      </button>
+                    </div>
+                  </td>
+                  <td id="feed-pg" class="v-opt">
+                    <div class="feed-paragraph">
+                      <span><label>Time left: 20h+</label>
+                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined">
+                            format_list_bulleted </i>
+                        </div>
+                      </span>
+                      <article class="v-title">
+                        <label class="v-user">
+                          <h6>312686098</h6>
+                        </label>
+                        <h1>Have you used AI to brainstorm your Essay</h1>
+                      </article>
+                    </div>
+                  </td>
+                </tr>
+                <tr id="topic102" class="v-closed">
+                  <td>
+                    <div class="feed-head label-parent">
+                      <label class="state-closed">Calculating</label>
+                      <i class="material-symbols-outlined">hourglass_top</i>
+                    </div>
+                  </td>
+                  <td id="response-space" class="v-written-response">
+                    <div class="response-top">
+                      <section class="survey-discrip">
+                        <label for="survey-description-mc">About</label>
+                        <h6></h6>
+                      </section>
+                      <section class="descript inpt "><label for="survey-description-mc">Response <span> Max Char: 300</span></label><section name="survey-response-mc" placeholder="Choose an option" class="optS-space">
+                        <div class="option"><input class="option-input" type="radio" name="v-radio" id="radio-1" value="1" placeholder="Option 1" required=""><label id="r-label-1">Yes</label></div>
+                        <div class="option"><input class="option-input" type="radio" name="v-radio" id="radio-2" value="2" placeholder="Option 2" required=""><label id="r-label-2">No</label></div>
+                        <div class="option"><input class="option-input" type="radio" name="v-radio" id="radio-3" value="3" placeholder="Option 3" required=""><label id="r-label-3">Kind of </label></div>
+                        <div class="option"><input class="option-input" type="radio" name="v-radio" id="radio-4" value="4" placeholder="Option 4" required=""><label id="r-label-4">Not really </label></div>
+                        <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-5" value="5" placeholder="Option 5" required=""><label id="r-label-5"></label></div>
+                        <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-6" value="6" placeholder="Option 6" required=""><label id="r-label-6"></label></div>
+                        <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-7" value="7" placeholder="Option 7" required=""><label id="r-label-7"></label></div>
+                        <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-8" value="8" placeholder="Option 8" required=""><label id="r-label-8"></label></div>
+                        <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-9" value="9" placeholder="Option 9" required=""><label id="r-label-9"></label></div>
+                        <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-10" value="10" placeholder="Option 10" required=""><label id="r-label-10"></label></div>
+                      </section></section>
+                    </div>
+                    <div class="surv-dwn">
+                      <button class=" bck-btn nav-button next step-button v-back ">
+                        <i class="material-symbols-outlined">keyboard_backspace</i>
+                        <p>Go back</p>
+                      </button>
+                      <button type="submit" id="submit-response" class="v-button-filled submit-resp" data-topic-id="3"
                         onclick="window.eventHandlers.updateNewsfeedUI.handleWittenSurveyResponseSubmission('102','text')">
                         <p>Submit</p>
                         <i class="material-symbols-outlined">send</i>
@@ -278,7 +785,8 @@
                   <td id="feed-pg" class="v-written">
                     <div class="feed-paragraph">
                       <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note </i>
+                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined">
+                            edit_note </i>
                         </div>
                       </span>
                       <article class="v-title">
@@ -306,26 +814,36 @@
                       <section class="descript inpt "><label for="survey-description-mc">Response <span> Max Char:
                             300</span></label>
                         <section name="survey-response-mc" placeholder="Choose an option" class="optS-space">
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-1"
-                              value="1" placeholder="Option 1" required=""><label id="r-label-1"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-2"
-                              value="2" placeholder="Option 2" required=""><label id="r-label-2"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-3"
-                              value="3" placeholder="Option 3" required=""><label id="r-label-3"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-4"
-                              value="4" placeholder="Option 4" required=""><label id="r-label-4"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-5"
-                              value="5" placeholder="Option 5" required=""><label id="r-label-5"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-6"
-                              value="6" placeholder="Option 6" required=""><label id="r-label-6"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-7"
-                              value="7" placeholder="Option 7" required=""><label id="r-label-7"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-8"
-                              value="8" placeholder="Option 8" required=""><label id="r-label-8"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-9"
-                              value="9" placeholder="Option 9" required=""><label id="r-label-9"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-10"
-                              value="10" placeholder="Option 10" required=""><label id="r-label-10"></label></div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-1" value="1" placeholder="Option 1" required=""><label id="r-label-1"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-2" value="2" placeholder="Option 2" required=""><label id="r-label-2"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-3" value="3" placeholder="Option 3" required=""><label id="r-label-3"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-4" value="4" placeholder="Option 4" required=""><label id="r-label-4"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-5" value="5" placeholder="Option 5" required=""><label id="r-label-5"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-6" value="6" placeholder="Option 6" required=""><label id="r-label-6"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-7" value="7" placeholder="Option 7" required=""><label id="r-label-7"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-8" value="8" placeholder="Option 8" required=""><label id="r-label-8"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-9" value="9" placeholder="Option 9" required=""><label id="r-label-9"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-10" value="10" placeholder="Option 10" required=""><label
+                              id="r-label-10"></label></div>
                         </section>
                       </section>
                     </div>
@@ -344,8 +862,8 @@
                   <td id="feed-pg" class="v-opt">
                     <div class="feed-paragraph">
                       <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined"> format_list_bulleted
-                          </i>
+                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined">
+                            format_list_bulleted </i>
                         </div>
                       </span>
                       <article class="v-title">
@@ -391,7 +909,8 @@
                   <td id="feed-pg" class="v-written">
                     <div class="feed-paragraph">
                       <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note </i>
+                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined">
+                            edit_note </i>
                         </div>
                       </span>
                       <article class="v-title">
@@ -414,32 +933,42 @@
                     <div class="response-top">
                       <section class="survey-discrip">
                         <label for="survey-description-mc">About</label>
-                        <h6>To see if theres a difference between individualss actual political activism and their desired amount
-                          of political activism</h6>
+                        <h6>To see if theres a difference between individualss actual political activism and their
+                          desired amount of political activism</h6>
                       </section>
                       <section class="descript inpt "><label for="survey-description-mc">Response <span> Max Char:
                             300</span></label>
                         <section name="survey-response-mc" placeholder="Choose an option" class="optS-space">
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-1"
-                              value="1" placeholder="Option 1" required=""><label id="r-label-1"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-2"
-                              value="2" placeholder="Option 2" required=""><label id="r-label-2"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-3"
-                              value="3" placeholder="Option 3" required=""><label id="r-label-3"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-4"
-                              value="4" placeholder="Option 4" required=""><label id="r-label-4"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-5"
-                              value="5" placeholder="Option 5" required=""><label id="r-label-5"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-6"
-                              value="6" placeholder="Option 6" required=""><label id="r-label-6"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-7"
-                              value="7" placeholder="Option 7" required=""><label id="r-label-7"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-8"
-                              value="8" placeholder="Option 8" required=""><label id="r-label-8"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-9"
-                              value="9" placeholder="Option 9" required=""><label id="r-label-9"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-10"
-                              value="10" placeholder="Option 10" required=""><label id="r-label-10"></label></div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-1" value="1" placeholder="Option 1" required=""><label id="r-label-1"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-2" value="2" placeholder="Option 2" required=""><label id="r-label-2"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-3" value="3" placeholder="Option 3" required=""><label id="r-label-3"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-4" value="4" placeholder="Option 4" required=""><label id="r-label-4"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-5" value="5" placeholder="Option 5" required=""><label id="r-label-5"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-6" value="6" placeholder="Option 6" required=""><label id="r-label-6"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-7" value="7" placeholder="Option 7" required=""><label id="r-label-7"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-8" value="8" placeholder="Option 8" required=""><label id="r-label-8"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-9" value="9" placeholder="Option 9" required=""><label id="r-label-9"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-10" value="10" placeholder="Option 10" required=""><label
+                              id="r-label-10"></label></div>
                         </section>
                       </section>
                     </div>
@@ -458,8 +987,8 @@
                   <td id="feed-pg" class="v-opt">
                     <div class="feed-paragraph">
                       <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined"> format_list_bulleted
-                          </i>
+                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined">
+                            format_list_bulleted </i>
                         </div>
                       </span>
                       <article class="v-title">
@@ -505,7 +1034,8 @@
                   <td id="feed-pg" class="v-written">
                     <div class="feed-paragraph">
                       <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note </i>
+                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined">
+                            edit_note </i>
                         </div>
                       </span>
                       <article class="v-title">
@@ -533,26 +1063,36 @@
                       <section class="descript inpt "><label for="survey-description-mc">Response <span> Max Char:
                             300</span></label>
                         <section name="survey-response-mc" placeholder="Choose an option" class="optS-space">
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-1"
-                              value="1" placeholder="Option 1" required=""><label id="r-label-1"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-2"
-                              value="2" placeholder="Option 2" required=""><label id="r-label-2"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-3"
-                              value="3" placeholder="Option 3" required=""><label id="r-label-3"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-4"
-                              value="4" placeholder="Option 4" required=""><label id="r-label-4"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-5"
-                              value="5" placeholder="Option 5" required=""><label id="r-label-5"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-6"
-                              value="6" placeholder="Option 6" required=""><label id="r-label-6"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-7"
-                              value="7" placeholder="Option 7" required=""><label id="r-label-7"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-8"
-                              value="8" placeholder="Option 8" required=""><label id="r-label-8"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-9"
-                              value="9" placeholder="Option 9" required=""><label id="r-label-9"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-10"
-                              value="10" placeholder="Option 10" required=""><label id="r-label-10"></label></div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-1" value="1" placeholder="Option 1" required=""><label id="r-label-1"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-2" value="2" placeholder="Option 2" required=""><label id="r-label-2"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-3" value="3" placeholder="Option 3" required=""><label id="r-label-3"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-4" value="4" placeholder="Option 4" required=""><label id="r-label-4"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-5" value="5" placeholder="Option 5" required=""><label id="r-label-5"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-6" value="6" placeholder="Option 6" required=""><label id="r-label-6"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-7" value="7" placeholder="Option 7" required=""><label id="r-label-7"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-8" value="8" placeholder="Option 8" required=""><label id="r-label-8"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-9" value="9" placeholder="Option 9" required=""><label id="r-label-9"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-10" value="10" placeholder="Option 10" required=""><label
+                              id="r-label-10"></label></div>
                         </section>
                       </section>
                     </div>
@@ -571,8 +1111,8 @@
                   <td id="feed-pg" class="v-opt">
                     <div class="feed-paragraph">
                       <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined"> format_list_bulleted
-                          </i>
+                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined">
+                            format_list_bulleted </i>
                         </div>
                       </span>
                       <article class="v-title">
@@ -618,7 +1158,8 @@
                   <td id="feed-pg" class="v-written">
                     <div class="feed-paragraph">
                       <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note </i>
+                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined">
+                            edit_note </i>
                         </div>
                       </span>
                       <article class="v-title">
@@ -664,7 +1205,8 @@
                   <td id="feed-pg" class="v-written">
                     <div class="feed-paragraph">
                       <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note </i>
+                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined">
+                            edit_note </i>
                         </div>
                       </span>
                       <article class="v-title">
@@ -692,26 +1234,36 @@
                       <section class="descript inpt "><label for="survey-description-mc">Response <span> Max Char:
                             300</span></label>
                         <section name="survey-response-mc" placeholder="Choose an option" class="optS-space">
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-1"
-                              value="1" placeholder="Option 1" required=""><label id="r-label-1"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-2"
-                              value="2" placeholder="Option 2" required=""><label id="r-label-2"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-3"
-                              value="3" placeholder="Option 3" required=""><label id="r-label-3"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-4"
-                              value="4" placeholder="Option 4" required=""><label id="r-label-4"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-5"
-                              value="5" placeholder="Option 5" required=""><label id="r-label-5"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-6"
-                              value="6" placeholder="Option 6" required=""><label id="r-label-6"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-7"
-                              value="7" placeholder="Option 7" required=""><label id="r-label-7"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-8"
-                              value="8" placeholder="Option 8" required=""><label id="r-label-8"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-9"
-                              value="9" placeholder="Option 9" required=""><label id="r-label-9"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-10"
-                              value="10" placeholder="Option 10" required=""><label id="r-label-10"></label></div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-1" value="1" placeholder="Option 1" required=""><label id="r-label-1"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-2" value="2" placeholder="Option 2" required=""><label id="r-label-2"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-3" value="3" placeholder="Option 3" required=""><label id="r-label-3"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-4" value="4" placeholder="Option 4" required=""><label id="r-label-4"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-5" value="5" placeholder="Option 5" required=""><label id="r-label-5"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-6" value="6" placeholder="Option 6" required=""><label id="r-label-6"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-7" value="7" placeholder="Option 7" required=""><label id="r-label-7"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-8" value="8" placeholder="Option 8" required=""><label id="r-label-8"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-9" value="9" placeholder="Option 9" required=""><label id="r-label-9"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-10" value="10" placeholder="Option 10" required=""><label
+                              id="r-label-10"></label></div>
                         </section>
                       </section>
                     </div>
@@ -730,8 +1282,8 @@
                   <td id="feed-pg" class="v-opt">
                     <div class="feed-paragraph">
                       <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined"> format_list_bulleted
-                          </i>
+                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined">
+                            format_list_bulleted </i>
                         </div>
                       </span>
                       <article class="v-title">
@@ -777,7 +1329,8 @@
                   <td id="feed-pg" class="v-written">
                     <div class="feed-paragraph">
                       <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note </i>
+                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined">
+                            edit_note </i>
                         </div>
                       </span>
                       <article class="v-title">
@@ -823,7 +1376,8 @@
                   <td id="feed-pg" class="v-written">
                     <div class="feed-paragraph">
                       <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note </i>
+                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined">
+                            edit_note </i>
                         </div>
                       </span>
                       <article class="v-title">
@@ -846,36 +1400,46 @@
                     <div class="response-top">
                       <section class="survey-discrip">
                         <label for="survey-description-mc">About</label>
-                        <h6>With a rainbow of fruits available everyone has a favorite From the succulent sweetness of mangoes to
-                          the tart tanginess of cranberries fruits not only tantalize our taste buds but also offer a myriad of
-                          health benefits Which fruit do you reach for to not only satisfy your sweet cravings but also to nourish
-                          your body Is it the classic apple the tropical banana or perhaps the exotic dragon fruit Share your
-                          fruity favorite and lets explore the myriad flavors and health benefits our natures candy has to offer
-                        </h6>
+                        <h6>With a rainbow of fruits available everyone has a favorite From the succulent sweetness
+                          of mangoes to the tart tanginess of cranberries fruits not only tantalize our taste buds
+                          but also offer a myriad of health benefits Which fruit do you reach for to not only
+                          satisfy your sweet cravings but also to nourish your body Is it the classic apple the
+                          tropical banana or perhaps the exotic dragon fruit Share your fruity favorite and lets
+                          explore the myriad flavors and health benefits our natures candy has to offer</h6>
                       </section>
                       <section class="descript inpt "><label for="survey-description-mc">Response <span> Max Char:
                             300</span></label>
                         <section name="survey-response-mc" placeholder="Choose an option" class="optS-space">
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-1"
-                              value="1" placeholder="Option 1" required=""><label id="r-label-1"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-2"
-                              value="2" placeholder="Option 2" required=""><label id="r-label-2"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-3"
-                              value="3" placeholder="Option 3" required=""><label id="r-label-3"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-4"
-                              value="4" placeholder="Option 4" required=""><label id="r-label-4"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-5"
-                              value="5" placeholder="Option 5" required=""><label id="r-label-5"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-6"
-                              value="6" placeholder="Option 6" required=""><label id="r-label-6"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-7"
-                              value="7" placeholder="Option 7" required=""><label id="r-label-7"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-8"
-                              value="8" placeholder="Option 8" required=""><label id="r-label-8"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-9"
-                              value="9" placeholder="Option 9" required=""><label id="r-label-9"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-10"
-                              value="10" placeholder="Option 10" required=""><label id="r-label-10"></label></div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-1" value="1" placeholder="Option 1" required=""><label id="r-label-1"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-2" value="2" placeholder="Option 2" required=""><label id="r-label-2"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-3" value="3" placeholder="Option 3" required=""><label id="r-label-3"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-4" value="4" placeholder="Option 4" required=""><label id="r-label-4"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-5" value="5" placeholder="Option 5" required=""><label id="r-label-5"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-6" value="6" placeholder="Option 6" required=""><label id="r-label-6"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-7" value="7" placeholder="Option 7" required=""><label id="r-label-7"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-8" value="8" placeholder="Option 8" required=""><label id="r-label-8"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-9" value="9" placeholder="Option 9" required=""><label id="r-label-9"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-10" value="10" placeholder="Option 10" required=""><label
+                              id="r-label-10"></label></div>
                         </section>
                       </section>
                     </div>
@@ -894,8 +1458,8 @@
                   <td id="feed-pg" class="v-opt">
                     <div class="feed-paragraph">
                       <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined"> format_list_bulleted
-                          </i>
+                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined">
+                            format_list_bulleted </i>
                         </div>
                       </span>
                       <article class="v-title">
@@ -941,7 +1505,8 @@
                   <td id="feed-pg" class="v-written">
                     <div class="feed-paragraph">
                       <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note </i>
+                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined">
+                            edit_note </i>
                         </div>
                       </span>
                       <article class="v-title">
@@ -969,26 +1534,36 @@
                       <section class="descript inpt "><label for="survey-description-mc">Response <span> Max Char:
                             300</span></label>
                         <section name="survey-response-mc" placeholder="Choose an option" class="optS-space">
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-1"
-                              value="1" placeholder="Option 1" required=""><label id="r-label-1"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-2"
-                              value="2" placeholder="Option 2" required=""><label id="r-label-2"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-3"
-                              value="3" placeholder="Option 3" required=""><label id="r-label-3"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-4"
-                              value="4" placeholder="Option 4" required=""><label id="r-label-4"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-5"
-                              value="5" placeholder="Option 5" required=""><label id="r-label-5"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-6"
-                              value="6" placeholder="Option 6" required=""><label id="r-label-6"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-7"
-                              value="7" placeholder="Option 7" required=""><label id="r-label-7"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-8"
-                              value="8" placeholder="Option 8" required=""><label id="r-label-8"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-9"
-                              value="9" placeholder="Option 9" required=""><label id="r-label-9"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-10"
-                              value="10" placeholder="Option 10" required=""><label id="r-label-10"></label></div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-1" value="1" placeholder="Option 1" required=""><label id="r-label-1"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-2" value="2" placeholder="Option 2" required=""><label id="r-label-2"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-3" value="3" placeholder="Option 3" required=""><label id="r-label-3"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-4" value="4" placeholder="Option 4" required=""><label id="r-label-4"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-5" value="5" placeholder="Option 5" required=""><label id="r-label-5"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-6" value="6" placeholder="Option 6" required=""><label id="r-label-6"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-7" value="7" placeholder="Option 7" required=""><label id="r-label-7"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-8" value="8" placeholder="Option 8" required=""><label id="r-label-8"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-9" value="9" placeholder="Option 9" required=""><label id="r-label-9"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-10" value="10" placeholder="Option 10" required=""><label
+                              id="r-label-10"></label></div>
                         </section>
                       </section>
                     </div>
@@ -1007,15 +1582,16 @@
                   <td id="feed-pg" class="v-opt">
                     <div class="feed-paragraph">
                       <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined"> format_list_bulleted
-                          </i>
+                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined">
+                            format_list_bulleted </i>
                         </div>
                       </span>
                       <article class="v-title">
                         <label class="v-user">
                           <h6>82211394</h6>
                         </label>
-                        <h1>Should Alberta leave the Canadian Pension Plan CPP and create the Alberta Pension Plan APP</h1>
+                        <h1>Should Alberta leave the Canadian Pension Plan CPP and create the Alberta Pension Plan
+                          APP</h1>
                       </article>
                     </div>
                   </td>
@@ -1054,7 +1630,8 @@
                   <td id="feed-pg" class="v-written">
                     <div class="feed-paragraph">
                       <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note </i>
+                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined">
+                            edit_note </i>
                         </div>
                       </span>
                       <article class="v-title">
@@ -1077,8 +1654,8 @@
                     <div class="response-top">
                       <section class="survey-discrip">
                         <label for="survey-description-mc">About</label>
-                        <h6>This survey is intended to aid new students in navigating the complexities and responsivities of an
-                          Undergraduate</h6>
+                        <h6>This survey is intended to aid new students in navigating the complexities and
+                          responsivities of an Undergraduate</h6>
                       </section>
                       <section class="descript inpt ">
                         <label for="survey-description-mc">Response <span> Max Char: 300</span></label>
@@ -1101,7 +1678,8 @@
                   <td id="feed-pg" class="v-written">
                     <div class="feed-paragraph">
                       <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note </i>
+                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined">
+                            edit_note </i>
                         </div>
                       </span>
                       <article class="v-title">
@@ -1147,7 +1725,8 @@
                   <td id="feed-pg" class="v-written">
                     <div class="feed-paragraph">
                       <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note </i>
+                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined">
+                            edit_note </i>
                         </div>
                       </span>
                       <article class="v-title">
@@ -1175,26 +1754,36 @@
                       <section class="descript inpt "><label for="survey-description-mc">Response <span> Max Char:
                             300</span></label>
                         <section name="survey-response-mc" placeholder="Choose an option" class="optS-space">
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-1"
-                              value="1" placeholder="Option 1" required=""><label id="r-label-1"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-2"
-                              value="2" placeholder="Option 2" required=""><label id="r-label-2"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-3"
-                              value="3" placeholder="Option 3" required=""><label id="r-label-3"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-4"
-                              value="4" placeholder="Option 4" required=""><label id="r-label-4"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-5"
-                              value="5" placeholder="Option 5" required=""><label id="r-label-5"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-6"
-                              value="6" placeholder="Option 6" required=""><label id="r-label-6"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-7"
-                              value="7" placeholder="Option 7" required=""><label id="r-label-7"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-8"
-                              value="8" placeholder="Option 8" required=""><label id="r-label-8"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-9"
-                              value="9" placeholder="Option 9" required=""><label id="r-label-9"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-10"
-                              value="10" placeholder="Option 10" required=""><label id="r-label-10"></label></div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-1" value="1" placeholder="Option 1" required=""><label id="r-label-1"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-2" value="2" placeholder="Option 2" required=""><label id="r-label-2"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-3" value="3" placeholder="Option 3" required=""><label id="r-label-3"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-4" value="4" placeholder="Option 4" required=""><label id="r-label-4"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-5" value="5" placeholder="Option 5" required=""><label id="r-label-5"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-6" value="6" placeholder="Option 6" required=""><label id="r-label-6"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-7" value="7" placeholder="Option 7" required=""><label id="r-label-7"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-8" value="8" placeholder="Option 8" required=""><label id="r-label-8"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-9" value="9" placeholder="Option 9" required=""><label id="r-label-9"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-10" value="10" placeholder="Option 10" required=""><label
+                              id="r-label-10"></label></div>
                         </section>
                       </section>
                     </div>
@@ -1213,8 +1802,8 @@
                   <td id="feed-pg" class="v-opt">
                     <div class="feed-paragraph">
                       <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined"> format_list_bulleted
-                          </i>
+                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined">
+                            format_list_bulleted </i>
                         </div>
                       </span>
                       <article class="v-title">
@@ -1260,7 +1849,8 @@
                   <td id="feed-pg" class="v-written">
                     <div class="feed-paragraph">
                       <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note </i>
+                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined">
+                            edit_note </i>
                         </div>
                       </span>
                       <article class="v-title">
@@ -1306,7 +1896,8 @@
                   <td id="feed-pg" class="v-written">
                     <div class="feed-paragraph">
                       <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note </i>
+                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined">
+                            edit_note </i>
                         </div>
                       </span>
                       <article class="v-title">
@@ -1334,26 +1925,36 @@
                       <section class="descript inpt "><label for="survey-description-mc">Response <span> Max Char:
                             300</span></label>
                         <section name="survey-response-mc" placeholder="Choose an option" class="optS-space">
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-1"
-                              value="1" placeholder="Option 1" required=""><label id="r-label-1"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-2"
-                              value="2" placeholder="Option 2" required=""><label id="r-label-2"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-3"
-                              value="3" placeholder="Option 3" required=""><label id="r-label-3"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-4"
-                              value="4" placeholder="Option 4" required=""><label id="r-label-4"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-5"
-                              value="5" placeholder="Option 5" required=""><label id="r-label-5"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-6"
-                              value="6" placeholder="Option 6" required=""><label id="r-label-6"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-7"
-                              value="7" placeholder="Option 7" required=""><label id="r-label-7"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-8"
-                              value="8" placeholder="Option 8" required=""><label id="r-label-8"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-9"
-                              value="9" placeholder="Option 9" required=""><label id="r-label-9"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-10"
-                              value="10" placeholder="Option 10" required=""><label id="r-label-10"></label></div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-1" value="1" placeholder="Option 1" required=""><label id="r-label-1"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-2" value="2" placeholder="Option 2" required=""><label id="r-label-2"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-3" value="3" placeholder="Option 3" required=""><label id="r-label-3"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-4" value="4" placeholder="Option 4" required=""><label id="r-label-4"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-5" value="5" placeholder="Option 5" required=""><label id="r-label-5"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-6" value="6" placeholder="Option 6" required=""><label id="r-label-6"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-7" value="7" placeholder="Option 7" required=""><label id="r-label-7"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-8" value="8" placeholder="Option 8" required=""><label id="r-label-8"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-9" value="9" placeholder="Option 9" required=""><label id="r-label-9"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-10" value="10" placeholder="Option 10" required=""><label
+                              id="r-label-10"></label></div>
                         </section>
                       </section>
                     </div>
@@ -1372,8 +1973,8 @@
                   <td id="feed-pg" class="v-opt">
                     <div class="feed-paragraph">
                       <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined"> format_list_bulleted
-                          </i>
+                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined">
+                            format_list_bulleted </i>
                         </div>
                       </span>
                       <article class="v-title">
@@ -1401,26 +2002,36 @@
                       <section class="descript inpt "><label for="survey-description-mc">Response <span> Max Char:
                             300</span></label>
                         <section name="survey-response-mc" placeholder="Choose an option" class="optS-space">
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-1"
-                              value="1" placeholder="Option 1" required=""><label id="r-label-1"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-2"
-                              value="2" placeholder="Option 2" required=""><label id="r-label-2"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-3"
-                              value="3" placeholder="Option 3" required=""><label id="r-label-3"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-4"
-                              value="4" placeholder="Option 4" required=""><label id="r-label-4"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-5"
-                              value="5" placeholder="Option 5" required=""><label id="r-label-5"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-6"
-                              value="6" placeholder="Option 6" required=""><label id="r-label-6"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-7"
-                              value="7" placeholder="Option 7" required=""><label id="r-label-7"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-8"
-                              value="8" placeholder="Option 8" required=""><label id="r-label-8"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-9"
-                              value="9" placeholder="Option 9" required=""><label id="r-label-9"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-10"
-                              value="10" placeholder="Option 10" required=""><label id="r-label-10"></label></div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-1" value="1" placeholder="Option 1" required=""><label id="r-label-1"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-2" value="2" placeholder="Option 2" required=""><label id="r-label-2"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-3" value="3" placeholder="Option 3" required=""><label id="r-label-3"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-4" value="4" placeholder="Option 4" required=""><label id="r-label-4"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-5" value="5" placeholder="Option 5" required=""><label id="r-label-5"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-6" value="6" placeholder="Option 6" required=""><label id="r-label-6"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-7" value="7" placeholder="Option 7" required=""><label id="r-label-7"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-8" value="8" placeholder="Option 8" required=""><label id="r-label-8"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-9" value="9" placeholder="Option 9" required=""><label id="r-label-9"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-10" value="10" placeholder="Option 10" required=""><label
+                              id="r-label-10"></label></div>
                         </section>
                       </section>
                     </div>
@@ -1439,15 +2050,16 @@
                   <td id="feed-pg" class="v-opt">
                     <div class="feed-paragraph">
                       <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined"> format_list_bulleted
-                          </i>
+                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined">
+                            format_list_bulleted </i>
                         </div>
                       </span>
                       <article class="v-title">
                         <label class="v-user">
                           <h6>658665383</h6>
                         </label>
-                        <h1>What is your most used method of being informed on recent news in the last 12 months</h1>
+                        <h1>What is your most used method of being informed on recent news in the last 12 months
+                        </h1>
                       </article>
                     </div>
                   </td>
@@ -1463,31 +2075,42 @@
                     <div class="response-top">
                       <section class="survey-discrip">
                         <label for="survey-description-mc">About</label>
-                        <h6>What type of expense have you noticed has increased in price the most in the past 24 months</h6>
+                        <h6>What type of expense have you noticed has increased in price the most in the past 24
+                          months</h6>
                       </section>
                       <section class="descript inpt "><label for="survey-description-mc">Response <span> Max Char:
                             300</span></label>
                         <section name="survey-response-mc" placeholder="Choose an option" class="optS-space">
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-1"
-                              value="1" placeholder="Option 1" required=""><label id="r-label-1"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-2"
-                              value="2" placeholder="Option 2" required=""><label id="r-label-2"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-3"
-                              value="3" placeholder="Option 3" required=""><label id="r-label-3"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-4"
-                              value="4" placeholder="Option 4" required=""><label id="r-label-4"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-5"
-                              value="5" placeholder="Option 5" required=""><label id="r-label-5"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-6"
-                              value="6" placeholder="Option 6" required=""><label id="r-label-6"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-7"
-                              value="7" placeholder="Option 7" required=""><label id="r-label-7"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-8"
-                              value="8" placeholder="Option 8" required=""><label id="r-label-8"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-9"
-                              value="9" placeholder="Option 9" required=""><label id="r-label-9"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-10"
-                              value="10" placeholder="Option 10" required=""><label id="r-label-10"></label></div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-1" value="1" placeholder="Option 1" required=""><label id="r-label-1"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-2" value="2" placeholder="Option 2" required=""><label id="r-label-2"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-3" value="3" placeholder="Option 3" required=""><label id="r-label-3"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-4" value="4" placeholder="Option 4" required=""><label id="r-label-4"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-5" value="5" placeholder="Option 5" required=""><label id="r-label-5"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-6" value="6" placeholder="Option 6" required=""><label id="r-label-6"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-7" value="7" placeholder="Option 7" required=""><label id="r-label-7"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-8" value="8" placeholder="Option 8" required=""><label id="r-label-8"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-9" value="9" placeholder="Option 9" required=""><label id="r-label-9"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-10" value="10" placeholder="Option 10" required=""><label
+                              id="r-label-10"></label></div>
                         </section>
                       </section>
                     </div>
@@ -1506,15 +2129,16 @@
                   <td id="feed-pg" class="v-opt">
                     <div class="feed-paragraph">
                       <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined"> format_list_bulleted
-                          </i>
+                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined">
+                            format_list_bulleted </i>
                         </div>
                       </span>
                       <article class="v-title">
                         <label class="v-user">
                           <h6>312686098</h6>
                         </label>
-                        <h1>What type of expense have you noticed has increased in price the most in the past 24 months</h1>
+                        <h1>What type of expense have you noticed has increased in price the most in the past 24
+                          months</h1>
                       </article>
                     </div>
                   </td>
@@ -1535,26 +2159,36 @@
                       <section class="descript inpt "><label for="survey-description-mc">Response <span> Max Char:
                             300</span></label>
                         <section name="survey-response-mc" placeholder="Choose an option" class="optS-space">
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-1"
-                              value="1" placeholder="Option 1" required=""><label id="r-label-1"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-2"
-                              value="2" placeholder="Option 2" required=""><label id="r-label-2"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-3"
-                              value="3" placeholder="Option 3" required=""><label id="r-label-3"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-4"
-                              value="4" placeholder="Option 4" required=""><label id="r-label-4"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-5"
-                              value="5" placeholder="Option 5" required=""><label id="r-label-5"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-6"
-                              value="6" placeholder="Option 6" required=""><label id="r-label-6"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-7"
-                              value="7" placeholder="Option 7" required=""><label id="r-label-7"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-8"
-                              value="8" placeholder="Option 8" required=""><label id="r-label-8"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-9"
-                              value="9" placeholder="Option 9" required=""><label id="r-label-9"></label></div>
-                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio" id="radio-10"
-                              value="10" placeholder="Option 10" required=""><label id="r-label-10"></label></div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-1" value="1" placeholder="Option 1" required=""><label id="r-label-1"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-2" value="2" placeholder="Option 2" required=""><label id="r-label-2"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-3" value="3" placeholder="Option 3" required=""><label id="r-label-3"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-4" value="4" placeholder="Option 4" required=""><label id="r-label-4"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-5" value="5" placeholder="Option 5" required=""><label id="r-label-5"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-6" value="6" placeholder="Option 6" required=""><label id="r-label-6"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-7" value="7" placeholder="Option 7" required=""><label id="r-label-7"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-8" value="8" placeholder="Option 8" required=""><label id="r-label-8"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-9" value="9" placeholder="Option 9" required=""><label id="r-label-9"></label>
+                          </div>
+                          <div class="Empty-Option option"><input class="option-input" type="radio" name="v-radio"
+                              id="radio-10" value="10" placeholder="Option 10" required=""><label
+                              id="r-label-10"></label></div>
                         </section>
                       </section>
                     </div>
@@ -1573,8 +2207,8 @@
                   <td id="feed-pg" class="v-opt">
                     <div class="feed-paragraph">
                       <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined"> format_list_bulleted
-                          </i>
+                        <div class="ractions"> <label>Options</label> <i class="material-symbols-outlined">
+                            format_list_bulleted </i>
                         </div>
                       </span>
                       <article class="v-title">
@@ -1620,22 +2254,78 @@
                   <td id="feed-pg" class="v-written">
                     <div class="feed-paragraph">
                       <span><label>Time left: 20h+</label>
-                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined"> edit_note </i>
+                        <div class="ractions"> <label>Written</label> <i class="material-symbols-outlined">
+                            edit_note </i>
                         </div>
                       </span>
                       <article class="v-title">
                         <label class="v-user">
                           <h6>82211394</h6>
                         </label>
-                        <h1>What is the biggest economic social or political issue you face as a University of Lethbridge student
-                        </h1>
+                        <h1>What is the biggest economic social or political issue you face as a University of
+                          Lethbridge student</h1>
                       </article>
                     </div>
                   </td>
                 </tr>
               </tbody>
             </table>
-            <script> function populateTableData() { tableData.set('102', ['text', '""']); tableData.set('101', ['multiple', '{"1": "Not represented", "2": "Somewhat represented", "3": "Very represented"}']); tableData.set('100', ['text', '""']); tableData.set('99', ['multiple', '{"1": "Much less", "2": "Less", "3": "About the same", "4": "More", "5": "Much more"}']); tableData.set('98', ['text', '""']); tableData.set('97', ['multiple', '{"1": "Stay the same (same amount of students)", "2": "Grow a bit (a bit more students)", "3": "Grow substantially (significantly more students)"}']); tableData.set('96', ['text', '""']); tableData.set('95', ['text', '""']); tableData.set('94', ['multiple', '{"1": "Yes", "2": "No"}']); tableData.set('93', ['text', '""']); tableData.set('92', ['text', '""']); tableData.set('91', ['multiple', '{"1": "Apple", "2": "Banana", "3": "Orange", "4": "Strawberry", "5": "Mango", "6": "Blueberry", "7": "Pineapple", "8": "Dragon Fruit", "9": "Kiwi", "10": "Cranberry"}']); tableData.set('90', ['text', '""']); tableData.set('89', ['multiple', '{"1": "Yes", "2": "No"}']); tableData.set('85', ['text', '""']); tableData.set('84', ['text', '""']); tableData.set('83', ['text', '""']); tableData.set('82', ['multiple', '{"1": "4 hr", "2": "6 hr", "3": "7 hr", "4": "8 hr", "5": "9 hr ", "6": "12 hr "}']); tableData.set('81', ['text', '""']); tableData.set('80', ['text', '""']); tableData.set('79', ['multiple', '{"1": "Not informed/lack of knowledge", "2": "Do not care", "3": "Voting process is inaccessible ", "4": "Do not feel like it makes a difference", "5": "Do not know how to vote", "6": "Other"}']); tableData.set('76', ['multiple', '{"1": "social media ", "2": "watching news channels on television", "3": "word of mouth", "4": "newspaper"}']); tableData.set('75', ['multiple', '{"1": "Rent/Housing", "2": "Tuition", "3": "Food/Groceries", "4": "Transportation/Gas"}']); tableData.set('74', ['multiple', '{"1": "Lethbridge", "2": "Calgary"}']); tableData.set('73', ['text', '""']); }</script>
+            <script> function populateTableData() { tableData.set('119', ['text', '""']); tableData.set('118', ['multiple', '{"1": "Yes", "2": "No"}']); tableData.set('117', ['multiple', '{"1": "Yes", "2": "No"}']); tableData.set('116', ['text', '""']); tableData.set('115', ['text', '""']); tableData.set('105', ['text', '""']); tableData.set('104', ['multiple', '{"1": "Yes", "2": "No"}']); tableData.set('103', ['multiple', '{"1": "Yes", "2": "No", "3": "Kind of ", "4": "Not really "}']); tableData.set('102', ['text', '""']); tableData.set('101', ['multiple', '{"1": "Not represented", "2": "Somewhat represented", "3": "Very represented"}']); tableData.set('100', ['text', '""']); tableData.set('99', ['multiple', '{"1": "Much less", "2": "Less", "3": "About the same", "4": "More", "5": "Much more"}']); tableData.set('98', ['text', '""']); tableData.set('97', ['multiple', '{"1": "Stay the same (same amount of students)", "2": "Grow a bit (a bit more students)", "3": "Grow substantially (significantly more students)"}']); tableData.set('96', ['text', '""']); tableData.set('95', ['text', '""']); tableData.set('94', ['multiple', '{"1": "Yes", "2": "No"}']); tableData.set('93', ['text', '""']); tableData.set('92', ['text', '""']); tableData.set('91', ['multiple', '{"1": "Apple", "2": "Banana", "3": "Orange", "4": "Strawberry", "5": "Mango", "6": "Blueberry", "7": "Pineapple", "8": "Dragon Fruit", "9": "Kiwi", "10": "Cranberry"}']); tableData.set('90', ['text', '""']); tableData.set('89', ['multiple', '{"1": "Yes", "2": "No"}']); tableData.set('85', ['text', '""']); tableData.set('84', ['text', '""']); tableData.set('83', ['text', '""']); tableData.set('82', ['multiple', '{"1": "4 hr", "2": "6 hr", "3": "7 hr", "4": "8 hr", "5": "9 hr ", "6": "12 hr "}']); tableData.set('81', ['text', '""']); tableData.set('80', ['text', '""']); tableData.set('79', ['multiple', '{"1": "Not informed/lack of knowledge", "2": "Do not care", "3": "Voting process is inaccessible ", "4": "Do not feel like it makes a difference", "5": "Do not know how to vote", "6": "Other"}']); tableData.set('76', ['multiple', '{"1": "social media ", "2": "watching news channels on television", "3": "word of mouth", "4": "newspaper"}']); tableData.set('75', ['multiple', '{"1": "Rent/Housing", "2": "Tuition", "3": "Food/Groceries", "4": "Transportation/Gas"}']); tableData.set('74', ['multiple', '{"1": "Lethbridge", "2": "Calgary"}']); tableData.set('73', ['text', '""']); }</script>
+            <div id="populateTableData" style="display: none;"><label id="populateTableData-0-119">text</label><label
+                id="populateTableData-1-119">""</label><label id="populateTableData-0-118">multiple</label><label
+                id="populateTableData-1-118">{"1": "Yes", "2": "No"}</label><label
+                id="populateTableData-0-117">multiple</label><label id="populateTableData-1-117">{"1": "Yes", "2":
+                "No"}</label><label id="populateTableData-0-116">text</label><label
+                id="populateTableData-1-116">""</label><label id="populateTableData-0-115">text</label><label
+                id="populateTableData-1-115">""</label><label id="populateTableData-0-105">text</label><label
+                id="populateTableData-1-105">""</label><label id="populateTableData-0-104">multiple</label><label
+                id="populateTableData-1-104">{"1": "Yes", "2": "No"}</label><label
+                id="populateTableData-0-103">multiple</label><label id="populateTableData-1-103">{"1": "Yes", "2": "No",
+                "3": "Kind of ", "4": "Not really "}</label><label id="populateTableData-0-102">text</label><label
+                id="populateTableData-1-102">""</label><label id="populateTableData-0-101">multiple</label><label
+                id="populateTableData-1-101">{"1": "Not represented", "2": "Somewhat represented", "3": "Very
+                represented"}</label><label id="populateTableData-0-100">text</label><label
+                id="populateTableData-1-100">""</label><label id="populateTableData-0-99">multiple</label><label
+                id="populateTableData-1-99">{"1": "Much less", "2": "Less", "3": "About the same", "4": "More", "5":
+                "Much
+                more"}</label><label id="populateTableData-0-98">text</label><label
+                id="populateTableData-1-98">""</label><label id="populateTableData-0-97">multiple</label><label
+                id="populateTableData-1-97">{"1": "Stay the same (same amount of students)", "2": "Grow a bit (a bit
+                more
+                students)", "3": "Grow substantially (significantly more students)"}</label><label
+                id="populateTableData-0-96">text</label><label id="populateTableData-1-96">""</label><label
+                id="populateTableData-0-95">text</label><label id="populateTableData-1-95">""</label><label
+                id="populateTableData-0-94">multiple</label><label id="populateTableData-1-94">{"1": "Yes", "2":
+                "No"}</label><label id="populateTableData-0-93">text</label><label
+                id="populateTableData-1-93">""</label><label id="populateTableData-0-92">text</label><label
+                id="populateTableData-1-92">""</label><label id="populateTableData-0-91">multiple</label><label
+                id="populateTableData-1-91">{"1": "Apple", "2": "Banana", "3": "Orange", "4": "Strawberry", "5":
+                "Mango",
+                "6": "Blueberry", "7": "Pineapple", "8": "Dragon Fruit", "9": "Kiwi", "10": "Cranberry"}</label><label
+                id="populateTableData-0-90">text</label><label id="populateTableData-1-90">""</label><label
+                id="populateTableData-0-89">multiple</label><label id="populateTableData-1-89">{"1": "Yes", "2":
+                "No"}</label><label id="populateTableData-0-85">text</label><label
+                id="populateTableData-1-85">""</label><label id="populateTableData-0-84">text</label><label
+                id="populateTableData-1-84">""</label><label id="populateTableData-0-83">text</label><label
+                id="populateTableData-1-83">""</label><label id="populateTableData-0-82">multiple</label><label
+                id="populateTableData-1-82">{"1": "4 hr", "2": "6 hr", "3": "7 hr", "4": "8 hr", "5": "9 hr ", "6": "12
+                hr
+                "}</label><label id="populateTableData-0-81">text</label><label
+                id="populateTableData-1-81">""</label><label id="populateTableData-0-80">text</label><label
+                id="populateTableData-1-80">""</label><label id="populateTableData-0-79">multiple</label><label
+                id="populateTableData-1-79">{"1": "Not informed/lack of
+                knowledge", "2": "Do not care", "3": "Voting process is inaccessible ", "4": "Do not feel like it makes
+                a
+                difference", "5": "Do not know how to vote", "6": "Other"}</label><label
+                id="populateTableData-0-76">multiple</label><label id="populateTableData-1-76">{"1": "social media ",
+                "2":
+                "watching news channels on television", "3": "word of mouth", "4": "newspaper"}</label><label
+                id="populateTableData-0-75">multiple</label><label id="populateTableData-1-75">{"1": "Rent/Housing",
+                "2":
+                "Tuition", "3": "Food/Groceries", "4": "Transportation/Gas"}</label><label
+                id="populateTableData-0-74">multiple</label><label id="populateTableData-1-74">{"1": "Lethbridge", "2":
+                "Calgary"}</label><label id="populateTableData-0-73">text</label><label
+                id="populateTableData-1-73">""</label></div>
             <div id="alert" style="display: none;">
               <h2>Your survey has been successfully posted!</h2>
               <h2> <span>
@@ -1643,7 +2333,9 @@
                 </span></h2>
             </div>
 
+
           </section>
+
 
 
         </article>
@@ -1715,24 +2407,26 @@
                  <div id="f-copy-2" class="material-symbols-outlined">Content_Copy</div>
               </div> -->
               <div class="F-mail F-chip">
-                 <div class="F-mail-L">
-                    <div class="material-symbols-outlined Mail">Mail</div>
-                    <p>peter.hurdwatler@uleth.ca</p>
-                 </div>
-                 <div id="f-copy-1" class=" material-symbols-outlined ">Content_Copy</div>
+                <div class="F-mail-L">
+                  <div class="material-symbols-outlined Mail">Mail</div>
+                  <p>peter.hurdwatler@uleth.ca</p>
+                </div>
+                <div id="f-copy-1" class=" material-symbols-outlined ">Content_Copy</div>
               </div>
               <div class="social-ico">
-                 <a target="_blank" href="https://www.facebook.com/verastechnologiesinc" rel="noopener" title="Visit Vera's Facebook page">
-                    <div class="material-symbols-outlined chip-ico fb touched-pressed"></div>
-                 </a>
-                 <a target="_blank" href="https://www.linkedin.com/company/verastechnologiesinc/" rel="noopener" title="Visit Vera's LinkedIn page">
-                    <div class="material-symbols-outlined chip-ico lkd-in touched-pressed"></div>
-                 </a>
+                <a target="_blank" href="https://www.facebook.com/verastechnologiesinc" rel="noopener"
+                  title="Visit Vera's Facebook page">
+                  <div class="material-symbols-outlined chip-ico fb touched-pressed"></div>
+                </a>
+                <a target="_blank" href="https://www.linkedin.com/company/verastechnologiesinc/" rel="noopener"
+                  title="Visit Vera's LinkedIn page">
+                  <div class="material-symbols-outlined chip-ico lkd-in touched-pressed"></div>
+                </a>
               </div>
-  
-           </div>
+
+            </div>
           </section>
-        
+
           <div class="modal-btn">
             <div class="v-button-filled logout-button v-pressed">
               <p>Logout</p>

@@ -1622,7 +1622,7 @@ height: fit-content !important;
   height          : fit-content;
   padding         : 10px;
   background-color: #edeaff;
-  background-color: #edeaff5b;
+  background-color: #f2f1ff;
   justify-content: space-between;
   gap:10px;
   /* flex-direction: row-reverse; */
@@ -1915,20 +1915,27 @@ textarea:hover {
 
 .optS-space .option-input {
 
-  width        : fit-content!important;
-  height: fit-content !important;
-  padding      : 10px;
-  border       : 1px solid #ebe8ff;
-  border-radius: 6px 0px 0px 6px;
-  font-size    : 14px;
- 
+width        : fit-content!important;
 
-  scale: 150%;
-  margin: 0px !important;
-  margin: 10px !important;
+height: fit-content !important;
 
+padding      : 10px;
 
-  background-color: #31776391;
+border       : 1px solid #ebe8ff;
+
+border-radius: 6px 0px 0px 6px;
+
+font-size    : 14px;
+
+scale: 150%;
+
+margin: 0px !important;
+
+margin: 10px !important;
+
+background-color: #31776391;
+
+cursor: pointer;
 }
 
 .submit-resp{
@@ -1944,19 +1951,53 @@ textarea:hover {
   padding-bottom: 4px !important;
   padding-top:4px !important;
   margin: 0px !important;
-  height: 100% !important;
+   height: 100% !important;
+   min-height: 33px;
   width: 100%;
   background-color: rgba(237, 234, 255, 0.603) !important;
   border-radius: 6px;
   padding-left: 8px !important;
   align-items: center;
+  cursor: pointer;
   border-top-left-radius: 0px !important;
   border-bottom-left-radius: 0px !important;
 }
 .Empty-Option{
-  display: none !important;
+  display: none !important; 
   /* opacity: 0 !important; */
 }
+
+.optS-space .option:hover{
+
+  border          : solid 2px #a8a0d1c2;
+  background-color: #faf8ffd5;
+}
+
+.optS-space .option:active, .optS-space .option:active label{
+
+  border          : solid 2px #a8a0d12c;
+  background-color: #faf8ff !important;
+}
+
+.optS-space .option:active input:checked{
+
+  border          : solid 2px #a8a0d12c;
+  background-color: #faf8ff !important;
+}
+
+
+
+.optS-space .option:focus{
+  border          : solid 2px #a8a0d1c2 !important;
+  background-color: #ffffff !important;
+}
+
+
+.expanded-row{
+  cursor:initial !important;
+}
+
+
 
 
 .add-option,
@@ -2035,12 +2076,12 @@ border: solid 1px #317763 !important;
   justify-content: space-between;
   align-items: center;
   border: solid 1px #e0dbfd;
-  gap:10px;
+  gap:clamp(0px, 2vw, 20px) !important;
   background-color: #ffffff;
 }
 
 .surv-dwn .step-button{
-  padding-right: 20px !important;
+  padding-right: 20px ;
 }
 
 .v-back:hover{
@@ -2060,7 +2101,7 @@ border: solid 1px #5e50b2 !important;
 }
 
 .v-back .material-symbols-outlined{
-  font-size: 30px !important;
+  font-size: clamp(24px,3vw,30px) !important;
   color    : var(--f7-theme-color-muted) !important;
   line-height: 70% !important;
 }

@@ -1303,7 +1303,8 @@ border-radius   : 6px;
 
 #alertMessage h2 {
   color: rgb(255, 255, 255) !important;
-  padding-bottom: 8.5px;
+  padding-bottom: 13px;
+  white-space:  pre-wrap !important;
 }
 
 
@@ -2640,6 +2641,11 @@ border-radius   : 6px;
     display   : none;
     transition: all 1s cubic-bezier(0, 1.02, 0, 1.02);
   }
+
+  .surv-dwn .step-button {
+    padding:10px !important;
+    padding-left: 4px !important;
+}
 
   /* Buttons */
 
